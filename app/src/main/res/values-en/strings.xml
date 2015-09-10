@@ -32,7 +32,7 @@
 		<string name="activity_rule_selection_context_menu_action_edit">Edit Rule</string>
 		<string name="activity_rule_selection_context_menu_action_send">Send Rule</string>
 		<string name="activity_rule_selection_context_menu_action_delete">Delete Rule</string>
-		<string name="activity_rule_selection_context_menu_selection_title">Send Rule with&#8230;</string>
+		<string name="activity_rule_selection_context_menu_selection_title">Send Rule with...</string>
 
 		<!-- Strings for Toasts -->
 		<string name="activity_rule_selection_toast_rule_deleted">Rule %1$s Deleted</string>

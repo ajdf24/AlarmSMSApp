@@ -55,7 +55,7 @@ public class AlarmSoundPlayer {
                 Sound selectedSound = rule.getAlarmSound();
                 if (selectedSound != null) {
                     if (selectedSound.isInternalSound()) {
-                        mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.rieger.alarmsmsapp"));
+                        mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
                     } else {
                         mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), Uri.parse(selectedSound.getIdForSound()));
                         mediaPlayer.setLooping(false);

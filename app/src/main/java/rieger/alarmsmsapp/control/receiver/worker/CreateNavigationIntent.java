@@ -24,7 +24,8 @@ public class CreateNavigationIntent {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("google.navigation:q=" + rule.getNavigationTarget()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-
+                intent.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                        | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
                 CreateContextForResource.getContext().startActivity(intent);
             }
         }

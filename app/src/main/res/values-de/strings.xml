@@ -33,13 +33,14 @@
 		<string name="activity_rule_selection_context_menu_action_edit">Regel editieren</string>
         <string name="activity_rule_selection_context_menu_action_send">Regel teilen</string>
 		<string name="activity_rule_selection_context_menu_action_delete">Regel löschen</string>
-        <string name="activity_rule_selection_context_menu_selection_title">Sende Regel über...</string>
+        <string name="activity_rule_selection_context_menu_selection_title">Sende Regel über&#8230;</string>
 		
 		<!-- Strings for Toasts -->
 		<string name="activity_rule_selection_toast_rule_deleted">Regel %1$s gelöscht</string>
         <string name="activity_rule_selection_toast_rule_activated">Regel %1$s aktivert</string>
         <string name="activity_rule_selection_toast_rule_deactivated">Regel %1$s deaktiviert</string>
         <string name="activity_rule_selection_toast_rule_received">Regel %1$s empfangen</string>
+        <string name="activity_rule_selection_toast_rule_received_but_error">Datei konnte nicht gelesen werden</string>
 
 <!--     Strings for the activity create_new_rule -->
 	<string name="title_activity_create_new_rule">Neue Regel Hinzufügen</string>
@@ -152,5 +153,11 @@
 <!--    Widget Strings -->
     <string name="widget_text_activ">Aktiv</string>
     <string name="widget_text_inactiv">Inaktiv</string>
+
+    <!--    General Stings -->
+    <string name="toast_permission_contacts_denied">Kontakte dürfen nicht gelesen werden. Trage sie per hand ein oder gib die Berechtigung frei!</string>
+    <string name="toast_permission_sms_denied">Die App darf keine SMS lesen. Dies führt dazu, dass die App nicht richtig arbeitet!</string>
+    <string name="toast_permission_location_denied">Die App darf keine Standorte erfasse. Es können nicht alle Aktionen korrekt ausgeführt werden.</string>
+    <string name="toast_permission_storage_denied">Die App darf keine externen Dateien lesen. Eventuell werden nicht alle Klingeltöne angezeigt.</string>
 
 </resources>

@@ -4,6 +4,8 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.PowerManager;
 
+import java.io.IOException;
+
 import rieger.alarmsmsapp.util.AppConstants;
 
 /**
@@ -18,12 +20,12 @@ public class ScreenWorker {
      * <b>Note</b>: Need the permission <code><uses-permission android:name="android.permission.DISABLE_KEYGUARD"/></code>
      */
     public static void unlockScreen(){
-        KeyguardManager keyguardManager = (KeyguardManager) CreateContextForResource.getContext()
-                .getSystemService(Context.KEYGUARD_SERVICE);
-        final KeyguardManager.KeyguardLock keyguardLock = keyguardManager
-                .newKeyguardLock(AppConstants.KEYGUARD_LOCK_NAME);
-        keyguardLock.disableKeyguard();
-
+        //TODO: Hier muss was gemacht werden!!!
+//        KeyguardManager keyguardManager = (KeyguardManager) CreateContextForResource.getContext()
+//                .getSystemService(Context.KEYGUARD_SERVICE);
+//        final KeyguardManager.KeyguardLock keyguardLock = keyguardManager
+//                .newKeyguardLock(AppConstants.KEYGUARD_LOCK_NAME);
+//        keyguardLock.disableKeyguard();
     }
 
     /**

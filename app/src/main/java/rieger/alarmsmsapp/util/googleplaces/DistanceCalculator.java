@@ -46,7 +46,7 @@ public class DistanceCalculator {
                 addressLatitude = addresses.get(0).getLatitude();
                 addressLongitude = addresses.get(0).getLongitude();
             }
-            if (ActivityCompat.checkSelfPermission(CreateContextForResource.getContext(), Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(CreateContextForResource.getContext(), Manifest.permission.READ_CONTACTS)== PackageManager.PERMISSION_GRANTED) {
                 LocationManager locationManager = (LocationManager) CreateContextForResource.getContext().getSystemService(Context.LOCATION_SERVICE);
                 Criteria criteria = new Criteria();
                 String provider = locationManager.getBestProvider(criteria, false);
