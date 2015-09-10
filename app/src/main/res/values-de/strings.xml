@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<!-- 	 Strings for The App -->
+    <string name="app_name">AlarmSMS</string>
+    <string name="hello_world">Hallo Welt!</string>
+    
+    <!-- General Strings -->
+    	<string name="general_string_button_quit">Abbrechen</string>
+    	<string name="general_string_button_save">Speichern</string>
+    	<string name="general_string_button_choose_contact">Auswahl aus Kontakten</string>
+    
+<!--     Strings for the menu -->
+    <string name="alarm_settings">Alarm Einstellungen</string>
+    <string name="department_settings">Gerätehaus Einstellungen</string>
+    <string name="rule_list">Regelübersicht</string>
+    <string name="create_new_rule">Neue Regel</string>
+    
+<!-- 	Strings for the Toats -->
+	<string name="toast_number_not_found">Keine Nummer für den gewählten Kontakt vorhanden</string>
+	<string name="toast_mail_not_found">Keine E-Mail Adresse für den gewählten Kontakt vorhanden</string>
+    
+<!--     Strings for the activity rule_activity_title -->
+    <string name="title_activity_rule_selection">Regelauswahl</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_rule_selection_alert_dialog_title_first_use">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_rule_selection_alert_dialog_text">Nutze den Stift oben rechts um neue Regeln zu erstellen.</string>
+
+
+        <!-- Strings for Context Menu -->
+		<string name="activity_rule_selection_context_menu_title">Regel Einstellungen</string>
+		<string name="activity_rule_selection_context_menu_action_edit">Regel editieren</string>
+        <string name="activity_rule_selection_context_menu_action_send">Regel teilen</string>
+		<string name="activity_rule_selection_context_menu_action_delete">Regel löschen</string>
+        <string name="activity_rule_selection_context_menu_selection_title">Sende Regel über...</string>
+		
+		<!-- Strings for Toasts -->
+		<string name="activity_rule_selection_toast_rule_deleted">Regel %1$s gelöscht</string>
+        <string name="activity_rule_selection_toast_rule_activated">Regel %1$s aktivert</string>
+        <string name="activity_rule_selection_toast_rule_deactivated">Regel %1$s deaktiviert</string>
+        <string name="activity_rule_selection_toast_rule_received">Regel %1$s empfangen</string>
+
+<!--     Strings for the activity create_new_rule -->
+	<string name="title_activity_create_new_rule">Neue Regel Hinzufügen</string>
+	<string name="activity_create_new_rule_editText_rule_name_hint">Name der Regel</string>
+	<string name="activity_create_new_rule_textView_label_for_editText_rule_name">Name:</string>
+	<string name="activity_create_new_rule_textView_description_of_radio_buttons">Für welchen Eingang soll die Regel gelten?</string>
+	<string name="activity_create_new_rule_radio_content_sms">SMS Regel</string>
+    <string name="activity_create_new_rule_radio_content_mail">E-Mail Regel</string>
+	
+<!-- 	Strings for the activity rule_settings -->
+	<string name="title_activity_rule_settings">Regeleinstellungen</string>
+	
+<!-- 	Strings for the activity sender_selection -->
+	<string name="title_activity_sender_selection">Absenderauswahl</string>
+	<string name="activity_sender_selection_editText_for_sender_information_hint_sms">Absender Nummer</string>
+	<string name="activity_sender_selection_editText_for_sender_information_hint_mail">Absender Mail</string>
+	<string name="activity_sender_selection_textView_description">Absender auf den geachtet werden soll</string>
+	
+<!-- 	Strings for the activity word_selection -->
+	<string name="title_activity_word_selection">Schlagwortfilter</string>
+	<string name="activity_word_selection_textView_included_words">Gib and, welche Wörter in der Nachricht vorkommen müssen. 
+	    Trenn die Wörter durch Leerzeichen!</string>
+	<string name="activity_word_selection_editText_included_words_hint">Wörter, welche in der Nachricht enthalten sein sollen</string>
+	<string name="activity_word_selection_textView_not_included_words">Gib and, welche Wörter in der Nachricht NICHT vorkommen dürfen.</string>
+	<string name="activity_word_selection_editText_not_included_words_hint">Wörter, welche in der Nachricht nicht enthalten sein sollen</string>
+	
+<!-- 	Strings for the activity sound_selection -->
+    <string name="title_activity_sound_selection">Alarmton Auswahl</string>
+    <string name="activity_sound_selection_volume_toast">Bitte Lautstärke erhöhen</string>
+    
+<!--     Strings for the activity answer_creation -->
+    <string name="title_activity_answer_creation">Automatische Antwort</string>
+    <string name="activity_answer_creation_description">Du kannst eine automatisch zu versendende Nachricht wählen.</string>
+    <string name="activity_answer_creation_label_for_editText_for_receiver">Empfänger</string>
+    <string name="activity_answer_creation_editText_for_receiver_hint">Empfänger</string>
+    <string name="activity_answer_creation_label_for_editText_message">Gib den Text ein, welcher versendet werden soll.</string>
+    <string name="activity_answer_creation_editText_for_message_hint">Nachricht, welche gesendet werden soll.</string>
+    <string name="activity_answer_creation_label_for_spinner_for_answer_distance">Ab welcher Entfernung 
+        vom Gerätehaus soll die Nachricht gesendet werden.</string>
+    <string name="activity_answer_creation_spinner_for_answer_distance_prompt">Wähle eine Entfernung</string>
+ 
+    <string-array name="distance_arrays">
+        <item>5 km</item>
+        <item>10 km</item>
+        <item>25 km</item>
+        <item>50 km</item>
+    </string-array>    
+    
+<!--     Strings for the activity twitter_post_selection -->
+    <string name="title_activity_twitter_post_selection">Twitter Post</string>
+    <string name="activity_twitter_post_selection_description">Wähle einen Text, der auf Twitter gepostet werden soll.</string>
+    <string name="activity_twitter_post_selection_editText_message_for_twitter">Post auf Twitter</string>
+    <string name="activity_twitter_post_selection_checkBox_add_message_text">Nachrichtentext anhängen</string>
+
+<!--     Strings for the activity navigation_target_selection -->
+    <string name="title_activity_navigation_target_selection">Navigation</string>
+    <string name="activity_navigation_target_selection_description">Beim erhalt einer Nachricht, 
+        wird automatisch eine Navigation gestartet.</string>
+    <string name="activity_navigation_target_selection_label_editText_navigation_target">Wähle ein Navigationsziel.</string>
+    <string name="activity_navigation_target_selection_editText_navigation_target_hint">Adresse</string>
+    
+<!--     Strings for the activity reading_settings -->
+    <string name="title_activity_reading_settings">Automatisches Vorlesen</string>
+    <string name="activity_reading_settings_description">Es ist möglich, 
+        sich die erhaltene und folgende Nachrichten vorlesen zu lassen.</string>
+    <string name="activity_reading_settings_label_checkBoxes_reading_settings">Triff deine Wahl</string>
+    <string name="activity_reading_settings_checkBox_read_this_message">Lies diese Nachricht vor</string>
+    <string name="activity_reading_settings_checkBox_read_other_messages">Lies andere Nachrichten vor</string>
+
+<!--     Strings for the activity alarm_setting -->
+	<string name="title_activity_alarm_settings">Alarm Einstellungen</string>
+	<string name="activity_alarm_settings_switch_alarm_activated">Alarmierungen erhalten</string>
+	<string name="activity_alarm_settings_textView_label_for_seekBar_volume">Lautstärke mit der alarmiert wird</string>
+	<string name="activity_alarm_settings_switch_vibration_activated">Mit Vibration alarmieren</string>
+	<string name="activity_alarm_settings_switch_notification_light_activated">Mit Notification Light alarmieren</string>
+	<string name="activity_alarm_settings_textView_label_for_spinner_for_notification_light_color">Farbe für Notification Light</string>
+	<string name="activity_alarm_settings_switch_mute_alarm_activated">Alarmierung auch erhalten wenn Telefon Lautlos</string>
+
+    <string-array name="color_array">
+        <item>rot</item>
+        <item>grün</item>
+        <item>blau</item>
+    </string-array>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_alarm_settings_alert_dialog_title">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_alarm_settings_alert_dialog_text">Bitte gib die globalen Alarmeinstellungen für die App ein, mit denen du alarmiert werden möchtest. \n\n</string>
+        <string name="activity_alarm_settings_alert_dialog_button">OK</string>
+
+<!--     Strings for the activity department_settings -->
+	<string name="title_activity_department_settings"> Gerätehaus Einstellungen</string>
+	<string name="activity_department_settings_textView_label_for_editText_department_location">Standort des Gerätehauses</string>
+	<string name="activity_department_settings_editText_department_location_hint">Adresse des Gerätehauses</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_department_settings_alert_dialog_title">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_department_settings_alert_dialog_text">Bitte gib die Adresse deines Gerätehauses ein. Dies ist für gewisse Regeleinstellungen notwendig. \n\n </string>
+        <string name="activity_department_settings_alert_dialog_button">OK</string>
+
+<!--    Stings for Notification -->
+    <string name="notification_title">Alarmierung</string>
+
+<!--    Strings for the Receiver -->
+    <string name="receiver_no_sound_selected">Kein Alarmton gewählt</string>
+
+<!--    Utility Strings-->
+    <string name="twitter_not_found">Twitter App nicht gefunden</string>
+    <string name="can_not_read_rule">Es konnten nicht alle Regeln gelesen werden.</string>
+
+<!--    Widget Strings -->
+    <string name="widget_text_activ">Aktiv</string>
+    <string name="widget_text_inactiv">Inaktiv</string>
+
+</resources>

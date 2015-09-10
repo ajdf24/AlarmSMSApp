@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+
+        <item name="colorPrimary">@color/my_primary</item>
+
+        <item name="colorPrimaryDark">@color/my_primary_dark</item>
+
+        <item name="colorAccent">@color/my_accent</item>
+
+        <item name="android:textColorPrimary">@color/textcolor</item>
+
+        <item name="android:textColorSecondary">@color/my_secondary_text</item>
+
+        <item name="android:textColor">@color/textcolor</item>
+
+
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
+
+</resources>
