@@ -184,12 +184,11 @@ public class SMSReceiver extends BroadcastReceiver {
 
         if (bundle!=null){
             Object[] smsExtras = (Object[]) bundle.get("pdus");
-
+            String format = (String)bundle.get("format");
             String strMessage = "";
 
             for (Object smsExtra : smsExtras) {
-                SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra);
-
+                SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra, format);
 
                 messageBody = smsMessage.getMessageBody();
                 messageSource = smsMessage.getOriginatingAddress();
