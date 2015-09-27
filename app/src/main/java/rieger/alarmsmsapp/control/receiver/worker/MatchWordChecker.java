@@ -14,7 +14,7 @@ public class MatchWordChecker {
      * The method removes not matching
      * @return <code>true</code> if a rule matches.
      */
-    public static boolean checkIfWordsMatch(String messageBody, List<Rule> matchingRules){
+    public synchronized static boolean checkIfWordsMatch(String messageBody, final List<Rule> matchingRules){
 
         boolean containsAllOccurredWords = true;
         boolean dontContainsAllOccurredWords = true;

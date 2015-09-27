@@ -51,6 +51,9 @@ public class SMSReceiver extends BroadcastReceiver {
     private int resourceIdForNotificationIcon;
 
 
+    public SMSReceiver(){
+
+    }
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -186,7 +189,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
             for (Object smsExtra : smsExtras) {
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra);
-                
+
 
                 messageBody = smsMessage.getMessageBody();
                 messageSource = smsMessage.getOriginatingAddress();
@@ -203,7 +206,7 @@ public class SMSReceiver extends BroadcastReceiver {
      * If match where found the list <code>matchingRules</code> contains the matching rules.
      * @return <code>true</code> if a rule matches
      */
-    private boolean checkIfAlarmMustBeCreate(){
+    private synchronized boolean checkIfAlarmMustBeCreate(){
 
         if (!alarmSettings.isAlarmActivated()){
             return false;
@@ -228,5 +231,7 @@ public class SMSReceiver extends BroadcastReceiver {
         return foundMatchingRule;
     }
 
+    public void testRule(){
 
+    }
 }

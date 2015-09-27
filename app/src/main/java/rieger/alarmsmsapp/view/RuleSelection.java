@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -34,6 +36,7 @@ import android.widget.Toast;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,9 +44,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
@@ -196,6 +202,71 @@ public class RuleSelection extends AppCompatActivity {
         fab.attachToListView(listView);
     }
 
+    private void createFakeSms(Context context, String sender,
+                                      String body) {
+
+        Intent intent;
+        byte[] pdu = null;
+        byte[] scBytes = PhoneNumberUtils
+                .networkPortionToCalledPartyBCD("0000000000");
+        byte[] senderBytes = PhoneNumberUtils
+                .networkPortionToCalledPartyBCD(sender);
+        int lsmcs = scBytes.length;
+        byte[] dateBytes = new byte[7];
+        Calendar calendar = new GregorianCalendar();
+        dateBytes[0] = reverseByte((byte) (calendar.get(Calendar.YEAR)));
+        dateBytes[1] = reverseByte((byte) (calendar.get(Calendar.MONTH) + 1));
+        dateBytes[2] = reverseByte((byte) (calendar.get(Calendar.DAY_OF_MONTH)));
+        dateBytes[3] = reverseByte((byte) (calendar.get(Calendar.HOUR_OF_DAY)));
+        dateBytes[4] = reverseByte((byte) (calendar.get(Calendar.MINUTE)));
+        dateBytes[5] = reverseByte((byte) (calendar.get(Calendar.SECOND)));
+        dateBytes[6] = reverseByte((byte) ((calendar.get(Calendar.ZONE_OFFSET) + calendar
+                .get(Calendar.DST_OFFSET)) / (60 * 1000 * 15)));
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            bo.write(lsmcs);
+            bo.write(scBytes);
+            bo.write(0x04);
+            bo.write((byte) sender.length());
+            bo.write(senderBytes);
+            bo.write(0x00);
+            bo.write(0x00); // encoding: 0 for default 7bit
+            bo.write(dateBytes);
+            try {
+                String sReflectedClassName = "com.android.internal.telephony.GsmAlphabet";
+                Class cReflectedNFCExtras = Class.forName(sReflectedClassName);
+                Method stringToGsm7BitPacked = cReflectedNFCExtras.getMethod(
+                        "stringToGsm7BitPacked", new Class[] { String.class });
+                stringToGsm7BitPacked.setAccessible(true);
+                byte[] bodybytes = (byte[]) stringToGsm7BitPacked.invoke(null,
+                        body);
+                bo.write(bodybytes);
+                bo.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            pdu = bo.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        intent = new Intent();
+//        intent.setClassName("com.android.mms",
+//                "com.android.mms.transaction.SmsReceiverService");
+        intent.setAction("android.provider.Telephony.SMS_RECEIVED");
+        intent.putExtra("pdus", new Object[] { pdu });
+        intent.putExtra("format", "3gpp");
+        // commented out setService for context
+        setIntent(intent);
+        sendBroadcast(intent);
+
+    }
+
+    private static byte reverseByte(byte b) {
+        return (byte) ((b & 0xF0) >> 4 | (b & 0x0F) << 4);
+    }
+
     /**
      * This method start a action after click on a item in the context menu
      * @param item The context menu item that was selected.
@@ -215,6 +286,11 @@ public class RuleSelection extends AppCompatActivity {
 			intent.putExtras(bundle);
 			intent.setClass(RuleSelection.this, RuleSettings.class);
 			startActivity(intent);
+
+//            createFakeSms(this, "+491234", "test");
+//
+//            System.out.println("Ausgang");
+
 
 		} else if (item.getTitle() == getResources().getString(
 				R.string.activity_rule_selection_context_menu_action_send)) {

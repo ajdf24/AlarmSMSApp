@@ -27,7 +27,9 @@ public class AnswerSender {
         float[] results;
         if (departmentSettings != null && departmentSettings.getAddress() !=null && !departmentSettings.getAddress().isEmpty()) {
             results = DistanceCalculator.calculateDistance(departmentSettings.getAddress());
-
+            if(results[0] == 0.0){
+                return;
+            }
             for (Rule rule : matchingRules) {
                 if (rule.getMessage() != null && rule.getReceiver() != null && !rule.getReceiver().isEmpty() && results[0] / 1000 > rule.getDistance()) {
 
