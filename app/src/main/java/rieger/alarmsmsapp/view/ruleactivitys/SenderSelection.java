@@ -1,11 +1,16 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +51,8 @@ public class SenderSelection extends AppCompatActivity {
 
 	private static final int PICK_CONTACT = 1;
 
+	private View layoutView;
+
     /**
      * This method is like a constructor and
      * initialize all components of the activity.
@@ -55,6 +62,8 @@ public class SenderSelection extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sender_selection);
+
+		layoutView = findViewById(R.id.activity_sender_selection);
 
 		rule = BundleHandler.getRuleFromBundle(this);
 
@@ -122,8 +131,13 @@ public class SenderSelection extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-				startActivityForResult(intent, PICK_CONTACT);
+				if (ActivityCompat.checkSelfPermission(SenderSelection.this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
+            		ActivityCompat.requestPermissions(SenderSelection.this, new String[]{Manifest.permission.READ_CONTACTS},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS);
+        		}else {
+					Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+					startActivityForResult(intent, PICK_CONTACT);
+				}
 			}
 		});
 
@@ -140,6 +154,27 @@ public class SenderSelection extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode,
+										   String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS: {
+				if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+					Snackbar snackbar = Snackbar
+							.make(layoutView, R.string.toast_permission_contacts_denied, Snackbar.LENGTH_LONG);
+
+					View snackbarView = snackbar.getView();
+					TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+					textView.setTextColor(Color.WHITE);
+					snackbar.show();
+
+					return;
+				}
+			}
+		}
 	}
 
     /**

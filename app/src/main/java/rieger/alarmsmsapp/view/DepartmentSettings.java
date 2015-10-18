@@ -68,7 +68,9 @@ public class DepartmentSettings extends AppCompatActivity implements OnItemClick
             dialog.show();
         }
 
-        autoCompView.setText(departmentSettings.getAddress());
+        if (departmentSettings != null) {
+            autoCompView.setText(departmentSettings.getAddress());
+        }
     }
 
     /**
@@ -86,7 +88,7 @@ public class DepartmentSettings extends AppCompatActivity implements OnItemClick
      */
     private void initializeActiveElements() {
 
-        autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item_for_autocomplete));
+        autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item_for_autocomplete, GooglePlacesAutocompleteAdapter.AUTO_FILTER_BY_THE_CURRENT_COUNTRY));
         autoCompView.setOnItemClickListener(this);
 
         save.setOnClickListener(new View.OnClickListener() {

@@ -6,56 +6,68 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="rieger.alarmsmsapp.view.ruleactivitys.ReadingSettings" >
+    tools:context="rieger.alarmsmsapp.view.ruleactivitys.ReadingSettings">
 
-    <TextView
-        android:id="@+id/activity_reading_settings_textView_reading_settings_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_reading_settings_description" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/activity_reading_settings_textView_description_for_checkBoxes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/activity_reading_settings_textView_reading_settings_description"
-        android:layout_below="@+id/activity_reading_settings_textView_reading_settings_description"
-        android:layout_marginTop="15dp"
-        android:text="@string/activity_reading_settings_label_checkBoxes_reading_settings" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    <CheckBox
-        android:id="@+id/activity_reading_settings_checkBox_read_this_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/activity_reading_settings_textView_description_for_checkBoxes"
-        android:layout_marginTop="15dp"
-        android:text="@string/activity_reading_settings_checkBox_read_this_message" />
+            <TextView
+                android:id="@+id/activity_reading_settings_textView_reading_settings_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_reading_settings_description" />
 
-    <CheckBox
-        android:id="@+id/activity_reading_settings_checkBox_read_other_messages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/activity_reading_settings_checkBox_read_this_message"
-        android:layout_below="@+id/activity_reading_settings_checkBox_read_this_message"
-        android:layout_marginTop="15dp"
-        android:text="@string/activity_reading_settings_checkBox_read_other_messages" />
+            <TextView
+                android:id="@+id/activity_reading_settings_textView_description_for_checkBoxes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_reading_settings_textView_reading_settings_description"
+                android:layout_below="@+id/activity_reading_settings_textView_reading_settings_description"
+                android:layout_marginTop="15dp"
+                android:text="@string/activity_reading_settings_label_checkBoxes_reading_settings" />
 
-    <Button
-        android:id="@+id/activity_reading_settings_button_save_read_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/activity_reading_settings_checkBox_read_other_messages"
-        android:text="@string/general_string_button_save" />
+            <CheckBox
+                android:id="@+id/activity_reading_settings_checkBox_read_this_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/activity_reading_settings_textView_description_for_checkBoxes"
+                android:layout_marginTop="15dp"
+                android:text="@string/activity_reading_settings_checkBox_read_this_message" />
 
-    <Button
-        android:id="@+id/activity_reading_settings_button_quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/activity_reading_settings_button_save_read_settings"
-        android:layout_alignBottom="@+id/activity_reading_settings_button_save_read_settings"
-        android:layout_alignParentLeft="true"
-        android:text="@string/general_string_button_quit" />
+            <CheckBox
+                android:id="@+id/activity_reading_settings_checkBox_read_other_messages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_reading_settings_checkBox_read_this_message"
+                android:layout_below="@+id/activity_reading_settings_checkBox_read_this_message"
+                android:layout_marginTop="15dp"
+                android:text="@string/activity_reading_settings_checkBox_read_other_messages" />
+
+            <Button
+                android:id="@+id/activity_reading_settings_button_save_read_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/activity_reading_settings_checkBox_read_other_messages"
+                android:text="@string/general_string_button_save" />
+
+            <Button
+                android:id="@+id/activity_reading_settings_button_quit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/activity_reading_settings_button_save_read_settings"
+                android:layout_alignBottom="@+id/activity_reading_settings_button_save_read_settings"
+                android:layout_alignParentLeft="true"
+                android:text="@string/general_string_button_quit" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

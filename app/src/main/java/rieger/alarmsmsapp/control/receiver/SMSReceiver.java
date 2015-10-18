@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +95,6 @@ public class SMSReceiver extends BroadcastReceiver {
         }
 
 	}
-
-
 
     /**
      * This method starts the settings of a rule.
@@ -188,7 +188,12 @@ public class SMSReceiver extends BroadcastReceiver {
             String strMessage = "";
 
             for (Object smsExtra : smsExtras) {
-                SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra, format);
+                SmsMessage smsMessage;
+                if (Build.VERSION.SDK_INT < 23){
+                    smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra);
+                }else {
+                    smsMessage = SmsMessage.createFromPdu((byte[]) smsExtra, format);
+                }
 
                 messageBody = smsMessage.getMessageBody();
                 messageSource = smsMessage.getOriginatingAddress();
@@ -230,7 +235,45 @@ public class SMSReceiver extends BroadcastReceiver {
         return foundMatchingRule;
     }
 
-    public void testRule(){
+    public void testReceiver(String number, String message) {
+
+        resourceIdForNotificationIcon = R.drawable.ic_notification;
+
+        readRules();
+
+        readSettings();
+
+        messageBody = message;
+        messageSource = number;
+
+        createAlarm = checkIfAlarmMustBeCreate();
+
+        if (createAlarm){
+            doRuleSettings();
+        }else{
+            Toast.makeText(CreateContextForResource.getContext(),R.string.toast_no_rule_match,Toast.LENGTH_LONG).show();
+        }
+
+        boolean isPhoneSilent = false;
+
+        AudioManager audio = (AudioManager) CreateContextForResource.getContext().getSystemService(Context.AUDIO_SERVICE);
+        switch( audio.getRingerMode() ){
+            case AudioManager.RINGER_MODE_NORMAL:
+                isPhoneSilent = false;
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                isPhoneSilent = true;
+                break;
+            case AudioManager.RINGER_MODE_VIBRATE:
+                isPhoneSilent = true;
+                break;
+        }
+
+        if (!isPhoneSilent || alarmSettings.isMuteAlarmActivated()) {
+
+            messageReader.readOtherMessages(createAlarm, messageBody);
+        }
 
     }
+
 }

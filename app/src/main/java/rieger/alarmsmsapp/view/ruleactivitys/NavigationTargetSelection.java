@@ -92,7 +92,7 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
      * This method initialize the active GUI elements with listeners.
      */
 	private void initializeActiveElements() {
-		autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item_for_autocomplete));
+		autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item_for_autocomplete, GooglePlacesAutocompleteAdapter.AUTO_FILTER_BY_THE_CURRENT_COUNTRY));
 		autoCompView.setOnItemClickListener(this);
 
 		save.setOnClickListener(new OnClickListener() {

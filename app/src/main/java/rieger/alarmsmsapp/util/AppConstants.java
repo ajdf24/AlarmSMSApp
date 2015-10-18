@@ -14,6 +14,9 @@ public interface AppConstants {
      * in a {@link android.os.Bundle}
      */
 	public final static String BUNDLE_CONTEXT_RULE = "Rule";
+	public final static String BUNDLE_CONTEXT_NUMBER = "Number";
+	public final static String BUNDLE_CONTEXT_MESSAGE = "Message";
+	public final static String BUNDLE_CONTEXT_RULE_NAME = "Rule Name";
 
     /**
      * A {@link String} which contains a tag for all messages which created with the class {@link android.util.Log}
@@ -64,6 +67,11 @@ public interface AppConstants {
          * The directory in which are the alarm settings are saved.
          */
         public static final String DIRECTORY_NAME_SETTINGS = "AlarmSettings";
+
+        /**
+         * The directory in which are the version are saved.
+         */
+        public static final String DIRECTORY_NAME_Version = "Version";
 
         /**
          * The directory in which are the department settings are saved.

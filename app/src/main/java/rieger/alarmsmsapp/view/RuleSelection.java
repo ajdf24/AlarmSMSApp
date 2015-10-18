@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -55,6 +56,9 @@ import java.util.List;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
+import rieger.alarmsmsapp.control.observer.VersionObserver;
+import rieger.alarmsmsapp.model.SettingsNotFoundException;
+import rieger.alarmsmsapp.model.Version;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
@@ -87,6 +91,8 @@ public class RuleSelection extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rule_selection);
 
+        checkVersion();
+
         layoutView = findViewById(R.id.activity_rule_selection);
 //        ActivityCompat.checkSelfPermission(this,Manifest.permission.RECEIVE_SMS);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
@@ -118,6 +124,76 @@ public class RuleSelection extends AppCompatActivity {
 		initializeActiveElements();
 
         sortRuleList();
+
+
+    }
+
+    //TODO: Hier muss ich weiter machen!
+    private void checkVersion() {
+        int id = 0;
+
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            id = getResources().getIdentifier("activity_rule_selection_whats_new_text_for_version_" + packageInfo.versionCode, "string", getPackageName());
+            String value = id == 0 ? "" : (String) getResources().getText(id);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Version version = null;
+        try {
+            version = VersionObserver.readSettings();
+        } catch (SettingsNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (version == null){
+
+            AlertDialog dialog;
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(CreateContextForResource.getStringFromID(R.string.activity_rule_selection_whats_new))
+
+                    .setMessage(CreateContextForResource.getStringFromID(id))
+                    .setCancelable(false)
+                    .setIcon(R.drawable.ic_launcher)
+
+                    .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
+
+            dialog = builder.create();
+
+            dialog.show();
+
+            version = new Version();
+            version.setVersion(packageInfo.versionCode);
+            VersionObserver.saveSettings(version);
+
+        }else {
+
+            if (version.getVersion() < packageInfo.versionCode) {
+                System.out.println(version.getVersion());
+                System.out.println(packageInfo.versionCode);
+                AlertDialog dialog;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle(CreateContextForResource.getStringFromID(R.string.activity_rule_selection_whats_new))
+
+                        .setMessage(CreateContextForResource.getStringFromID(id))
+                        .setCancelable(false)
+                        .setIcon(R.drawable.ic_launcher)
+
+                        .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
+
+                dialog = builder.create();
+
+                dialog.show();
+                version.setVersion(packageInfo.versionCode);
+                VersionObserver.saveSettings(version);
+            }
+        }
 
 
     }
@@ -202,71 +278,6 @@ public class RuleSelection extends AppCompatActivity {
         fab.attachToListView(listView);
     }
 
-    private void createFakeSms(Context context, String sender,
-                                      String body) {
-
-        Intent intent;
-        byte[] pdu = null;
-        byte[] scBytes = PhoneNumberUtils
-                .networkPortionToCalledPartyBCD("0000000000");
-        byte[] senderBytes = PhoneNumberUtils
-                .networkPortionToCalledPartyBCD(sender);
-        int lsmcs = scBytes.length;
-        byte[] dateBytes = new byte[7];
-        Calendar calendar = new GregorianCalendar();
-        dateBytes[0] = reverseByte((byte) (calendar.get(Calendar.YEAR)));
-        dateBytes[1] = reverseByte((byte) (calendar.get(Calendar.MONTH) + 1));
-        dateBytes[2] = reverseByte((byte) (calendar.get(Calendar.DAY_OF_MONTH)));
-        dateBytes[3] = reverseByte((byte) (calendar.get(Calendar.HOUR_OF_DAY)));
-        dateBytes[4] = reverseByte((byte) (calendar.get(Calendar.MINUTE)));
-        dateBytes[5] = reverseByte((byte) (calendar.get(Calendar.SECOND)));
-        dateBytes[6] = reverseByte((byte) ((calendar.get(Calendar.ZONE_OFFSET) + calendar
-                .get(Calendar.DST_OFFSET)) / (60 * 1000 * 15)));
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            bo.write(lsmcs);
-            bo.write(scBytes);
-            bo.write(0x04);
-            bo.write((byte) sender.length());
-            bo.write(senderBytes);
-            bo.write(0x00);
-            bo.write(0x00); // encoding: 0 for default 7bit
-            bo.write(dateBytes);
-            try {
-                String sReflectedClassName = "com.android.internal.telephony.GsmAlphabet";
-                Class cReflectedNFCExtras = Class.forName(sReflectedClassName);
-                Method stringToGsm7BitPacked = cReflectedNFCExtras.getMethod(
-                        "stringToGsm7BitPacked", new Class[] { String.class });
-                stringToGsm7BitPacked.setAccessible(true);
-                byte[] bodybytes = (byte[]) stringToGsm7BitPacked.invoke(null,
-                        body);
-                bo.write(bodybytes);
-                bo.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            pdu = bo.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        intent = new Intent();
-//        intent.setClassName("com.android.mms",
-//                "com.android.mms.transaction.SmsReceiverService");
-        intent.setAction("android.provider.Telephony.SMS_RECEIVED");
-        intent.putExtra("pdus", new Object[] { pdu });
-        intent.putExtra("format", "3gpp");
-        // commented out setService for context
-        setIntent(intent);
-        sendBroadcast(intent);
-
-    }
-
-    private static byte reverseByte(byte b) {
-        return (byte) ((b & 0xF0) >> 4 | (b & 0x0F) << 4);
-    }
-
     /**
      * This method start a action after click on a item in the context menu
      * @param item The context menu item that was selected.
@@ -286,11 +297,6 @@ public class RuleSelection extends AppCompatActivity {
 			intent.putExtras(bundle);
 			intent.setClass(RuleSelection.this, RuleSettings.class);
 			startActivity(intent);
-
-//            createFakeSms(this, "+491234", "test");
-//
-//            System.out.println("Ausgang");
-
 
 		} else if (item.getTitle() == getResources().getString(
 				R.string.activity_rule_selection_context_menu_action_send)) {
@@ -335,8 +341,17 @@ public class RuleSelection extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             finish();
             startActivity(intent);
-        }else{
-			return false;
+        }else if (item.getTitle() == getResources().getString(R.string.test_rule)) {
+
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.BUNDLE_CONTEXT_NUMBER, selectedRule.getSender());
+            bundle.putString(AppConstants.BUNDLE_CONTEXT_MESSAGE, selectedRule.getOccurredWords());
+            Intent intent = new Intent(this, TestRule.class);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }else {
+            return false;
 		}
 		return true;
 	}
@@ -378,6 +393,17 @@ public class RuleSelection extends AppCompatActivity {
 			startActivity(new Intent(this, CreateNewRule.class));
 			return true;
 		}
+        if (id == R.id.test_rules) {
+            startActivity(new Intent(this, TestRule.class));
+            return true;
+        }
+        if (id == R.id.help) {
+            String url = "https://www.facebook.com/alarmsmsapp/videos/vb.1474990309460074/1477302559228849/?type=2&theater";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setData(Uri.parse(url));
+            CreateContextForResource.getContext().startActivity(i);
+        }
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -460,6 +486,7 @@ public class RuleSelection extends AppCompatActivity {
 
                         menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
                         menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
+                        menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
                         menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
                         menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
 
