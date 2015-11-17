@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.AlarmSettings;
 
 /**
  * Controler class for the alarm widget.
@@ -45,7 +47,7 @@ public class AlarmWidget extends AppWidgetProvider {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetIds[0],intentClick, 0);
 
         remoteViews.setOnClickPendingIntent(R.id.img_btn, pendingIntent);
-        appWidgetManager.updateAppWidget( watchWidget, remoteViews );
+        appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
         updateWidget();
     }
@@ -104,19 +106,20 @@ public class AlarmWidget extends AppWidgetProvider {
     public static void updateWidget(){
 
         loadAlarmSettings();
-
-        if (alarmSettingsModel.isAlarmActivated()){
-            remoteViews = new RemoteViews( CreateContextForResource.getContext().getPackageName(), R.layout.widget_activate_alarm );
-            remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_activ));
-        }else{
-            remoteViews = new RemoteViews( CreateContextForResource.getContext().getPackageName(), R.layout.widget_activate_alarm );
-            remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_inactiv));
-        }
-        try {
-            (AppWidgetManager.getInstance(CreateContextForResource.getContext())).updateAppWidget(watchWidget, remoteViews);
-        }catch (NullPointerException e){
-            Log.e("AlarmWidget.java", e.getMessage());
-            //Es muss noch erforscht werden, warum hier eine NPE auftritt wenn die App neu startet, und des trotz fangen der NPE geht!
+        if (alarmSettingsModel != null) {
+            if (alarmSettingsModel.isAlarmActivated()) {
+                remoteViews = new RemoteViews(CreateContextForResource.getContext().getPackageName(), R.layout.widget_activate_alarm);
+                remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_activ));
+            } else {
+                remoteViews = new RemoteViews(CreateContextForResource.getContext().getPackageName(), R.layout.widget_activate_alarm);
+                remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_inactiv));
+            }
+            try {
+                (AppWidgetManager.getInstance(CreateContextForResource.getContext())).updateAppWidget(watchWidget, remoteViews);
+            } catch (NullPointerException e) {
+                Log.e("AlarmWidget.java", e.getMessage());
+                //Es muss noch erforscht werden, warum hier eine NPE auftritt wenn die App neu startet, und des trotz fangen der NPE geht!
+            }
         }
     }
 
@@ -125,6 +128,9 @@ public class AlarmWidget extends AppWidgetProvider {
             alarmSettingsModel = AlarmSettingsObserver.readSettings();
         } catch (SettingsNotFoundException e) {
             Log.e("AlarmWidget", "Alarm Settings not found.");
+        }
+        if(alarmSettingsModel == null){
+            CreateContextForResource.getContext().startActivity(new Intent(CreateContextForResource.getContext(), AlarmSettings.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }
