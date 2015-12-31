@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Strings for The App -->
+    <string name="app_name">AlarmSMS</string>
+
+   		<!-- General Strings -->
+   		<string name="general_string_button_quit">Quit</string>
+    	<string name="general_string_button_save">Save</string>
+    	<string name="general_string_button_test">Test</string>
+    	<string name="general_string_button_choose_contact">Choose from Contacts</string>
+
+<!-- Strings for the menu -->
+    <string name="alarm_settings">Alarm Settings</string>
+    <string name="department_settings">Department Settings</string>
+    <string name="rule_list">Rulelist</string>
+    <string name="create_new_rule">New Rule</string>
+    <string name="test_rule">Test Rule</string>
+    <string name="help">Help</string>
+
+<!-- 	Strings for the Toats -->
+	<string name="toast_number_not_found">No Number for Selected Contact found</string>
+	<string name="toast_mail_not_found">No Email for Selected Contact found</string>
+
+<!-- Strings for the activity rule_activity_title -->
+    <string name="title_activity_rule_selection">Ruleselection</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_rule_selection_alert_dialog_title_first_use">Configuration for the fist use.</string>
+        <string name="activity_rule_selection_alert_dialog_text">Please use the pen for creating a new rule.</string>
+
+		<!-- Strings for Context Menu -->
+		<string name="activity_rule_selection_context_menu_title">Rule Settings</string>
+		<string name="activity_rule_selection_context_menu_action_edit">Edit Rule</string>
+		<string name="activity_rule_selection_context_menu_action_send">Send Rule</string>
+		<string name="activity_rule_selection_context_menu_action_delete">Delete Rule</string>
+		<string name="activity_rule_selection_context_menu_selection_title">Send Rule with&#8230;</string>
+
+		<!-- Strings for Toasts -->
+		<string name="activity_rule_selection_toast_rule_deleted">Rule %1$s Deleted</string>
+        <string name="activity_rule_selection_toast_rule_activated">Rule %1$s Activated</string>
+        <string name="activity_rule_selection_toast_rule_deactivated">Rule %1$s Deactivated</string>
+        <string name="activity_rule_selection_toast_rule_received">Rule Received</string>
+        <string name="activity_rule_selection_toast_rule_received_but_error">No vaild rule detected</string>
+
+<!-- Strings for the activity create_new_rule -->
+    <string name="title_activity_create_new_rule">CreateNewRule</string>
+    <string name="activity_create_new_rule_editText_rule_name_hint">Name of the rule</string>
+    <string name="activity_create_new_rule_textView_label_for_editText_rule_name">Name:</string>
+    <string name="activity_create_new_rule_textView_description_of_radio_buttons">For what content is this rule?</string>
+    <string name="activity_create_new_rule_radio_content_sms">SMS Rule</string>
+    <string name="activity_create_new_rule_radio_content_mail">E-Mail Rule</string>
+
+<!-- Strings for the activity rule_settings -->
+    <string name="title_activity_rule_settings">Rule Settings</string>
+
+<!-- Strings for the activity sender_selection -->
+    <string name="title_activity_sender_selection">Sender Selection</string>
+    <string name="activity_sender_selection_editText_for_sender_information_hint_sms">Sender Number</string>
+    <string name="activity_sender_selection_editText_for_sender_information_hint_mail">Sender Mail</string>
+    <string name="activity_sender_selection_textView_description">Sender on which should be watched</string>
+
+<!-- Strings for the activity word_selection -->
+    <string name="title_activity_word_selection">Catchword Selection</string>
+    <string name="activity_word_selection_textView_included_words">Choose words which should be included in the message. 
+	    Separate the words with a blank!</string>
+    <string name="activity_word_selection_editText_included_words_hint">Words which should in the message</string>
+    <string name="activity_word_selection_textView_not_included_words">Choose words which should NOT be included in the message.</string>
+    <string name="activity_word_selection_editText_not_included_words_hint">Words which should NOT in the message</string>
+
+<!-- Strings for the activity sound_selection -->
+    <string name="title_activity_sound_selection">Sound Selection</string>
+    <string name="activity_sound_selection_volume_toast">Please increase the Volume</string>
+
+<!-- Strings for the activity answer_creation -->
+    <string name="title_activity_answer_creation">Answer Creation</string>
+    <string name="activity_answer_creation_description">You can choose a message which is automatically send.</string>
+    <string name="activity_answer_creation_label_for_editText_for_receiver">Receiver</string>
+    <string name="activity_answer_creation_editText_for_receiver_hint">Receiver</string>
+    <string name="activity_answer_creation_label_for_editText_message">Choose a text, which should be send.</string>
+    <string name="activity_answer_creation_editText_for_message_hint">Message which should be send.</string>
+    <string name="activity_answer_creation_label_for_spinner_for_answer_distance">Choose a distance from the fire department 
+        from when the message should be send.</string>
+    <string name="activity_answer_creation_spinner_for_answer_distance_prompt">Choose a distance</string>
+ 
+    <string-array name="distance_arrays">
+        <item>5 km</item>
+        <item>10 km</item>
+        <item>25 km</item>
+        <item>50 km</item>
+    </string-array>
+
+<!-- Strings for the activity twitter_post_selection -->
+    <string name="title_activity_twitter_post_selection">Twitter Post</string>
+    <string name="activity_twitter_post_selection_description">Choose a message which should be posted on twitter.</string>
+    <string name="activity_twitter_post_selection_editText_message_for_twitter">Post on twitter</string>
+    <string name="activity_twitter_post_selection_checkBox_add_message_text">Add message to the Post</string>
+
+<!-- Strings for the activity navigation_target_selection -->
+    <string name="title_activity_navigation_target_selection">Navigation target Selection</string>
+    <string name="activity_navigation_target_selection_description">If a message received a navigation will start.</string>
+    <string name="activity_navigation_target_selection_label_editText_navigation_target">Choose a navigation target.</string>
+    <string name="activity_navigation_target_selection_editText_navigation_target_hint">Address</string>
+
+<!-- Strings for the activity reading_settings -->
+    <string name="title_activity_reading_settings">Automatically Reading</string>
+    <string name="activity_reading_settings_description">It is possible to be read this and other messages</string>
+    <string name="activity_reading_settings_label_checkBoxes_reading_settings">Make your choice</string>
+    <string name="activity_reading_settings_checkBox_read_this_message">Read this message</string>
+    <string name="activity_reading_settings_checkBox_read_other_messages">Read other messages</string>
+    
+<!--     Strings for the activity alarm_setting -->
+    <string name="title_activity_alarm_settings">Alarm Settings</string>
+    <string name="activity_alarm_settings_switch_alarm_activated">Alarm activated</string>
+	<string name="activity_alarm_settings_textView_label_for_seekBar_volume">Volume with which will alarmed</string>
+	<string name="activity_alarm_settings_switch_vibration_activated">Alarm with vibration</string>
+	<string name="activity_alarm_settings_switch_notification_light_activated">Alarm with Notification Light</string>
+	<string name="activity_alarm_settings_textView_label_for_spinner_for_notification_light_color">Color for Notification Light</string>
+	<string name="activity_alarm_settings_switch_mute_alarm_activated">Alarm also in silent mode</string>
+
+       <!-- Strings for the Alert Dialog-->
+       <string name="activity_alarm_settings_alert_dialog_title">Configuration for the fist use.</string>
+       <string name="activity_alarm_settings_alert_dialog_text">Please set your global alarm settings with which the app should you alert. \n\n</string>
+       <string name="activity_alarm_settings_alert_dialog_button">OK</string>
+
+    <string-array name="color_array">
+        <item>red</item>
+        <item>green</item>
+        <item>blue</item>
+    </string-array>
+    
+<!--     Strings for the activity department_settings -->
+	<string name="title_activity_department_settings"> Department Settings</string>
+	<string name="activity_department_settings_textView_label_for_editText_department_location">Location of your Fire Department</string>
+	<string name="activity_department_settings_editText_department_location_hint">Address of the Department</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_department_settings_alert_dialog_title">Configuration for the fist use.</string>
+        <string name="activity_department_settings_alert_dialog_text">Please enter the address of your Department. This is necessary for some rule settings. \n\n</string>
+        <string name="activity_department_settings_alert_dialog_button">OK</string>
+
+<!--    Stings for Notification -->
+    <string name="notification_title">Alarm</string>
+
+<!--    Strings for the Receiver -->
+    <string name="receiver_no_sound_selected">No Sound selected for Play</string>
+	
+<!--    Utility Strings-->
+    <string name="twitter_not_found">Twitter app was not found</string>
+    <string name="can_not_read_rule">Can not read all rules.</string>
+
+    <!--    Widget Strings -->
+    <string name="widget_text_activ">Activ</string>
+    <string name="widget_text_inactiv">Inactiv</string>
+
+    <!--    General Stings -->
+    <string name="toast_permission_contacts_denied">The app can not read your contacts. You must add a number by yourself.</string>
+    <string name="toast_permission_sms_denied">The app can not read your sms. The app can not work correctly. Please activate the sms permission.</string>
+    <string name="toast_permission_location_denied">The app can not locate the phone. The app can not calculate the current distance to your department.</string>
+    <string name="toast_permission_storage_denied">The app can not read your external storage. The app can not access your ringtones.</string>
+    <string name="title_activity_test_rule">Test Rule</string>
+    <string name="toast_no_rule_match">No rule matched these parameters.</string>
+
+    <!-- Strings Test Activity -->
+    <string name="activity_test_rule_maintext">You can test your rules here!</string>
+    <string name="activity_test_rule_sender_description">The sender which you want to test.</string>
+    <string name="activity_test_rule_text_description">The Message which you want to test.</string>
+    <string name="activity_test_rule_hint_message">Message</string>
+
+    <string name="activity_rule_selection_whats_new">Whats new!</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_9">- Single Rule test\n\n- Test multiple Rules\n\n- Help-Video in the menu \n\n- Better SMS evaluation \n\n- Better Location autocomplete \n\n- Full Android 6.0 support</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_10">- Bugfix for the Widget\n\n- Bugfix for Readingsettings</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Translation</string>
+</resources>

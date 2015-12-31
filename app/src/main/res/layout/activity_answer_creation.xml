@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_answer_creation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="rieger.alarmsmsapp.view.ruleactivitys.AnswerCreation">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/activity_answer_creation_textView_answer_activity_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_answer_creation_description" />
+
+            <TextView
+                android:id="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_answer_creation_textView_answer_activity_description"
+                android:layout_below="@+id/activity_answer_creation_textView_answer_activity_description"
+                android:layout_marginTop="14dp"
+                android:text="@string/activity_answer_creation_label_for_editText_for_receiver" />
+
+            <EditText
+                android:id="@+id/activity_answer_creation_editText_for_receiver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:layout_alignBottom="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:layout_toRightOf="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:ems="10"
+                android:hint="@string/activity_answer_creation_editText_for_receiver_hint" />
+
+            <Button
+                android:id="@+id/activity_answer_creation_button_choose_contacts_for_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/activity_answer_creation_editText_for_receiver"
+                android:layout_marginTop="15dp"
+                android:text="@string/general_string_button_choose_contact" />
+
+            <TextView
+                android:id="@+id/activity_answer_creation_textView_label_for_editText_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_answer_creation_button_choose_contacts_for_answer"
+                android:layout_below="@+id/activity_answer_creation_button_choose_contacts_for_answer"
+                android:layout_marginTop="15dp"
+                android:text="@string/activity_answer_creation_label_for_editText_message" />
+
+            <EditText
+                android:id="@+id/activity_answer_creation_editText_for_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_answer_creation_textView_label_for_editText_message"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/activity_answer_creation_textView_label_for_editText_message"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="@string/activity_answer_creation_editText_for_message_hint"
+                android:inputType="textMultiLine">
+
+                <requestFocus />
+            </EditText>
+
+            <TextView
+                android:id="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/activity_answer_creation_editText_for_message"
+                android:layout_below="@+id/activity_answer_creation_editText_for_message"
+                android:layout_marginTop="15dp"
+                android:text="@string/activity_answer_creation_label_for_spinner_for_answer_distance" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/activity_answer_creation_spinner_for_answer_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
+                android:layout_marginTop="15dp"
+                android:entries="@array/distance_arrays"
+                android:prompt="@string/activity_answer_creation_spinner_for_answer_distance_prompt" />
+
+            <Button
+                android:id="@+id/activity_answer_creation_button_save_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
+                android:layout_alignParentRight="true"
+                android:text="@string/general_string_button_save" />
+
+            <Button
+                android:id="@+id/activity_answer_creation_button_quit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/activity_answer_creation_button_save_answer"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/general_string_button_quit" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

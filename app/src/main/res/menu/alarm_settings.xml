@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="rieger.alarmsmsapp.view.AlarmSettings" >
+
+    <item
+        android:id="@+id/rule_list_from_alarm_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/rule_list"/>
+    
+    <item
+        android:id="@+id/department_settings_from_alarm_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/department_settings"/>
+    
+    
+
+</menu>
