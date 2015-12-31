@@ -172,4 +172,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="activity_rule_selection_whats_new_text_for_version_10">- Bugfix for the Widget\n\n- Bugfix for Readingsettings</string>
     <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Translation</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 </resources>

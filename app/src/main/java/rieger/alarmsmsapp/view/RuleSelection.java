@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.BufferedReader;
@@ -90,6 +94,10 @@ public class RuleSelection extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_rule_selection);
+
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
         checkVersion();
 
@@ -426,6 +434,11 @@ public class RuleSelection extends AppCompatActivity {
 			super(context, textViewResourceId, ruleList);
 		}
 
+        @Override
+        public int getCount() {
+            return ruleList.size() +1 ;
+        }
+
         /**
          * Internal class, which creates a holder for the adapter elements,
          */
@@ -440,78 +453,106 @@ public class RuleSelection extends AppCompatActivity {
          */
 		@Override
 		public synchronized View getView(final int position, View convertView, ViewGroup parent) {
+            Log.e("test",position+"");
 
-			final ViewHolder viewHolder = new ViewHolder();
-			Log.v("ConvertView", String.valueOf(position));
+            //Create Ad on the last item of the List
+            if (position >= ruleList.size()) {
+                if (convertView instanceof AdView) {
+                    // Don’t instantiate new AdView, reuse old one
+                    return convertView;
+                } else {
+                    // Create a new AdView
+                    AdView adView = new AdView(parent.getContext());
+                    adView.setAdSize(AdSize.BANNER);
+                    adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 
-			if (convertView == null) {
-				LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
+                    // Convert the default layout parameters so that they play nice with
+                    // ListView.
 
-				viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
-				viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
-				convertView.setTag(viewHolder);
+                    float density = parent.getResources().getDisplayMetrics().density;
+                    int height = Math.round(AdSize.BANNER.getHeight() * density);
+                    AbsListView.LayoutParams params = new AbsListView.LayoutParams(
+                            AbsListView.LayoutParams.FILL_PARENT,
+                            height);
+                    adView.setLayoutParams(params);
 
-				viewHolder.isRuleActivated.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        CheckBox checkBox = (CheckBox) view;
-                        Rule rule = (Rule) checkBox.getTag();
-                        if(checkBox.isChecked()){
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                    adView.loadAd(new AdRequest.Builder().build());
+                    return adView;
+                }
+            } else {
+
+                final ViewHolder viewHolder = new ViewHolder();
+                Log.v("ConvertView", String.valueOf(position));
+
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
+
+                    viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
+                    viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
+                    convertView.setTag(viewHolder);
+
+                    viewHolder.isRuleActivated.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            CheckBox checkBox = (CheckBox) view;
+                            Rule rule = (Rule) checkBox.getTag();
+                            if (checkBox.isChecked()) {
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                            }
+                            RuleCreator.changeActive(rule, checkBox.isChecked());
                         }
-                        RuleCreator.changeActive(rule,checkBox.isChecked());
-                    }
-                });
-				viewHolder.ruleName.setOnClickListener(new OnClickListener() {
+                    });
+                    viewHolder.ruleName.setOnClickListener(new OnClickListener() {
 
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent();
-                        Bundle bundle = new Bundle();
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
 
-                        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                        intent.putExtras(bundle);
-                        intent.setClass(RuleSelection.this, RuleSettings.class);
-                        startActivity(intent);
-                    }
-                });
-				viewHolder.ruleName.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position ));
+                            intent.putExtras(bundle);
+                            intent.setClass(RuleSelection.this, RuleSettings.class);
+                            startActivity(intent);
+                        }
+                    });
+                    viewHolder.ruleName.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
-                    @Override
-                    public void onCreateContextMenu(ContextMenu menu, View view,
-                                                    ContextMenuInfo menuInfo) {
+                        @Override
+                        public void onCreateContextMenu(ContextMenu menu, View view,
+                                                        ContextMenuInfo menuInfo) {
 
-                        menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
-                        menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
-                        menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
-                        menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
-                        menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
+                            menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
 
-                        selectedRule = (Rule) viewHolder.ruleName.getTag();
-                    }
+                            selectedRule = (Rule) viewHolder.ruleName.getTag();
+                        }
 
-                });
-			}
+                    });
+                }
 
-			Rule rule = ruleList.get(position);
+                Rule rule = ruleList.get(position);
 
-            if (viewHolder.ruleName != null) {
-                viewHolder.ruleName.setText(rule.getRuleName());
-                viewHolder.isRuleActivated.setChecked(rule.isActive());
+                if (viewHolder.ruleName != null) {
+                    viewHolder.ruleName.setText(rule.getRuleName());
+                    viewHolder.isRuleActivated.setChecked(rule.isActive());
 
-                /**
-                 * This sets the {@link rieger.alarmsmsapp.model.rules.Rule} as tag to the ruleName and isRuleActivated,
-                 * so the context menu and other methods can work with the selected rule.
-                 */
-                viewHolder.ruleName.setTag(rule);
-                viewHolder.isRuleActivated.setTag(rule);
+                    /**
+                     * This sets the {@link rieger.alarmsmsapp.model.rules.Rule} as tag to the ruleName and isRuleActivated,
+                     * so the context menu and other methods can work with the selected rule.
+                     */
+                    viewHolder.ruleName.setTag(rule);
+                    viewHolder.isRuleActivated.setTag(rule);
 
-            }
+                }
                 return convertView;
-		}
+            }
+        }
 
 	}
 
