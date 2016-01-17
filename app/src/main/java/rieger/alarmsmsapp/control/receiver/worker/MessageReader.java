@@ -56,7 +56,7 @@ public class MessageReader implements TextToSpeech.OnInitListener{
      */
     @Override
     public void onInit(int status) {
-        tts.setLanguage(Locale.GERMANY);
+        tts.setLanguage(Locale.getDefault());
         tts.speak(messageBody, TextToSpeech.QUEUE_FLUSH, null);
 
     }

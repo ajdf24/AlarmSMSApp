@@ -21,11 +21,11 @@ public class ScreenWorker {
      */
     public static void unlockScreen(){
         //TODO: Hier muss was gemacht werden!!!
-//        KeyguardManager keyguardManager = (KeyguardManager) CreateContextForResource.getContext()
-//                .getSystemService(Context.KEYGUARD_SERVICE);
-//        final KeyguardManager.KeyguardLock keyguardLock = keyguardManager
-//                .newKeyguardLock(AppConstants.KEYGUARD_LOCK_NAME);
-//        keyguardLock.disableKeyguard();
+        KeyguardManager keyguardManager = (KeyguardManager) CreateContextForResource.getContext()
+                .getSystemService(Context.KEYGUARD_SERVICE);
+        final KeyguardManager.KeyguardLock keyguardLock = keyguardManager
+                .newKeyguardLock(AppConstants.KEYGUARD_LOCK_NAME);
+        keyguardLock.disableKeyguard();
     }
 
     /**

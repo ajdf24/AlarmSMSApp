@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import rieger.alarmsmsapp.util.socialnetworks.twitter.CreateTweet;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.util.standard.NotificationCreator;
 import rieger.alarmsmsapp.util.standard.ScreenWorker;
+import rieger.alarmsmsapp.view.LightActivity;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -105,6 +107,12 @@ public class SMSReceiver extends BroadcastReceiver {
 
         ScreenWorker.turnScreenOn();
 
+        Intent intent = new Intent();
+        intent.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClass(CreateContextForResource.getContext(), LightActivity.class);
+
+        CreateContextForResource.getContext().startActivity(intent);
+
         for (Rule rule : matchingRules){
             if (rule.isAddMessageToTwitterPost()){
                 CreateTweet.tweetWithApp(rule.getMessageToPostOnTwitter() + " \"" + messageBody + "\"");
@@ -141,7 +149,6 @@ public class SMSReceiver extends BroadcastReceiver {
         }else{
             NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, null);
         }
-
 
         AnswerSender.sendAnswerAsSMS(matchingRules, departmentSettings);
 

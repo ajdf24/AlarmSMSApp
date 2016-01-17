@@ -167,5 +167,9 @@
 
     <string name="activity_rule_selection_whats_new">Whats new!</string>
     <string name="activity_rule_selection_whats_new_text_for_version_9">- Single Rule test\n\n- Test multiple Rules\n\n- Help-Video in the menu \n\n- Better SMS evaluation \n\n- Better Location autocomplete \n\n- Full Android 6.0 support</string>
-
+    <string name="activity_rule_selection_whats_new_text_for_version_10">- Bugfix for the Widget\n\n- Bugfix for Readingsettings</string>
+    <string name="general_string_button_test">Test</string>
+    <string name="title_activity_test_rule">Test Rule</string>
+    <string name="toast_no_rule_match">No rule matched these parameters.</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Translation</string>
 </resources>

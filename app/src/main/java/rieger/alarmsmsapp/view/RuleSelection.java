@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberUtils;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -37,7 +35,6 @@ import android.widget.Toast;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,12 +42,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
@@ -128,7 +122,6 @@ public class RuleSelection extends AppCompatActivity {
 
     }
 
-    //TODO: Hier muss ich weiter machen!
     private void checkVersion() {
         int id = 0;
 
