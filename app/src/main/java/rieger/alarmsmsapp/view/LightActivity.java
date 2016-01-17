@@ -1,19 +1,14 @@
 package rieger.alarmsmsapp.view;
 
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.util.AppConstants;
-import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class LightActivity extends AppCompatActivity {
 

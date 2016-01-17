@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -183,6 +185,29 @@ public class RuleSelection extends AppCompatActivity {
                 dialog = builder.create();
 
                 dialog.show();
+                version.setVersion(packageInfo.versionCode);
+                VersionObserver.saveSettings(version);
+
+                AlertDialog dialog2;
+
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+
+                final SpannableString s =
+                        new SpannableString("https://docs.google.com/forms/d/1MNjAA1GoYvwVxXUZFiimRdMeeqSXZc5hLdHWOdxtcNQ/viewform");
+                Linkify.addLinks(s, Linkify.ALL);
+
+
+                builder.setTitle("Umfrage zur Nutzung!")
+
+                        .setMessage("Die Teilnahme an der Umfrage hilft uns AlarmSMS weiter zu verbessern!" + s)
+                        .setCancelable(false)
+                        .setIcon(R.drawable.ic_launcher)
+
+                        .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
+
+                dialog2 = builder2.create();
+
+                dialog2.show();
                 version.setVersion(packageInfo.versionCode);
                 VersionObserver.saveSettings(version);
             }

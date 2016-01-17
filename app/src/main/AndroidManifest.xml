@@ -44,37 +44,37 @@
         </activity>
         <activity
             android:name=".view.ruleactivitys.CreateNewRule"
-            android:label="@string/title_activity_create_new_rule"></activity>
+            android:label="@string/title_activity_create_new_rule" />
         <activity
             android:name=".view.ruleactivitys.RuleSettings"
-            android:label="@string/title_activity_rule_settings"></activity>
+            android:label="@string/title_activity_rule_settings" />
         <activity
             android:name=".view.ruleactivitys.SenderSelection"
-            android:label="@string/title_activity_sender_selection"></activity>
+            android:label="@string/title_activity_sender_selection" />
         <activity
             android:name=".view.ruleactivitys.WordSelection"
-            android:label="@string/title_activity_word_selection"></activity>
+            android:label="@string/title_activity_word_selection" />
         <activity
             android:name=".view.ruleactivitys.SoundSelection"
-            android:label="@string/title_activity_sound_selection"></activity>
+            android:label="@string/title_activity_sound_selection" />
         <activity
             android:name=".view.ruleactivitys.AnswerCreation"
-            android:label="@string/title_activity_answer_creation"></activity>
+            android:label="@string/title_activity_answer_creation" />
         <activity
             android:name=".view.ruleactivitys.TwitterPostSelection"
-            android:label="@string/title_activity_twitter_post_selection"></activity>
+            android:label="@string/title_activity_twitter_post_selection" />
         <activity
             android:name=".view.ruleactivitys.NavigationTargetSelection"
-            android:label="@string/title_activity_navigation_target_selection"></activity>
+            android:label="@string/title_activity_navigation_target_selection" />
         <activity
             android:name=".view.ruleactivitys.ReadingSettings"
-            android:label="@string/title_activity_reading_settings"></activity>
+            android:label="@string/title_activity_reading_settings" />
         <activity
             android:name=".view.AlarmSettings"
-            android:label="@string/title_activity_alarm_settings"></activity>
+            android:label="@string/title_activity_alarm_settings" />
         <activity
             android:name=".view.DepartmentSettings"
-            android:label="@string/title_activity_department_settings"></activity>
+            android:label="@string/title_activity_department_settings" />
 
         <receiver android:name=".control.receiver.SMSReceiver">
             <intent-filter>
@@ -95,8 +95,11 @@
 
         <activity
             android:name=".view.TestRule"
-            android:label="@string/title_activity_test_rule"></activity>
-        <activity android:name=".view.LightActivity"></activity>
+            android:label="@string/title_activity_test_rule" />
+        <activity android:name=".view.LightActivity" />
+        <activity
+            android:name=".view.ruleactivitys.LightSettings"
+            android:label="@string/title_activity_light_settings"></activity>
     </application>
 
 </manifest>

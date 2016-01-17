@@ -172,4 +172,14 @@
     <string name="title_activity_test_rule">Test Rule</string>
     <string name="toast_no_rule_match">No rule matched these parameters.</string>
     <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Translation</string>
+    <string name="title_activity_light_settings">Light Settings</string>
+    <string name="activity_light_settings_main_text">Main</string>
+    <string name="activity_light_settings_set_light_on_checkbox" >Use Display as Light</string>
+    <string name="activity_light_settings_text_sipnner" >How long should the light be on</string>
+    <string-array name="time_array">
+        <item>0.5 min</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+    </string-array>
 </resources>

@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -94,25 +95,27 @@
                 android:entries="@array/distance_arrays"
                 android:prompt="@string/activity_answer_creation_spinner_for_answer_distance_prompt" />
 
-            <Button
-                android:id="@+id/activity_answer_creation_button_save_answer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
-                android:layout_alignParentRight="true"
-                android:text="@string/general_string_button_save" />
 
-            <Button
-                android:id="@+id/activity_answer_creation_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_answer_creation_button_save_answer"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
+
+    <Button
+        android:id="@+id/activity_answer_creation_button_save_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_below="@+id/activity_answer_creation_spinner_for_answer_distance"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/activity_answer_creation_button_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_quit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
     </ScrollView>
-
 </RelativeLayout>
