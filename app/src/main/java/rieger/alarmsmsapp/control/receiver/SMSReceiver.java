@@ -107,11 +107,11 @@ public class SMSReceiver extends BroadcastReceiver {
 
         ScreenWorker.turnScreenOn();
 
-        Intent intent = new Intent();
-        intent.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setClass(CreateContextForResource.getContext(), LightActivity.class);
-
-        CreateContextForResource.getContext().startActivity(intent);
+//        Intent intent = new Intent();
+//        intent.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setClass(CreateContextForResource.getContext(), LightActivity.class);
+//
+//        CreateContextForResource.getContext().startActivity(intent);
 
         for (Rule rule : matchingRules){
             if (rule.isAddMessageToTwitterPost()){

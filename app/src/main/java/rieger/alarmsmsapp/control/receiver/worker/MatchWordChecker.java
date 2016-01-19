@@ -19,7 +19,7 @@ public class MatchWordChecker {
         boolean containsAllOccurredWords = true;
         boolean dontContainsAllOccurredWords = true;
 
-        for (Rule rule : matchingRules){
+        for (final Rule rule : matchingRules){
             if (rule.getOccurredWords() != null && !rule.getOccurredWords().isEmpty()) {
                 String occurredWords[] = rule.getOccurredWords().split(" ");
                 for (String occurredWord : occurredWords) {
@@ -32,7 +32,7 @@ public class MatchWordChecker {
         }
 
         if (containsAllOccurredWords){
-            for (Rule rule : matchingRules){
+            for (final Rule rule : matchingRules){
                 if (rule.getNotOccurredWords() != null && !rule.getNotOccurredWords().isEmpty()) {
 
                     String notOccurredWords[] = rule.getNotOccurredWords().split(" ");
@@ -48,11 +48,7 @@ public class MatchWordChecker {
             return false;
         }
 
-        if (dontContainsAllOccurredWords){
-            return true;
-        }else {
-            return false;
-        }
+        return dontContainsAllOccurredWords;
 
     }
 }
