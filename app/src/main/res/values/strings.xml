@@ -183,4 +183,5 @@
         <item>3 min</item>
     </string-array>
     <string name="activity_rule_selection_whats_new_text_for_version_12">- Bugfix Alarmsoundplayer\n\n - Bugfix Catchword Selection</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_13">- New Settings for Lighting\n\n- Bugfix for Sony-Phones</string>
 </resources>

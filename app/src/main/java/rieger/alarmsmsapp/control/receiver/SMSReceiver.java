@@ -33,6 +33,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.util.standard.NotificationCreator;
 import rieger.alarmsmsapp.util.standard.ScreenWorker;
 import rieger.alarmsmsapp.view.LightActivity;
+import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 public class SMSReceiver extends BroadcastReceiver {
 
@@ -92,8 +93,11 @@ public class SMSReceiver extends BroadcastReceiver {
         }
 
         if (!isPhoneSilent || alarmSettings.isMuteAlarmActivated()) {
+            try{
+                messageReader.readOtherMessages(createAlarm, messageBody);
+            }catch (NullPointerException e){
 
-            messageReader.readOtherMessages(createAlarm, messageBody);
+            }
         }
 
 	}
@@ -138,8 +142,11 @@ public class SMSReceiver extends BroadcastReceiver {
         }
 
         if (!isPhoneSilent || alarmSettings.isMuteAlarmActivated()) {
+            try {
+                messageReader.readMessage(messageBody, matchingRules);
+            }catch (NullPointerException e){
 
-            messageReader.readMessage(messageBody, matchingRules);
+            }
         }
 
         AlarmSoundPlayer.playAlarmSound(alarmSettings, matchingRules);
@@ -154,6 +161,27 @@ public class SMSReceiver extends BroadcastReceiver {
 
         CreateNavigationIntent.startNavigation(matchingRules);
 
+        startLight(matchingRules);
+
+    }
+
+    /**
+     * start the light Activity
+     */
+    private void startLight(List<Rule> matchingRules){
+        for (Rule rule : matchingRules){
+            if(rule.isActivateLight()){
+                Intent lightIntent = new Intent();
+
+                Bundle bundle = new Bundle();
+
+                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+                lightIntent.putExtras(bundle);
+                lightIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                lightIntent.setClass(CreateContextForResource.getContext(), LightActivity.class);
+                CreateContextForResource.getContext().startActivity(lightIntent);
+            }
+        }
 
     }
 
@@ -169,7 +197,7 @@ public class SMSReceiver extends BroadcastReceiver {
      */
     private void readSettings(){
         try {
-        alarmSettings = AlarmSettingsObserver.readSettings();
+            alarmSettings = AlarmSettingsObserver.readSettings();
         }catch (SettingsNotFoundException e){
             Log.e(this.getClass().getSimpleName(), "Alarm Settings not found.");
         }
@@ -277,8 +305,11 @@ public class SMSReceiver extends BroadcastReceiver {
         }
 
         if (!isPhoneSilent || alarmSettings.isMuteAlarmActivated()) {
+            try {
+                messageReader.readOtherMessages(createAlarm, messageBody);
+            }catch (NullPointerException e){
 
-            messageReader.readOtherMessages(createAlarm, messageBody);
+            }
         }
 
     }

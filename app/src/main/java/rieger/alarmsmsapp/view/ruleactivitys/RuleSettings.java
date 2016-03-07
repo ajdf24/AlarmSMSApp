@@ -25,6 +25,7 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.view.AlarmSettings;
 import rieger.alarmsmsapp.view.DepartmentSettings;
+import rieger.alarmsmsapp.view.LightActivity;
 import rieger.alarmsmsapp.view.RuleSelection;
 
 /**
@@ -118,6 +119,7 @@ public class RuleSettings extends AppCompatActivity {
 		activityList.add(new WordSelection());
 		activityList.add(new SoundSelection());
 		activityList.add(new AnswerCreation());
+		activityList.add(new LightSettings());
 		activityList.add(new TwitterPostSelection());
 		activityList.add(new NavigationTargetSelection());
 		activityList.add(new ReadingSettings());

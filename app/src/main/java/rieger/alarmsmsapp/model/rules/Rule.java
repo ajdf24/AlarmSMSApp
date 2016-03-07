@@ -35,8 +35,7 @@ public abstract class Rule implements Serializable{
 
 	protected AnswerBundle automaticallyAnswer;
 
-	protected String messageToPostOnTwitter
-            ;
+	protected String messageToPostOnTwitter;
 
 	protected String navigationTarget;
 
@@ -45,6 +44,10 @@ public abstract class Rule implements Serializable{
 	protected boolean readOtherMessages;
 
 	protected boolean addMessageToTwitterPost;
+
+	protected boolean activateLight;
+
+	protected int lightTime;
 
 	/**
 	 * Default constructor for the serialization.<br>
@@ -392,5 +395,35 @@ public abstract class Rule implements Serializable{
 		RuleObserver.saveRuleToFileSystem(this);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	public boolean isActivateLight() {
+		return activateLight;
+	}
 
+	/**
+	 *
+	 * @param activateLight must light be activated
+	 */
+	public void setActivateLight(boolean activateLight) {
+		this.activateLight = activateLight;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public int getLightTime() {
+		return lightTime;
+	}
+
+	/**
+	 *
+	 * @param lightTime how long should the light be on
+	 */
+	public void setLightTime(int lightTime) {
+		this.lightTime = lightTime;
+	}
 }

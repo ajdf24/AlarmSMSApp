@@ -9,15 +9,21 @@ import android.view.View;
 import android.view.WindowManager;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.util.BundleHandler;
 
 public class LightActivity extends AppCompatActivity {
 
     PowerManager.WakeLock wakeLock;
 
+    Rule rule;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
+
+        rule = BundleHandler.getRuleFromBundle(this);
 
         setScreenToFullBrigtnis();
 
@@ -25,7 +31,7 @@ public class LightActivity extends AppCompatActivity {
             @Override
             public void run() {
                 long currentTime = System.currentTimeMillis();
-                while (currentTime + 5000 > System.currentTimeMillis()) {
+                while (currentTime + rule.getLightTime() > System.currentTimeMillis()) {
 
                 }
                 finish();
