@@ -174,8 +174,8 @@
     <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Translation</string>
     <string name="title_activity_light_settings">Light Settings</string>
     <string name="activity_light_settings_main_text">Main</string>
-    <string name="activity_light_settings_set_light_on_checkbox" >Use Display as Light</string>
-    <string name="activity_light_settings_text_sipnner" >How long should the light be on?</string>
+    <string name="activity_light_settings_set_light_on_checkbox">Use Display as Light</string>
+    <string name="activity_light_settings_text_sipnner">How long should the light be on?</string>
     <string-array name="time_array">
         <item>0.5 min</item>
         <item>1 min</item>
@@ -185,4 +185,8 @@
     <string name="activity_rule_selection_whats_new_text_for_version_12">- Bugfix Alarmsoundplayer\n\n - Bugfix Catchword Selection</string>
     <string name="activity_rule_selection_whats_new_text_for_version_13">- New Settings for Lighting\n\n- Bugfix for Sony-Phones\n\n- Bugfix import Rules</string>
     <string name="fb_like_button">Become a Facebook friend</string>
+    <string name="sender_selection_help">Help for Sender Settings?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

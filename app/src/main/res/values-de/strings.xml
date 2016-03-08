@@ -190,4 +190,5 @@
     </string-array>
     <string name="activity_rule_selection_whats_new_text_for_version_13">- Neue Einstellungen für Beleuchtung\n\n- Bugfix für Sony Smartphones\n\n- Bugfix Regel import</string>
     <string name="fb_like_button">Werde Facebook-Freund</string>
+    <string name="sender_selection_help">Hilfe für Absender-Einstellungen?</string>
 </resources>

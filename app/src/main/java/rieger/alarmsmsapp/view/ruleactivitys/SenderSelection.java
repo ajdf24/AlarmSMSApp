@@ -2,6 +2,9 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -26,6 +29,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
+import rieger.alarmsmsapp.control.factory.SenderSelectionDialog;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
@@ -37,7 +41,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * This activity is for creating a sender.
  * In this activity it is possible to set all the things which are needed for the sender.
  */
-public class SenderSelection extends AppCompatActivity {
+public class SenderSelection extends AppCompatActivity implements SenderSelectionDialog.OnFragmentInteractionListener{
 
 	private Rule rule;
 
@@ -65,6 +69,23 @@ public class SenderSelection extends AppCompatActivity {
 
 		layoutView = findViewById(R.id.activity_sender_selection);
 
+		final Snackbar snackbar = Snackbar
+				.make(layoutView, R.string.sender_selection_help, Snackbar.LENGTH_INDEFINITE);
+		snackbar.setAction(R.string.help, new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				showDialog();
+				snackbar.dismiss();
+			}
+		});
+
+
+
+		View snackbarView = snackbar.getView();
+		TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+		textView.setTextColor(Color.WHITE);
+		snackbar.show();
+
 		rule = BundleHandler.getRuleFromBundle(this);
 
 		initializeGUI();
@@ -73,6 +94,23 @@ public class SenderSelection extends AppCompatActivity {
 
 		initializeActiveElements();
 
+	}
+
+	void showDialog() {
+
+		// DialogFragment.show() will take care of adding the fragment
+		// in a transaction.  We also want to remove any currently showing
+		// dialog, so make our own transaction and take care of that here.
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+
+		// Create and show the dialog.
+		DialogFragment newFragment = SenderSelectionDialog.newInstance();
+		newFragment.show(ft, "dialog");
 	}
 
     /**
@@ -322,4 +360,8 @@ public class SenderSelection extends AppCompatActivity {
 		sender.setText(rule.getSender());
 	}
 
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+
+	}
 }

@@ -46,22 +46,22 @@
                 android:text="@string/general_string_button_choose_contact" />
 
             <Button
-                android:id="@+id/activity_sender_selection_button_save_sender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/activity_sender_selection_editText_for_sender_information"
-                android:layout_below="@+id/activity_sender_selection_button_choose_contacts_for_sender"
-                android:layout_marginTop="15dp"
-                android:text="@string/general_string_button_save" />
-
-            <Button
                 android:id="@+id/activity_sender_selection_button_quit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_sender_selection_button_save_sender"
-                android:layout_alignBottom="@+id/activity_sender_selection_button_save_sender"
-                android:layout_alignLeft="@+id/activity_sender_selection_button_choose_contacts_for_sender"
-                android:text="@string/general_string_button_quit" />
+                android:text="@string/general_string_button_quit"
+                android:layout_below="@+id/activity_sender_selection_button_choose_contacts_for_sender"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/activity_sender_selection_button_save_sender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/general_string_button_save"
+                android:layout_below="@+id/activity_sender_selection_button_choose_contacts_for_sender"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 
