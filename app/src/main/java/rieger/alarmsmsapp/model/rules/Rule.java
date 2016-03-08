@@ -45,9 +45,9 @@ public abstract class Rule implements Serializable{
 
 	protected boolean addMessageToTwitterPost;
 
-	protected boolean activateLight;
+	protected boolean activateLight = false;
 
-	protected int lightTime;
+	protected int lightTime = 30000;
 
 	/**
 	 * Default constructor for the serialization.<br>

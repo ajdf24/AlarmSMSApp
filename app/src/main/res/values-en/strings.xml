@@ -157,7 +157,7 @@
     <string name="toast_permission_contacts_denied">The app can not read your contacts. You must add a number by yourself.</string>
     <string name="toast_permission_sms_denied">The app can not read your sms. The app can not work correctly. Please activate the sms permission.</string>
     <string name="toast_permission_location_denied">The app can not locate the phone. The app can not calculate the current distance to your department.</string>
-    <string name="toast_permission_storage_denied">The app can not read your external storage. The app can not access your ringtones.</string>
+    <string name="toast_permission_storage_denied">The app can not read your external storage.</string>
 
     <!-- Strings Test Activity -->
     <string name="activity_test_rule_maintext">You can test your rules here!</string>
@@ -183,5 +183,6 @@
         <item>3 min</item>
     </string-array>
     <string name="activity_rule_selection_whats_new_text_for_version_12">- Bugfix Alarmsoundplayer\n\n - Bugfix Catchword Selection</string>
-    <string name="activity_rule_selection_whats_new_text_for_version_13">- New Settings for Lighting\n\n- Bugfix for Sony-Phones</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_13">- New Settings for Lighting\n\n- Bugfix for Sony-Phones\n\n- Bugfix import Rules</string>
+    <string name="fb_like_button">Become a Facebook friend</string>
 </resources>

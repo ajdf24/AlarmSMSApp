@@ -27,4 +27,10 @@
         android:orderInCategory="100"
         android:title="@string/help"/>
 
+
+    <item
+        android:id="@+id/likeOnFB"
+        android:orderInCategory="200"
+        android:title="@string/fb_like_button"/>
+
 </menu>

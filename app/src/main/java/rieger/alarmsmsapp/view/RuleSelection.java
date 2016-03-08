@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
@@ -144,22 +147,8 @@ public class RuleSelection extends AppCompatActivity {
         }
 
         if (version == null){
+            //Erster Aufruf nach Installation
 
-            AlertDialog dialog;
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setTitle(CreateContextForResource.getStringFromID(R.string.activity_rule_selection_whats_new))
-
-                    .setMessage(CreateContextForResource.getStringFromID(id))
-                    .setCancelable(false)
-                    .setIcon(R.drawable.ic_launcher)
-
-                    .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
-
-            dialog = builder.create();
-
-            dialog.show();
 
             version = new Version();
             version.setVersion(packageInfo.versionCode);
@@ -168,8 +157,9 @@ public class RuleSelection extends AppCompatActivity {
         }else {
 
             if (version.getVersion() < packageInfo.versionCode) {
-                System.out.println(version.getVersion());
-                System.out.println(packageInfo.versionCode);
+
+                //Neue Version gefunden --> show change note
+
                 AlertDialog dialog;
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -220,7 +210,7 @@ public class RuleSelection extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS: {
+            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS:
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
                     Snackbar snackbar = Snackbar
@@ -233,7 +223,21 @@ public class RuleSelection extends AppCompatActivity {
 
                     return;
                 }
-            }
+                break;
+            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Snackbar snackbar = Snackbar
+                            .make(layoutView, R.string.toast_permission_storage_denied, Snackbar.LENGTH_LONG);
+
+                    View snackbarView = snackbar.getView();
+                    TextView textView = (TextView)snackbarView .findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.show();
+
+                    return;
+                }
+
         }
     }
 
@@ -384,6 +388,11 @@ public class RuleSelection extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.rule_selection, menu);
+
+//        SubMenu subMenu = menu.addSubMenu("Weitere");
+//
+//        subMenu.add(100,10,1,R.string.fb_like_button);
+
 		return true;
 	}
 
@@ -417,6 +426,13 @@ public class RuleSelection extends AppCompatActivity {
         }
         if (id == R.id.help) {
             String url = "https://www.facebook.com/alarmsmsapp/videos/vb.1474990309460074/1477302559228849/?type=2&theater";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setData(Uri.parse(url));
+            CreateContextForResource.getContext().startActivity(i);
+        }
+        if (id == R.id.likeOnFB) {
+            String url = "https://www.facebook.com/alarmsmsapp/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.setData(Uri.parse(url));
@@ -542,15 +558,33 @@ public class RuleSelection extends AppCompatActivity {
         String action = intent.getAction();
         String type = intent.getType();
 
+
         if (Intent.ACTION_VIEW.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
 
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
+                }
+
                 Uri sharedText = intent.getData();
+                String path = null;
+                try {
+                    String[] proj = { MediaStore.Images.Media.DATA };
+                    Cursor cursor = this.getContentResolver().query(sharedText, proj, null, null, null);
+                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                    cursor.moveToFirst();
+                    path = cursor.getString(column_index);
+                }catch (NullPointerException e){
+                    e.getStackTrace();
+                }
 
                 if (sharedText != null) {
                     BufferedReader reader;
                     try {
-                        reader = new BufferedReader( new FileReader(new File(sharedText.getPath())));
+                        reader = new BufferedReader(
+                                new FileReader(
+                                        new File(path)));
                         String line;
                         StringBuilder stringBuilder = new StringBuilder();
                         String lineSeparator = System.getProperty("line.separator");

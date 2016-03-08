@@ -161,7 +161,7 @@
     <string name="toast_permission_contacts_denied">Kontakte dürfen nicht gelesen werden. Trage den Absender per Hand ein oder gib die Berechtigung frei!</string>
     <string name="toast_permission_sms_denied">Die App darf keine SMS lesen. Dies führt dazu, dass die App nicht richtig arbeitet!</string>
     <string name="toast_permission_location_denied">Die App darf keine Standorte erfasse. Es können nicht alle Aktionen korrekt ausgeführt werden.</string>
-    <string name="toast_permission_storage_denied">Die App darf keine externen Dateien lesen. Eventuell werden nicht alle Klingeltöne angezeigt.</string>
+    <string name="toast_permission_storage_denied">Die App darf keine externen Dateien lesen.</string>
     <string name="title_activity_test_rule">Regel Testen</string>
     <string name="toast_no_rule_match">Keine passende Regel gefunden.</string>
 
@@ -188,5 +188,6 @@
         <item>2 min</item>
         <item>3 min</item>
     </string-array>
-    <string name="activity_rule_selection_whats_new_text_for_version_13">- Neue Einstellungen für Beleuchtung\n\n- Bugfix für Sony Smartphones</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_13">- Neue Einstellungen für Beleuchtung\n\n- Bugfix für Sony Smartphones\n\n- Bugfix Regel import</string>
+    <string name="fb_like_button">Werde Facebook-Freund</string>
 </resources>
