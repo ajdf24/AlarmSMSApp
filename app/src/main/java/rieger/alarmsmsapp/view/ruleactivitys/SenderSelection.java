@@ -12,10 +12,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,9 +30,11 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
-import rieger.alarmsmsapp.control.factory.SenderSelectionDialog;
+import rieger.alarmsmsapp.view.SenderSelectionDialog;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
@@ -45,13 +50,17 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 	private Rule rule;
 
-	private TextView sender;
+	@Bind(R.id.activity_sender_selection_editText_for_sender_information)
+	TextView sender;
 
-	private Button selectSenderFromContacts;
+	@Bind(R.id.activity_sender_selection_button_choose_contacts_for_sender)
+	Button selectSenderFromContacts;
 
-	private Button save;
+	@Bind(R.id.activity_sender_selection_button_save_sender)
+	Button save;
 
-	private Button quit;
+	@Bind(R.id.activity_sender_selection_button_quit)
+	Button quit;
 
 	private static final int PICK_CONTACT = 1;
 
@@ -60,12 +69,14 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
     /**
      * This method is like a constructor and
      * initialize all components of the activity.
-     * @param savedInstanceState
+     * @param savedInstanceState instance state
      */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sender_selection);
+
+		ButterKnife.bind(this);
 
 		layoutView = findViewById(R.id.activity_sender_selection);
 
@@ -78,8 +89,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 				snackbar.dismiss();
 			}
 		});
-
-
 
 		View snackbarView = snackbar.getView();
 		TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
@@ -128,11 +137,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
      */
 	private void initializeGUI(){
 
-		selectSenderFromContacts = (Button) findViewById(R.id.activity_sender_selection_button_choose_contacts_for_sender);
-		save = (Button) findViewById(R.id.activity_sender_selection_button_save_sender);
-		quit = (Button) findViewById(R.id.activity_sender_selection_button_quit);
 
-		sender = (TextView) findViewById(R.id.activity_sender_selection_editText_for_sender_information);
 		if (rule instanceof SMSRule) {
 			sender.setHint(R.string.activity_sender_selection_editText_for_sender_information_hint_sms);
 		}
@@ -195,8 +200,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 	}
 
 	@Override
-	public void onRequestPermissionsResult(int requestCode,
-										   String permissions[], int[] grantResults) {
+	public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
 		switch (requestCode) {
 			case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS: {
 				if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -208,8 +212,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 					TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
 					textView.setTextColor(Color.WHITE);
 					snackbar.show();
-
-					return;
 				}
 			}
 		}
@@ -242,8 +244,8 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
     /**
      * This method get the selected mail address from the provider.
-     * @param resultCode
-     * @param data
+     * @param resultCode the code for the request
+     * @param data thr data
      */
 	private void getMailFromContacts(int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
@@ -293,8 +295,8 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
     /**
      * This method get the selected number from the content provider and translate this number
      * to the international german format.
-     * @param resultCode
-     * @param data
+     * @param resultCode the code of the result
+     * @param data the data
      */
 	private void getNumberFromContacts(int resultCode, Intent data){
 		if (resultCode == Activity.RESULT_OK) {
@@ -364,4 +366,36 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 	public void onFragmentInteraction(Uri uri) {
 
 	}
+
+    /**
+     * This method handles the action for the options menu.
+     * @param item the selected itel
+     * @return boolean return false to allow normal menu processing to
+     *         proceed, true to consume it here.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_sender_selection_help){
+            showDialog();
+        }else{
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Creates the options menu for this activity.
+     * @param menu the options menu in which you place your items.
+     * @return you must return true for the menu to be displayed;
+     *         if you return false it will not be shown.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.sender_selection, menu);
+
+        return true;
+    }
 }

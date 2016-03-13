@@ -11,18 +11,17 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
@@ -135,9 +134,7 @@ public class RuleSelection extends AppCompatActivity {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             id = getResources().getIdentifier("activity_rule_selection_whats_new_text_for_version_" + packageInfo.versionCode, "string", getPackageName());
             String value = id == 0 ? "" : (String) getResources().getText(id);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+
 
         Version version = null;
         try {
@@ -178,6 +175,8 @@ public class RuleSelection extends AppCompatActivity {
                 version.setVersion(packageInfo.versionCode);
                 VersionObserver.saveSettings(version);
 
+
+
 //                AlertDialog dialog2;
 //
 //                AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
@@ -202,13 +201,15 @@ public class RuleSelection extends AppCompatActivity {
 //                VersionObserver.saveSettings(version);
             }
         }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS:
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -234,10 +235,8 @@ public class RuleSelection extends AppCompatActivity {
                     TextView textView = (TextView)snackbarView .findViewById(android.support.design.R.id.snackbar_text);
                     textView.setTextColor(Color.WHITE);
                     snackbar.show();
-
-                    return;
                 }
-
+                break;
         }
     }
 
@@ -282,7 +281,7 @@ public class RuleSelection extends AppCompatActivity {
                 startActivity(new Intent(RuleSelection.this, CreateNewRule.class));
             }
         });
-        fab.setColorNormal(getResources().getColor(R.color.my_primary));
+        fab.setColorNormal(ContextCompat.getColor(this, R.color.my_primary));
     }
 
     /**
@@ -408,30 +407,30 @@ public class RuleSelection extends AppCompatActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.department_settings_from_rule_selection) {
+		if (id == R.id.menu_rule_selection_department_settings) {
 			startActivity(new Intent(this, DepartmentSettings.class));
 			return true;
 		}
-		if (id == R.id.alarm_settings_from_rule_selection) {
+		if (id == R.id.menu_rule_selection_alarm_settings) {
 			startActivity(new Intent(this, AlarmSettings.class));
 			return true;
 		}
-		if (id == R.id.create_new_rule_from_rule_selection) {
+		if (id == R.id.menu_rule_selection_create_new_rule) {
 			startActivity(new Intent(this, CreateNewRule.class));
 			return true;
 		}
-        if (id == R.id.test_rules) {
+        if (id == R.id.menu_rule_selection_test_rules) {
             startActivity(new Intent(this, TestRule.class));
             return true;
         }
-        if (id == R.id.help) {
+        if (id == R.id.menu_rule_selection_help) {
             String url = "https://www.facebook.com/alarmsmsapp/videos/vb.1474990309460074/1477302559228849/?type=2&theater";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.setData(Uri.parse(url));
             CreateContextForResource.getContext().startActivity(i);
         }
-        if (id == R.id.likeOnFB) {
+        if (id == R.id.menu_rule_selection_likeOnFB) {
             String url = "https://www.facebook.com/alarmsmsapp/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

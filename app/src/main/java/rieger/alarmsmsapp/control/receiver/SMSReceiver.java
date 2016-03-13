@@ -258,7 +258,16 @@ public class SMSReceiver extends BroadcastReceiver {
                 if (messageSource.equals(rule.getSender())){
                     matchingRules.add(rule);
                     foundMatchingRule = true;
+                    continue;
+                    //Teilnummer erkennen mit *
+                }if(rule.getSender().contains("*")){
+                    String firstPart = rule.getSender().split("\\*")[0];
+                    if(messageSource.startsWith(firstPart)){
+                        matchingRules.add(rule);
+                        foundMatchingRule = true;
+                    }
                 }
+
             }
 
         }

@@ -3,33 +3,33 @@
     tools:context="rieger.alarmsmsapp.view.RuleSelection" >
     
     <item
-        android:id="@+id/create_new_rule_from_rule_selection"
+        android:id="@+id/menu_rule_selection_create_new_rule"
         android:orderInCategory="100"
         android:title="@string/create_new_rule"/>
 
     <item
-        android:id="@+id/alarm_settings_from_rule_selection"
+        android:id="@+id/menu_rule_selection_alarm_settings"
         android:orderInCategory="100"
         android:title="@string/alarm_settings"/>
     
     <item
-        android:id="@+id/department_settings_from_rule_selection"
+        android:id="@+id/menu_rule_selection_department_settings"
         android:orderInCategory="100"
         android:title="@string/department_settings"/>
 
     <item
-        android:id="@+id/test_rules"
+        android:id="@+id/menu_rule_selection_test_rules"
         android:orderInCategory="100"
         android:title="@string/test_rule"/>
 
     <item
-        android:id="@+id/help"
+        android:id="@+id/menu_rule_selection_help"
         android:orderInCategory="100"
         android:title="@string/help"/>
 
 
     <item
-        android:id="@+id/likeOnFB"
+        android:id="@+id/menu_rule_selection_likeOnFB"
         android:orderInCategory="200"
         android:title="@string/fb_like_button"/>
 

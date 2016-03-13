@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.DayNight">
 
         <item name="colorPrimary">@color/my_primary</item>
 
@@ -10,7 +10,7 @@
 
     </style>
 
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
 
 
     </style>

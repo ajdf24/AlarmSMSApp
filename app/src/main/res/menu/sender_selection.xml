@@ -2,5 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="rieger.alarmsmsapp.view.ruleactivitys.SenderSelection" >
 
+    <item
+        android:id="@+id/menu_sender_selection_help"
+        android:orderInCategory="200"
+        android:title="@string/help"/>
 
 </menu>
