@@ -191,4 +191,11 @@
     <string name="activity_rule_selection_whats_new_text_for_version_13">- Neue Einstellungen für Beleuchtung\n\n- Bugfix für Sony Smartphones\n\n- Bugfix Regel import</string>
     <string name="fb_like_button">Werde Facebook-Freund</string>
     <string name="sender_selection_help">Hilfe für Absender-Einstellungen?</string>
+    <string name="title_dialog_sender_selection">Hilfe: Absender Auswahl</string>
+    <string name="dialog_sender_selection_example_number_1">Absender Nummer: +49151333333</string>
+    <string name="dialog_sender_selection_headline_match">Folgende Konfiguration passen:</string>
+    <string name="dialog_sender_selection_headline_no_match">Folgende Konfigurationen passen NICHT:</string>
+    <string name="dialog_sender_selection_example_number_2">Absender Nummer: AlarmSMS</string>
+    <string name="dialog_sender_selection_button_got_it">Verstanden</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantische Absenderauswahl\n\n- Neue Hilfe für Absenderauswahl\n\n- Interne Änderungen</string>
 </resources>

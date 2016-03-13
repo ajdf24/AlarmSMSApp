@@ -17,19 +17,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Hilfe: Absender Auswahl"
+                android:text="@string/title_dialog_sender_selection"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/view"
-            android:layout_below="@+id/textView">
+            android:layout_below="@+id/textView"
+            android:layout_above="@+id/dialog_help_sender_selection_button_got_it">
 
 
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true">
 
 
                 <RelativeLayout
@@ -49,7 +50,7 @@
                         android:layout_alignParentStart="true"
 
                         android:layout_marginTop="10dp"
-                        android:text="Absender Nummer: +49151333333"
+                        android:text="@string/dialog_sender_selection_example_number_1"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -60,7 +61,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView3"
                         android:layout_marginTop="5dp"
-                        android:text="Folgende Konfiguration passen:"
+                        android:text="@string/dialog_sender_selection_headline_match"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -70,7 +71,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView4"
-                        android:text="+49151333333\n+49151*\n+49*"
+                        android:text="@string/dialog_sender_selection_numbers_match"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#006400" />
 
@@ -82,7 +83,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView5"
                         android:layout_marginTop="5dp"
-                        android:text="Folgende Konfigurationen passen NICHT:"
+                        android:text="@string/dialog_sender_selection_headline_no_match"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -92,7 +93,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView6"
-                        android:text="0151333333\n+49152*\n+00*"
+                        android:text="@string/dialog_sender_selection_numbers_no_match"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ff0000" />
 
@@ -104,7 +105,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView7"
                         android:layout_marginTop="10dp"
-                        android:text="Eingehende Nummer: AlarmSMS"
+                        android:text="@string/dialog_sender_selection_example_number_2"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -115,7 +116,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView8"
                         android:layout_marginTop="5dp"
-                        android:text="Folgende Konfiguration passen:"
+                        android:text="@string/dialog_sender_selection_headline_match"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -125,7 +126,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView9"
-                        android:text="AlarmSMS\nalamsms\nAlarm*\nalarm*\nA*"
+                        android:text="@string/dialog_sender_selection_string_match"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#006400" />
 
@@ -137,7 +138,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView10"
                         android:layout_marginTop="5dp"
-                        android:text="Folgende Konfigurationen passen NICHT:"
+                        android:text="@string/dialog_sender_selection_headline_no_match"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -147,7 +148,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView11"
-                        android:text="AlarSMS\nAls*"
+                        android:text="@string/dialog_sender_selection_string_no_match"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ff0000" />
                 </RelativeLayout>
@@ -165,7 +166,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="?android:attr/selectableItemBackground"
-            android:text="got it"
+            android:text="@string/dialog_sender_selection_button_got_it"
             android:textColor="@color/my_accent" />
     </RelativeLayout>
 

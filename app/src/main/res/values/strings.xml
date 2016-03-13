@@ -187,6 +187,15 @@
     <string name="fb_like_button">Become a Facebook friend</string>
     <string name="sender_selection_help">Help for Sender Settings?</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_dialog_sender_selection">Help: Sender Selection</string>
+    <string name="dialog_sender_selection_example_number_1">Sender Number: +49151333333</string>
+    <string name="dialog_sender_selection_headline_match">Suitable Configurations:</string>
+    <string name="dialog_sender_selection_numbers_match" translatable="false">+49151333333\n+49151*\n+49*</string>
+    <string name="dialog_sender_selection_headline_no_match">Unsuitable Configurations:</string>
+    <string name="dialog_sender_selection_numbers_no_match" translatable="false">0151333333\n+49152*\n+00*</string>
+    <string name="dialog_sender_selection_example_number_2">Sender Number: AlarmSMS</string>
+    <string name="dialog_sender_selection_string_match" translatable="false">AlarmSMS\nalamsms\nAlarm*\nalarm*\nA*</string>
+    <string name="dialog_sender_selection_string_no_match" translatable="false">AlarSMS\nAls*</string>
+    <string name="dialog_sender_selection_button_got_it">Got It</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantic Sender Selection\n\n- New Help for Sender Selection\n\n- Internal Changes</string>
 </resources>

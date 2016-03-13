@@ -81,7 +81,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 		layoutView = findViewById(R.id.activity_sender_selection);
 
 		final Snackbar snackbar = Snackbar
-				.make(layoutView, R.string.sender_selection_help, Snackbar.LENGTH_INDEFINITE);
+				.make(layoutView, R.string.sender_selection_help, Snackbar.LENGTH_LONG);
 		snackbar.setAction(R.string.help, new OnClickListener() {
 			@Override
 			public void onClick(View view) {
