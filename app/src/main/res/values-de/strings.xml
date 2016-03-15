@@ -199,4 +199,6 @@
     <string name="dialog_sender_selection_button_got_it">Verstanden</string>
     <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantische Absenderauswahl\n\n- Neue Hilfe für Absenderauswahl\n\n- Interne Änderungen</string>
     <string name="activity_rule_selection_whats_new_text_for_version_15">- Bugfix Absturz beim starten</string>
+    <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Regel: %1$s gewählt!"</string>
+    <string name="activity_rule_selection_snackbar_button">Jetzt Auswählen</string>
 </resources>

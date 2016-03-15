@@ -12,9 +12,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -36,7 +36,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -77,7 +76,7 @@ public class RuleSelection extends AppCompatActivity {
 
 	private ListAdapter listAdapter;
 
-    private FloatingActionButton fab;
+    private FloatingActionButton floatingActionButton;
 
     private View layoutView;
     /**
@@ -124,7 +123,7 @@ public class RuleSelection extends AppCompatActivity {
 
         sortRuleList();
 
-//        checkAlarmSounds();
+        checkAlarmSounds();
 
     }
 
@@ -143,8 +142,8 @@ public class RuleSelection extends AppCompatActivity {
         for(final Rule rule : ruleList ){
             if(rule.getAlarmSound() == null){
                 Snackbar snackbar = Snackbar
-                        .make(layoutView, "Kein Alarmton für Regel: \"" + rule.getRuleName() + "\" gewählt!", Snackbar.LENGTH_INDEFINITE);
-                snackbar.setAction("Jetzt Auswählen", new OnClickListener() {
+                        .make(layoutView, getString(R.string.activity_rule_selection_snackbar_label, rule.getRuleName()), Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction(R.string.activity_rule_selection_snackbar_button, new OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -164,8 +163,8 @@ public class RuleSelection extends AppCompatActivity {
                 textView.setTextColor(Color.WHITE);
 
                 snackbar.show();
+                break;
             }
-            break;
         }
 
 
@@ -320,13 +319,12 @@ public class RuleSelection extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new OnClickListener() {
+        floatingActionButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RuleSelection.this, CreateNewRule.class));
             }
         });
-        fab.setColorNormal(ContextCompat.getColor(this, R.color.my_primary));
     }
 
     /**
@@ -340,8 +338,8 @@ public class RuleSelection extends AppCompatActivity {
 
         listView.setAdapter(listAdapter);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.attachToListView(listView);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+
     }
 
     /**
