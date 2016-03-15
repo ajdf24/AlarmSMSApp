@@ -16,7 +16,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -63,6 +62,7 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
+import rieger.alarmsmsapp.view.ruleactivitys.SoundSelection;
 
 /**
  * Activity, which shows all existing rules.
@@ -123,6 +123,50 @@ public class RuleSelection extends AppCompatActivity {
 		initializeActiveElements();
 
         sortRuleList();
+
+//        checkAlarmSounds();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    /**
+     * Checks all rules if a Sound is set.
+     * If a rule without sound is found the method show a Snackbar, which shows the information.
+     */
+    private void checkAlarmSounds() {
+
+        for(final Rule rule : ruleList ){
+            if(rule.getAlarmSound() == null){
+                Snackbar snackbar = Snackbar
+                        .make(layoutView, "Kein Alarmton für Regel: \"" + rule.getRuleName() + "\" gewählt!", Snackbar.LENGTH_INDEFINITE);
+                snackbar.setAction("Jetzt Auswählen", new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = new Intent();
+                        Bundle bundle = new Bundle();
+
+                        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE,
+                                rule);
+                        intent.putExtras(bundle);
+                        intent.setClass(RuleSelection.this, SoundSelection.class);
+                        startActivity(intent);
+                    }
+                });
+
+                View snackbarView = snackbar.getView();
+                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
+
+                snackbar.show();
+            }
+            break;
+        }
 
 
     }
