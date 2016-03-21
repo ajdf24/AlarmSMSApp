@@ -12,4 +12,5 @@
     <color name="my_icons">#FFFFFF</color>
     <color name="my_divider">#B6B6B6</color>
     <color name="background">#ffffff</color>
+    <color name="button_color">#66009688</color>
 </resources>

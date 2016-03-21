@@ -84,6 +84,9 @@ public class RuleSelection extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
 
     private View layoutView;
+
+    private AdView adView;
+
     /**
      * This method is like a constructor and
      * initialize all components of the activity.
@@ -136,6 +139,27 @@ public class RuleSelection extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // Resume the AdView.
+        if(adView != null)
+            adView.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Pause the AdView.
+        if(adView != null)
+            adView.pause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // Destroy the AdView.
+        if(adView != null)
+            adView.destroy();
     }
 
     /**
@@ -535,23 +559,41 @@ public class RuleSelection extends AppCompatActivity {
                     // Don’t instantiate new AdView, reuse old one
                     return convertView;
                 } else {
-                    // Create a new AdView
-                    AdView adView = new AdView(parent.getContext());
-                    adView.setAdSize(AdSize.BANNER);
-                    adView.setAdUnitId("ca-app-pub-5905277784747964/9606094931");
+                    try {
+                        // Create a new AdView
+                        adView = new AdView(parent.getContext());
+                        adView.setAdSize(AdSize.BANNER);
+                        adView.setAdUnitId("ca-app-pub-5905277784747964/9606094931");
 
-                    // Convert the default layout parameters so that they play nice with
-                    // ListView.
+                        // Convert the default layout parameters so that they play nice with
+                        // ListView.
 
-                    float density = parent.getResources().getDisplayMetrics().density;
-                    int height = Math.round(AdSize.BANNER.getHeight() * density);
-                    AbsListView.LayoutParams params = new AbsListView.LayoutParams(
-                            AbsListView.LayoutParams.FILL_PARENT,
-                            height);
-                    adView.setLayoutParams(params);
+                        float density = parent.getResources().getDisplayMetrics().density;
+                        int height = Math.round(AdSize.BANNER.getHeight() * density);
+                        AbsListView.LayoutParams params = new AbsListView.LayoutParams(
+                                AbsListView.LayoutParams.FILL_PARENT,
+                                height);
+                        adView.setLayoutParams(params);
 
-                    adView.loadAd(new AdRequest.Builder().build());
-                    return adView;
+                        adView.loadAd(new AdRequest.Builder().build());
+
+                        return adView;
+                    }catch (Exception e){
+
+                        //Workaround, sollte es bei der Darstellung der ad zu Fehlern irgendeiner Art kommen
+                        final ViewHolder viewHolder = new ViewHolder();
+
+                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
+
+                        viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
+                        viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
+                        viewHolder.ruleName.setVisibility(View.INVISIBLE);
+                        viewHolder.isRuleActivated.setVisibility(View.INVISIBLE);
+                        convertView.setOnClickListener(null);
+                        return convertView;
+
+                    }
                 }
             } else {
 

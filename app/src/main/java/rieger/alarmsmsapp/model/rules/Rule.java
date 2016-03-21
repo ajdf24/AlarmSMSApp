@@ -47,6 +47,8 @@ public abstract class Rule implements Serializable{
 
 	protected boolean activateLight = false;
 
+	protected boolean activateLightOnlyWhenDark = false;
+
 	protected int lightTime = 30000;
 
 	/**
@@ -425,5 +427,13 @@ public abstract class Rule implements Serializable{
 	 */
 	public void setLightTime(int lightTime) {
 		this.lightTime = lightTime;
+	}
+
+	public boolean isActivateLightOnlyWhenDark() {
+		return activateLightOnlyWhenDark;
+	}
+
+	public void setActivateLightOnlyWhenDark(boolean activateLightOnlyWhenDark) {
+		this.activateLightOnlyWhenDark = activateLightOnlyWhenDark;
 	}
 }

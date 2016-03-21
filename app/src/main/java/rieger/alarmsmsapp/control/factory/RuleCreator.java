@@ -128,7 +128,8 @@ public class RuleCreator {
 		rule.notifyObserver();
 	}
 
-	public static void changeLightSettings(Rule rule, boolean activateLight, int lightTime){
+	public static void changeLightSettings(Rule rule, boolean activateLight, int lightTime, boolean activateOnlyWhenDark){
+		rule.setActivateLightOnlyWhenDark(activateOnlyWhenDark);
 		rule.setActivateLight(activateLight);
 		rule.setLightTime(lightTime);
 		rule.notifyObserver();

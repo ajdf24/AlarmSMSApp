@@ -201,4 +201,5 @@
     <string name="activity_rule_selection_whats_new_text_for_version_15">- Bugfix Absturz beim starten</string>
     <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Regel: %1$s gewählt!"</string>
     <string name="activity_rule_selection_snackbar_button">Jetzt Auswählen</string>
+    <string name="activity_light_settings_set_light_on_when_dark_checkbox">Lampe nur einschalten wenn es dunkel ist</string>
 </resources>

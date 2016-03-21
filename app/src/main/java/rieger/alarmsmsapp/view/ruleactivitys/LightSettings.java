@@ -21,6 +21,8 @@ public class LightSettings extends AppCompatActivity {
 
     private SwitchCompat activateLightSwitch;
 
+    private SwitchCompat activateWhenDarkSwitch;
+
     private AppCompatSpinner timeSpinner;
 
     private Button buttonSave;
@@ -62,7 +64,7 @@ public class LightSettings extends AppCompatActivity {
                         break;
                 }
 
-                RuleCreator.changeLightSettings(rule, activateLightSwitch.isChecked(), lightTime);
+                RuleCreator.changeLightSettings(rule, activateLightSwitch.isChecked(), lightTime, activateWhenDarkSwitch.isChecked());
 
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
@@ -90,6 +92,8 @@ public class LightSettings extends AppCompatActivity {
 
     private void getRuleSettingsForGUI() {
         activateLightSwitch.setChecked(rule.isActivateLight());
+        activateWhenDarkSwitch.setChecked(rule.isActivateLightOnlyWhenDark());
+
         switch (rule.getLightTime()){
             case 30000:
                 timeSpinner.setSelection(0);
@@ -108,6 +112,7 @@ public class LightSettings extends AppCompatActivity {
 
     private void initializeGUI(){
         activateLightSwitch = (SwitchCompat) findViewById(R.id.activit_set_light_on_checkbox);
+        activateWhenDarkSwitch = (SwitchCompat) findViewById(R.id.activit_set_light_on_when_dark_checkbox);
         timeSpinner = (AppCompatSpinner) findViewById(R.id.activity_light_settings_spinner_for_time);
         buttonSave = (Button) findViewById(R.id.activity_light_settings_button_save);
         buttonQuit = (Button) findViewById(R.id.activity_light_settings_button_quit);

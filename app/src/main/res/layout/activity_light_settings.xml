@@ -29,6 +29,16 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/activit_set_light_on_when_dark_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_light_settings_set_light_on_when_dark_checkbox"
+        android:layout_below="@+id/activit_set_light_on_checkbox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/activity_light_settings_spinner_for_time"
         android:layout_width="wrap_content"
@@ -36,8 +46,8 @@
         android:entries="@array/time_array"
         android:prompt="@string/activity_answer_creation_spinner_for_answer_distance_prompt"
         android:layout_below="@+id/activity_light_settings_text_spinner"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/activity_light_settings_button_save"
+        android:layout_alignEnd="@+id/activity_light_settings_button_save" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,8 +72,8 @@
         android:layout_height="wrap_content"
         android:text="@string/activity_light_settings_text_sipnner"
         android:id="@+id/activity_light_settings_text_spinner"
-        android:layout_below="@+id/activit_set_light_on_checkbox"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/activit_set_light_on_when_dark_checkbox"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
