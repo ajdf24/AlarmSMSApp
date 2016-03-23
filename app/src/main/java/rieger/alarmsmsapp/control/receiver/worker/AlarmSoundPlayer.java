@@ -14,17 +14,24 @@ import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.Sound;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.util.standard.NotificationObserver;
 
 /**
  * This class contains methods for playing a alarm sound.
  * Created by sebastian on 14.03.15.
  */
-public class AlarmSoundPlayer {
+public class AlarmSoundPlayer{
+
+    private static MediaPlayer globalMediaPlayer;
+
+    private static AlarmSoundPlayer instance;
 
     /**
      * This method plays the alarm sound from the rule.
      */
     public static void playAlarmSound(final AlarmSettingsModel alarmSettings, List<Rule> matchingRules) {
+
+        instance = new AlarmSoundPlayer();
 
         boolean isPhoneSilent = false;
 
@@ -60,6 +67,8 @@ public class AlarmSoundPlayer {
                         mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), Uri.parse(selectedSound.getIdForSound()));
                         mediaPlayer.setLooping(false);
                     }
+                    globalMediaPlayer = mediaPlayer;
+
                     mediaPlayer.start();
                     mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         int currentCount = 0;
@@ -92,6 +101,17 @@ public class AlarmSoundPlayer {
                 }
             }
         }
+    }
 
+    private AlarmSoundPlayer() {
+
+    }
+
+    public static AlarmSoundPlayer getInstance() {
+        return instance;
+    }
+
+    public static MediaPlayer getGlobalMediaPlayer() {
+        return globalMediaPlayer;
     }
 }

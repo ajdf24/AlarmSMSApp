@@ -165,9 +165,9 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
         AlarmSoundPlayer.playAlarmSound(alarmSettings, matchingRules);
 
         if (alarmSettings.isVibrationActivated()){
-            NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, new long[] {1000, 1000, 1000, 1000, 1000, 1000});
+            NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, new long[] {1000, 1000, 1000, 1000, 1000, 1000}, null);
         }else{
-            NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, null);
+            NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, null, null);
         }
 
         AnswerSender.sendAnswerAsSMS(matchingRules, departmentSettings);
@@ -281,7 +281,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         for(Rule rule : smsRules){
             if (rule.isActive()){
-                if(rule.getSender() == null){
+                if(rule.getSender() == null || messageSource == null){
                     continue;
                 }
                 if (messageSource.equals(rule.getSender())){
