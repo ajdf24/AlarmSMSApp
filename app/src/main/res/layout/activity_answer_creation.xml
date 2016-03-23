@@ -8,7 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="rieger.alarmsmsapp.view.ruleactivitys.AnswerCreation">
+    tools:context="rieger.alarmsmsapp.view.ruleactivitys.AnswerCreation"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -17,7 +19,9 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:id="@+id/activity_answer_creation_textView_answer_activity_description"
@@ -74,7 +78,6 @@
                 android:hint="@string/activity_answer_creation_editText_for_message_hint"
                 android:inputType="textMultiLine">
 
-                <requestFocus />
             </EditText>
 
             <TextView

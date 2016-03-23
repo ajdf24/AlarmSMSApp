@@ -24,7 +24,7 @@ public class AlarmSoundPlayer {
     /**
      * This method plays the alarm sound from the rule.
      */
-    public static void playAlarmSound(AlarmSettingsModel alarmSettings, List<Rule> matchingRules) {
+    public static void playAlarmSound(final AlarmSettingsModel alarmSettings, List<Rule> matchingRules) {
 
         boolean isPhoneSilent = false;
 
@@ -60,15 +60,25 @@ public class AlarmSoundPlayer {
                         mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), Uri.parse(selectedSound.getIdForSound()));
                         mediaPlayer.setLooping(false);
                     }
-
-
                     mediaPlayer.start();
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        int currentCount = 0;
+
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            if (currentCount < (alarmSettings.getRepeatAlarm() - 1)) {
+                                currentCount++;
+                                mediaPlayer.seekTo(0);
+                                mediaPlayer.start();
+                            }
+                        }
+                    });
 
                     Thread thread = new Thread() {
                         @Override
                         public void run() {
                             long currentTime = System.currentTimeMillis();
-                            while (currentTime + mediaPlayer.getDuration() > System.currentTimeMillis()) {
+                            while (currentTime + mediaPlayer.getDuration() * alarmSettings.getRepeatAlarm() > System.currentTimeMillis()) {
 
                             }
                             mediaPlayer.stop();

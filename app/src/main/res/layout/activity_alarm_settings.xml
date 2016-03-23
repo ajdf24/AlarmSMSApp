@@ -8,7 +8,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
     tools:context="rieger.alarmsmsapp.view.AlarmSettings"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -92,27 +94,54 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/activity_alarm_settings_switch_mute_alarm_activated" />
 
+            <EditText
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:id="@+id/activity_alarm_settings_repeat_alarm"
+                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:hint="1"
+                android:digits="0123456789"
+                android:gravity="center"
+                />
+
             <Button
                 android:id="@+id/activity_alarm_settings_button_save_alarm_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
+                android:text="@string/general_string_button_save"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/button_color"
-                android:text="@string/general_string_button_save" />
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/activity_alarm_settings_repeat_alarm"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/general_string_button_quit"
                 android:id="@+id/activity_alarm_settings_button_quit_alarm_settings"
-                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
+                android:layout_alignTop="@+id/activity_alarm_settings_button_save_alarm_settings"
                 android:layout_alignParentLeft="true"
-                android:textColor="@color/button_color"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/activty_alarm_settings_repeat_text"
+                android:id="@+id/activty_alarm_settings_repeat_help_text"
+                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+
 
 </RelativeLayout>

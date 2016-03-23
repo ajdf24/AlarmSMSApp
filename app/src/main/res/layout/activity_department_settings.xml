@@ -7,7 +7,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/background"
-    tools:context="rieger.alarmsmsapp.view.DepartmentSettings">
+    tools:context="rieger.alarmsmsapp.view.DepartmentSettings"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="fill_parent"

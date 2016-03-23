@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -47,6 +48,8 @@ public class AlarmSettings extends AppCompatActivity {
 
     private Button quit;
 
+    private EditText repeatAlarm;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +73,7 @@ public class AlarmSettings extends AppCompatActivity {
         alarmWithNotificationLight = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_notification_light_activated);
         notificationLightColor = (AppCompatSpinner) findViewById(R.id.activity_alarm_settings_spinner_for_notification_light_color);
         alarmWhenMute = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_mute_alarm_activated);
+        repeatAlarm = (EditText) findViewById(R.id.activity_alarm_settings_repeat_alarm);
         save = (Button) findViewById(R.id.activity_alarm_settings_button_save_alarm_settings);
         quit = (Button) findViewById(R.id.activity_alarm_settings_button_quit_alarm_settings);
     }
@@ -121,6 +125,7 @@ public class AlarmSettings extends AppCompatActivity {
                 break;
         }
         alarmWhenMute.setChecked(alarmSettingsModel.isMuteAlarmActivated());
+        repeatAlarm.setText("" + alarmSettingsModel.getRepeatAlarm());
     }
 
     /**
@@ -202,6 +207,9 @@ public class AlarmSettings extends AppCompatActivity {
         save.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                alarmSettingsModel.setRepeatAlarm(Integer.parseInt(repeatAlarm.getText().toString()));
+
                 alarmSettingsModel.notifyObserver();
 
                 AlarmWidget.updateWidget();

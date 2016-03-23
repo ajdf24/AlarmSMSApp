@@ -21,6 +21,8 @@ public class AlarmSettingsModel {
 
     private boolean isMuteAlarmActivated = true;
 
+    private int repeatAlarm = 1;
+
     /**
      *
      * @return the actual state
@@ -117,9 +119,17 @@ public class AlarmSettingsModel {
         this.isMuteAlarmActivated = isMuteAlarmActivated;
     }
 
+    public int getRepeatAlarm() {
+        return repeatAlarm;
+    }
+
+    public void setRepeatAlarm(int repeatAlarm) {
+        this.repeatAlarm = repeatAlarm;
+    }
+
     /* (non-Javadoc)
-	 * @see java.lang.Object#equals()
-	 */
+         * @see java.lang.Object#equals()
+         */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,9 +142,8 @@ public class AlarmSettingsModel {
         if (isMuteAlarmActivated != that.isMuteAlarmActivated) return false;
         if (isNotificationLightActivated != that.isNotificationLightActivated) return false;
         if (isVibrationActivated != that.isVibrationActivated) return false;
-        if (notificationLightColor != that.notificationLightColor) return false;
+        return notificationLightColor == that.notificationLightColor;
 
-        return true;
     }
 
     /* (non-Javadoc)

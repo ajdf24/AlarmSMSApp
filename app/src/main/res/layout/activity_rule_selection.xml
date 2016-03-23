@@ -6,7 +6,9 @@
     android:fitsSystemWindows="true"
     android:background="@color/background"
     tools:context="rieger.alarmsmsapp.view.RuleSelection"
-    android:id="@+id/activity_rule_selection">
+    android:id="@+id/activity_rule_selection"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <ListView
         android:id="@+id/activity_rule_selection_listView"
