@@ -99,6 +99,7 @@ public class NotificationCreator {
      * @param timeLightOn the time in ms which the light is on
      * @param timeLightOff the time in ms which the light is off
      * @param vibrate array with the vibration interval
+     * @param observer the Observer which is called
      */
     public static void createFreeNotification(int icon, int contentTitle, String contentText, int lightColor, int timeLightOn, int timeLightOff, long[] vibrate, NotificationObserver observer) {
         NotificationManager notificationManager = (NotificationManager) CreateContextForResource.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -133,6 +134,7 @@ public class NotificationCreator {
      * @param timeLightOn the time in ms which the light is on
      * @param timeLightOff the time in ms which the light is off
      * @param vibrate array with the vibration interval
+     * @param observer the Observer which is called
      */
     public static void createFreeNotification(int icon, String contentTitle, int contentText, int lightColor, int timeLightOn, int timeLightOff, long[] vibrate, NotificationObserver observer) {
         NotificationManager notificationManager = (NotificationManager) CreateContextForResource.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
