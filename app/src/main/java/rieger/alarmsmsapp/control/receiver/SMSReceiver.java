@@ -15,12 +15,18 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
+import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.control.receiver.worker.AlarmSoundPlayer;
 import rieger.alarmsmsapp.control.receiver.worker.AnswerSender;
@@ -29,6 +35,7 @@ import rieger.alarmsmsapp.control.receiver.worker.MatchWordChecker;
 import rieger.alarmsmsapp.control.receiver.worker.MessageReader;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
+import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -111,7 +118,28 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             }
         }
 
+        saveMessage(messageSource, messageBody);
 	}
+
+    private void saveMessage(String messageSource, String messageBody) {
+        DateFormat day = new SimpleDateFormat("dd");
+        DateFormat month = new SimpleDateFormat("MM");
+        DateFormat year = new SimpleDateFormat("yyyy");
+        Calendar cal = Calendar.getInstance();
+        Date currentDate = cal.getTime();
+
+        Message message = new Message();
+        message.setSender(messageSource);
+        message.setMessage(messageBody);
+        message.setTimeStamp(System.currentTimeMillis());
+        message.setDay(Integer.parseInt(day.format(currentDate)));
+        message.setMonth(Integer.parseInt(month.format(currentDate)));
+        message.setYear(Integer.parseInt(year.format(currentDate)));
+        message.setDayName(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(currentDate));
+        message.setMatchingRuleName(matchingRules.get(0).getRuleName());
+
+        MessageObserver.saveMessageToFileSystem(message);
+    }
 
     /**
      * This method starts the settings of a rule.
@@ -360,8 +388,6 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
             startLight(matchingRules);
 
-            Log.i("Sensor Changed", "onSensor Change :" + event.values[0]);
-
             mSensorManager.unregisterListener(this);
         }
     }
@@ -369,7 +395,6 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         if(sensor.getType() == Sensor.TYPE_LIGHT){
-            Log.i("Sensor Changed", "Accuracy :" + accuracy);
         }
     }
 }

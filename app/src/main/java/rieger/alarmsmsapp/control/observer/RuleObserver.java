@@ -64,7 +64,6 @@ public class RuleObserver {
 			}
 		}
 
-
 	}
 
     public static void saveSMSRuleToFileSystem(String rule){

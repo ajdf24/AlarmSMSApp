@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,10 +35,12 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.facebook.share.widget.LikeView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -132,6 +135,13 @@ public class RuleSelection extends AppCompatActivity {
         sortRuleList();
 
         checkAlarmSounds();
+
+//        // Get LikeView button
+//        LikeView likeView = (LikeView) findViewById(R.id.like_view);
+//        // Set the object for which you want to get likes from your users (Photo, Link or even your FB Fan page)
+//        likeView.setObjectIdAndType("https://www.facebook.com/AndroidProgrammerGuru", null);
+//        // Set foreground color fpr Like count text
+//        likeView.setForegroundColor(-256);
 
     }
 
@@ -634,6 +644,8 @@ public class RuleSelection extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
+                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
+                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
                     viewHolder.ruleName.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
                         @Override

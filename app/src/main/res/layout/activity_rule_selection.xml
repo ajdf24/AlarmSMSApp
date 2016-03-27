@@ -31,5 +31,12 @@
         android:layout_marginRight="20dp"
         app:backgroundTint="@color/my_primary"/>
 
+    <!--<com.facebook.widget.LikeView-->
+        <!--android:id="@+id/like_view"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="30dp" />-->
+
 
 </android.support.design.widget.CoordinatorLayout>

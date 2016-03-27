@@ -3,8 +3,10 @@ package rieger.alarmsmsapp.util.standard;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import rieger.alarmsmsapp.control.receiver.worker.AlarmSoundPlayer;
+import rieger.alarmsmsapp.util.AppConstants;
 
 /**
  * Created by sebastian on 23.03.16.
@@ -29,8 +31,11 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        AlarmSoundPlayer player = AlarmSoundPlayer.getInstance();
-        AlarmSoundPlayer.getGlobalMediaPlayer().stop();
+        try {
+            AlarmSoundPlayer.getGlobalMediaPlayer().stop();
+        }catch (NullPointerException e){
+            Log.w(AppConstants.DEBUG_TAG,"No mediaplayer Instance found");
+        }
     }
 
 }

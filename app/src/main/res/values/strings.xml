@@ -3,6 +3,7 @@
 
     <!-- Strings for The App -->
     <string name="app_name">AlarmSMS</string>
+    <string name="app_id">202194890160906</string>
 
     <!-- General Strings -->
     <string name="general_string_button_quit">Quit</string>
@@ -203,4 +204,6 @@
     <string name="activity_rule_selection_snackbar_button">Choose Now</string>
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Use only when it is dark</string>
     <string name="activty_alarm_settings_repeat_text">Repeat Alarm Sound</string>
+    <string name="title_activity_alarm_chart">AlarmChart</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -87,6 +87,11 @@ public interface AppConstants {
          * The directory in which are the EMailRules are saved.
          */
         String DIRECTORY_NAME_MAIL_RULES = "EMAILRules";
+
+        /**
+         * The directory in which are the messages are saved.
+         */
+        String DIRECTORY_NAME_MESSAGES = "Messages";
     }
 
     /**

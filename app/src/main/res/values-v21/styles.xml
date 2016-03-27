@@ -20,4 +20,8 @@
     <style name="AppTheme" parent="AppBaseTheme">
     </style>
 
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@android:color/white</item>
+    </style>
+
 </resources>
