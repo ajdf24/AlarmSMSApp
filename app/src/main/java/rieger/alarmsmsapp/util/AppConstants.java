@@ -16,7 +16,8 @@ public interface AppConstants {
     String BUNDLE_CONTEXT_RULE = "Rule";
 	String BUNDLE_CONTEXT_NUMBER = "Number";
 	String BUNDLE_CONTEXT_MESSAGE = "Message";
-	String BUNDLE_CONTEXT_Notification_Observer = "Notification Observer";
+	String BUNDLE_CONTEXT_NOTIFICATION_OBSERVER = "Notification Observer";
+    String BUNDLE_CONTEXT_SERIALIZED_MESSAGE = "Serialized Message";
 
     /**
      * A {@link String} which contains a tag for all messages which created with the class {@link android.util.Log}

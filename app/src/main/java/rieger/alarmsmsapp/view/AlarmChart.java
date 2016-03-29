@@ -1,6 +1,7 @@
-package rieger.alarmsmsapp;
+package rieger.alarmsmsapp.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -33,9 +34,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class AlarmChart extends AppCompatActivity {
 
@@ -46,6 +49,8 @@ public class AlarmChart extends AppCompatActivity {
     private BarChart chart;
 
     private View layoutView;
+
+    List<Message> messageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +77,7 @@ public class AlarmChart extends AppCompatActivity {
             adView.loadAd(adRequest);
         }
 
-        List<Message> messageList = MessageObserver.readAllMessagesFromFileSystem();
+        messageList = MessageObserver.readAllMessagesFromFileSystem();
 
         LoadStatisticTask task = new LoadStatisticTask();
         task.execute(messageList);
@@ -184,30 +189,30 @@ public class AlarmChart extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             saveChart.setEnabled(true);
 
-            BarDataSet dataset = new BarDataSet(result, "");
+            BarDataSet dataSet = new BarDataSet(result, "");
 
             ArrayList<String> labels = new ArrayList<String>();
-            labels.add("January");
-            labels.add("February");
-            labels.add("March");
-            labels.add("April");
-            labels.add("May");
-            labels.add("June");
-            labels.add("July");
-            labels.add("August");
-            labels.add("September");
-            labels.add("October");
-            labels.add("November");
-            labels.add("December");
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_january));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_february));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_march));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_april));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_may));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_june));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_july));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_august));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_september));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_october));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_november));
+            labels.add(CreateContextForResource.getStringFromID(R.string.general_string_december));
 
             chart.setVisibility(View.VISIBLE);
 
-            BarData data = new BarData(labels, dataset);
+            BarData data = new BarData(labels, dataSet);
             chart.setData(data);
 
-            chart.setDescription("# Alarms");
+            chart.setDescription(CreateContextForResource.getStringFromID(R.string.activity_alarm_chart_chart_description));
 
-            dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
             chart.animateY(1000);
 
@@ -215,6 +220,19 @@ public class AlarmChart extends AppCompatActivity {
 
                 @Override
                 public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
+                    int currentMessageNumber = 0;
+                    for(Message message : messageList){
+                        if(message.getMonth() == e.getXIndex()){
+                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_SERIALIZED_MESSAGE + currentMessageNumber, message );
+                            currentMessageNumber++;
+                        }
+                    }
+
+                    intent.putExtras(bundle);
+                    intent.setClass(AlarmChart.this, ListMessages.class);
+                    startActivity(intent);
                     Log.d("Chart", "Entry: " + e.getXIndex());
 
                 }

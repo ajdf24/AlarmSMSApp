@@ -103,7 +103,7 @@
             android:name=".view.ruleactivitys.LightSettings"
             android:label="@string/title_activity_light_settings" />
         <activity
-            android:name=".AlarmChart"
+            android:name=".view.AlarmChart"
             android:label="@string/title_activity_alarm_chart" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

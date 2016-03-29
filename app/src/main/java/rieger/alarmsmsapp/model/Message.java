@@ -2,13 +2,15 @@ package rieger.alarmsmsapp.model;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * This class represents a message, which was received by the app.
  * The saved Message can be used for statistical things and other.
  *
  * Created by Sebastian on 27.03.2016.
  */
-public class Message {
+public class Message implements Serializable{
 
     /**
      * the sender of the message

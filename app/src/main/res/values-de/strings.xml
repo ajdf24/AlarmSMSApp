@@ -203,4 +203,20 @@
     <string name="activity_rule_selection_snackbar_button">Jetzt Auswählen</string>
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Lampe nur einschalten wenn es dunkel ist</string>
     <string name="activty_alarm_settings_repeat_text">Alarmton wiederholen</string>
+    <string name="title_activity_alarm_chart">Alarm Statistik</string>
+    <string name="title_activity_list_messages">Nachrichten Liste</string>
+    <string name="general_string_january">Januar</string>
+    <string name="general_string_february">Februar</string>
+    <string name="general_string_march">März</string>
+    <string name="general_string_april">April</string>
+    <string name="general_string_may">Mai</string>
+    <string name="general_string_june">Juni</string>
+    <string name="general_string_july">Juli</string>
+    <string name="general_string_august">August</string>
+    <string name="general_string_september">September</string>
+    <string name="general_string_october">Oktober</string>
+    <string name="general_string_november">November</string>
+    <string name="general_string_december">Dezember</string>
+    <string name="activity_alarm_chart_chart_description"># Alarme</string>
+    <string name="general_string_date_format">dd.MM.yyyy HH:mm:ss</string>
 </resources>

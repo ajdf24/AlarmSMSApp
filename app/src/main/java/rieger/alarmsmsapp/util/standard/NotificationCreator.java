@@ -70,7 +70,7 @@ public class NotificationCreator {
         Intent intent = new Intent(CreateContextForResource.getContext(), NotificationBroadcastReceiver.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_Notification_Observer, observer);
+        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_NOTIFICATION_OBSERVER, observer);
         intent.putExtras(bundle);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(CreateContextForResource.getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -107,7 +107,7 @@ public class NotificationCreator {
         Intent intent = new Intent(CreateContextForResource.getContext(), NotificationBroadcastReceiver.class);
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_Notification_Observer, observer);
+        bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_NOTIFICATION_OBSERVER, observer);
         intent.putExtras(bundle);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(CreateContextForResource.getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

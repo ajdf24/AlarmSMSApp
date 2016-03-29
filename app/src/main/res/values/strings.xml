@@ -3,7 +3,7 @@
 
     <!-- Strings for The App -->
     <string name="app_name">AlarmSMS</string>
-    <string name="app_id">202194890160906</string>
+    <string name="app_id" translatable="false">202194890160906</string>
 
     <!-- General Strings -->
     <string name="general_string_button_quit">Quit</string>
@@ -204,7 +204,21 @@
     <string name="activity_rule_selection_snackbar_button">Choose Now</string>
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Use only when it is dark</string>
     <string name="activty_alarm_settings_repeat_text">Repeat Alarm Sound</string>
-    <string name="title_activity_alarm_chart">AlarmChart</string>
+    <string name="title_activity_alarm_chart">Alarm Chart</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_list_messages">ListMessages</string>
+    <string name="general_string_january">January</string>
+    <string name="general_string_february">February</string>
+    <string name="general_string_march">March</string>
+    <string name="general_string_april">April</string>
+    <string name="general_string_may">May</string>
+    <string name="general_string_june">June</string>
+    <string name="general_string_july">July</string>
+    <string name="general_string_august">August</string>
+    <string name="general_string_september">September</string>
+    <string name="general_string_october">October</string>
+    <string name="general_string_november">November</string>
+    <string name="general_string_december">December</string>
+    <string name="activity_alarm_chart_chart_description"># Alarms</string>
+    <string name="general_string_date_format">MM/dd/yyyy HH:mm:ss</string>
 </resources>

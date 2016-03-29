@@ -116,6 +116,7 @@ public class RuleSelection extends AppCompatActivity {
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
 //                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
 //        }
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS},
                     AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
