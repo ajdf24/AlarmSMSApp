@@ -1,7 +1,10 @@
 package rieger.alarmsmsapp.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -107,7 +110,15 @@ public class ListMessages extends AppCompatActivity {
                                     R.string.general_string_date_format)).format(
                             messageList.get(position).getTimeStamp()));
 
-            String contactName = ContactsWorker.getContactName(ListMessages.this, messageList.get(position).getSender());
+            String contactName = null;
+
+            if (ActivityCompat.checkSelfPermission(ListMessages.this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ListMessages.this, new String[]{Manifest.permission.READ_CONTACTS},
+                        AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS);
+            }else{
+                contactName = ContactsWorker.getContactName(ListMessages.this, messageList.get(position).getSender());
+            }
+
             if(contactName != null){
                 viewHolder.messageSender.setText(contactName);
             }else {

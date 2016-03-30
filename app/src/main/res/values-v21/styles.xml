@@ -1,6 +1,5 @@
 <resources>
-
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.DayNight">
 
         <item name="colorPrimary">@color/my_primary</item>
 
@@ -14,14 +13,15 @@
 
         <item name="android:textColor">@color/textcolor</item>
 
+        <!--<item name="android:popupBackground">@android:color/holo_green_dark</item>-->
 
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
     </style>
 
-    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
-        <item name="android:popupBackground">@android:color/white</item>
-    </style>
+    <!--<style name="PopupMenu" parent="@android:style/Widget.PopupMenu">-->
+        <!--<item name="android:popupBackground">@android:color/holo_green_dark</item>-->
+    <!--</style>-->
 
 </resources>

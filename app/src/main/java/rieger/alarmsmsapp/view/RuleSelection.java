@@ -645,14 +645,13 @@ public class RuleSelection extends AppCompatActivity {
                             startActivity(intent);
                         }
                     });
-                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
-                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
+//                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
+//                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
                     viewHolder.ruleName.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
                         @Override
                         public void onCreateContextMenu(ContextMenu menu, View view,
                                                         ContextMenuInfo menuInfo) {
-
                             menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
                             menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
                             menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <!--<style name="AppBaseTheme" parent="Theme.AppCompat.DayNight">-->
 
         <!--<item name="colorPrimary">@color/my_primary</item>-->
 
@@ -8,12 +8,17 @@
 
         <!--<item name="colorAccent">@color/my_accent</item>-->
 
+        <!--<item name="android:popupBackground">@android:color/black</item>-->
 
-    </style>
+    <!--</style>-->
 
-    <style name="AppTheme" parent="AppBaseTheme">
+    <!--<style name="AppTheme" parent="AppBaseTheme">-->
 
 
-    </style>
+    <!--</style>-->
+
+    <!--<style name="PopupMenu" parent="@android:style/Widget.PopupMenu">-->
+        <!--<item name="android:popupBackground">@android:color/black</item>-->
+    <!--</style>-->
     
 </resources>
