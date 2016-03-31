@@ -48,6 +48,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class SenderSelection extends AppCompatActivity implements SenderSelectionDialog.OnFragmentInteractionListener{
 
+	private static final String LOG_TAG = SenderSelection.class.getSimpleName();
+
 	private Rule rule;
 
 	@Bind(R.id.activity_sender_selection_editText_for_sender_information)
@@ -253,7 +255,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			String mailAddress = null;
 			try {
 				Uri contactData = data.getData();
-				Log.v(AppConstants.DEBUG_TAG, "Got a contact result: " + contactData.toString());
+				Log.v(LOG_TAG, "Got a contact result: " + contactData.toString());
 				Cursor contactCursor = getContentResolver().query(contactData,
 						new String[] { ContactsContract.Contacts._ID }, null,
 						null, null);
@@ -275,7 +277,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 				}
 			} catch (Exception e) {
-				Log.e(AppConstants.DEBUG_TAG, "Failed to get email data", e);
+				Log.e(LOG_TAG, "Failed to get email data", e);
 			} finally {
 				sender.setText(mailAddress);
 				if (mailCursor != null) {
@@ -288,7 +290,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			}
 
 		} else {
-			Log.w(AppConstants.DEBUG_TAG, "Warning: activity result not ok");
+			Log.w(LOG_TAG, "Warning: activity result not ok");
 		}
 	}
 
@@ -304,7 +306,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			String phoneNumber = null;
 			try {
 				Uri contactData = data.getData();
-				Log.v(AppConstants.DEBUG_TAG, "Got a contact result: " + contactData.toString());
+				Log.v(LOG_TAG, "Got a contact result: " + contactData.toString());
 
 				Cursor contactCursor = getContentResolver().query(contactData,
 						new String[] { ContactsContract.Contacts._ID }, null,
@@ -333,14 +335,14 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 								PhoneNumberFormat.E164);
 
 					} catch (NumberParseException e) {
-						Log.e(AppConstants.DEBUG_TAG, "Can't parse number!");
+						Log.e(LOG_TAG, "Can't parse number!");
 					}
 
 				}
 				phoneCursor.close();
 
 			} catch (Exception e) {
-				Log.e(AppConstants.DEBUG_TAG, "Failed to get phone data", e);
+				Log.e(LOG_TAG, "Failed to get phone data", e);
 			} finally {
 				sender.setText(phoneNumber);
 				if (phoneCursor != null) {
@@ -351,7 +353,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 				}
 			}
 		} else {
-			Log.w(AppConstants.DEBUG_TAG, "Warning: activity result not ok");
+			Log.w(LOG_TAG, "Warning: activity result not ok");
 		}
 	}
 

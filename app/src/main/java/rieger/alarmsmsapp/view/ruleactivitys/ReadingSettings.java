@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -21,15 +23,21 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class ReadingSettings extends AppCompatActivity {
 
+	private static final String LOG_TAG = ReadingSettings.class.getSimpleName();
+
 	private Rule rule;
 
-	private CheckBox readThisMessage;
+	@Bind(R.id.activity_reading_settings_checkBox_read_this_message)
+	CheckBox readThisMessage;
 
-	private CheckBox readOtherMessages;
+	@Bind(R.id.activity_reading_settings_checkBox_read_other_messages)
+	CheckBox readOtherMessages;
 
-	private Button save;
+	@Bind(R.id.activity_reading_settings_button_save_read_settings)
+	Button save;
 
-	private Button quit;
+	@Bind(R.id.activity_reading_settings_button_quit)
+	Button quit;
 
     /**
      * This method is like a constructor and
@@ -65,10 +73,7 @@ public class ReadingSettings extends AppCompatActivity {
 	private void initializeGUI() {
 		setContentView(R.layout.activity_reading_settings);
 
-		readThisMessage = (CheckBox) findViewById(R.id.activity_reading_settings_checkBox_read_this_message);
-		readOtherMessages = (CheckBox) findViewById(R.id.activity_reading_settings_checkBox_read_other_messages);
-		save = (Button) findViewById(R.id.activity_reading_settings_button_save_read_settings);
-		quit = (Button) findViewById(R.id.activity_reading_settings_button_quit);
+		ButterKnife.bind(this);
 
 	}
 

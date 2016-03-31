@@ -31,6 +31,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class ListMessages extends AppCompatActivity {
 
+    private static final String LOG_TAG = ListMessages.class.getSimpleName();
+
     List<Message> messageList = new ArrayList<Message>();
 
     @Bind(R.id.activity_list_messages_list_view)

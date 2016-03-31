@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -26,21 +28,29 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class TwitterPostSelection extends AppCompatActivity {
 
+	private static final String LOG_TAG = TwitterPostSelection.class.getSimpleName();
+
     private static final int maximalCharacters = AppConstants.MAXIMAL_TWITTER_LENGTH;
 
     private int remainingCharacters = maximalCharacters;
 
 	private Rule rule;
 
-	private TextView post;
+    @Bind(R.id.activity_facebook_post_selection_editText_message_for_facebook)
+	TextView post;
 
-    private TextView characterCounter;
+    @Bind(R.id.activity_facebook_post_selection_textView_character_counter)
+    TextView characterCounter;
 
-	private CheckBox addMessage;
+    @Bind(R.id.activity_facebook_post_selection_checkBox_add_message_text)
+	CheckBox addMessage;
 
-	private Button save;
+    @Bind(R.id.activity_facebook_post_selection_button_save_facebook_post)
+	Button save;
 
-	private Button quit;
+    @Bind(R.id.activity_facebook_post_selection_button_quit)
+	Button quit;
+
 
     /**
      * This method is like a constructor and
@@ -75,11 +85,7 @@ public class TwitterPostSelection extends AppCompatActivity {
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
-		post = (TextView) findViewById(R.id.activity_facebook_post_selection_editText_message_for_facebook);
-        characterCounter = (TextView) findViewById(R.id.activity_facebook_post_selection_textView_character_counter);
-		addMessage = (CheckBox) findViewById(R.id.activity_facebook_post_selection_checkBox_add_message_text);
-		save = (Button) findViewById(R.id.activity_facebook_post_selection_button_save_facebook_post);
-		quit = (Button) findViewById(R.id.activity_facebook_post_selection_button_quit);
+        ButterKnife.bind(this);
 
         characterCounter.setText(StringCreator.getCharacterCounterString(maximalCharacters,remainingCharacters));
 	}

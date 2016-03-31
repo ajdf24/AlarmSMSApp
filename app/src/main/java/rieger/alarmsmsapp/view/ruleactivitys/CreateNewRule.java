@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.RuleType;
@@ -24,13 +26,19 @@ import rieger.alarmsmsapp.view.RuleSelection;
  */
 public class CreateNewRule extends AppCompatActivity {
 
-	private TextView rulename;
+	private static final String LOG_TAG = CreateNewRule.class.getSimpleName();
 
-	private RadioGroup ruleType;
+	@Bind(R.id.activity_create_new_rule_editText_rule_name)
+	TextView rulename;
 
-	private Button quit;
+	@Bind(R.id.activity_create_new_rule_radioGroup_content_chooser)
+	RadioGroup ruleType;
 
-	private Button save;
+	@Bind(R.id.activity_create_new_rule_button_quit_rule_name)
+	Button quit;
+
+	@Bind(R.id.activity_create_new_rule_button_save_rule_name)
+	Button save;
 
 	private Rule rule;
 
@@ -55,10 +63,8 @@ public class CreateNewRule extends AppCompatActivity {
 	private void initializeGUI(){
 		setContentView(R.layout.activity_create_new_rule);
 
-		rulename = (TextView) findViewById(R.id.activity_create_new_rule_editText_rule_name);
-		ruleType = (RadioGroup) findViewById(R.id.activity_create_new_rule_radioGroup_content_chooser);
-		quit = (Button) findViewById(R.id.activity_create_new_rule_button_quit_rule_name);
-		save = (Button) findViewById(R.id.activity_create_new_rule_button_save_rule_name);
+		ButterKnife.bind(this);
+
 	}
 
     /**
@@ -77,7 +83,7 @@ public class CreateNewRule extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
-				Log.d(AppConstants.DEBUG_TAG, rulename.getText().toString());
+				Log.d(LOG_TAG, rulename.getText().toString());
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 

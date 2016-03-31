@@ -17,6 +17,8 @@ import rieger.alarmsmsapp.model.SettingsNotFoundException;
  */
 public class StartActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = StartActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

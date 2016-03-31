@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.model.Message;
@@ -42,13 +44,19 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class AlarmChart extends AppCompatActivity {
 
-    private AdView adView;
+    private static final String LOG_TAG = AlarmChart.class.getSimpleName();
 
-    private Button saveChart;
+    @Bind(R.id.adView)
+    AdView adView;
 
-    private BarChart chart;
+    @Bind(R.id.activity_alarm_chart_save_chart)
+    Button saveChart;
 
-    private View layoutView;
+    @Bind(R.id.chart)
+    BarChart chart;
+
+    @Bind(R.id.activity_alarm_chart)
+    View layoutView;
 
     List<Message> messageList;
 
@@ -64,11 +72,7 @@ public class AlarmChart extends AppCompatActivity {
     }
 
     private void initializeGUI() {
-        layoutView = findViewById(R.id.activity_alarm_chart);
-
-        adView = (AdView) findViewById(R.id.adView);
-        chart = (BarChart)findViewById(R.id.chart);
-        saveChart = (Button) findViewById(R.id.activity_alarm_chart_save_chart);
+        ButterKnife.bind(this);
     }
 
     private void initializeActiveElements() {

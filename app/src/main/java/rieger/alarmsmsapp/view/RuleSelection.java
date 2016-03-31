@@ -78,6 +78,8 @@ import rieger.alarmsmsapp.view.ruleactivitys.SoundSelection;
  */
 public class RuleSelection extends AppCompatActivity {
 
+    private static final String LOG_TAG = RuleSelection.class.getSimpleName();
+
 	private List<Rule> ruleList;
 
     @Bind(R.id.activity_rule_selection_listView)
@@ -427,7 +429,7 @@ public class RuleSelection extends AppCompatActivity {
                 initialStream.close();
                 outStream.close();
             } catch (Exception e) {
-                Log.e("Can not write", e.getMessage());
+                Log.e(LOG_TAG, e.getMessage());
             }
 
             // Get the Uri from the external file and add it to the intent
@@ -564,8 +566,6 @@ public class RuleSelection extends AppCompatActivity {
 		@Override
 		public synchronized View getView(final int position, View convertView, ViewGroup parent) {
 
-            Log.e("test",position+"");
-
             //Create Ad on the last item of the List
             if (position >= ruleList.size()) {
                 if (convertView instanceof AdView) {
@@ -611,7 +611,7 @@ public class RuleSelection extends AppCompatActivity {
             } else {
 
                 final ViewHolder viewHolder = new ViewHolder();
-                Log.v("ConvertView", String.valueOf(position));
+                Log.v(LOG_TAG, String.valueOf(position));
 
                 if (convertView == null) {
                     LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);

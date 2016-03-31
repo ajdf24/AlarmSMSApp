@@ -18,37 +18,51 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.ruleactivitys.AnswerCreation;
 
 /**
  * Activity from which it is possible to set the global alarm settings.
  */
 public class AlarmSettings extends AppCompatActivity {
 
+    private static final String LOG_TAG = AlarmSettings.class.getSimpleName();
+
     private AlarmSettingsModel alarmSettingsModel = new AlarmSettingsModel();
 
-    private SwitchCompat getAlarms;
+    @Bind(R.id.activity_alarm_settings_switch_alarm_activated)
+    SwitchCompat getAlarms;
 
-    private SeekBar alarmVolume;
+    @Bind(R.id.activity_alarm_settings_seekBar_volume)
+    SeekBar alarmVolume;
 
-    private SwitchCompat alarmWithVibrate;
+    @Bind(R.id.activity_alarm_settings_switch_vibration_activated)
+    SwitchCompat alarmWithVibrate;
 
-    private SwitchCompat alarmWithNotificationLight;
+    @Bind(R.id.activity_alarm_settings_switch_notification_light_activated)
+    SwitchCompat alarmWithNotificationLight;
 
-    private AppCompatSpinner notificationLightColor;
+    @Bind(R.id.activity_alarm_settings_spinner_for_notification_light_color)
+    AppCompatSpinner notificationLightColor;
 
-    private SwitchCompat alarmWhenMute;
+    @Bind(R.id.activity_alarm_settings_switch_mute_alarm_activated)
+    SwitchCompat alarmWhenMute;
 
-    private Button save;
+    @Bind(R.id.activity_alarm_settings_button_save_alarm_settings)
+    Button save;
 
-    private Button quit;
+    @Bind(R.id.activity_alarm_settings_button_quit_alarm_settings)
+    Button quit;
 
-    private EditText repeatAlarm;
+    @Bind(R.id.activity_alarm_settings_repeat_alarm)
+    EditText repeatAlarm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +81,7 @@ public class AlarmSettings extends AppCompatActivity {
      * This method initialize the all GUI elements.
      */
     private void initializeGUI() {
-        getAlarms = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_alarm_activated);
-        alarmVolume = (SeekBar) findViewById(R.id.activity_alarm_settings_seekBar_volume);
-        alarmWithVibrate = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_vibration_activated);
-        alarmWithNotificationLight = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_notification_light_activated);
-        notificationLightColor = (AppCompatSpinner) findViewById(R.id.activity_alarm_settings_spinner_for_notification_light_color);
-        alarmWhenMute = (SwitchCompat) findViewById(R.id.activity_alarm_settings_switch_mute_alarm_activated);
-        repeatAlarm = (EditText) findViewById(R.id.activity_alarm_settings_repeat_alarm);
-        save = (Button) findViewById(R.id.activity_alarm_settings_button_save_alarm_settings);
-        quit = (Button) findViewById(R.id.activity_alarm_settings_button_quit_alarm_settings);
+        ButterKnife.bind(this);
     }
 
     /**

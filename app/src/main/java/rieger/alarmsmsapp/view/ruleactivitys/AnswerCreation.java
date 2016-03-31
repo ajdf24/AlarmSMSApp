@@ -26,6 +26,8 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
@@ -42,18 +44,26 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class AnswerCreation extends AppCompatActivity {
 
+	private static final String LOG_TAG = AnswerCreation.class.getSimpleName();
+
 	private Rule rule;
 
-	private TextView receiver;
+	@Bind(R.id.activity_answer_creation_editText_for_receiver)
+	TextView receiver;
 
-	private Button selectReceiverFromContext;
+	@Bind(R.id.activity_answer_creation_button_choose_contacts_for_answer)
+	Button selectReceiverFromContext;
 
-	private TextView message;
+	@Bind(R.id.activity_answer_creation_editText_for_message)
+	TextView message;
 
-	private AppCompatSpinner area;
+	@Bind(R.id.activity_answer_creation_spinner_for_answer_distance)
+	AppCompatSpinner area;
 
+	@Bind(R.id.activity_answer_creation_button_save_answer)
 	private Button save;
 
+	@Bind(R.id.activity_answer_creation_button_quit)
 	private Button quit;
 
 	private static final int PICK_CONTACT = 1;
@@ -169,7 +179,7 @@ public class AnswerCreation extends AppCompatActivity {
 			String phoneNumber = null;
 			try {
 				Uri contactData = data.getData();
-				Log.v(AppConstants.DEBUG_TAG, "Got a contact result: " + contactData.toString());
+				Log.v(LOG_TAG, "Got a contact result: " + contactData.toString());
 
 				Cursor contactCursor = getContentResolver().query(contactData,
 						new String[] { ContactsContract.Contacts._ID }, null,
@@ -198,14 +208,14 @@ public class AnswerCreation extends AppCompatActivity {
 								PhoneNumberFormat.E164);
 
 					} catch (NumberParseException e) {
-						Log.e(AppConstants.DEBUG_TAG, "Can't parse number!");
+						Log.e(LOG_TAG, "Can't parse number!");
 					}
 
 				}
 				phoneCursor.close();
 
 			} catch (Exception e) {
-				Log.e(AppConstants.DEBUG_TAG, "Failed to get phone data", e);
+				Log.e(LOG_TAG, "Failed to get phone data", e);
 			} finally {
 				receiver.setText(phoneNumber);
 				if (phoneCursor != null) {
@@ -226,7 +236,7 @@ public class AnswerCreation extends AppCompatActivity {
 				}
 			}
 		} else {
-			Log.w(AppConstants.DEBUG_TAG, "Warning: activity result not ok");
+			Log.w(LOG_TAG, "Warning: activity result not ok");
 		}
 	}
 
@@ -241,7 +251,7 @@ public class AnswerCreation extends AppCompatActivity {
 			String mailAddress = null;
 			try {
 				Uri contactData = data.getData();
-				Log.v(AppConstants.DEBUG_TAG, "Got a contact result: " + contactData.toString());
+				Log.v(LOG_TAG, "Got a contact result: " + contactData.toString());
 				Cursor contactCursor = getContentResolver().query(contactData,
 						new String[] { ContactsContract.Contacts._ID }, null,
 						null, null);
@@ -263,7 +273,7 @@ public class AnswerCreation extends AppCompatActivity {
 
 				}
 			} catch (Exception e) {
-				Log.e(AppConstants.DEBUG_TAG, "Failed to get email data", e);
+				Log.e(LOG_TAG, "Failed to get email data", e);
 			} finally {
 				receiver.setText(mailAddress);
 				if (mailCursor != null) {
@@ -276,7 +286,7 @@ public class AnswerCreation extends AppCompatActivity {
 			}
 
 		} else {
-			Log.w(AppConstants.DEBUG_TAG, "Warning: activity result not ok");
+			Log.w(LOG_TAG, "Warning: activity result not ok");
 		}
 	}
 
@@ -284,12 +294,7 @@ public class AnswerCreation extends AppCompatActivity {
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
-		receiver = (TextView) findViewById(R.id.activity_answer_creation_editText_for_receiver);
-		selectReceiverFromContext = (Button) findViewById(R.id.activity_answer_creation_button_choose_contacts_for_answer);
-		message = (TextView) findViewById(R.id.activity_answer_creation_editText_for_message);
-		area = (AppCompatSpinner) findViewById(R.id.activity_answer_creation_spinner_for_answer_distance);
-		save = (Button) findViewById(R.id.activity_answer_creation_button_save_answer);
-		quit = (Button) findViewById(R.id.activity_answer_creation_button_quit);
+		ButterKnife.bind(this);
 	}
 
     /**

@@ -11,6 +11,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -25,13 +27,18 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class NavigationTargetSelection extends AppCompatActivity implements OnItemClickListener{
 
+	private static final String LOG_TAG = NavigationTargetSelection.class.getSimpleName();
+
 	private Rule rule;
 
-	private AutoCompleteTextView autoCompView;
+	@Bind(R.id.activity_navigation_target_selection_AutoCompleteTextView_navigation_target)
+	AutoCompleteTextView autoCompView;
 
-	private Button save;
+	@Bind(R.id.activity_navigation_target_selection_button_save_navigation_target)
+	Button save;
 
-	private Button quit;
+	@Bind(R.id.activity_navigation_target_selection_button_quit)
+	Button quit;
 
     /**
      * This method is like a constructor and
@@ -82,10 +89,8 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
      */
 	private void initializeGUI() {
 		setContentView(R.layout.activity_navigation_target_selection);
-		autoCompView = (AutoCompleteTextView) findViewById(R.id.activity_navigation_target_selection_AutoCompleteTextView_navigation_target);
 
-		save = (Button) findViewById(R.id.activity_navigation_target_selection_button_save_navigation_target);
-		quit = (Button) findViewById(R.id.activity_navigation_target_selection_button_quit);
+		ButterKnife.bind(this);
 	}
 
     /**

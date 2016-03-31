@@ -26,6 +26,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class SenderSelectionDialog extends DialogFragment {
 
+    private static final String LOG_TAG = SenderSelectionDialog.class.getSimpleName();
+
     @Bind(R.id.dialog_help_sender_selection_button_got_it)
     Button buttonGotIt;
 

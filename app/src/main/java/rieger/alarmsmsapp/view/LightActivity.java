@@ -14,6 +14,8 @@ import rieger.alarmsmsapp.util.BundleHandler;
 
 public class LightActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = LightActivity.class.getSimpleName();
+
     PowerManager.WakeLock wakeLock;
 
     Rule rule;

@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -20,14 +22,20 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class WordSelection extends AppCompatActivity {
 
+	private static final String LOG_TAG = WordSelection.class.getSimpleName();
+
 	private Rule rule;
 
+    @Bind(R.id.activity_word_selection_editText_included_words)
 	private TextView occurredWords;
 
+    @Bind(R.id.activity_word_selection_editText_not_included_words)
 	private TextView notOccurredWords;
 
+    @Bind(R.id.activity_word_selection_button_save_words)
 	private Button save;
 
+    @Bind(R.id.activity_word_selection_button_quit)
 	private Button quit;
 
     /**
@@ -64,10 +72,7 @@ public class WordSelection extends AppCompatActivity {
      */
 	private void initializeGUI() {
 
-		occurredWords = (TextView) findViewById(R.id.activity_word_selection_editText_included_words);
-		notOccurredWords = (TextView) findViewById(R.id.activity_word_selection_editText_not_included_words);
-		save = (Button) findViewById(R.id.activity_word_selection_button_save_words);
-		quit = (Button) findViewById(R.id.activity_word_selection_button_quit);
+        ButterKnife.bind(this);
 
 	}
 

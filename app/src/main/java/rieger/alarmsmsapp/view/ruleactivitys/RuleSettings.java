@@ -19,19 +19,22 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.view.AlarmSettings;
 import rieger.alarmsmsapp.view.DepartmentSettings;
-import rieger.alarmsmsapp.view.LightActivity;
 import rieger.alarmsmsapp.view.RuleSelection;
 
 /**
  * This activity is for creating a list with all possible settings.
  */
 public class RuleSettings extends AppCompatActivity {
+
+	private static final String LOG_TAG = RuleSelection.class.getSimpleName();
 
 	private List<Activity> activityList = new ArrayList<Activity>();
 
@@ -41,9 +44,11 @@ public class RuleSettings extends AppCompatActivity {
 
 	private Intent intent;
 
-	private Button save;
+    @Bind(R.id.activity_rule_settings_button_save_settings)
+	Button save;
 
-	private Button quit;
+    @Bind(R.id.activity_rule_settings_button_quit)
+	Button quit;
 
     /**
      * This method is like a constructor and
@@ -139,7 +144,7 @@ public class RuleSettings extends AppCompatActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				Log.d(AppConstants.DEBUG_TAG, listView.getAdapter().getItem(position).getClass().getName());
+				Log.d(LOG_TAG, listView.getAdapter().getItem(position).getClass().getName());
 
 				intent = new Intent();
 
@@ -160,8 +165,7 @@ public class RuleSettings extends AppCompatActivity {
 
 		createListAdapter();
 
-		save = (Button) findViewById(R.id.activity_rule_settings_button_save_settings);
-		quit = (Button) findViewById(R.id.activity_rule_settings_button_quit);
+        ButterKnife.bind(this);
 	}
 
     /**

@@ -25,21 +25,30 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.receiver.SMSReceiver;
 import rieger.alarmsmsapp.util.AppConstants;
 
 public class TestRule extends AppCompatActivity {
 
-    private EditText numberTextFiled;
+    private static final String LOG_TAG = TestRule.class.getSimpleName();
 
-    private EditText messageTextFiled;
+    @Bind(R.id.activity_test_rule_editText_for_sender_information)
+    EditText numberTextFiled;
 
-    private Button quitButton;
+    @Bind(R.id.activity_test_rule_message_editText)
+    EditText messageTextFiled;
 
-    private Button testButon;
+    @Bind(R.id.activity_test_rule_button_quit)
+    Button quitButton;
 
-    private Button chooseContactButton;
+    @Bind(R.id.activity_test_rule_button_test)
+    Button testButon;
+
+    @Bind(R.id.activity_test_rule_button_choose_contacts_for_sender)
+    Button chooseContactButton;
 
     private String number;
 
@@ -108,15 +117,7 @@ public class TestRule extends AppCompatActivity {
 
     private void initializeGUT() {
 
-        numberTextFiled = (EditText)findViewById(R.id.activity_test_rule_editText_for_sender_information);
-
-        messageTextFiled = (EditText)findViewById(R.id.activity_test_rule_message_editText);
-
-        quitButton = (Button)findViewById(R.id.activity_test_rule_button_quit);
-
-        testButon = (Button)findViewById(R.id.activity_test_rule_button_test);
-
-        chooseContactButton = (Button)findViewById(R.id.activity_test_rule_button_choose_contacts_for_sender);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -172,7 +173,7 @@ public class TestRule extends AppCompatActivity {
             String phoneNumber = null;
             try {
                 Uri contactData = data.getData();
-                Log.v(AppConstants.DEBUG_TAG, "Got a contact result: " + contactData.toString());
+                Log.v(LOG_TAG, "Got a contact result: " + contactData.toString());
 
                 Cursor contactCursor = getContentResolver().query(contactData,
                         new String[] { ContactsContract.Contacts._ID }, null,
@@ -201,14 +202,14 @@ public class TestRule extends AppCompatActivity {
                                 PhoneNumberUtil.PhoneNumberFormat.E164);
 
                     } catch (NumberParseException e) {
-                        Log.e(AppConstants.DEBUG_TAG, "Can't parse number!");
+                        Log.e(LOG_TAG, "Can't parse number!");
                     }
 
                 }
                 phoneCursor.close();
 
             } catch (Exception e) {
-                Log.e(AppConstants.DEBUG_TAG, "Failed to get phone data", e);
+                Log.e(LOG_TAG, "Failed to get phone data", e);
             } finally {
                 numberTextFiled.setText(phoneNumber);
                 if (phoneCursor != null) {
@@ -219,7 +220,7 @@ public class TestRule extends AppCompatActivity {
                 }
             }
         } else {
-            Log.w(AppConstants.DEBUG_TAG, "Warning: activity result not ok");
+            Log.w(LOG_TAG, "Warning: activity result not ok");
         }
     }
 

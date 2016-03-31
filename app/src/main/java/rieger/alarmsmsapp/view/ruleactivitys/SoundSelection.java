@@ -23,6 +23,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.Sound;
@@ -36,17 +38,23 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class SoundSelection extends AppCompatActivity {
 
+    private static final String LOG_TAG = SoundSelection.class.getSimpleName();
+
 	private Rule rule;
 
 	private List<Sound> soundList = new ArrayList<Sound>();
 
-	private ListView listView;
-
 	private Sound selectedSound;
 
-	private Button save;
+	@Bind(R.id.activity_sound_selection_listView)
+	ListView listView;
 
-	private Button quit;
+
+	@Bind(R.id.activity_sound_selection_button_save_sound)
+	Button save;
+
+	@Bind(R.id.activity_sound_selection_button_quit)
+	Button quit;
 
 	private MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -183,9 +191,7 @@ public class SoundSelection extends AppCompatActivity {
 	 * Initialize all GUI elements.
 	 */
 	private void initializeGUI() {
-		listView = (ListView) findViewById(R.id.activity_sound_selection_listView);
-		save = (Button) findViewById(R.id.activity_sound_selection_button_save_sound);
-		quit = (Button) findViewById(R.id.activity_sound_selection_button_quit);
+		ButterKnife.bind(this);
 	}
 
 	/**

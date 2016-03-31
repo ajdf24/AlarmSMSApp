@@ -14,6 +14,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
@@ -23,11 +25,16 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class DepartmentSettings extends AppCompatActivity implements OnItemClickListener {
 
-    private AutoCompleteTextView autoCompView;
+    private static final String LOG_TAG = DepartmentSettings.class.getSimpleName();
 
-    private Button save;
+    @Bind(R.id.activity_department_settings_autoCompleteTextView_department_location)
+    AutoCompleteTextView autoCompView;
 
-    private Button quit;
+    @Bind(R.id.activity_department_settings_button_save_department)
+    Button save;
+
+    @Bind(R.id.activity_department_settings_button_quit)
+    Button quit;
 
     private DepartmentSettingsModel departmentSettings;
 
@@ -48,7 +55,7 @@ public class DepartmentSettings extends AppCompatActivity implements OnItemClick
         try {
             departmentSettings = DepartmentObserver.readSettings();
         }catch (SettingsNotFoundException e){
-            Log.e(this.getClass().getSimpleName(), "Department Settings not found.");
+            Log.e(LOG_TAG, "Department Settings not found.");
             departmentSettings = new DepartmentSettingsModel();
 
             AlertDialog dialog;
@@ -77,10 +84,7 @@ public class DepartmentSettings extends AppCompatActivity implements OnItemClick
      * This method initialize the all GUI elements.
      */
     private void initializeGUI() {
-        autoCompView = (AutoCompleteTextView) findViewById(R.id.activity_department_settings_autoCompleteTextView_department_location);
-
-        save = (Button) findViewById(R.id.activity_department_settings_button_save_department);
-        quit = (Button) findViewById(R.id.activity_department_settings_button_quit);
+        ButterKnife.bind(this);
     }
 
     /**
