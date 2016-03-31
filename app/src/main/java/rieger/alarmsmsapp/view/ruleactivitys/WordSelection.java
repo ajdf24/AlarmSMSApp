@@ -27,16 +27,16 @@ public class WordSelection extends AppCompatActivity {
 	private Rule rule;
 
     @Bind(R.id.activity_word_selection_editText_included_words)
-	private TextView occurredWords;
+	TextView occurredWords;
 
     @Bind(R.id.activity_word_selection_editText_not_included_words)
-	private TextView notOccurredWords;
+	TextView notOccurredWords;
 
     @Bind(R.id.activity_word_selection_button_save_words)
-	private Button save;
+	Button save;
 
     @Bind(R.id.activity_word_selection_button_quit)
-	private Button quit;
+	Button quit;
 
     /**
      * This method is like a constructor and

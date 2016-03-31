@@ -61,10 +61,10 @@ public class AnswerCreation extends AppCompatActivity {
 	AppCompatSpinner area;
 
 	@Bind(R.id.activity_answer_creation_button_save_answer)
-	private Button save;
+	Button save;
 
 	@Bind(R.id.activity_answer_creation_button_quit)
-	private Button quit;
+	Button quit;
 
 	private static final int PICK_CONTACT = 1;
 
