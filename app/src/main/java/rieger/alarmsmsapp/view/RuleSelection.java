@@ -58,6 +58,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
@@ -78,13 +80,15 @@ public class RuleSelection extends AppCompatActivity {
 
 	private List<Rule> ruleList;
 
-	private ListView listView;
+    @Bind(R.id.activity_rule_selection_listView)
+	ListView listView;
 
 	private Rule selectedRule;
 
 	private ListAdapter listAdapter;
 
-    private FloatingActionButton floatingActionButton;
+    @Bind(R.id.fab)
+    FloatingActionButton floatingActionButton;
 
     private View layoutView;
 
@@ -372,13 +376,11 @@ public class RuleSelection extends AppCompatActivity {
      */
     private void initializeGUI() {
 
-        listView = (ListView) findViewById(R.id.activity_rule_selection_listView);
+        ButterKnife.bind(this);
 
         listAdapter = new RuleSelectionAdapter(this, R.layout.list_item_rule_selection, (ArrayList<Rule>) ruleList);
 
         listView.setAdapter(listAdapter);
-
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
     }
 
