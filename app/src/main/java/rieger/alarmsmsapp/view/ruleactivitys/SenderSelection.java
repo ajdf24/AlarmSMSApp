@@ -48,7 +48,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 public class SenderSelection extends AppCompatActivity implements SenderSelectionDialog.OnFragmentInteractionListener{
 
-	private Rule rule;
+	public Rule rule;
 
 	@Bind(R.id.activity_sender_selection_editText_for_sender_information)
 	TextView sender;
