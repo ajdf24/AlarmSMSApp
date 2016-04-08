@@ -221,4 +221,7 @@
     <string name="general_string_december">December</string>
     <string name="activity_alarm_chart_chart_description"># Alarms</string>
     <string name="general_string_date_format">MM/dd/yyyy HH:mm:ss</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

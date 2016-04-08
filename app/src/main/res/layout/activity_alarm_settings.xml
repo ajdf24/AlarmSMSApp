@@ -12,135 +12,32 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/activity_alarm_settings_fragment_container"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/activity_alarm_settings_button_save_alarm_settings">
+    </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+    <Button
+        android:id="@+id/activity_alarm_settings_button_save_alarm_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        />
 
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/activity_alarm_settings_switch_alarm_activated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/activity_alarm_settings_switch_alarm_activated" />
-
-            <TextView
-                android:id="@+id/activity_alarm_settings_textView_label_for_seekBar_volume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_alarm_settings_switch_alarm_activated"
-                android:layout_below="@+id/activity_alarm_settings_switch_alarm_activated"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_alarm_settings_textView_label_for_seekBar_volume" />
-
-            <SeekBar
-                android:id="@+id/activity_alarm_settings_seekBar_volume"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/activity_alarm_settings_textView_label_for_seekBar_volume"
-                android:layout_marginTop="15dp" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/activity_alarm_settings_switch_vibration_activated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_alarm_settings_seekBar_volume"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_alarm_settings_seekBar_volume"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_alarm_settings_switch_vibration_activated" />
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/activity_alarm_settings_switch_notification_light_activated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_alarm_settings_switch_vibration_activated"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_alarm_settings_switch_vibration_activated"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_alarm_settings_switch_notification_light_activated" />
-    
-            <TextView
-                android:id="@+id/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignRight="@+id/activity_alarm_settings_textView_label_for_seekBar_volume"
-                android:layout_below="@+id/activity_alarm_settings_switch_notification_light_activated"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/activity_alarm_settings_spinner_for_notification_light_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color"
-                android:layout_below="@+id/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color"
-                android:layout_marginTop="15dp"
-                android:entries="@array/color_array"/>
-
-            <android.support.v7.widget.SwitchCompat
-                android:id="@+id/activity_alarm_settings_switch_mute_alarm_activated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_alarm_settings_spinner_for_notification_light_color"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_alarm_settings_spinner_for_notification_light_color"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_alarm_settings_switch_mute_alarm_activated" />
-
-            <EditText
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                android:ems="10"
-                android:id="@+id/activity_alarm_settings_repeat_alarm"
-                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:hint="1"
-                android:digits="0123456789"
-                android:gravity="center"
-                />
-
-            <Button
-                android:id="@+id/activity_alarm_settings_button_save_alarm_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/general_string_button_save"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/activity_alarm_settings_repeat_alarm"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/general_string_button_quit"
-                android:id="@+id/activity_alarm_settings_button_quit_alarm_settings"
-                android:layout_alignTop="@+id/activity_alarm_settings_button_save_alarm_settings"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/activty_alarm_settings_repeat_text"
-                android:id="@+id/activty_alarm_settings_repeat_help_text"
-                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
-                android:layout_marginTop="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-        </RelativeLayout>
-
-    </ScrollView>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_quit"
+        android:id="@+id/activity_alarm_settings_button_quit_alarm_settings"
+        android:layout_alignTop="@+id/activity_alarm_settings_button_save_alarm_settings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
