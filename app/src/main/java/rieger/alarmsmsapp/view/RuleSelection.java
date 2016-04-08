@@ -337,14 +337,18 @@ public class RuleSelection extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
+                try {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
 
-                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE,
-                        (Rule) listView.getAdapter().getItem(position));
-                intent.putExtras(bundle);
-                intent.setClass(RuleSelection.this, RuleSettings.class);
-                startActivity(intent);
+                    bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE,
+                            (Rule) listView.getAdapter().getItem(position));
+                    intent.putExtras(bundle);
+                    intent.setClass(RuleSelection.this, RuleSettings.class);
+                    startActivity(intent);
+                }catch (IndexOutOfBoundsException e){
+                    Log.w("RuleSelection", "Click on ad");
+                }
             }
         });
 
