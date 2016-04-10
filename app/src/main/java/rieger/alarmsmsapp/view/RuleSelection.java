@@ -726,7 +726,7 @@ public class RuleSelection extends AppCompatActivity {
                         RuleObserver.saveSMSRuleToFileSystem(ruleContent);
                         String[] rule=ruleContent.split("\"ruleName\":\"");
                         String[] ruleName=rule[1].split("\",\"");
-                        Toast.makeText(this, getString( R.string.activity_rule_selection_toast_rule_received , ruleName[0]), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(this, getString( R.string.activity_rule_selection_toast_rule_received , ruleName[0]), Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

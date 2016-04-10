@@ -157,7 +157,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			public void onClick(View v) {
 
 
-				RuleCreator.changeSender(rule, sender.getText().toString());
+				RuleCreator.changeSender(rule, sender.getText().toString().trim());
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
