@@ -204,4 +204,5 @@
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Lampe nur einschalten wenn es dunkel ist</string>
     <string name="activty_alarm_settings_repeat_text">Alarmton wiederholen</string>
     <string name="activity_rule_selection_whats_new_text_for_version_17">- Bugfix Alarmton\n\n- Bugfix Leerzeichen im Absender\n\n- Bugfix Regelauswahl</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_18">- Bugfix Schlagwortauswahl\n\n- Bugfix Layout</string>
 </resources>
