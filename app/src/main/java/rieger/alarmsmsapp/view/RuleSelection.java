@@ -4,12 +4,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +43,9 @@ import android.widget.Toast;
 
 
 import com.facebook.share.widget.LikeView;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -604,6 +609,23 @@ public class RuleSelection extends AppCompatActivity {
                         viewHolder.ruleName.setVisibility(View.INVISIBLE);
                         viewHolder.isRuleActivated.setVisibility(View.INVISIBLE);
                         convertView.setOnClickListener(null);
+
+
+//                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RuleSelection.this);
+//                        if(prefs.getBoolean("firstTime3", true)) {
+//            // run your one time code
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean("firstTime2", false);
+//            editor.commit();
+
+
+                            new ShowcaseView.Builder(RuleSelection.this)
+                                    .setTarget(new ViewTarget(viewHolder.ruleName))
+                                    .setContentTitle("TestTitel")
+                                    .setContentText("TestText")
+                                    .build().show();
+//                        }
+
                         return convertView;
 
                     }
