@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.control.receiver.worker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -14,7 +15,7 @@ public class MatchWordChecker {
      * The method removes not matching
      * @return <code>true</code> if a rule matches.
      */
-    public synchronized static boolean checkIfWordsMatch(String messageBody, final List<Rule> matchingRules){
+    public static boolean checkIfWordsMatch(String messageBody, List<Rule> matchingRules){
 
         boolean containsAllOccurredWords = true;
         boolean dontContainsAllOccurredWords = true;
@@ -25,7 +26,6 @@ public class MatchWordChecker {
                 for (String occurredWord : occurredWords) {
                     if (!messageBody.toLowerCase().contains(occurredWord.toLowerCase())) {
                         containsAllOccurredWords = false;
-                        matchingRules.remove(rule);
                     }
                 }
             }
@@ -39,7 +39,6 @@ public class MatchWordChecker {
                     for (String notOccurredWord : notOccurredWords) {
                         if (messageBody.toLowerCase().contains(notOccurredWord.toLowerCase())) {
                             dontContainsAllOccurredWords = false;
-                            matchingRules.remove(rule);
                         }
                     }
                 }
