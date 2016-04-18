@@ -35,6 +35,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
     @Bind(R.id.start_activity_button_next)
     Button buttonNext;
 
+
     int clickCounter = 0;
 
     @Override
