@@ -35,6 +35,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
     @Bind(R.id.start_activity_button_next)
     Button buttonNext;
 
+    AlarmSettingsFragment alarmSettingsFragment;
 
     int clickCounter = 0;
 
@@ -44,73 +45,88 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         setContentView(R.layout.activity_start_activity);
 
-//        ButterKnife.bind(this);
-//
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-//
-//
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        final WelcomeFragment hello = new WelcomeFragment();
-//        fragmentTransaction.add(R.id.fragment_container, hello, "HELLO");
-//        fragmentTransaction.commit();
-//
-//        buttonNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (clickCounter == 0) {
-//
-//                    final DynamicImageView imageView = (DynamicImageView) hello.getView().findViewById(R.id.view2);
-//                    final TextView mainText = (TextView) hello.getView().findViewById(R.id.textView13);
-//                    final TextView mainText2 = (TextView) hello.getView().findViewById(R.id.textView2);
-//
-//                    TranslateAnimation animation = new TranslateAnimation(0, 0, 0, -1000);
-//                    animation.setDuration(500);
-//                    animation.setFillAfter(false);
-//
-//                    animation.setAnimationListener(new Animation.AnimationListener() {
-//                        @Override
-//                        public void onAnimationStart(Animation animation) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onAnimationEnd(Animation animation) {
-//                            imageView.setVisibility(View.GONE);
-//                            mainText.setText("AlarmSMS nutzt globale Alarmeinstellungen, welche für jede Alarmierung gelten.");
-//                        }
-//
-//                        @Override
-//                        public void onAnimationRepeat(Animation animation) {
-//
-//                        }
-//                    });
-//
-//                    imageView.startAnimation(animation);
-//
-//
-//                    mainText.startAnimation(animation);
-//                    mainText2.startAnimation(animation);
-//
-//                }
-//                if (clickCounter == 1) {
-//
-//
+        ButterKnife.bind(this);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final WelcomeFragment welcomeFragment = new WelcomeFragment();
+        fragmentTransaction.add(R.id.fragment_container, welcomeFragment, "WelcomeFragment");
+        fragmentTransaction.commit();
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickCounter == 0) {
+
+                    final DynamicImageView imageView = (DynamicImageView) welcomeFragment.getView().findViewById(R.id.view2);
+                    final TextView mainText = (TextView) welcomeFragment.getView().findViewById(R.id.textView13);
+                    final TextView mainText2 = (TextView) welcomeFragment.getView().findViewById(R.id.textView2);
+
+                    TranslateAnimation animation = new TranslateAnimation(0, 0, 0, -1000);
+                    animation.setDuration(500);
+                    animation.setFillAfter(false);
+
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            imageView.setVisibility(View.GONE);
+                            mainText.setText("AlarmSMS nutzt globale Alarmeinstellungen, welche für jede Alarmierung gelten.");
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+                    imageView.startAnimation(animation);
+
+
+                    mainText.startAnimation(animation);
+                    mainText2.startAnimation(animation);
+
+                }
+                if (clickCounter == 1) {
+
+
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+
+                    alarmSettingsFragment = new AlarmSettingsFragment();
+
+                    ft.replace(R.id.fragment_container, alarmSettingsFragment, "AlarmSettingsFragment");
+                    // Start the animated transition.
+                    ft.commit();
+                }
+                if(clickCounter == 2){
+
+                    alarmSettingsFragment.saveData();
+
 //                    FragmentTransaction ft = getFragmentManager().beginTransaction();
 //
-//                    ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+//                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 //
-//                    AlarmSettingsFragment test = new AlarmSettingsFragment();
+//                    alarmSettingsFragment = new AlarmSettingsFragment();
 //
-//                    ft.replace(R.id.fragment_container, test, "fragment");
-//// Start the animated transition.
+//                    ft.replace(R.id.fragment_container, alarmSettingsFragment, "AlarmSettingsFragment");
+//                    // Start the animated transition.
 //                    ft.commit();
-//                }
-//                clickCounter++;
-//            }
-//        });
 
-        redirectForFirstUse();
+                }
+                clickCounter++;
+            }
+        });
+
+//        redirectForFirstUse();
     }
     /**
      * This method redirect the user if there are no settings are found.
@@ -139,6 +155,5 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
     public void onFragmentInteraction(Uri uri) {
 
     }
-
 
 }
