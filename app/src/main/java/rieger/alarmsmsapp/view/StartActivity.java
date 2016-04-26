@@ -22,13 +22,16 @@ import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.control.widget.DynamicImageView;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.view.Fragments.AlarmSettingsFragment;
+import rieger.alarmsmsapp.view.Fragments.DepartmentExplanationFragment;
 import rieger.alarmsmsapp.view.Fragments.WelcomeFragment;
 
 /**
  * This class is the start activity, which checks the permissions and the settings if the first use.
  * Created by sebastian on 19.08.15.
  */
-public class StartActivity extends AppCompatActivity implements WelcomeFragment.OnFragmentInteractionListener, AlarmSettingsFragment.OnFragmentInteractionListener{
+public class StartActivity extends AppCompatActivity implements WelcomeFragment.OnFragmentInteractionListener,
+                                                                AlarmSettingsFragment.OnFragmentInteractionListener,
+                                                                DepartmentExplanationFragment.OnFragmentInteractionListener{
 
     private static final String LOG_TAG = StartActivity.class.getSimpleName();
 
@@ -111,15 +114,15 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
                     alarmSettingsFragment.saveData();
 
-//                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-//
-//                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
-//
-//                    alarmSettingsFragment = new AlarmSettingsFragment();
-//
-//                    ft.replace(R.id.fragment_container, alarmSettingsFragment, "AlarmSettingsFragment");
-//                    // Start the animated transition.
-//                    ft.commit();
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+
+                    DepartmentExplanationFragment departmentExplanationFragment = new DepartmentExplanationFragment();
+
+                    ft.replace(R.id.fragment_container, departmentExplanationFragment, "AlarmSettingsFragment");
+                    // Start the animated transition.
+                    ft.commit();
 
                 }
                 clickCounter++;
