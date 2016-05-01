@@ -65,10 +65,10 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
-        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRSTSTART, true)) {
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
             // run your one time code
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRSTSTART, false);
+            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
             editor.commit();
 
             FragmentManager fragmentManager = getFragmentManager();

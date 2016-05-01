@@ -1,15 +1,22 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -55,6 +62,57 @@ public class CreateNewRule extends AppCompatActivity {
 
 		initializeActiveElements();
 
+		showCases();
+
+	}
+
+	private void showCases(){
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_CREATE_RULE, true)) {
+			// run your one time code
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_CREATE_RULE, false);
+			editor.commit();
+
+			ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+					.setTarget(new ViewTarget(R.id.activity_create_new_rule_editText_rule_name, this))
+					.setContentTitle("Namenwahl")
+					.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+					.setContentText("Wähle einen Namen für deine Regel")
+					.hideOnTouchOutside()
+					.blockAllTouches()
+					.build();
+
+			showcaseView.setOnShowcaseEventListener(new OnShowcaseEventListener() {
+				@Override
+				public void onShowcaseViewHide(ShowcaseView showcaseView) {
+
+				}
+
+				@Override
+				public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+					ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
+							.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
+							.setContentTitle("Speichern")
+							.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+							.setContentText("Speichern und weiter")
+							.hideOnTouchOutside()
+							.blockAllTouches()
+							.build();
+				}
+
+				@Override
+				public void onShowcaseViewShow(ShowcaseView showcaseView) {
+
+				}
+
+				@Override
+				public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
+
+				}
+			});
+		}
 	}
 
     /**

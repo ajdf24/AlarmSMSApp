@@ -155,6 +155,17 @@ public class RuleSelection extends AppCompatActivity {
 //        // Set foreground color fpr Like count text
 //        likeView.setForegroundColor(-256);
 
+        if(listView.getChildAt(0) != null) {
+            ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSelection.this)
+                    .setTarget(new ViewTarget(listView.getChildAt(0).getId(), RuleSelection.this))
+                    .setContentTitle("Namenwahl")
+                    .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+                    .setContentText("Wähle einen Namen für deine Regel")
+                    .hideOnTouchOutside()
+                    .blockAllTouches()
+                    .build();
+        }
+
     }
 
     @Override
@@ -598,6 +609,8 @@ public class RuleSelection extends AppCompatActivity {
                         return adView;
                     }catch (Exception e){
 
+
+
                         //Workaround, sollte es bei der Darstellung der ad zu Fehlern irgendeiner Art kommen
                         final ViewHolder viewHolder = new ViewHolder();
 
@@ -609,22 +622,6 @@ public class RuleSelection extends AppCompatActivity {
                         viewHolder.ruleName.setVisibility(View.INVISIBLE);
                         viewHolder.isRuleActivated.setVisibility(View.INVISIBLE);
                         convertView.setOnClickListener(null);
-
-
-//                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(RuleSelection.this);
-//                        if(prefs.getBoolean("firstTime3", true)) {
-//            // run your one time code
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putBoolean("firstTime2", false);
-//            editor.commit();
-
-
-                            new ShowcaseView.Builder(RuleSelection.this)
-                                    .setTarget(new ViewTarget(viewHolder.ruleName))
-                                    .setContentTitle("TestTitel")
-                                    .setContentText("TestText")
-                                    .build().show();
-//                        }
 
                         return convertView;
 
