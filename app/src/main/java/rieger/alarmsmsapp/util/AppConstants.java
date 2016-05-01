@@ -106,4 +106,8 @@ public interface AppConstants {
         int PERMISSION_ID_FOR_STORAGE = 4;
     }
 
+    interface SharedPreferencesKeys{
+        String FIRSTSTART = "First Start";
+    }
+
 }

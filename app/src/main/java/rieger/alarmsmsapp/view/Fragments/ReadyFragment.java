@@ -13,14 +13,15 @@ import rieger.alarmsmsapp.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link WelcomeFragment.OnFragmentInteractionListener} interface
+ * {@link ReadyFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class WelcomeFragment extends Fragment {
+public class ReadyFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public WelcomeFragment() {
+    public ReadyFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -32,7 +33,7 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_welcome_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_ready, container, false);
     }
 
     @Override
