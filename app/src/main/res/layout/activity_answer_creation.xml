@@ -80,13 +80,22 @@
 
             </EditText>
 
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/activity_answer_creation_checkbox_send_every_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="20dp"
+                android:text="@string/activity_answer_creation_checkbox_send_every_time"
+                android:layout_below="@+id/activity_answer_creation_editText_for_message"/>
+
             <TextView
                 android:id="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/activity_answer_creation_editText_for_message"
-                android:layout_below="@+id/activity_answer_creation_editText_for_message"
-                android:layout_marginTop="15dp"
+                android:layout_below="@+id/activity_answer_creation_checkbox_send_every_time"
+                android:layout_marginTop="10dp"
                 android:text="@string/activity_answer_creation_label_for_spinner_for_answer_distance" />
 
             <android.support.v7.widget.AppCompatSpinner

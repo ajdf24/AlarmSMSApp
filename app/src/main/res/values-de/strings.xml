@@ -205,4 +205,6 @@
     <string name="activty_alarm_settings_repeat_text">Alarmton wiederholen</string>
     <string name="activity_rule_selection_whats_new_text_for_version_17">- Bugfix Alarmton\n\n- Bugfix Leerzeichen im Absender\n\n- Bugfix Regelauswahl</string>
     <string name="activity_rule_selection_whats_new_text_for_version_18">- Bugfix Schlagwortauswahl\n\n- Bugfix Layout</string>
+    <string name="activity_answer_creation_checkbox_send_every_time">Immer weiterleiten</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_19">- Neue Einstellung: SMS Weiterleitung immer aktiv</string>
 </resources>

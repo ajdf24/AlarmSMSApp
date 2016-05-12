@@ -22,6 +22,8 @@ public class AnswerBundle implements Serializable {
 
 	private int distance;
 
+	private boolean sendAnswerEveryTime = false;
+
 	/**
 	 * Default constructor for the serialization.<br>
 	 * <b>Note</b>: Don't use them!
@@ -81,6 +83,14 @@ public class AnswerBundle implements Serializable {
 	 */
 	public void setDistance(int distance) {
 		this.distance = distance;
+	}
+
+	public boolean isSendAnswerEveryTime() {
+		return sendAnswerEveryTime;
+	}
+
+	public void setSendAnswerEveryTime(boolean sendAnswerEveryTime) {
+		this.sendAnswerEveryTime = sendAnswerEveryTime;
 	}
 
 	/* (non-Javadoc)

@@ -200,4 +200,6 @@
     <string name="activty_alarm_settings_repeat_text">Repeat Alarm Sound</string>
     <string name="activity_rule_selection_whats_new_text_for_version_17">- Bugfix Alarm sound\n\n- Bugfix Whitespace\n\n- Bugfix Rule Selection</string>
     <string name="activity_rule_selection_whats_new_text_for_version_18">- Bugfix Matchwords\n\n- Bugfix Layout</string>
+    <string name="activity_answer_creation_checkbox_send_every_time">Send every time</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_19">- New Setting: forward SMS every time</string>
 </resources>

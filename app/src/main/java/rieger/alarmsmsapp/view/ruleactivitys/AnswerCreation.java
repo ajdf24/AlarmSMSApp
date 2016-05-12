@@ -13,10 +13,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,8 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
@@ -55,6 +60,12 @@ public class AnswerCreation extends AppCompatActivity {
 	private Button save;
 
 	private Button quit;
+
+	@Bind(R.id.activity_answer_creation_checkbox_send_every_time)
+	SwitchCompat sendEveryTime;
+
+	@Bind(R.id.activity_answer_creation_textView_label_for_spinner_for_answer_distance)
+	TextView labelArea;
 
 	private static final int PICK_CONTACT = 1;
 
@@ -103,6 +114,7 @@ public class AnswerCreation extends AppCompatActivity {
 				AnswerBundle answerBundle = new AnswerBundle();
 				answerBundle.setReceiver(receiver.getText().toString());
 				answerBundle.setMessage(message.getText().toString());
+				answerBundle.setSendAnswerEveryTime(sendEveryTime.isChecked());
 				answerBundle.setDistance(distance);
 
 				RuleCreator.changeAutomaticallyAnswer(rule, answerBundle);
@@ -128,6 +140,19 @@ public class AnswerCreation extends AppCompatActivity {
 				intent.putExtras(bundle);
 				intent.setClass(AnswerCreation.this, RuleSettings.class);
 				startActivity(intent);
+			}
+		});
+
+		sendEveryTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked == true){
+					area.setVisibility(View.INVISIBLE);
+					labelArea.setVisibility(View.INVISIBLE);
+				}else {
+					area.setVisibility(View.VISIBLE);
+					labelArea.setVisibility(View.VISIBLE);
+				}
 			}
 		});
 	}
@@ -284,6 +309,8 @@ public class AnswerCreation extends AppCompatActivity {
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
+		ButterKnife.bind(this);
+
 		receiver = (TextView) findViewById(R.id.activity_answer_creation_editText_for_receiver);
 		selectReceiverFromContext = (Button) findViewById(R.id.activity_answer_creation_button_choose_contacts_for_answer);
 		message = (TextView) findViewById(R.id.activity_answer_creation_editText_for_message);
@@ -318,6 +345,11 @@ public class AnswerCreation extends AppCompatActivity {
 	private void getRuleSettingsForGUI() {
 		receiver.setText(rule.getReceiver());
 		message.setText(rule.getMessage());
+		sendEveryTime.setChecked(rule.isSendEveryTime());
+		if(rule.isSendEveryTime()){
+			area.setVisibility(View.INVISIBLE);
+			labelArea.setVisibility(View.INVISIBLE);
+		}
 		switch (rule.getDistance()) {
 		case 5:
 			area.setSelection(0);

@@ -303,6 +303,19 @@ public abstract class Rule implements Serializable{
 		}
 	}
 
+	public boolean isSendEveryTime(){
+		if (automaticallyAnswer==null) {
+			return false;
+		}
+		return automaticallyAnswer.isSendAnswerEveryTime();
+	}
+
+	public void setSendEveryTime(boolean set){
+		if (automaticallyAnswer!=null) {
+			automaticallyAnswer.setSendAnswerEveryTime(set);
+		}
+	}
+
 	/**
 	 * @return the active
 	 */

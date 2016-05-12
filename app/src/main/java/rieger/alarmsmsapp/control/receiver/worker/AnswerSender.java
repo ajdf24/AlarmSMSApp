@@ -31,8 +31,13 @@ public class AnswerSender {
                 return;
             }
             for (Rule rule : matchingRules) {
-                if (rule.getMessage() != null && rule.getReceiver() != null && !rule.getReceiver().isEmpty() && results[0] / 1000 > rule.getDistance()) {
+                if(!rule.isSendEveryTime()) {
+                    if (rule.getMessage() != null && rule.getReceiver() != null && !rule.getReceiver().isEmpty() && results[0] / 1000 > rule.getDistance()) {
 
+                        SmsManager sms = SmsManager.getDefault();
+                        sms.sendTextMessage(rule.getReceiver(), null, rule.getMessage(), null, null);
+                    }
+                }else{
                     SmsManager sms = SmsManager.getDefault();
                     sms.sendTextMessage(rule.getReceiver(), null, rule.getMessage(), null, null);
                 }
