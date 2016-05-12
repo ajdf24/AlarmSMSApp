@@ -51,6 +51,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
     DepartmentFragment departmentFragment;
 
+    SharedPreferences prefs;
+
     int clickCounter = 0;
 
     @Override
@@ -64,12 +66,10 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
         if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
             // run your one time code
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
-            editor.commit();
+
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -219,6 +219,9 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         }
         if(clickCounter == 5){
 
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
+            editor.commit();
             startNextActivity();
 
         }
