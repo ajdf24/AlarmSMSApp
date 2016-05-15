@@ -2,19 +2,26 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +51,17 @@ public class RuleSettings extends AppCompatActivity {
 
 	private Intent intent;
 
+	SharedPreferences prefs;
+
     @Bind(R.id.activity_rule_settings_button_save_settings)
 	Button save;
 
     @Bind(R.id.activity_rule_settings_button_quit)
 	Button quit;
+
+	@Bind(R.id.listView1)
+	ListView listView;
+
 
     /**
      * This method is like a constructor and
@@ -136,9 +149,12 @@ public class RuleSettings extends AppCompatActivity {
      */
 	private void createListAdapter() {
 		ListAdapter adapter = new ArrayAdapter<Activity>( getApplicationContext(), R.layout.list_item_rule_settings, activityList);
-		final ListView listView = (ListView) findViewById(R.id.listView1);
+//		final ListView listView = (ListView) findViewById(R.id.listView1);
 
 		listView.setAdapter(adapter);
+
+//		listView.getChildAt(0)
+
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -155,17 +171,21 @@ public class RuleSettings extends AppCompatActivity {
 				startActivity(intent);
 			}
 		});
+
+
 	}
 
     /**
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
+        ButterKnife.bind(this);
+
 		createActivityList();
 
 		createListAdapter();
 
-        ButterKnife.bind(this);
+
 	}
 
     /**
@@ -195,4 +215,44 @@ public class RuleSettings extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		prefs = PreferenceManager.getDefaultSharedPreferences(RuleSettings.this);
+		if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_SETTINGS, true)) {
+
+			final RelativeLayout layout = (RelativeLayout) findViewById(R.id.activity_rule_settings);
+			ViewTreeObserver vto = layout.getViewTreeObserver();
+			vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+				@Override
+				public void onGlobalLayout() {
+					layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+					int width = layout.getMeasuredWidth();
+					int height = layout.getMeasuredHeight();
+					System.out.println(listView.isShown());
+
+					if (listView.getChildAt(0) != null) {
+						ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSettings.this)
+								.setTarget(new ViewTarget(listView.getChildAt(0).findViewById(R.id.list_item_rule_settings_view)))
+								.setContentTitle("Absenderauswahlt")
+								.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+								.setContentText("Wähle den Absender, welcher dich per SMS über einen Einsatz alarmiert.")
+								.hideOnTouchOutside()
+								.blockAllTouches()
+								.build();
+
+						SharedPreferences.Editor editor = prefs.edit();
+						editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_SETTINGS, false);
+						editor.commit();
+
+					} else {
+						System.out.println("Element nicht vorhanden");
+					}
+				}
+			});
+		}
+
+
+	}
 }

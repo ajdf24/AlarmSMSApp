@@ -109,6 +109,8 @@ public interface AppConstants {
     interface SharedPreferencesKeys{
         String FIRST_START = "First Start";
         String FIRST_SHOW_CREATE_RULE = "First Create Rule";
+        String FIRST_SHOW_SETTINGS = "First show settings";
+        String FIRST_SHOW_RULES = "First show rules";
     }
 
 }

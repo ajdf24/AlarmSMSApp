@@ -9,6 +9,7 @@
     android:background="@color/background"
     tools:context="rieger.alarmsmsapp.view.ruleactivitys.RuleSettings"
     android:focusable="true"
+    android:id="@+id/activity_rule_settings"
     android:focusableInTouchMode="true">
 
     <ListView

@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -29,6 +31,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -38,13 +41,12 @@ import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.facebook.share.widget.LikeView;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -86,6 +88,8 @@ public class RuleSelection extends AppCompatActivity {
     private static final String LOG_TAG = RuleSelection.class.getSimpleName();
 
 	private List<Rule> ruleList;
+
+    SharedPreferences prefs;
 
     @Bind(R.id.activity_rule_selection_listView)
 	ListView listView;
@@ -155,27 +159,8 @@ public class RuleSelection extends AppCompatActivity {
 //        // Set foreground color fpr Like count text
 //        likeView.setForegroundColor(-256);
 
-        if(listView.getChildAt(0) != null) {
-            ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSelection.this)
-                    .setTarget(new ViewTarget(listView.getChildAt(0).getId(), RuleSelection.this))
-                    .setContentTitle("Namenwahl")
-                    .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
-                    .setContentText("Wähle einen Namen für deine Regel")
-                    .hideOnTouchOutside()
-                    .blockAllTouches()
-                    .build();
-        }
-
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Resume the AdView.
-        if(adView != null)
-            adView.resume();
-    }
 
     @Override
     public void onPause() {
@@ -709,6 +694,7 @@ public class RuleSelection extends AppCompatActivity {
      * This method checks the {@link Intent} for a rule.
      * Is a rule was detected so the {@link rieger.alarmsmsapp.model.rules.Rule} is saved to the system.
      */
+    @SuppressLint("StringFormatInvalid")
     private void checkForIncomingRule(){
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -794,4 +780,48 @@ public class RuleSelection extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Resume the AdView.
+        if(adView != null)
+            adView.resume();
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(RuleSelection.this);
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, true)) {
+
+            final CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.activity_rule_selection);
+            ViewTreeObserver vto = layout.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    int width = layout.getMeasuredWidth();
+                    int height = layout.getMeasuredHeight();
+                    System.out.println(listView.isShown());
+
+                    if (listView.getChildAt(0) != null) {
+                        ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSelection.this)
+                                .setTarget(new ViewTarget(listView.getChildAt(0).findViewById(R.id.list_item_rule_name)))
+                                .setContentTitle("Zusatzeinstellungen")
+                                .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+                                .setContentText("Drücke lange auf die Regel für zusätzliche Optionen.")
+                                .hideOnTouchOutside()
+                                .blockAllTouches()
+                                .build();
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, false);
+                        editor.commit();
+
+                    } else {
+                        System.out.println("Element nicht vorhanden");
+                    }
+                }
+            });
+        }
+
+
+    }
 }
