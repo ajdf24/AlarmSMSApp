@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import java.io.IOException;
 import java.util.List;
 
-import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**

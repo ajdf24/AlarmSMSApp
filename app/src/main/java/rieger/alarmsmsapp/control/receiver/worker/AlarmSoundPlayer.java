@@ -14,7 +14,6 @@ import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.Sound;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-import rieger.alarmsmsapp.util.standard.NotificationObserver;
 
 /**
  * This class contains methods for playing a alarm sound.

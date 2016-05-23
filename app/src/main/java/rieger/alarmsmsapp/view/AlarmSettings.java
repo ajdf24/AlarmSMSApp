@@ -26,7 +26,6 @@ import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-import rieger.alarmsmsapp.view.ruleactivitys.AnswerCreation;
 
 /**
  * Activity from which it is possible to set the global alarm settings.

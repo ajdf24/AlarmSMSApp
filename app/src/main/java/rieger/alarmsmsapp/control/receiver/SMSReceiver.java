@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -44,7 +43,6 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.util.standard.NotificationCreator;
 import rieger.alarmsmsapp.util.standard.ScreenWorker;
 import rieger.alarmsmsapp.view.LightActivity;
-import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 public class SMSReceiver extends BroadcastReceiver implements SensorEventListener{
 

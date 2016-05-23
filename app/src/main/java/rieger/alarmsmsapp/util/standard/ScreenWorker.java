@@ -4,8 +4,6 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.os.PowerManager;
 
-import java.io.IOException;
-
 import rieger.alarmsmsapp.util.AppConstants;
 
 /**
