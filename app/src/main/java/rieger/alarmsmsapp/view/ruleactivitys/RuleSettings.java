@@ -235,7 +235,7 @@ public class RuleSettings extends AppCompatActivity {
 					if (listView.getChildAt(0) != null) {
 						ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSettings.this)
 								.setTarget(new ViewTarget(listView.getChildAt(0).findViewById(R.id.list_item_rule_settings_view)))
-								.setContentTitle("Absenderauswahlt")
+								.setContentTitle("Absenderauswahl")
 								.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
 								.setContentText("Wähle den Absender, welcher dich per SMS über einen Einsatz alarmiert.")
 								.hideOnTouchOutside()

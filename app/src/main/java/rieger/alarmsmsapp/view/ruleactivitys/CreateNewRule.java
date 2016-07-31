@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -141,6 +143,13 @@ public class CreateNewRule extends AppCompatActivity {
 
 			@Override
 			public void onClick(View v) {
+
+				View view = CreateNewRule.this.getCurrentFocus();
+				if (view != null) {
+					InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+				}
+
 				Log.d(LOG_TAG, rulename.getText().toString());
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();

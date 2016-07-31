@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.view.Fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -18,8 +19,10 @@ import android.widget.SeekBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
+import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
@@ -78,6 +81,8 @@ public class AlarmSettingsFragment extends Fragment {
 
         getAlarmSettingsForGUI();
 
+        initializeActiveElements();
+
         return view;
     }
 
@@ -114,6 +119,17 @@ public class AlarmSettingsFragment extends Fragment {
      * This method get the current values from the settings and sets the GUI to this values.
      */
     private void getAlarmSettingsForGUI() {
+
+        try {
+            alarmSettingsModel = AlarmSettingsObserver.readSettings();
+        }catch (SettingsNotFoundException e) {
+            Log.e(this.getClass().getSimpleName(), "Alarm Settings not found.");
+        }
+
+        if (alarmSettingsModel == null){
+            alarmSettingsModel = new AlarmSettingsModel();
+        }
+
 
         getAlarms.setChecked(alarmSettingsModel.isAlarmActivated());
         alarmVolume.setProgress(alarmSettingsModel.getAlarmVolume());
