@@ -25,11 +25,11 @@ import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.control.widget.DynamicImageView;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.AppConstants;
-import rieger.alarmsmsapp.view.fragments.AlarmSettingsFragment;
-import rieger.alarmsmsapp.view.fragments.DepartmentExplanationFragment;
-import rieger.alarmsmsapp.view.fragments.DepartmentFragment;
-import rieger.alarmsmsapp.view.fragments.ReadyFragment;
-import rieger.alarmsmsapp.view.fragments.WelcomeFragment;
+import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
+import rieger.alarmsmsapp.view.fragments.welcome.DepartmentExplanationFragment;
+import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
+import rieger.alarmsmsapp.view.fragments.welcome.ReadyFragment;
+import rieger.alarmsmsapp.view.fragments.welcome.WelcomeFragment;
 import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 /**
@@ -86,7 +86,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         }else{
             Intent intent = new Intent();
 
-            intent.setClass(StartActivity.this, RuleSelection.class);
+            intent.setClass(StartActivity.this, MainActivity.class);
             startActivity(intent);
         }
 
@@ -112,7 +112,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             return;
         }
 
-        startActivity(new Intent(this, RuleSelection.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void startNextActivity(){

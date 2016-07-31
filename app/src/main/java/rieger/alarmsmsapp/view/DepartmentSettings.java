@@ -13,7 +13,7 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.view.fragments.DepartmentFragment;
+import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
 
 public class DepartmentSettings extends AppCompatActivity implements DepartmentFragment.OnFragmentInteractionListener  {
 

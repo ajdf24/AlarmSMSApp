@@ -79,6 +79,7 @@ import rieger.alarmsmsapp.view.ruleactivitys.SoundSelection;
 
 /**
  * Activity, which shows all existing rules.
+ * @deprecated
  */
 public class RuleSelection extends AppCompatActivity {
 

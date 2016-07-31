@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.view.fragments;
+package rieger.alarmsmsapp.view.fragments.settings;
 
 import android.app.Fragment;
 import android.content.Context;
