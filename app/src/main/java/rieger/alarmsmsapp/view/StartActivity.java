@@ -25,11 +25,11 @@ import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.control.widget.DynamicImageView;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.AppConstants;
-import rieger.alarmsmsapp.view.Fragments.AlarmSettingsFragment;
-import rieger.alarmsmsapp.view.Fragments.DepartmentExplanationFragment;
-import rieger.alarmsmsapp.view.Fragments.DepartmentFragment;
-import rieger.alarmsmsapp.view.Fragments.ReadyFragment;
-import rieger.alarmsmsapp.view.Fragments.WelcomeFragment;
+import rieger.alarmsmsapp.view.fragments.AlarmSettingsFragment;
+import rieger.alarmsmsapp.view.fragments.DepartmentExplanationFragment;
+import rieger.alarmsmsapp.view.fragments.DepartmentFragment;
+import rieger.alarmsmsapp.view.fragments.ReadyFragment;
+import rieger.alarmsmsapp.view.fragments.WelcomeFragment;
 import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 /**

@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.view.Fragments;
+package rieger.alarmsmsapp.view.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -13,28 +13,15 @@ import rieger.alarmsmsapp.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DepartmentExplanationFragment.OnFragmentInteractionListener} interface
+ * {@link ReadyFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DepartmentExplanationFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class DepartmentExplanationFragment extends Fragment {
+public class ReadyFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DepartmentExplanationFragment() {
+    public ReadyFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DepartmentExplanation.
-     */
-    public static DepartmentExplanationFragment newInstance() {
-        DepartmentExplanationFragment fragment = new DepartmentExplanationFragment();
-        return fragment;
     }
 
     @Override
@@ -46,7 +33,7 @@ public class DepartmentExplanationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_department_explanation, container, false);
+        return inflater.inflate(R.layout.fragment_ready, container, false);
     }
 
     @Override

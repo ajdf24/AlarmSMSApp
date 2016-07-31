@@ -1,6 +1,5 @@
-package rieger.alarmsmsapp.view.Fragments;
+package rieger.alarmsmsapp.view.fragments;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
@@ -23,7 +22,6 @@ import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
-import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * A simple {@link Fragment} subclass.

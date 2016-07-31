@@ -19,31 +19,18 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-            <TextView
-                android:id="@+id/activity_department_settings_textView_label_for_editText_department_location"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/activity_department_settings_fragment_container"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:text="@string/activity_department_settings_textView_label_for_editText_department_location" />
-
-            <AutoCompleteTextView
-                android:id="@+id/activity_department_settings_autoCompleteTextView_department_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_department_settings_textView_label_for_editText_department_location"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_department_settings_textView_label_for_editText_department_location"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="@string/activity_department_settings_editText_department_location_hint" />
+                android:orientation="vertical"/>
 
             <Button
                 android:id="@+id/activity_department_settings_button_save_department"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_department_settings_autoCompleteTextView_department_location"
+                android:layout_below="@+id/activity_department_settings_fragment_container"
                 android:layout_marginTop="15dp"
                 android:text="@string/general_string_button_save" />
 

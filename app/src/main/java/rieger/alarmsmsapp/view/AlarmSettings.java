@@ -15,7 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
-import rieger.alarmsmsapp.view.Fragments.AlarmSettingsFragment;
+import rieger.alarmsmsapp.view.fragments.AlarmSettingsFragment;
 
 /**
  * Activity from which it is possible to set the global alarm settings.

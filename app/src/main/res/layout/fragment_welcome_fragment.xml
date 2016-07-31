@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Fragments.WelcomeFragment"
+    tools:context=".view.fragments.WelcomeFragment"
     android:background="#a8a9ad">
 
     <rieger.alarmsmsapp.control.widget.DynamicImageView
