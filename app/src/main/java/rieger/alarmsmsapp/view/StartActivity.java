@@ -88,6 +88,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
             intent.setClass(StartActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
     }
@@ -120,6 +121,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         intent.setClass(StartActivity.this, CreateNewRule.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

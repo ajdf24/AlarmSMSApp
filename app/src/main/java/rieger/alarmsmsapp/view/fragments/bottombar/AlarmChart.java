@@ -1,22 +1,20 @@
-package rieger.alarmsmsapp.view;
+package rieger.alarmsmsapp.view.fragments.bottombar;
 
 import android.Manifest;
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -41,11 +39,17 @@ import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.ListMessages;
 
 /**
- * @deprecated
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link AlarmChart.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link AlarmChart#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class AlarmChart extends AppCompatActivity {
+public class AlarmChart extends Fragment {
 
     private static final String LOG_TAG = AlarmChart.class.getSimpleName();
 
@@ -58,24 +62,83 @@ public class AlarmChart extends AppCompatActivity {
     @Bind(R.id.chart)
     BarChart chart;
 
-    @Bind(R.id.activity_alarm_chart)
-    View layoutView;
+    @Bind(R.id.activity_alarm_chart_progressBar)
+    ProgressBar progressBar;
 
     List<Message> messageList;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_chart);
+    private OnFragmentInteractionListener mListener;
 
-        initializeGUI();
+    public AlarmChart() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment AlarmChart.
+     */
+    public static AlarmChart newInstance() {
+        AlarmChart fragment = new AlarmChart();
+        Bundle args = new Bundle();
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_alarm_chart, container, false);
+
+        ButterKnife.bind(this, view);
 
         initializeActiveElements();
 
+        return view;
     }
 
-    private void initializeGUI() {
-        ButterKnife.bind(this);
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 
     private void initializeActiveElements() {
@@ -92,62 +155,13 @@ public class AlarmChart extends AppCompatActivity {
         saveChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(AlarmChart.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(AlarmChart.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
                 }
                 chart.saveToGallery("Alarm_Chart_" + new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + ".jpg", 100);
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-
-                    Snackbar snackbar = Snackbar
-                            .make(layoutView, R.string.toast_permission_storage_denied, Snackbar.LENGTH_LONG);
-
-                    View snackbarView = snackbar.getView();
-                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.WHITE);
-                    snackbar.show();
-                }
-                break;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_alarm_chart, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Resume the AdView.
-        if(adView != null)
-            adView.resume();
     }
 
     @Override
@@ -167,6 +181,7 @@ public class AlarmChart extends AppCompatActivity {
         if(adView != null)
             adView.destroy();
     }
+
 
     private class LoadStatisticTask extends AsyncTask<Object, Integer, ArrayList<BarEntry>> {
 
@@ -190,8 +205,6 @@ public class AlarmChart extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<BarEntry> result) {
             super.onPostExecute(result);
-
-            ProgressBar progressBar = (ProgressBar) findViewById(R.id.activity_alarm_chart_progressBar);
 
             progressBar.setVisibility(View.INVISIBLE);
             saveChart.setEnabled(true);
@@ -238,7 +251,7 @@ public class AlarmChart extends AppCompatActivity {
                     }
 
                     intent.putExtras(bundle);
-                    intent.setClass(AlarmChart.this, ListMessages.class);
+                    intent.setClass(getActivity(), ListMessages.class);
                     startActivity(intent);
                     Log.d("Chart", "Entry: " + e.getXIndex());
 
@@ -252,5 +265,4 @@ public class AlarmChart extends AppCompatActivity {
         }
 
     }
-
 }
