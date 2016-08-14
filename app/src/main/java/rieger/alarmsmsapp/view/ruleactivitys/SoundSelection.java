@@ -31,7 +31,7 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.eventbus.BusProvider;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.services.SoundService;
-import rieger.alarmsmsapp.model.Sound;
+import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.events.SoundEvent;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;

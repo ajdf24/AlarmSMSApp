@@ -2,8 +2,6 @@ package rieger.alarmsmsapp.model.rules;
 
 import java.io.Serializable;
 
-import rieger.alarmsmsapp.model.Sound;
-
 /**
  * A class, which represents a E-MailRule.
  * @author sebastian

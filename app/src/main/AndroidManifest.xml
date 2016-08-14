@@ -98,6 +98,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_alarm" />
         </receiver>
+        <receiver android:name=".control.receiver.InstallationReceiver">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".view.TestRule"

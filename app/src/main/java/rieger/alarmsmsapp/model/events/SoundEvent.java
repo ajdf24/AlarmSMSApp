@@ -3,7 +3,7 @@ package rieger.alarmsmsapp.model.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import rieger.alarmsmsapp.model.Sound;
+import rieger.alarmsmsapp.model.rules.Sound;
 
 /**
  * Eventclass which is a container for a list of sounds

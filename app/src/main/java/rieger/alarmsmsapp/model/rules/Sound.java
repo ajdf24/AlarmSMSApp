@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.model;
+package rieger.alarmsmsapp.model.rules;
 
 import java.io.Serializable;
 
@@ -84,6 +84,25 @@ public class Sound implements Serializable{
 		this.internalSound = internalSound;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Sound)) return false;
 
+		Sound sound = (Sound) o;
 
+		if (internalSound != sound.internalSound) return false;
+		if (soundName != null ? !soundName.equals(sound.soundName) : sound.soundName != null)
+			return false;
+		return idForSound != null ? idForSound.equals(sound.idForSound) : sound.idForSound == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = soundName != null ? soundName.hashCode() : 0;
+		result = 31 * result + (idForSound != null ? idForSound.hashCode() : 0);
+		result = 31 * result + (internalSound ? 1 : 0);
+		return result;
+	}
 }

@@ -3,7 +3,6 @@ package rieger.alarmsmsapp.model.rules;
 import java.io.Serializable;
 
 import rieger.alarmsmsapp.control.observer.RuleObserver;
-import rieger.alarmsmsapp.model.Sound;
 
 /**
  * An abstract class, which all rules should extend.

@@ -11,7 +11,7 @@ import java.util.List;
 
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
-import rieger.alarmsmsapp.model.Sound;
+import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 

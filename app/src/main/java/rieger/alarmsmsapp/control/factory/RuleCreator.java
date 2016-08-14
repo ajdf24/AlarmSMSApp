@@ -1,7 +1,7 @@
 package rieger.alarmsmsapp.control.factory;
 
 import rieger.alarmsmsapp.model.RuleType;
-import rieger.alarmsmsapp.model.Sound;
+import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;

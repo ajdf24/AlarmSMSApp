@@ -3,16 +3,13 @@ package rieger.alarmsmsapp.control.services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import rieger.alarmsmsapp.control.eventbus.BusProvider;
-import rieger.alarmsmsapp.model.Sound;
+import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.events.SoundEvent;
 
 /**
