@@ -47,7 +47,7 @@ public class Message implements Serializable{
      */
     private String matchingRuleName;
 
-    private String dayName;
+    private String dayName = "";
 
     public Message() {
     }

@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final int DATABASE_VERSION = 1;
 
+    //TABLE RULES
     public static final String TABLE_RULES = "table_rule";
 
     public static final String COLUMN_ID = "_id";
@@ -36,13 +37,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_ACTIVATE_LIGHT = "activate_light";
     public static final String COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK = "activate_light_only_when_dark";
     public static final String COLUMN_LIGHT_TIME = "light_time";
+    //END TABLE RULES
 
 
+    //TABLE DEPARTMENT
     public static final String TABLE_DEPARTMENT_SETTINGS = "department_settings";
 
     public static final String COLUMN_DEPARTMENT_ADDRESS = "department";
+    //END TABLE DEPARTMENT
 
 
+    //TABLE ALARM SETTINGS
     public static final String TABLE_ALARM_SETTINGS = "alarm_settings";
 
     public static final String COLUMN_ALARM_ACTIVE = "alarm_active";
@@ -52,7 +57,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_NOTIFICATION_LIGHT_COLOR = "notification_light_color";
     public static final String COLUMN_MUTE_ALARM = "mute_alarm";
     public static final String COLUMN_REPEAT_NUMBER = "repeat_number";
+    //END TABLE ALARM SETTINGS
 
+    //TABLE MESSAGES
+    public static final String TABLE_MESSAGES = "table_messages";
+
+    public static final String COLUMN_SENDER_MESSAGE = "sender";
+    public static final String COLUMN_MESSAGE = "message";
+    public static final String COLUMN_TIME_STAMP = "time_stamp";
+    public static final String COLUMN_DAY = "day";
+    public static final String COLUMN_MONTH = "month";
+    public static final String COLUMN_YEAR = "year";
+    public static final String COLUMN_MATCHING_RULE_NAME = "rule_name";
+    public static final String COLUMN_DAY_NAME = "day_name";
+    //END TABLE MESSAGES
 
     public static final String PRIMARY_KEY = " integer primary key autoincrement, ";
     public static final String TEXT = " text, ";
@@ -97,6 +115,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_MUTE_ALARM + BOOL
                 + COLUMN_REPEAT_NUMBER + " integer not null);";
 
+    public static final String CREATE_TABLE_MESSAGES = "create table "
+            + TABLE_MESSAGES + "("
+            + COLUMN_ID + PRIMARY_KEY
+            + COLUMN_SENDER_MESSAGE + TEXT
+            + COLUMN_MESSAGE + TEXT
+            + COLUMN_TIME_STAMP + INT
+            + COLUMN_DAY + INT
+            + COLUMN_MONTH + INT
+            + COLUMN_YEAR + INT
+            + COLUMN_MATCHING_RULE_NAME + TEXT
+            + COLUMN_DAY_NAME + " text not null);";
+
+
     /**
      * constructor
      * @param context
@@ -110,6 +141,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_RULES);
         db.execSQL(CREATE_TABLE_DEPARTMENTS);
         db.execSQL(CREATE_TABLE_ALARMS);
+        db.execSQL(CREATE_TABLE_MESSAGES);
     }
 
     @Override

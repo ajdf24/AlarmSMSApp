@@ -6,6 +6,7 @@ import java.util.List;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
+import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -20,6 +21,7 @@ public class DatabaseTests extends AndroidTestCase {
     private Rule rule;
     private DepartmentSettingsModel department;
     private AlarmSettingsModel alarm;
+    private Message message;
 
     @Override
     public void setUp() throws Exception {
@@ -36,6 +38,9 @@ public class DatabaseTests extends AndroidTestCase {
 
         alarm = new AlarmSettingsModel();
         alarm.setAlarmActivated(true);
+
+        message = new Message();
+        message.setSender("TESTSender");
     }
 
     public void testAddEntry() {
@@ -266,6 +271,79 @@ public class DatabaseTests extends AndroidTestCase {
     public void testEmptyTableDepartments(){
 
         assertEquals(db.getAllDepartments().size(), 0);
+    }
+
+    public void testAddMessage(){
+
+        db.createMessage(message);
+
+        assertEquals(db.getAllMessages().size(), 1);
+    }
+
+    public void testEmptyTable(){
+
+        assertEquals(db.getAllMessages().size(), 0);
+    }
+
+    public void testNotSameMessage(){
+
+        assertNotSame(message, db.createMessage(message));
+    }
+
+    public void testMessageAddCorrectSender(){
+
+        message.setSender("Blubber");
+
+        assertEquals(message.getSender(), db.createMessage(message).getSender());
+    }
+
+    public void testMessageAddCorrectMessage(){
+
+        message.setMessage("Test Nachricht");
+
+        assertEquals(message.getMessage(), db.createMessage(message).getMessage());
+    }
+
+    public void testMessageAddCorrectTimeStamp(){
+
+        message.setTimeStamp(1234567890);
+
+        assertEquals(message.getTimeStamp(), db.createMessage(message).getTimeStamp());
+    }
+
+    public void testMessageAddCorrectDay(){
+
+        message.setDay(1);
+
+        assertEquals(message.getDay(), db.createMessage(message).getDay());
+    }
+
+    public void testMessageAddCorrectMonth(){
+
+        message.setMonth(5);
+
+        assertEquals(message.getMonth(), db.createMessage(message).getMonth());
+    }
+
+    public void testMessageAddCorrectYear(){
+
+        message.setYear(2016);
+
+        assertEquals(message.getYear(), db.createMessage(message).getYear());
+    }
+
+    public void testMessageAddCorrectMatchingRuleName(){
+
+        message.setMatchingRuleName("Matching Rule NAME");
+
+        assertEquals(message.getMatchingRuleName(), db.createMessage(message).getMatchingRuleName());
+    }
+
+    public void testMessageAddCorrectMatchingDayName(){
+
+        message.setDayName("Mittwoch");
+
+        assertEquals(message.getDayName(), db.createMessage(message).getDayName());
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
+import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -64,6 +65,18 @@ public class DataSource {
             DatabaseHelper.COLUMN_NOTIFICATION_LIGHT_COLOR,
             DatabaseHelper.COLUMN_MUTE_ALARM,
             DatabaseHelper.COLUMN_REPEAT_NUMBER
+    };
+
+    private String[] allColumnsMessage = {
+            DatabaseHelper.COLUMN_ID,
+            DatabaseHelper.COLUMN_SENDER_MESSAGE,
+            DatabaseHelper.COLUMN_MESSAGE,
+            DatabaseHelper.COLUMN_TIME_STAMP,
+            DatabaseHelper.COLUMN_DAY,
+            DatabaseHelper.COLUMN_MONTH,
+            DatabaseHelper.COLUMN_YEAR,
+            DatabaseHelper.COLUMN_MATCHING_RULE_NAME,
+            DatabaseHelper.COLUMN_DAY_NAME
     };
 
     /**
@@ -230,6 +243,49 @@ public class DataSource {
         return newAlarm;
     }
 
+    public Message createMessage(Message message){
+        open();
+
+        ContentValues values = new ContentValues();
+
+        values.put(DatabaseHelper.COLUMN_SENDER_MESSAGE, message.getSender());
+        values.put(DatabaseHelper.COLUMN_MESSAGE, message.getMessage());
+        values.put(DatabaseHelper.COLUMN_TIME_STAMP, message.getTimeStamp());
+        values.put(DatabaseHelper.COLUMN_DAY, message.getDay());
+        values.put(DatabaseHelper.COLUMN_MONTH, message.getMonth());
+        values.put(DatabaseHelper.COLUMN_YEAR, message.getYear());
+        values.put(DatabaseHelper.COLUMN_MATCHING_RULE_NAME, message.getMatchingRuleName());
+        values.put(DatabaseHelper.COLUMN_DAY_NAME, message.getDayName());
+
+        long insertId = database.insert(DatabaseHelper.TABLE_MESSAGES, "",
+                values);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_MESSAGES,
+                allColumnsMessage, DatabaseHelper.COLUMN_ID + " = " + insertId, null,
+                null, null, null);
+        cursor.moveToFirst();
+        Message newMessage = cursorToMessage(cursor);
+        cursor.close();
+        close();
+        return newMessage;
+    }
+
+    public List<Message> getAllMessages(){
+        List<Message> messages = new ArrayList<>();
+
+        open();
+        Cursor cursor = database.query(helper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Message message = cursorToMessage(cursor);
+            messages.add(message);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        close();
+        return messages;
+    }
+
     public AlarmSettingsModel getAlarm(){
 
         open();
@@ -247,6 +303,21 @@ public class DataSource {
         open();
         database.delete(helper.TABLE_ALARM_SETTINGS, null , null);
         close();
+    }
+
+    public Message cursorToMessage(Cursor cursor){
+        Message message = new Message();
+
+        message.setSender(cursor.getString(1));
+        message.setMessage(cursor.getString(2));
+        message.setTimeStamp(cursor.getLong(3));
+        message.setDay(cursor.getInt(4));
+        message.setMonth(cursor.getInt(5));
+        message.setYear(cursor.getInt(6));
+        message.setMatchingRuleName(cursor.getString(7));
+        message.setDayName(cursor.getString(8));
+
+        return message;
     }
 
     public Rule cursorToRule(Cursor cursor){
