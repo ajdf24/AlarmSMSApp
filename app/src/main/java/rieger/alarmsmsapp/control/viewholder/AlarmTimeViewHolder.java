@@ -2,15 +2,20 @@ package rieger.alarmsmsapp.control.viewholder;
 
 import android.app.TimePickerDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.callback.AlarmTimeCallback;
+import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
+import rieger.alarmsmsapp.util.AppConstants;
 
 /**
  * Created by sebastian on 16.08.16.
@@ -30,8 +35,14 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
 
     private View view;
 
-    public AlarmTimeViewHolder(final View itemView) {
+    private String timeFiled;
+
+    private AlarmTimeCallback callback;
+
+    public AlarmTimeViewHolder(final View itemView, AlarmTimeCallback callback) {
         super(itemView);
+
+        this.callback = callback;
 
         view = itemView;
 
@@ -47,6 +58,7 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(itemView.getContext(), AlarmTimeViewHolder.this, 0, 0, true);
                 timePickerDialog.show();
+                timeFiled = AppConstants.CallBacks.TIMEFIELED_FROM;
             }
         });
 
@@ -55,8 +67,10 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(itemView.getContext(), AlarmTimeViewHolder.this, 0, 0, true);
                 timePickerDialog.show();
+                timeFiled = AppConstants.CallBacks.TIMEFIELD_TO;
             }
         });
+
     }
 
     public EditText getTimeFrom() {
@@ -90,5 +104,29 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+        switch (timeFiled){
+            case AppConstants.CallBacks.TIMEFIELED_FROM:
+                if(getTimeTo().getText().toString().compareTo(AlarmTimeModel.timeToString(hourOfDay, minute)) == -1){
+                    Toast.makeText(view.getContext(), "Start-Zeit nach End-Zeit", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                timeFrom.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
+                timeFiled = null;
+                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELED_FROM, getAdapterPosition(), hourOfDay, minute);
+                break;
+            case AppConstants.CallBacks.TIMEFIELD_TO:
+                if(getTimeFrom().getText().toString().compareTo(AlarmTimeModel.timeToString(hourOfDay, minute)) == 1){
+                    Toast.makeText(view.getContext(), "End-Zeit vor Start-Zeit", Toast.LENGTH_LONG).show();
+                    break;
+                }
+                timeTo.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
+                timeFiled = null;
+                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELD_TO, getAdapterPosition(), hourOfDay, minute);
+                break;
+            default:
+                Log.e(LOG_TAG, "WRONG timeString filed Selected");
+                break;
+        }
     }
+
 }

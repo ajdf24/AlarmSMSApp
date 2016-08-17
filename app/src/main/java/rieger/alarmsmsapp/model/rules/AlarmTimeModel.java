@@ -139,5 +139,20 @@ public class AlarmTimeModel {
         return dayInt;
     }
 
+    public static String timeToString(int hourOfDay, int minute){
+        StringBuffer timeString = new StringBuffer();
+        if(hourOfDay < 10){
+            timeString.append("0" + hourOfDay) ;
+        }else {
+            timeString.append(hourOfDay);
+        }
+        timeString.append(":");
+        if(minute < 10){
+            timeString.append("0" + minute);
+        }else {
+            timeString.append(minute);
+        }
+        return timeString.toString();
+    }
 
 }

@@ -44,6 +44,18 @@ public interface AppConstants {
      */
     String POWERMANAGEMENT_LOCK_NAME = "AlarmSMSAppLock_PowerManagement";
 
+
+
+    interface CallBacks{
+        String TIMEFIELED_FROM = "FROM";
+
+        String TIMEFIELD_TO = "TO";
+
+        String REMOVE_TIME_CALLBACK = "remove time callback";
+
+        String SHOW_SHOW_CASE_VIEW_NEW_ALARM_TIME = "show case view new alarm time";
+    }
+
 	/**
 	 * Strings, which are used to create a {@link URL} for the PlacesAPI-Request.
 	 * @author sebastian

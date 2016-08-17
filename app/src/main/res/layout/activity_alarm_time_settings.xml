@@ -34,17 +34,26 @@
         android:id="@+id/activity_alarm_time_settings_cardview"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/activity_alarm_time_settings_switch"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/activity_alarm_time_settings_save" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fragment_happy_hours_new_happy_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_action_edit"
+        android:layout_below="@+id/activity_alarm_time_settings_cardview"
+        android:src="@drawable/ic_add"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/activity_alarm_time_settings_new_time"
+        android:visibility="invisible" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_alarm_time_settings_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 
