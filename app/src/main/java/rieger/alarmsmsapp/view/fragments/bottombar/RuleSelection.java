@@ -1,6 +1,8 @@
 package rieger.alarmsmsapp.view.fragments.bottombar;
 
 import android.app.Fragment;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,9 +22,11 @@ import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +44,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.callback.ActionCallback;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -68,8 +74,6 @@ public class RuleSelection extends Fragment {
     @Bind(R.id.activity_rule_selection_listView)
     ListView listView;
 
-    private Rule selectedRule;
-
     private ListAdapter listAdapter;
 
     @Bind(R.id.fab)
@@ -89,12 +93,11 @@ public class RuleSelection extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param callback Parameter 1.
      * @return A new instance of fragment RuleSelection.
      */
     // TODO: Rename and change types and number of parameters
-    public static RuleSelection newInstance(String param1, String param2) {
+    public static RuleSelection newInstance(ActionCallback callback) {
         RuleSelection fragment = new RuleSelection();
         return fragment;
     }
@@ -112,7 +115,9 @@ public class RuleSelection extends Fragment {
 
         ruleList = Collections.synchronizedList(new ArrayList<Rule>());
 
-        ruleList = RuleObserver.readAllRulesFromFileSystem();
+        DataSource dataSource = new DataSource(layoutView.getContext());
+
+        ruleList = dataSource.getAllRules();
 
         initializeGUI();
 
@@ -126,9 +131,6 @@ public class RuleSelection extends Fragment {
     }
 
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -177,7 +179,7 @@ public class RuleSelection extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Rule rule);
     }
 
     /**
@@ -406,7 +408,8 @@ public class RuleSelection extends Fragment {
                             menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
                             menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
 
-                            selectedRule = (Rule) viewHolder.ruleName.getTag();
+                            mListener.onFragmentInteraction((Rule) viewHolder.ruleName.getTag());
+
                         }
 
                     });
@@ -430,6 +433,10 @@ public class RuleSelection extends Fragment {
             }
         }
 
+    }
+
+    public void notifyDataSetChanced(){
+        ((BaseAdapter) listAdapter).notifyDataSetChanged();
     }
 
 //    @Override

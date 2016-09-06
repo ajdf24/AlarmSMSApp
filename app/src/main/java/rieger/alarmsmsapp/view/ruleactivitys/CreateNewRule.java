@@ -24,10 +24,13 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.RuleType;
 import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.view.MainActivity;
 import rieger.alarmsmsapp.view.RuleSelection;
 
 /**
@@ -148,26 +151,34 @@ public class CreateNewRule extends AppCompatActivity {
 				RadioButton rb = (RadioButton) findViewById(ruleType.getCheckedRadioButtonId());
 				if(getString(R.string.activity_create_new_rule_radio_content_sms)==rb.getText().toString() ){
 
-					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.SMS_RULE);
+					DataSource db = new DataSource(CreateNewRule.this);
+
+					rule = new SMSRule();
+					rule.setRuleName(rulename.getText().toString());
+
+//					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.SMS_RULE);
+
+					rule = db.createRule(rule);
 
 					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 
 					intent.putExtras(bundle);
-					intent.setClass(CreateNewRule.this, RuleSettings.class);
+					intent.setClass(CreateNewRule.this, MainActivity.class);
 					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 
-				}if (getString(R.string.activity_create_new_rule_radio_content_mail)==rb.getText().toString() ){
-
-					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.EMAIL_RULE);
-
-					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-
-					intent.putExtras(bundle);
-					intent.setClass(CreateNewRule.this, RuleSettings.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
 				}
+//				if (getString(R.string.activity_create_new_rule_radio_content_mail)==rb.getText().toString() ){
+//
+//					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.EMAIL_RULE);
+//
+//					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+//
+//					intent.putExtras(bundle);
+//					intent.setClass(CreateNewRule.this, RuleSettings.class);
+//					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(intent);
+//				}
 
 			}
 		});

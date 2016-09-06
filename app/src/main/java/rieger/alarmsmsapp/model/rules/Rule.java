@@ -2,7 +2,10 @@ package rieger.alarmsmsapp.model.rules;
 
 import java.io.Serializable;
 
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 /**
  * An abstract class, which all rules should extend.
@@ -393,7 +396,9 @@ public abstract class Rule implements Serializable{
      * Notify the observer.
      */
 	public void notifyObserver(){
-		RuleObserver.saveRuleToFileSystem(this);
+		DataSource db = new DataSource(CreateContextForResource.getContext());
+		db.createRule(this);
+//		RuleObserver.saveRuleToFileSystem(this);
 	}
 
 	/**

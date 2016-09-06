@@ -24,6 +24,8 @@ import rieger.alarmsmsapp.view.AlarmSettings;
  */
 public class DataSource {
 
+    private boolean innerDelete = false;
+
     private final String LOG_TAG = getClass().getSimpleName();
 
     private SQLiteDatabase database;
@@ -100,7 +102,9 @@ public class DataSource {
      * close the db connection
      */
     private void close() {
-        helper.close();
+        if(!innerDelete) {
+            helper.close();
+        }
     }
 
     /**
@@ -112,6 +116,10 @@ public class DataSource {
         open();
 
         ContentValues values = new ContentValues();
+
+        innerDelete = true;
+        deleteRule(rule);
+        innerDelete = false;
 
         values.put(DatabaseHelper.COLUMN_RULE_NAME, rule.getRuleName());
         values.put(DatabaseHelper.COLUMN_SENDER, rule.getSender());

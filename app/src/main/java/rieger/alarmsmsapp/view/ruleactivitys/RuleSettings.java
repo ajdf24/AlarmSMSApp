@@ -35,6 +35,7 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.view.AlarmSettings;
 import rieger.alarmsmsapp.view.DepartmentSettings;
+import rieger.alarmsmsapp.view.MainActivity;
 import rieger.alarmsmsapp.view.RuleSelection;
 
 /**
@@ -197,7 +198,7 @@ public class RuleSettings extends AppCompatActivity {
 			public void onClick(View v) {
 				intent = new Intent();
 
-				intent.setClass(RuleSettings.this, RuleSelection.class);
+				intent.setClass(RuleSettings.this, MainActivity.class);
 				startActivity(intent);
 			}
 		});

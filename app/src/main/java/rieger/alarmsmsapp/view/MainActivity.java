@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.view;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -11,26 +12,42 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
+import rieger.alarmsmsapp.control.observer.RuleObserver;
+import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;
 import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
 import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
 import rieger.alarmsmsapp.view.fragments.bottombar.AlarmChart;
+import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 public class MainActivity extends AppCompatActivity implements
                                                     RuleSelection.OnFragmentInteractionListener,
                                                     AlarmSettingsFragment.OnFragmentInteractionListener,
                                                     DepartmentFragment.OnFragmentInteractionListener,
                                                     AlarmChart.OnFragmentInteractionListener{
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.activity_main_coordinator_layout)
     CoordinatorLayout coordinatorLayout;
@@ -44,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private boolean isFirstStart = true;
     private int currentFragment = 0;
+
+    private Rule selectedRule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,5 +197,91 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 break;
         }
+    }
+
+    /**
+     * This method start a action after click on a item in the context menu
+     * @param item The context menu item that was selected.
+     * @return boolean Return false to allow normal context menu processing to
+     *         proceed, true to consume it here.
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getTitle() == getResources().getString(
+                R.string.activity_rule_selection_context_menu_action_edit)) {
+
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+
+            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE,
+                    selectedRule);
+            intent.putExtras(bundle);
+            intent.setClass(this, RuleSettings.class);
+            startActivity(intent);
+
+        } else if (item.getTitle() == getResources().getString(
+                R.string.activity_rule_selection_context_menu_action_send)) {
+
+            // Create the intent
+            final Intent intent = new Intent(Intent.ACTION_SEND);
+
+            // set the MIME type and grant access to the uri (for the attached file, although I'm not sure if the grant access is required)
+            intent.setType("text/plain");
+            //intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+
+            // Copy file to external storage
+            File publicFile = new File("/sdcard/" + selectedRule.getRuleName());
+            try {
+                InputStream initialStream = new FileInputStream(new File(RuleObserver.getUriFromSMSRule(selectedRule.getRuleName()).getPath()));
+                byte[] buffer = new byte[initialStream.available()];
+                initialStream.read(buffer);
+
+                OutputStream outStream = new FileOutputStream(publicFile);
+                outStream.write(buffer);
+                initialStream.close();
+                outStream.close();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, e.getMessage());
+            }
+
+            // Get the Uri from the external file and add it to the intent
+            Uri uri = Uri.fromFile(publicFile);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+
+
+            this.startActivity(Intent.createChooser(intent, CreateContextForResource.getStringFromID(R.string.activity_rule_selection_context_menu_selection_title)));
+
+        } else if (item.getTitle() == getResources().getString(
+                R.string.activity_rule_selection_context_menu_action_delete)) {
+            RuleObserver.deleteRuleFromFilesystem(selectedRule);
+
+            DataSource db = new DataSource(this);
+            db.deleteRule(selectedRule);
+//            ruleList.remove(selectedRule);
+
+            ruleSelection.notifyDataSetChanced();
+
+            Intent intent = getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            startActivity(intent);
+        }else if (item.getTitle() == getResources().getString(R.string.test_rule)) {
+
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.BUNDLE_CONTEXT_NUMBER, selectedRule.getSender());
+            bundle.putString(AppConstants.BUNDLE_CONTEXT_MESSAGE, selectedRule.getOccurredWords());
+            Intent intent = new Intent(this, TestRule.class);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }else {
+            return false;
+        }
+        return true;
+    }
+
+    public void onFragmentInteraction(Rule rule){
+        selectedRule = rule;
     }
 }

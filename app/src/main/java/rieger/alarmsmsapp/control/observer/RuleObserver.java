@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
@@ -64,6 +65,11 @@ public class RuleObserver {
 			}
 		}
 
+	}
+
+	public static void saveRule(Rule rule, Context context){
+		DataSource db = new DataSource(context);
+		db.createRule(rule);
 	}
 
     public static void saveSMSRuleToFileSystem(String rule){
@@ -126,6 +132,11 @@ public class RuleObserver {
 		return ruleList;
 	}
 
+	public static List<Rule> readAllRules(Context context){
+		DataSource db = new DataSource(context);
+		return db.getAllRules();
+	}
+
     /**
      * This method delete a rule from the file system. If the rule not exists so this method gives a
      * log message but throw not an exception.
@@ -152,6 +163,11 @@ public class RuleObserver {
 				Log.e(AppConstants.DEBUG_TAG, "Delete operation is failed.");
 			}
 		}
+	}
+
+	public static void deleteRule(Rule rule, Context context){
+		DataSource db = new DataSource(context);
+		db.deleteRule(rule);
 	}
 
     /**
