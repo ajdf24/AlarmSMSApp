@@ -1,10 +1,14 @@
 package rieger.alarmsmsapp.view;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,14 +21,25 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
+import rieger.alarmsmsapp.control.database.DatabaseHelper;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
+import rieger.alarmsmsapp.control.observer.RuleObserver;
+import rieger.alarmsmsapp.control.observer.VersionObserver;
 import rieger.alarmsmsapp.control.widget.DynamicImageView;
+import rieger.alarmsmsapp.model.AlarmSettingsModel;
+import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
+import rieger.alarmsmsapp.model.Version;
+import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
 import rieger.alarmsmsapp.view.fragments.welcome.DepartmentExplanationFragment;
 import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
@@ -70,6 +85,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
             // run your one time code
 
+            checkVersionAndUpdate();
 
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -230,4 +246,102 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         clickCounter++;
     }
 
+    /**
+     * Check if an old version was found.
+     * If the settings from a former version was found the method import this this to the database.
+     */
+    private void checkVersionAndUpdate() {
+        int id = 0;
+
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            id = getResources().getIdentifier("activity_rule_selection_whats_new_text_for_version_" + packageInfo.versionCode, "string", getPackageName());
+            String value = id == 0 ? "" : (String) getResources().getText(id);
+
+
+            Version version = null;
+            try {
+                version = VersionObserver.readSettings();
+            } catch (SettingsNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            if (version == null){
+                //Erster Aufruf nach Installation
+
+                version = new Version();
+                version.setVersion(packageInfo.versionCode);
+                VersionObserver.saveSettings(version);
+
+            }else {
+
+                if (version.getVersion() < packageInfo.versionCode) {
+
+                    boolean error = false;
+
+                    //Alte Version gefunden --> import settings to database
+
+                    ProgressDialog dialog = ProgressDialog.show(this, "Importiere Einstellungen von alter Version", "Gerätehaus", true);
+
+                    DataSource source = new DataSource(this);
+                    try {
+                        DepartmentSettingsModel department = DepartmentObserver.readSettings();
+                        source.createDepartment(department);
+                    } catch (SettingsNotFoundException e) {
+                        e.printStackTrace();
+                        error = true;
+                    }
+
+                    dialog.setMessage("Alarmeinstellungen");
+
+                    try {
+                        AlarmSettingsModel alarmSettingsModel = AlarmSettingsObserver.readSettings();
+                        source.createAlarm(alarmSettingsModel);
+                    } catch (SettingsNotFoundException e) {
+                        e.printStackTrace();
+                        error = true;
+                    }
+
+                    dialog.setMessage("Regeln");
+
+                    try {
+                        List<Rule> rules = RuleObserver.readAllRulesFromFileSystem();
+
+                        for (Rule rule : rules) {
+                            source.createRule(rule);
+                        }
+                    }catch (Exception e){
+                        error = true;
+                    }
+
+                    dialog.dismiss();
+
+                    if(error){
+                        AlertDialog errorDialog;
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                        builder.setTitle("Fehler beim Import")
+
+                                .setMessage("Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!")
+                                .setCancelable(false)
+                                .setIcon(R.drawable.ic_launcher)
+
+                                .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
+
+                        errorDialog = builder.create();
+
+                        errorDialog.show();
+                    }else {
+                        startNextActivity();
+                    }
+
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
