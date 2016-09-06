@@ -220,6 +220,8 @@
     <string name="activity_alarm_chart_chart_description"># Alarme</string>
     <string name="general_string_date_format">dd.MM.yyyy HH:mm:ss</string>
 
+    <string name="activity_alarm_time_settings_name">Alarmzeiten</string>
+
     <string-array name="days_array">
         <item>Sonntag</item>
         <item>Montag</item>

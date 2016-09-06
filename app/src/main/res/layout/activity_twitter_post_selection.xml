@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView8">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -45,34 +46,24 @@
                 android:layout_below="@+id/activity_facebook_post_selection_editText_message_for_facebook"
                 android:text="@string/activity_twitter_post_selection_checkBox_add_message_text" />
 
-            <Button
-                android:id="@+id/activity_facebook_post_selection_button_save_facebook_post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_facebook_post_selection_checkBox_add_message_text"
-                android:layout_marginTop="20dp"
-                android:text="@string/general_string_button_save" />
-
-            <Button
-                android:id="@+id/activity_facebook_post_selection_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_facebook_post_selection_button_save_facebook_post"
-                android:layout_alignBottom="@+id/activity_facebook_post_selection_button_save_facebook_post"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
-
             <TextView
                 android:id="@+id/activity_facebook_post_selection_textView_character_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/activity_facebook_post_selection_button_save_facebook_post"
-                android:layout_alignRight="@+id/activity_facebook_post_selection_button_save_facebook_post"
                 android:layout_alignTop="@+id/activity_facebook_post_selection_checkBox_add_message_text"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_done"
+        android:id="@+id/activity_facebook_post_selection_button_save_facebook_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignBottom="@+id/scrollView8"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

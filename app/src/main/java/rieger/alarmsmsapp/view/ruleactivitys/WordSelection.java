@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,10 +34,7 @@ public class WordSelection extends AppCompatActivity {
 	TextView notOccurredWords;
 
     @Bind(R.id.activity_word_selection_button_save_words)
-	Button save;
-
-    @Bind(R.id.activity_word_selection_button_quit)
-	Button quit;
+	FloatingActionButton save;
 
     /**
      * This method is like a constructor and
@@ -93,24 +91,12 @@ public class WordSelection extends AppCompatActivity {
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
 				intent.setClass(WordSelection.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 
 			}
 		});
 
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(WordSelection.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
 	}
 
     /**

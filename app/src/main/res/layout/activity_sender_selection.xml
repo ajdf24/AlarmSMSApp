@@ -14,7 +14,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView6">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -48,26 +49,18 @@
                 android:layout_marginTop="14dp"
                 android:text="@string/general_string_button_choose_contact" />
 
-            <Button
-                android:id="@+id/activity_sender_selection_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/general_string_button_quit"
-                android:layout_below="@+id/activity_sender_selection_button_choose_contacts_for_sender"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <Button
-                android:id="@+id/activity_sender_selection_button_save_sender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/general_string_button_save"
-                android:layout_below="@+id/activity_sender_selection_button_choose_contacts_for_sender"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_done"
+        android:id="@+id/activity_sender_selection_button_save_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignBottom="@+id/scrollView6"
+        android:layout_alignRight="@+id/scrollView6"
+        android:layout_alignEnd="@+id/scrollView6" />
 
 </RelativeLayout>

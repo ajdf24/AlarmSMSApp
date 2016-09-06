@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView4">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -52,25 +53,19 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/activity_reading_settings_checkBox_read_other_messages" />
 
-            <Button
-                android:id="@+id/activity_reading_settings_button_save_read_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_reading_settings_checkBox_read_other_messages"
-                android:text="@string/general_string_button_save" />
-
-            <Button
-                android:id="@+id/activity_reading_settings_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_reading_settings_button_save_read_settings"
-                android:layout_alignBottom="@+id/activity_reading_settings_button_save_read_settings"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_reading_settings_button_save_read_settings"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_done"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignBottom="@+id/scrollView4"
+        android:layout_alignRight="@+id/scrollView4"
+        android:layout_alignEnd="@+id/scrollView4" />
 
 </RelativeLayout>

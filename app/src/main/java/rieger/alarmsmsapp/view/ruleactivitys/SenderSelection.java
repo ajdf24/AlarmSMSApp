@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -59,10 +60,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 	Button selectSenderFromContacts;
 
 	@Bind(R.id.activity_sender_selection_button_save_sender)
-	Button save;
-
-	@Bind(R.id.activity_sender_selection_button_quit)
-	Button quit;
+	FloatingActionButton save;
 
 	private static final int PICK_CONTACT = 1;
 
@@ -167,6 +165,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
 				intent.setClass(SenderSelection.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 
 			}
@@ -186,19 +185,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			}
 		});
 
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(SenderSelection.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
 	}
 
 	@Override

@@ -16,11 +16,12 @@
         android:layout_above="@+id/activity_alarm_settings_button_save_alarm_settings">
     </RelativeLayout>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/activity_alarm_settings_button_save_alarm_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/general_string_button_save"
+        android:src="@drawable/ic_done"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -28,15 +29,6 @@
         android:layout_marginBottom="16dp"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_height="wrap_content"
-        android:text="@string/general_string_button_quit"
-        android:id="@+id/activity_alarm_settings_button_quit_alarm_settings"
-        android:layout_alignTop="@+id/activity_alarm_settings_button_save_alarm_settings"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 

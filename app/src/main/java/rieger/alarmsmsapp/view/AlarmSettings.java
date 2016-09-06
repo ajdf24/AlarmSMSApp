@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,10 +26,8 @@ public class AlarmSettings extends AppCompatActivity implements AlarmSettingsFra
     private static final String LOG_TAG = AlarmSettings.class.getSimpleName();
 
     @Bind(R.id.activity_alarm_settings_button_save_alarm_settings)
-    Button save;
+    FloatingActionButton save;
 
-    @Bind(R.id.activity_alarm_settings_button_quit_alarm_settings)
-    Button quit;
 
     AlarmSettingsFragment alarmSettingsFragment;
 
@@ -70,13 +69,6 @@ public class AlarmSettings extends AppCompatActivity implements AlarmSettingsFra
 
                 AlarmWidget.updateWidget();
 
-                startActivity(new Intent(AlarmSettings.this, StartActivity.class));
-            }
-        });
-
-        quit.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 startActivity(new Intent(AlarmSettings.this, StartActivity.class));
             }
         });

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -43,11 +44,8 @@ public class CreateNewRule extends AppCompatActivity {
 	@Bind(R.id.activity_create_new_rule_radioGroup_content_chooser)
 	RadioGroup ruleType;
 
-	@Bind(R.id.activity_create_new_rule_button_quit_rule_name)
-	Button quit;
-
 	@Bind(R.id.activity_create_new_rule_button_save_rule_name)
-	Button save;
+	FloatingActionButton save;
 
 	private Rule rule;
 
@@ -131,13 +129,6 @@ public class CreateNewRule extends AppCompatActivity {
      * This method initialize the active GUI elements with listeners.
      */
 	private void initializeActiveElements(){
-		quit.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateNewRule.this, RuleSelection.class));
-            }
-        });
 
 		save.setOnClickListener(new OnClickListener() {
 
@@ -163,6 +154,7 @@ public class CreateNewRule extends AppCompatActivity {
 
 					intent.putExtras(bundle);
 					intent.setClass(CreateNewRule.this, RuleSettings.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 
 				}if (getString(R.string.activity_create_new_rule_radio_content_mail)==rb.getText().toString() ){
@@ -173,6 +165,7 @@ public class CreateNewRule extends AppCompatActivity {
 
 					intent.putExtras(bundle);
 					intent.setClass(CreateNewRule.this, RuleSettings.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 				}
 

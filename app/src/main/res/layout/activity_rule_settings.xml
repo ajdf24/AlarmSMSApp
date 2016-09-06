@@ -14,28 +14,20 @@
 
     <ListView
         android:id="@+id/listView1"
-        android:layout_above="@+id/activity_rule_settings_button_save_settings" 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        >
+        android:layout_alignBottom="@+id/activity_rule_settings_button_save_settings">
     </ListView>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/activity_rule_settings_button_save_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_done"
         android:layout_alignParentRight="true"
         android:text="@string/general_string_button_save" />
-
-    <Button
-        android:id="@+id/activity_rule_settings_button_quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/general_string_button_quit" />
 
  </RelativeLayout>
 

@@ -36,9 +36,6 @@ public class ReadingSettings extends AppCompatActivity {
 	@Bind(R.id.activity_reading_settings_button_save_read_settings)
 	Button save;
 
-	@Bind(R.id.activity_reading_settings_button_quit)
-	Button quit;
-
     /**
      * This method is like a constructor and
      * initialize all components of the activity.
@@ -93,23 +90,11 @@ public class ReadingSettings extends AppCompatActivity {
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
 				intent.setClass(ReadingSettings.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		});
 
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(ReadingSettings.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
 	}
 
     /**
