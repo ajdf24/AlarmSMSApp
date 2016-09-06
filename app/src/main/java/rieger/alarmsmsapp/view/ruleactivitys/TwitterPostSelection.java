@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.Selection;
@@ -46,11 +47,7 @@ public class TwitterPostSelection extends AppCompatActivity {
 	CheckBox addMessage;
 
     @Bind(R.id.activity_facebook_post_selection_button_save_facebook_post)
-	Button save;
-
-    @Bind(R.id.activity_facebook_post_selection_button_quit)
-	Button quit;
-
+	FloatingActionButton save;
 
     /**
      * This method is like a constructor and
@@ -107,20 +104,7 @@ public class TwitterPostSelection extends AppCompatActivity {
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
 				intent.setClass(TwitterPostSelection.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
-
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(TwitterPostSelection.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		});

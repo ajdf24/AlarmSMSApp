@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +21,7 @@ public class DepartmentSettings extends AppCompatActivity implements DepartmentF
     private static final String LOG_TAG = DepartmentSettings.class.getSimpleName();
 
     @Bind(R.id.activity_department_settings_button_save_department)
-    Button save;
-
-    @Bind(R.id.activity_department_settings_button_quit)
-    Button quit;
+    FloatingActionButton save;
 
     DepartmentFragment departmentFragment;
 
@@ -68,17 +66,6 @@ public class DepartmentSettings extends AppCompatActivity implements DepartmentF
 
                 departmentFragment.saveData();
 
-                Intent intent = new Intent();
-
-                intent.setClass(DepartmentSettings.this, StartActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        quit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent();
 
                 intent.setClass(DepartmentSettings.this, StartActivity.class);

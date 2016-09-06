@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,10 +59,7 @@ public class SoundSelection extends AppCompatActivity {
 
 
 	@Bind(R.id.activity_sound_selection_button_save_sound)
-	Button save;
-
-	@Bind(R.id.activity_sound_selection_button_quit)
-	Button quit;
+	FloatingActionButton save;
 
 	private MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -211,24 +209,7 @@ public class SoundSelection extends AppCompatActivity {
 
 				intent.putExtras(bundle);
 				intent.setClass(SoundSelection.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
-
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-                mediaPlayer.stop();
-
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-
-				intent.putExtras(bundle);
-				intent.setClass(SoundSelection.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		});
@@ -243,4 +224,10 @@ public class SoundSelection extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		mediaPlayer.stop();
+	}
 }

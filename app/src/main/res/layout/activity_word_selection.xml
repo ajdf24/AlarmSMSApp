@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView9">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -24,14 +25,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/activity_word_selection_textView_included_words" />
-
-            <Button
-                android:id="@+id/activity_word_selection_button_save_words"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@+id/activity_word_selection_editText_not_included_words"
-                android:layout_below="@+id/activity_word_selection_editText_not_included_words"
-                android:text="@string/general_string_button_save" />
 
             <EditText
                 android:id="@+id/activity_word_selection_editText_included_words"
@@ -68,17 +61,18 @@
 
             </EditText>
 
-            <Button
-                android:id="@+id/activity_word_selection_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_word_selection_button_save_words"
-                android:layout_alignBottom="@+id/activity_word_selection_button_save_words"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
-
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_done"
+        android:id="@+id/activity_word_selection_button_save_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/scrollView9"
+        android:layout_alignEnd="@+id/scrollView9" />
 
 </RelativeLayout>

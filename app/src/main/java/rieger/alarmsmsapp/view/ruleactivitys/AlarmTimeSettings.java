@@ -24,6 +24,7 @@ import rieger.alarmsmsapp.control.callback.ActionCallback;
 import rieger.alarmsmsapp.control.adapter.AlarmTimeAdapter;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class AlarmTimeSettings extends AppCompatActivity implements ActionCallback {
 
@@ -65,6 +66,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             @Override
             public void onClick(View v) {
                 //TODO: Speicherung Realisieren!!!!
+                finish();
             }
         });
 
@@ -83,8 +85,12 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             addNewEntry.setVisibility(View.INVISIBLE);
             Animation addButtonAnimation = AnimationUtils.loadAnimation(this, R.anim.expand_out);
             Animation alarmTimesAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-            addNewEntry.startAnimation(addButtonAnimation);
-            alarmTimes.startAnimation(alarmTimesAnimation);
+            if(alarmTimes.getVisibility() == View.VISIBLE) {
+                alarmTimes.startAnimation(alarmTimesAnimation);
+            }
+            if(addNewEntry.getVisibility() == View.VISIBLE){
+                addNewEntry.startAnimation(addButtonAnimation);
+            }
         }else {
             alarmTimes.setVisibility(View.VISIBLE);
             addNewEntry.setVisibility(View.VISIBLE);
@@ -143,5 +149,10 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                         .build();
                 break;
         }
+    }
+
+    @Override
+    public String toString() {
+        return CreateContextForResource.getStringFromID(R.string.activity_alarm_time_settings_name);
     }
 }

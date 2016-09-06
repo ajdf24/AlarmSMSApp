@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -54,10 +55,7 @@ public class RuleSettings extends AppCompatActivity {
 	SharedPreferences prefs;
 
     @Bind(R.id.activity_rule_settings_button_save_settings)
-	Button save;
-
-    @Bind(R.id.activity_rule_settings_button_quit)
-	Button quit;
+	FloatingActionButton save;
 
 	@Bind(R.id.listView1)
 	ListView listView;
@@ -134,6 +132,7 @@ public class RuleSettings extends AppCompatActivity {
 	private void createActivityList() {
 
 		activityList.add(new SenderSelection());
+		activityList.add(new AlarmTimeSettings());
 		activityList.add(new WordSelection());
 		activityList.add(new SoundSelection());
 		activityList.add(new AnswerCreation());
@@ -203,16 +202,6 @@ public class RuleSettings extends AppCompatActivity {
 			}
 		});
 
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				intent = new Intent();
-
-				intent.setClass(RuleSettings.this, RuleSelection.class);
-				startActivity(intent);
-			}
-		});
 	}
 
 	@Override

@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView2">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -74,27 +75,20 @@
                     android:text="@string/activity_create_new_rule_radio_content_mail" />
             </RadioGroup>
 
-            <Button
-                android:id="@+id/activity_create_new_rule_button_save_rule_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_create_new_rule_button_quit_rule_name"
-                android:layout_alignBottom="@+id/activity_create_new_rule_button_quit_rule_name"
-                android:layout_alignRight="@+id/activity_create_new_rule_editText_rule_name"
-                android:text="@string/general_string_button_save" />
-
-            <Button
-                android:id="@+id/activity_create_new_rule_button_quit_rule_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_create_new_rule_radioGroup_content_chooser"
-                android:layout_below="@+id/activity_create_new_rule_editText_rule_name"
-                android:layout_marginTop="15dp"
-                android:text="@string/general_string_button_quit" />
             <!-- TODO: change this line with the line above -->
             <!--android:layout_below="@+id/activity_create_new_rule_radioGroup_content_chooser"-->
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_create_new_rule_button_save_rule_name"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_done"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignBottom="@+id/scrollView2"
+        android:layout_alignRight="@+id/scrollView2"
+        android:layout_alignEnd="@+id/scrollView2" />
 </RelativeLayout>

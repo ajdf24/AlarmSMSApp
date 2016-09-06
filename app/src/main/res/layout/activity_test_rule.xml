@@ -15,7 +15,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView7">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -83,24 +84,17 @@
                 android:layout_below="@+id/activity_test_rule_description_text_textView"
                 android:hint="@string/activity_test_rule_hint_message" />
 
-            <Button
-                android:id="@+id/activity_test_rule_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_test_rule_message_editText"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
-
-            <Button
-                android:id="@+id/activity_test_rule_button_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/activity_test_rule_message_editText"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/general_string_button_test" />
-
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:src="@android:drawable/ic_menu_send"
+        android:id="@+id/activity_test_rule_button_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_test"
+        android:layout_alignBottom="@+id/scrollView7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

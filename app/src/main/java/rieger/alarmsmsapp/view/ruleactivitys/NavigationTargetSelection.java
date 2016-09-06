@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,10 +36,7 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
 	AutoCompleteTextView autoCompView;
 
 	@Bind(R.id.activity_navigation_target_selection_button_save_navigation_target)
-	Button save;
-
-	@Bind(R.id.activity_navigation_target_selection_button_quit)
-	Button quit;
+	FloatingActionButton save;
 
     /**
      * This method is like a constructor and
@@ -112,20 +110,7 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
 				intent.setClass(NavigationTargetSelection.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
-
-		quit.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(NavigationTargetSelection.this, RuleSettings.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 			}
 		});

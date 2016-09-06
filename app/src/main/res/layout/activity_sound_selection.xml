@@ -11,27 +11,19 @@
 
     <ListView
         android:id="@+id/activity_sound_selection_listView"
-        android:layout_above="@+id/activity_sound_selection_button_save_sound" 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        >
+        android:layout_alignBottom="@+id/activity_sound_selection_button_save_sound">
     </ListView>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_done"
         android:id="@+id/activity_sound_selection_button_save_sound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="@string/general_string_button_save" />
-
-    <Button
-        android:id="@+id/activity_sound_selection_button_quit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/general_string_button_quit" />
 
  </RelativeLayout>

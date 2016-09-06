@@ -23,7 +23,6 @@
         android:src="@drawable/ic_action_edit"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        app:backgroundTint="@color/my_primary"/>
+        android:layout_marginRight="20dp" />
 
 </FrameLayout>

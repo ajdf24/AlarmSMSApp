@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -61,10 +62,8 @@ public class AnswerCreation extends AppCompatActivity {
 	AppCompatSpinner area;
 
 	@Bind(R.id.activity_answer_creation_button_save_answer)
-	Button save;
+	FloatingActionButton save;
 
-	@Bind(R.id.activity_answer_creation_button_quit)
-	Button quit;
 
 	private static final int PICK_CONTACT = 1;
 
@@ -122,24 +121,12 @@ public class AnswerCreation extends AppCompatActivity {
 
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 				intent.putExtras(bundle);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				intent.setClass(AnswerCreation.this, RuleSettings.class);
 				startActivity(intent);
 			}
 		});
 
-		quit.setOnClickListener( new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				Bundle bundle = new Bundle();
-
-				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-				intent.putExtras(bundle);
-				intent.setClass(AnswerCreation.this, RuleSettings.class);
-				startActivity(intent);
-			}
-		});
 	}
 
     /**

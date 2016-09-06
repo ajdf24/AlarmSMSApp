@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView3">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -25,25 +26,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"/>
 
-            <Button
-                android:id="@+id/activity_department_settings_button_save_department"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_department_settings_fragment_container"
-                android:layout_marginTop="15dp"
-                android:text="@string/general_string_button_save" />
-
-            <Button
-                android:id="@+id/activity_department_settings_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/activity_department_settings_button_save_department"
-                android:text="@string/general_string_button_quit" />
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_department_settings_button_save_department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/general_string_button_save"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_done"
+        android:layout_alignRight="@+id/scrollView3"
+        android:layout_alignEnd="@+id/scrollView3" />
 
 </RelativeLayout>

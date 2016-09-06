@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,11 +42,8 @@ public class TestRule extends AppCompatActivity {
     @Bind(R.id.activity_test_rule_message_editText)
     EditText messageTextFiled;
 
-    @Bind(R.id.activity_test_rule_button_quit)
-    Button quitButton;
-
     @Bind(R.id.activity_test_rule_button_test)
-    Button testButon;
+    FloatingActionButton testButon;
 
     @Bind(R.id.activity_test_rule_button_choose_contacts_for_sender)
     Button chooseContactButton;
@@ -81,12 +79,6 @@ public class TestRule extends AppCompatActivity {
     }
 
     private void initializeActiveElements() {
-        quitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         testButon.setOnClickListener(new View.OnClickListener() {
             @Override

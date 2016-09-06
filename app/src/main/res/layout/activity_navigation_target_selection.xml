@@ -14,7 +14,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView5">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -46,25 +47,18 @@
                 android:ems="10"
                 android:hint="@string/activity_navigation_target_selection_editText_navigation_target_hint" />
 
-            <Button
-                android:id="@+id/activity_navigation_target_selection_button_save_navigation_target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_navigation_target_selection_AutoCompleteTextView_navigation_target"
-                android:layout_marginTop="15dp"
-                android:text="@string/general_string_button_save" />
-
-            <Button
-                android:id="@+id/activity_navigation_target_selection_button_quit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_navigation_target_selection_button_save_navigation_target"
-                android:layout_alignBottom="@+id/activity_navigation_target_selection_button_save_navigation_target"
-                android:layout_alignParentLeft="true"
-                android:text="@string/general_string_button_quit" />
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_navigation_target_selection_button_save_navigation_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done"
+        android:text="@string/general_string_button_save"
+        android:layout_alignBottom="@+id/scrollView5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

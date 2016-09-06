@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -36,10 +37,7 @@ public class LightSettings extends AppCompatActivity {
     AppCompatSpinner timeSpinner;
 
     @Bind(R.id.activity_light_settings_button_save)
-    Button buttonSave;
-
-    @Bind(R.id.activity_light_settings_button_quit)
-    Button buttonQuit;
+    FloatingActionButton buttonSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,22 +82,11 @@ public class LightSettings extends AppCompatActivity {
                 bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
                 intent.putExtras(bundle);
                 intent.setClass(LightSettings.this, RuleSettings.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
 
-        buttonQuit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-
-                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-                intent.putExtras(bundle);
-                intent.setClass(LightSettings.this, RuleSettings.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void getRuleSettingsForGUI() {
