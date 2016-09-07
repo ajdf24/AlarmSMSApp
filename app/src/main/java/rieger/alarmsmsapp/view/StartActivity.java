@@ -27,7 +27,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.database.DatabaseHelper;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
@@ -287,7 +286,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                     DataSource source = new DataSource(this);
                     try {
                         DepartmentSettingsModel department = DepartmentObserver.readSettings();
-                        source.createDepartment(department);
+                        source.saveDepartment(department);
                     } catch (SettingsNotFoundException e) {
                         e.printStackTrace();
                         error = true;
@@ -297,7 +296,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
                     try {
                         AlarmSettingsModel alarmSettingsModel = AlarmSettingsObserver.readSettings();
-                        source.createAlarm(alarmSettingsModel);
+                        source.saveAlarmSetting(alarmSettingsModel);
                     } catch (SettingsNotFoundException e) {
                         e.printStackTrace();
                         error = true;
@@ -309,7 +308,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                         List<Rule> rules = RuleObserver.readAllRulesFromFileSystem();
 
                         for (Rule rule : rules) {
-                            source.createRule(rule);
+                            source.saveRule(rule);
                         }
                     }catch (Exception e){
                         error = true;

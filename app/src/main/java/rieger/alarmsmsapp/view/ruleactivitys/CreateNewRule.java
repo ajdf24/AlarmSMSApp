@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,13 +24,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.factory.RuleCreator;
-import rieger.alarmsmsapp.model.RuleType;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.view.MainActivity;
-import rieger.alarmsmsapp.view.RuleSelection;
 
 /**
  * This activity is for creating a new rule, with the name of the rule
@@ -156,9 +152,9 @@ public class CreateNewRule extends AppCompatActivity {
 					rule = new SMSRule();
 					rule.setRuleName(rulename.getText().toString());
 
-//					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.SMS_RULE);
+//					rule = RuleCreator.saveRule(rulename.getText().toString(), RuleType.SMS_RULE);
 
-					rule = db.createRule(rule);
+					rule = db.saveRule(rule);
 
 					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 
@@ -170,7 +166,7 @@ public class CreateNewRule extends AppCompatActivity {
 				}
 //				if (getString(R.string.activity_create_new_rule_radio_content_mail)==rb.getText().toString() ){
 //
-//					rule = RuleCreator.createRule(rulename.getText().toString(), RuleType.EMAIL_RULE);
+//					rule = RuleCreator.saveRule(rulename.getText().toString(), RuleType.EMAIL_RULE);
 //
 //					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 //

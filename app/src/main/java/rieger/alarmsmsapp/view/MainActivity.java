@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements
                     ft.commit();
                     currentFragment = 3;
                 }
+
+                alarmSettings.saveData();
+                departmentSettings.saveData();
             }
 
             @Override

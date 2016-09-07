@@ -112,7 +112,7 @@ public class DataSource {
      * @param rule the data for the entry
      * @return the entry which was saved in the database
      */
-    public Rule createRule(Rule rule) {
+    public Rule saveRule(Rule rule) {
         open();
 
         ContentValues values = new ContentValues();
@@ -183,8 +183,12 @@ public class DataSource {
         return rules;
     }
 
-    public DepartmentSettingsModel createDepartment(DepartmentSettingsModel departmentSettings){
+    public DepartmentSettingsModel saveDepartment(DepartmentSettingsModel departmentSettings){
         open();
+
+        innerDelete = true;
+        deleteDepartment(departmentSettings);
+        innerDelete = false;
 
         ContentValues values = new ContentValues();
 
@@ -226,8 +230,12 @@ public class DataSource {
         close();
     }
 
-    public AlarmSettingsModel createAlarm(AlarmSettingsModel alarm){
+    public AlarmSettingsModel saveAlarmSetting(AlarmSettingsModel alarm){
         open();
+
+        innerDelete = true;
+        deleteAlarm();
+        innerDelete = false;
 
         ContentValues values = new ContentValues();
 
@@ -251,7 +259,7 @@ public class DataSource {
         return newAlarm;
     }
 
-    public Message createMessage(Message message){
+    public Message saveMessage(Message message){
         open();
 
         ContentValues values = new ContentValues();

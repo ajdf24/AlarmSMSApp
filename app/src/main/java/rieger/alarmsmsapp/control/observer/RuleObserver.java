@@ -69,7 +69,7 @@ public class RuleObserver {
 
 	public static void saveRule(Rule rule, Context context){
 		DataSource db = new DataSource(context);
-		db.createRule(rule);
+		db.saveRule(rule);
 	}
 
     public static void saveSMSRuleToFileSystem(String rule){

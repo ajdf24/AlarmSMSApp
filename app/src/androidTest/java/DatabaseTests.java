@@ -44,7 +44,7 @@ public class DatabaseTests extends AndroidTestCase {
     }
 
     public void testAddEntry() {
-        assertEquals(rule, db.createRule(rule));
+        assertEquals(rule, db.saveRule(rule));
     }
 
     public void testEmptyRules() {
@@ -53,7 +53,7 @@ public class DatabaseTests extends AndroidTestCase {
     }
 
     public void testDeleteRule() {
-        db.createRule(rule);
+        db.saveRule(rule);
         db.deleteRule(rule);
 
         List<Rule> rules = db.getAllRules();
@@ -62,26 +62,26 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testNotSameRule() {
 
-        assertNotSame(rule, db.createRule(rule));
+        assertNotSame(rule, db.saveRule(rule));
     }
 
     public void testCorrectRuleName() {
-        assertEquals(rule, db.createRule(rule));
+        assertEquals(rule, db.saveRule(rule));
     }
 
     public void testCorrectRuleSender() {
         rule.setSender("+1234*");
-        assertEquals(rule.getRuleName(), db.createRule(rule).getRuleName());
+        assertEquals(rule.getRuleName(), db.saveRule(rule).getRuleName());
     }
 
     public void testCorrectOccurredWords() {
         rule.setOccurredWords("Das Ist ein Test!");
-        assertEquals(rule.getOccurredWords(), db.createRule(rule).getOccurredWords());
+        assertEquals(rule.getOccurredWords(), db.saveRule(rule).getOccurredWords());
     }
 
     public void testCorrectNotOccurredWord() {
         rule.setNotOccurredWords("Dat ist ein anderer Test!");
-        assertEquals(rule.getNotOccurredWords(), db.createRule(rule).getNotOccurredWords());
+        assertEquals(rule.getNotOccurredWords(), db.saveRule(rule).getNotOccurredWords());
     }
 
     public void testCorrectSound() {
@@ -91,13 +91,13 @@ public class DatabaseTests extends AndroidTestCase {
         Sound sound = new Sound(name, uri, isInternalFalse);
         rule.setAlarmSoundUri(sound);
 
-        assertEquals(rule.getAlarmSoundUri(), db.createRule(rule).getAlarmSoundUri());
+        assertEquals(rule.getAlarmSoundUri(), db.saveRule(rule).getAlarmSoundUri());
 
         boolean isInternalTrue = true;
         sound = new Sound(name, uri, isInternalTrue);
         rule.setAlarmSoundUri(sound);
 
-        assertEquals(rule.getAlarmSoundUri(), db.createRule(rule).getAlarmSoundUri());
+        assertEquals(rule.getAlarmSoundUri(), db.saveRule(rule).getAlarmSoundUri());
     }
 
     public void testCorrectAutoAnswer() {
@@ -110,7 +110,7 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setAutomaticallyAnswer(answerBundle);
 
-        assertEquals(rule.getAutomaticallyAnswer(), db.createRule(rule).getAutomaticallyAnswer());
+        assertEquals(rule.getAutomaticallyAnswer(), db.saveRule(rule).getAutomaticallyAnswer());
     }
 
     public void testCorrectTwitterMessage() {
@@ -119,7 +119,7 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setMessageToPostOnTwitter(message);
 
-        assertEquals(rule.getMessageToPostOnTwitter(), db.createRule(rule).getMessageToPostOnTwitter());
+        assertEquals(rule.getMessageToPostOnTwitter(), db.saveRule(rule).getMessageToPostOnTwitter());
     }
 
     public void testCorrectNavigationTarget() {
@@ -128,7 +128,7 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setNavigationTarget(target);
 
-        assertEquals(rule.getNavigationTarget(), db.createRule(rule).getNavigationTarget());
+        assertEquals(rule.getNavigationTarget(), db.saveRule(rule).getNavigationTarget());
     }
 
     public void testCorrectReadThisMessage() {
@@ -137,14 +137,14 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setReadThisMessage(isNo);
 
-        assertEquals(rule.isReadThisMessage(), db.createRule(rule).isReadThisMessage());
+        assertEquals(rule.isReadThisMessage(), db.saveRule(rule).isReadThisMessage());
 
 
         boolean isYes = true;
 
         rule.setReadThisMessage(isYes);
 
-        assertEquals(rule.isReadThisMessage(), db.createRule(rule).isReadThisMessage());
+        assertEquals(rule.isReadThisMessage(), db.saveRule(rule).isReadThisMessage());
     }
 
     public void testCorrectReadOtherMessages() {
@@ -153,14 +153,14 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setReadOtherMessages(isNo);
 
-        assertEquals(rule.isReadOtherMessages(), db.createRule(rule).isReadOtherMessages());
+        assertEquals(rule.isReadOtherMessages(), db.saveRule(rule).isReadOtherMessages());
 
 
         boolean isYes = true;
 
         rule.setReadOtherMessages(isYes);
 
-        assertEquals(rule.isReadOtherMessages(), db.createRule(rule).isReadOtherMessages());
+        assertEquals(rule.isReadOtherMessages(), db.saveRule(rule).isReadOtherMessages());
     }
 
     public void testCorrectAddMessageToTwitterPost() {
@@ -169,14 +169,14 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setAddMessageToTwitterPost(isNo);
 
-        assertEquals(rule.isAddMessageToTwitterPost(), db.createRule(rule).isAddMessageToTwitterPost());
+        assertEquals(rule.isAddMessageToTwitterPost(), db.saveRule(rule).isAddMessageToTwitterPost());
 
 
         boolean isYes = true;
 
         rule.setAddMessageToTwitterPost(isYes);
 
-        assertEquals(rule.isAddMessageToTwitterPost(), db.createRule(rule).isAddMessageToTwitterPost());
+        assertEquals(rule.isAddMessageToTwitterPost(), db.saveRule(rule).isAddMessageToTwitterPost());
     }
 
     public void testCorrectActiveLight() {
@@ -185,14 +185,14 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setActivateLight(isNo);
 
-        assertEquals(rule.isActivateLight(), db.createRule(rule).isActivateLight());
+        assertEquals(rule.isActivateLight(), db.saveRule(rule).isActivateLight());
 
 
         boolean isYes = true;
 
         rule.setActivateLight(isYes);
 
-        assertEquals(rule.isActivateLight(), db.createRule(rule).isActivateLight());
+        assertEquals(rule.isActivateLight(), db.saveRule(rule).isActivateLight());
     }
 
     public void testCorrectLightOnlyWhenDark() {
@@ -201,14 +201,14 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setActivateLightOnlyWhenDark(isNo);
 
-        assertEquals(rule.isActivateLightOnlyWhenDark(), db.createRule(rule).isActivateLightOnlyWhenDark());
+        assertEquals(rule.isActivateLightOnlyWhenDark(), db.saveRule(rule).isActivateLightOnlyWhenDark());
 
 
         boolean isYes = true;
 
         rule.setActivateLightOnlyWhenDark(isYes);
 
-        assertEquals(rule.isActivateLightOnlyWhenDark(), db.createRule(rule).isActivateLightOnlyWhenDark());
+        assertEquals(rule.isActivateLightOnlyWhenDark(), db.saveRule(rule).isActivateLightOnlyWhenDark());
     }
 
     public void testCorrectLightTime() {
@@ -217,12 +217,12 @@ public class DatabaseTests extends AndroidTestCase {
 
         rule.setLightTime(lightTime);
 
-        assertEquals(rule.getLightTime(), db.createRule(rule).getLightTime());
+        assertEquals(rule.getLightTime(), db.saveRule(rule).getLightTime());
     }
 
     public void testAddDepartment() {
 
-        assertEquals(department.getAddress(), db.createDepartment(department).getAddress());
+        assertEquals(department.getAddress(), db.saveDepartment(department).getAddress());
     }
 
     public void testEmptyDepartments() {
@@ -232,7 +232,7 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testDeleteDepartment() {
 
-        db.createDepartment(department);
+        db.saveDepartment(department);
 
         db.deleteDepartment(department);
 
@@ -241,23 +241,23 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testNotSameDepartment() {
 
-        assertNotSame(department, db.createDepartment(department));
+        assertNotSame(department, db.saveDepartment(department));
     }
 
 
     public void testAddAlarm() {
 
-        assertNotNull(db.createAlarm(alarm));
+        assertNotNull(db.saveAlarmSetting(alarm));
     }
 
     public void testNotSameAlarm() {
 
-        assertNotSame(alarm, db.createAlarm(alarm));
+        assertNotSame(alarm, db.saveAlarmSetting(alarm));
     }
 
     public void testDeleteAlarm() {
 
-        db.createAlarm(alarm);
+        db.saveAlarmSetting(alarm);
         db.deleteAlarm();
 
         assertNull(db.getAlarm());
@@ -275,7 +275,7 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testAddMessage(){
 
-        db.createMessage(message);
+        db.saveMessage(message);
 
         assertEquals(db.getAllMessages().size(), 1);
     }
@@ -287,63 +287,63 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testNotSameMessage(){
 
-        assertNotSame(message, db.createMessage(message));
+        assertNotSame(message, db.saveMessage(message));
     }
 
     public void testMessageAddCorrectSender(){
 
         message.setSender("Blubber");
 
-        assertEquals(message.getSender(), db.createMessage(message).getSender());
+        assertEquals(message.getSender(), db.saveMessage(message).getSender());
     }
 
     public void testMessageAddCorrectMessage(){
 
         message.setMessage("Test Nachricht");
 
-        assertEquals(message.getMessage(), db.createMessage(message).getMessage());
+        assertEquals(message.getMessage(), db.saveMessage(message).getMessage());
     }
 
     public void testMessageAddCorrectTimeStamp(){
 
         message.setTimeStamp(1234567890);
 
-        assertEquals(message.getTimeStamp(), db.createMessage(message).getTimeStamp());
+        assertEquals(message.getTimeStamp(), db.saveMessage(message).getTimeStamp());
     }
 
     public void testMessageAddCorrectDay(){
 
         message.setDay(1);
 
-        assertEquals(message.getDay(), db.createMessage(message).getDay());
+        assertEquals(message.getDay(), db.saveMessage(message).getDay());
     }
 
     public void testMessageAddCorrectMonth(){
 
         message.setMonth(5);
 
-        assertEquals(message.getMonth(), db.createMessage(message).getMonth());
+        assertEquals(message.getMonth(), db.saveMessage(message).getMonth());
     }
 
     public void testMessageAddCorrectYear(){
 
         message.setYear(2016);
 
-        assertEquals(message.getYear(), db.createMessage(message).getYear());
+        assertEquals(message.getYear(), db.saveMessage(message).getYear());
     }
 
     public void testMessageAddCorrectMatchingRuleName(){
 
         message.setMatchingRuleName("Matching Rule NAME");
 
-        assertEquals(message.getMatchingRuleName(), db.createMessage(message).getMatchingRuleName());
+        assertEquals(message.getMatchingRuleName(), db.saveMessage(message).getMatchingRuleName());
     }
 
     public void testMessageAddCorrectMatchingDayName(){
 
         message.setDayName("Mittwoch");
 
-        assertEquals(message.getDayName(), db.createMessage(message).getDayName());
+        assertEquals(message.getDayName(), db.saveMessage(message).getDayName());
     }
 
     @Override
