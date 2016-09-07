@@ -76,7 +76,7 @@ public class AlarmSettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_alarm_settings, container, false);
+        view = inflater.inflate(R.layout.fragment_alarm_settings, container, false);
 
         db = new DataSource(view.getContext());
 
@@ -108,12 +108,15 @@ public class AlarmSettingsFragment extends Fragment {
 
     public void saveData(){
 
-        alarmSettingsModel.setRepeatAlarm(Integer.parseInt(repeatAlarm.getText().toString()));
+        if(view != null) {
+            alarmSettingsModel.setRepeatAlarm(Integer.parseInt(repeatAlarm.getText().toString()));
+            Log.d(LOG_TAG, "Gespeichert");
 
-        db = new DataSource(view.getContext());
-        db.saveAlarmSetting(alarmSettingsModel);
+            db = new DataSource(view.getContext());
+            db.saveAlarmSetting(alarmSettingsModel);
 
-        AlarmWidget.updateWidget(view.getContext());
+            AlarmWidget.updateWidget(view.getContext());
+        }
 
         Log.i(LOG_TAG, "Alarmeinstellungen gespeichert");
 
@@ -190,6 +193,7 @@ public class AlarmSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 alarmSettingsModel.setNotificationLightActivated(alarmWithNotificationLight.isChecked());
+                Log.d(LOG_TAG, "Licht Aktiviert");
             }
         });
 

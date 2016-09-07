@@ -129,7 +129,7 @@ public class AlarmWidget extends AppWidgetProvider {
 
     private static void loadAlarmSettings(Context context){
         DataSource db = new DataSource(context);
-        db.saveAlarmSetting(alarmSettingsModel);
+        alarmSettingsModel = db.getAlarm();
 
         if(alarmSettingsModel == null){
             CreateContextForResource.getContext().startActivity(new Intent(CreateContextForResource.getContext(), AlarmSettings.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));

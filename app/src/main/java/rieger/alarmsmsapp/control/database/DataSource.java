@@ -376,9 +376,10 @@ public class DataSource {
             alarmSettingsModel.setAlarmActivated((cursor.getInt(1) == 1));
             alarmSettingsModel.setAlarmVolume(cursor.getInt(2));
             alarmSettingsModel.setVibrationActivated((cursor.getInt(3) == 1));
-            alarmSettingsModel.setNotificationLightColor(cursor.getInt(4));
-            alarmSettingsModel.setMuteAlarmActivated((cursor.getInt(5) == 1));
-            alarmSettingsModel.setRepeatAlarm(cursor.getInt(6));
+            alarmSettingsModel.setNotificationLightActivated(cursor.getInt(4) == 1);
+            alarmSettingsModel.setNotificationLightColor(cursor.getInt(5));
+            alarmSettingsModel.setMuteAlarmActivated((cursor.getInt(6) == 1));
+            alarmSettingsModel.setRepeatAlarm(cursor.getInt(7));
         }catch (IndexOutOfBoundsException e){
             return null;
         }

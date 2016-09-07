@@ -95,12 +95,14 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
     public void saveData(){
 
-        departmentSettings = new DepartmentSettingsModel();
+        if(view != null) {
+            departmentSettings = new DepartmentSettingsModel();
 
-        departmentSettings.setAddress(autoCompView.getText().toString());
+            departmentSettings.setAddress(autoCompView.getText().toString());
 
-        DataSource db = new DataSource(view.getContext());
-        db.saveDepartment(departmentSettings);
+            DataSource db = new DataSource(view.getContext());
+            db.saveDepartment(departmentSettings);
+        }
     }
 
     @Override

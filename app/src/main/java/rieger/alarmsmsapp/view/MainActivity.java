@@ -33,6 +33,7 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.util.AndroidBug5497Workaround;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AndroidBug5497Workaround.assistActivity(this);
 
         ButterKnife.bind(this);
 
@@ -129,8 +131,12 @@ public class MainActivity extends AppCompatActivity implements
                     currentFragment = 3;
                 }
 
-                alarmSettings.saveData();
-                departmentSettings.saveData();
+                if(alarmSettings != null) {
+                    alarmSettings.saveData();
+                }
+                if(departmentSettings != null) {
+                    departmentSettings.saveData();
+                }
             }
 
             @Override

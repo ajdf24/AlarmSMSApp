@@ -47,6 +47,8 @@ import rieger.alarmsmsapp.view.LightActivity;
 
 public class SMSReceiver extends BroadcastReceiver implements SensorEventListener{
 
+    private final String LOG_TAG = getClass().getSimpleName();
+
     private List<Rule> smsRules;
 
     private AlarmSettingsModel alarmSettings;
@@ -80,9 +82,11 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
+	    Log.i(LOG_TAG, "SMS empfangen");
+
         resourceIdForNotificationIcon = R.drawable.ic_notification;
 
-        readRules();
+        readRules(context);
 
         readSettings(context);
 
@@ -92,6 +96,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         if (createAlarm){
             doRuleSettings();
+
+            saveMessage(context, messageSource, messageBody);
         }
 
         boolean isPhoneSilent = false;
@@ -117,7 +123,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             }
         }
 
-        saveMessage(context, messageSource, messageBody);
+
 	}
 
     private void saveMessage(Context context, String messageSource, String messageBody) {
@@ -242,8 +248,9 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
     /**
      * This method reads all sms rules.
      */
-    private void readRules(){
-        smsRules = RuleObserver.readAllSMSRulesFromFileSystem();
+    private void readRules(Context context){
+        DataSource db = new DataSource(context);
+        smsRules = db.getAllRules();
     }
 
     /**
@@ -334,7 +341,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         resourceIdForNotificationIcon = R.drawable.ic_notification;
 
-        readRules();
+        readRules(context);
 
         readSettings(context);
 

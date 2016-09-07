@@ -72,7 +72,7 @@ public class TestRule extends AppCompatActivity {
             messageTextFiled.setText(message);
 
             SMSReceiver smsReceiver = new SMSReceiver();
-            smsReceiver.testReceiver(number,message);
+            smsReceiver.testReceiver(this, number,message);
 
             finish();
         }
@@ -87,7 +87,7 @@ public class TestRule extends AppCompatActivity {
                 message = messageTextFiled.getText().toString();
 
                 SMSReceiver smsReceiver = new SMSReceiver();
-                smsReceiver.testReceiver(number, message);
+                smsReceiver.testReceiver(TestRule.this, number, message);
 
                 finish();
             }

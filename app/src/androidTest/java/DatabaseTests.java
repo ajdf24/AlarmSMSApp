@@ -263,6 +263,19 @@ public class DatabaseTests extends AndroidTestCase {
         assertNull(db.getAlarm());
     }
 
+    public void testSetAlarmNotificationLight(){
+
+        alarm.setNotificationLightActivated(true);
+        db.saveAlarmSetting(alarm);
+
+        assertTrue(db.getAlarm().isNotificationLightActivated());
+
+        alarm.setNotificationLightActivated(false);
+        db.saveAlarmSetting(alarm);
+
+        assertFalse(db.getAlarm().isNotificationLightActivated());
+    }
+
     public void testEmptyTableRules(){
 
         assertEquals(db.getAllRules().size(), 0);

@@ -67,7 +67,7 @@ public class AlarmSettings extends AppCompatActivity implements AlarmSettingsFra
 
                 alarmSettingsFragment.saveData();
 
-                AlarmWidget.updateWidget();
+                AlarmWidget.updateWidget(AlarmSettings.this);
 
                 startActivity(new Intent(AlarmSettings.this, StartActivity.class));
             }
