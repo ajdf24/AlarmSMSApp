@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
@@ -48,7 +49,7 @@ public class AlarmWidget extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.img_btn, pendingIntent);
         appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
-        updateWidget();
+        updateWidget(context);
     }
 
     /**
@@ -63,7 +64,7 @@ public class AlarmWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        loadAlarmSettings();
+        loadAlarmSettings(context);
 
         if (intent.getAction()==null) {
             Bundle extras = intent.getExtras();
@@ -75,13 +76,17 @@ public class AlarmWidget extends AppWidgetProvider {
                     remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_inactiv));
 
                     alarmSettingsModel.setAlarmActivated(false);
-                    alarmSettingsModel.notifyObserver();
+
+                    DataSource db = new DataSource(context);
+                    db.saveAlarmSetting(alarmSettingsModel);
 
                 }else{
                     remoteViews.setTextViewText(R.id.widget_textview, CreateContextForResource.getStringFromID(R.string.widget_text_activ));
 
                     alarmSettingsModel.setAlarmActivated(true);
-                    alarmSettingsModel.notifyObserver();
+
+                    DataSource db = new DataSource(context);
+                    db.saveAlarmSetting(alarmSettingsModel);
                 }
 
                 watchWidget = new ComponentName( context, AlarmWidget.class );
@@ -102,9 +107,9 @@ public class AlarmWidget extends AppWidgetProvider {
     /**
      * This method updates the View of the Widget.
      */
-    public static void updateWidget(){
+    public static void updateWidget(Context context){
 
-        loadAlarmSettings();
+        loadAlarmSettings(context);
         if (alarmSettingsModel != null) {
             if (alarmSettingsModel.isAlarmActivated()) {
                 remoteViews = new RemoteViews(CreateContextForResource.getContext().getPackageName(), R.layout.widget_activate_alarm);
@@ -122,12 +127,10 @@ public class AlarmWidget extends AppWidgetProvider {
         }
     }
 
-    private static void loadAlarmSettings(){
-        try {
-            alarmSettingsModel = AlarmSettingsObserver.readSettings();
-        } catch (SettingsNotFoundException e) {
-            Log.e("AlarmWidget", "Alarm Settings not found.");
-        }
+    private static void loadAlarmSettings(Context context){
+        DataSource db = new DataSource(context);
+        db.saveAlarmSetting(alarmSettingsModel);
+
         if(alarmSettingsModel == null){
             CreateContextForResource.getContext().startActivity(new Intent(CreateContextForResource.getContext(), AlarmSettings.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }

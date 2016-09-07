@@ -18,6 +18,7 @@ import android.widget.SeekBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
@@ -60,6 +61,8 @@ public class AlarmSettingsFragment extends Fragment {
 
     private View view;
 
+    private DataSource db;
+
     public AlarmSettingsFragment() {
         // Required empty public constructor
     }
@@ -74,6 +77,8 @@ public class AlarmSettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm_settings, container, false);
+
+        db = new DataSource(view.getContext());
 
         ButterKnife.bind(this, view);
 
@@ -105,9 +110,10 @@ public class AlarmSettingsFragment extends Fragment {
 
         alarmSettingsModel.setRepeatAlarm(Integer.parseInt(repeatAlarm.getText().toString()));
 
-        alarmSettingsModel.notifyObserver();
+        db = new DataSource(view.getContext());
+        db.saveAlarmSetting(alarmSettingsModel);
 
-        AlarmWidget.updateWidget();
+        AlarmWidget.updateWidget(view.getContext());
 
         Log.i(LOG_TAG, "Alarmeinstellungen gespeichert");
 
@@ -118,11 +124,7 @@ public class AlarmSettingsFragment extends Fragment {
      */
     private void getAlarmSettingsForGUI() {
 
-        try {
-            alarmSettingsModel = AlarmSettingsObserver.readSettings();
-        }catch (SettingsNotFoundException e) {
-            Log.e(this.getClass().getSimpleName(), "Alarm Settings not found.");
-        }
+        alarmSettingsModel = db.getAlarm();
 
         if (alarmSettingsModel == null){
             alarmSettingsModel = new AlarmSettingsModel();

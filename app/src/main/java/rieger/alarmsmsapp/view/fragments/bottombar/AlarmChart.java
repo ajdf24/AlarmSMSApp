@@ -35,6 +35,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -68,6 +69,8 @@ public class AlarmChart extends Fragment {
     List<Message> messageList;
 
     private OnFragmentInteractionListener mListener;
+
+    private View view;
 
     public AlarmChart() {
         // Required empty public constructor
@@ -147,7 +150,8 @@ public class AlarmChart extends Fragment {
             adView.loadAd(adRequest);
         }
 
-        messageList = MessageObserver.readAllMessagesFromFileSystem();
+        DataSource db = new DataSource(view.getContext());
+        messageList = db.getAllMessages();
 
         LoadStatisticTask task = new LoadStatisticTask();
         task.execute(messageList);

@@ -18,6 +18,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Created by Sebastian on 27.03.2016.
+ * @deprecated
  */
 public class MessageObserver {
 

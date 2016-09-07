@@ -109,6 +109,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
     }
     /**
      * This method redirect the user if there are no settings are found.
+     * @deprecated
      */
     @Deprecated
     private void redirectForFirstUse() {

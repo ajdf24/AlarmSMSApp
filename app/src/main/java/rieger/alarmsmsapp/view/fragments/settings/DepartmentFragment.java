@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
@@ -41,6 +42,8 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
     private OnFragmentInteractionListener mListener;
 
+    private View view;
+
     public DepartmentFragment() {
         // Required empty public constructor
     }
@@ -56,7 +59,7 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_department, container, false);
+        view = inflater.inflate(R.layout.fragment_department, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -96,7 +99,8 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
         departmentSettings.setAddress(autoCompView.getText().toString());
 
-        DepartmentObserver.saveSettings(departmentSettings);
+        DataSource db = new DataSource(view.getContext());
+        db.saveDepartment(departmentSettings);
     }
 
     @Override

@@ -31,5 +31,4 @@ public class DepartmentSettingsModel {
         this.address = address;
     }
 
-
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -25,6 +26,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * Also the class can change a file from a {@link rieger.alarmsmsapp.model.AlarmSettingsModel}.
  *
  * Created by sebastian on 02.03.15.
+ * @deprecated
  */
 public class AlarmSettingsObserver {
 
@@ -45,6 +47,11 @@ public class AlarmSettingsObserver {
         } catch (IOException e) {
         Log.e(AppConstants.DEBUG_TAG, "Error while writing settings to file system", e);
         }
+    }
+
+    public static void saveSettings(AlarmSettingsModel settings, Context context){
+        DataSource db = new DataSource(context);
+        db.saveAlarmSetting(settings);
     }
 
     /**

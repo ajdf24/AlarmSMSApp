@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.control.observer.MessageObserver;
@@ -83,7 +84,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         readRules();
 
-        readSettings();
+        readSettings(context);
 
         readSMSFromIntent(intent);
 
@@ -116,10 +117,10 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             }
         }
 
-        saveMessage(messageSource, messageBody);
+        saveMessage(context, messageSource, messageBody);
 	}
 
-    private void saveMessage(String messageSource, String messageBody) {
+    private void saveMessage(Context context, String messageSource, String messageBody) {
         DateFormat day = new SimpleDateFormat("dd");
         DateFormat month = new SimpleDateFormat("MM");
         DateFormat year = new SimpleDateFormat("yyyy");
@@ -136,7 +137,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
         message.setDayName(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(currentDate));
         message.setMatchingRuleName(matchingRules.get(0).getRuleName());
 
-        MessageObserver.saveMessageToFileSystem(message);
+        DataSource db = new DataSource(context);
+        db.saveMessage(message);
     }
 
     /**
@@ -247,18 +249,12 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
     /**
      * This method reads the alarm settings.
      */
-    private void readSettings(){
-        try {
-            alarmSettings = AlarmSettingsObserver.readSettings();
-        }catch (SettingsNotFoundException e){
-            Log.e(this.getClass().getSimpleName(), "Alarm Settings not found.");
-        }
+    private void readSettings(Context context){
 
-        try {
-            departmentSettings = DepartmentObserver.readSettings();
-        }catch (SettingsNotFoundException e){
-            Log.e(this.getClass().getSimpleName(), "Department Settings not found.");
-        }
+        DataSource db = new DataSource(context);
+        alarmSettings = db.getAlarm();
+
+        departmentSettings = db.getAllDepartments().get(0);
     }
 
     /**
@@ -334,13 +330,13 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
         return foundMatchingRule;
     }
 
-    public void testReceiver(String number, String message) {
+    public void testReceiver(Context context, String number, String message) {
 
         resourceIdForNotificationIcon = R.drawable.ic_notification;
 
         readRules();
 
-        readSettings();
+        readSettings(context);
 
         messageBody = message;
         messageSource = number;

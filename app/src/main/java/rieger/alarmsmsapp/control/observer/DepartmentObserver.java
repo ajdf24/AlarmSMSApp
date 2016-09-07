@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -15,6 +16,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Created by sebastian on 04.03.15.
+ * @deprecated
  */
 public class DepartmentObserver {
 
@@ -35,6 +37,11 @@ public class DepartmentObserver {
         } catch (IOException e) {
             Log.e(AppConstants.DEBUG_TAG, "Error while writing department to file system", e);
         }
+    }
+
+    public static void saveSettings(DepartmentSettingsModel settings, Context context){
+        DataSource db = new DataSource(context);
+        db.saveDepartment(settings);
     }
 
     /**
