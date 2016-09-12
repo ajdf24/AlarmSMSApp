@@ -22,6 +22,8 @@ public class AnswerBundle implements Serializable {
 
 	private int distance;
 
+	private boolean sendAnswerEveryTime = false;
+
 	/**
 	 * Default constructor for the serialization.<br>
 	 * <b>Note</b>: Don't use them!
@@ -83,9 +85,17 @@ public class AnswerBundle implements Serializable {
 		this.distance = distance;
 	}
 
+	public boolean isSendAnswerEveryTime() {
+		return sendAnswerEveryTime;
+	}
+
+	public void setSendAnswerEveryTime(boolean sendAnswerEveryTime) {
+		this.sendAnswerEveryTime = sendAnswerEveryTime;
+	}
+
 	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+         * @see java.lang.Object#hashCode()
+         */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

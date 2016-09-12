@@ -334,7 +334,18 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
                         errorDialog.show();
                     }else {
-                        startNextActivity();
+
+                        List<Rule> rules = RuleObserver.readAllRulesFromFileSystem();
+
+                        for (Rule rule : rules) {
+                            RuleObserver.deleteRuleFromFilesystem(rule);
+                        }
+
+                        Intent intent = new Intent();
+
+                        intent.setClass(StartActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                 }

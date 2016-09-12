@@ -438,4 +438,17 @@ public abstract class Rule implements Serializable{
 	public void setActivateLightOnlyWhenDark(boolean activateLightOnlyWhenDark) {
 		this.activateLightOnlyWhenDark = activateLightOnlyWhenDark;
 	}
+
+	public boolean isSendEveryTime(){
+		if (automaticallyAnswer==null) {
+			return false;
+		}
+		return automaticallyAnswer.isSendAnswerEveryTime();
+	}
+
+	public void setSendEveryTime(boolean set){
+		if (automaticallyAnswer!=null) {
+			automaticallyAnswer.setSendAnswerEveryTime(set);
+		}
+	}
 }
