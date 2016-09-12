@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -47,6 +51,8 @@ public class CreateNewRule extends AppCompatActivity {
 	FloatingActionButton save;
 
 	private Rule rule;
+
+	private boolean saveVisible = false;
 
     /**
      * This method is like a constructor and
@@ -129,6 +135,11 @@ public class CreateNewRule extends AppCompatActivity {
      */
 	private void initializeActiveElements(){
 
+		if(rulename.length() > 0){
+			save.setVisibility(View.VISIBLE);
+			saveVisible = true;
+		}
+
 		save.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -176,6 +187,46 @@ public class CreateNewRule extends AppCompatActivity {
 //					startActivity(intent);
 //				}
 
+			}
+		});
+		rulename.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(s.length() > 0){
+					if(!saveVisible) {
+						Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_in);
+						save.startAnimation(showSave);
+						save.setVisibility(View.VISIBLE);
+						saveVisible = true;
+					}
+				}else {
+					Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_out);
+					save.startAnimation(showSave);
+					save.setVisibility(View.INVISIBLE);
+					saveVisible = false;
+				}
+
+//				if(!s.toString().isEmpty()){
+//					if(!(s.toString().length() > 0)) {
+//						Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_in);
+//						save.startAnimation(showSave);
+//						save.setVisibility(View.VISIBLE);
+//					}
+//				}else {
+//					Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_out);
+//					save.startAnimation(showSave);
+//					save.setVisibility(View.INVISIBLE);
+//				}
 			}
 		});
 	}

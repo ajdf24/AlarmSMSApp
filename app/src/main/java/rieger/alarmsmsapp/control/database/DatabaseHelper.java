@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String TABLE_RULES = "table_rule";
 
     public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_RULE_ACTIVE = "rule_active";
     public static final String COLUMN_RULE_NAME = "rule_name";
     public static final String COLUMN_SENDER = "sender";
     public static final String COLUMN_OCCURRED_WORDS = "occurred_words";
@@ -81,6 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + TABLE_RULES + "("
                 + COLUMN_ID + PRIMARY_KEY
                 + COLUMN_RULE_NAME + TEXT
+                + COLUMN_RULE_ACTIVE + INT
                 + COLUMN_SENDER + TEXT
                 + COLUMN_OCCURRED_WORDS + TEXT
                 + COLUMN_NOT_OCCURRED_WORDS + TEXT

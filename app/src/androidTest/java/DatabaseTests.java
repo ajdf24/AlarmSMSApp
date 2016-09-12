@@ -211,6 +211,21 @@ public class DatabaseTests extends AndroidTestCase {
         assertEquals(rule.isActivateLightOnlyWhenDark(), db.saveRule(rule).isActivateLightOnlyWhenDark());
     }
 
+    public void testCorrectIsActivated(){
+
+        rule.setActive(true);
+
+        db.saveRule(rule);
+
+        assertEquals(rule.isActive(), db.getAllRules().get(0).isActive());
+
+        rule.setActive(false);
+
+        db.saveRule(rule);
+
+        assertEquals(rule.isActive(), db.getAllRules().get(0).isActive());
+    }
+
     public void testCorrectLightTime() {
 
         int lightTime = 500;

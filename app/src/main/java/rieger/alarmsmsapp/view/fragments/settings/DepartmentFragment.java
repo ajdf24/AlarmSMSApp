@@ -72,8 +72,13 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
     private void getDepartmentSettingsForGUI() {
 
-        DataSource db = new DataSource(view.getContext());
-        departmentSettings = db.getAllDepartments().get(db.getAllDepartments().size()-1);
+        try {
+            DataSource db = new DataSource(view.getContext());
+            departmentSettings = db.getAllDepartments().get(db.getAllDepartments().size()-1);
+        }catch (ArrayIndexOutOfBoundsException e){
+            departmentSettings = new DepartmentSettingsModel();
+        }
+
 
         if (departmentSettings != null) {
             autoCompView.setText(departmentSettings.getAddress());

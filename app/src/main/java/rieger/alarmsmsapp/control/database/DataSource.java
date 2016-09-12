@@ -50,7 +50,8 @@ public class DataSource {
             DatabaseHelper.COLUMN_ADD_MESSAGE_TO_TWITTER,
             DatabaseHelper.COLUMN_ACTIVATE_LIGHT,
             DatabaseHelper.COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK,
-            DatabaseHelper.COLUMN_LIGHT_TIME
+            DatabaseHelper.COLUMN_LIGHT_TIME,
+            DatabaseHelper.COLUMN_RULE_ACTIVE
     };
 
     private String[] allColumnsDepartment = {
@@ -147,6 +148,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_ACTIVATE_LIGHT, (rule.isActivateLight())? 1 : 0);
         values.put(DatabaseHelper.COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK, (rule.isActivateLightOnlyWhenDark())? 1 : 0);
         values.put(DatabaseHelper.COLUMN_LIGHT_TIME, rule.getLightTime());
+        values.put(DatabaseHelper.COLUMN_RULE_ACTIVE, (rule.isActive())? 1 : 0);
         long insertId = database.insert(DatabaseHelper.TABLE_RULES, "",
                 values);
         Cursor cursor = database.query(DatabaseHelper.TABLE_RULES,
@@ -357,6 +359,7 @@ public class DataSource {
         rule.setActivateLight(cursor.getInt(16) == 1);
         rule.setActivateLightOnlyWhenDark(cursor.getInt(17) == 1);
         rule.setLightTime(cursor.getInt(18));
+        rule.setActive(cursor.getInt(19) == 1);
 
         return rule;
     }

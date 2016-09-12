@@ -376,10 +376,14 @@ public class RuleSelection extends Fragment {
                             Rule rule = (Rule) checkBox.getTag();
                             if (checkBox.isChecked()) {
                                 Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                rule.setActive(true);
                             } else {
                                 Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                rule.setActive(false);
                             }
                             RuleCreator.changeActive(rule, checkBox.isChecked());
+                            DataSource db = new DataSource(view.getContext());
+                            db.saveRule(rule);
                         }
                     });
                     viewHolder.ruleName.setOnClickListener(new View.OnClickListener() {
