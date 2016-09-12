@@ -133,7 +133,7 @@ public class RuleSettings extends AppCompatActivity {
 	private void createActivityList() {
 
 		activityList.add(new SenderSelection());
-		activityList.add(new AlarmTimeSettings());
+		//activityList.add(new AlarmTimeSettings());
 		activityList.add(new WordSelection());
 		activityList.add(new SoundSelection());
 		activityList.add(new AnswerCreation());

@@ -71,12 +71,9 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
     }
 
     private void getDepartmentSettingsForGUI() {
-        try {
-            departmentSettings = DepartmentObserver.readSettings();
-        }catch (SettingsNotFoundException e){
 
-            Log.e(LOG_TAG,"Settings not loaded");
-        }
+        DataSource db = new DataSource(view.getContext());
+        departmentSettings = db.getAllDepartments().get(db.getAllDepartments().size()-1);
 
         if (departmentSettings != null) {
             autoCompView.setText(departmentSettings.getAddress());

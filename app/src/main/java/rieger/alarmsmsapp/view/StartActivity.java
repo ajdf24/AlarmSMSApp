@@ -77,7 +77,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         ButterKnife.bind(this);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
         prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);

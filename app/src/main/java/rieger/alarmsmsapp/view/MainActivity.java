@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AndroidBug5497Workaround.assistActivity(this);
+//        AndroidBug5497Workaround.assistActivity(this);
 
         ButterKnife.bind(this);
 
