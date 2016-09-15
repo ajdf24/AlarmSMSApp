@@ -1,14 +1,17 @@
 package rieger.alarmsmsapp.util.standard;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ObbInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.view.StartActivity;
 
 /**
  * This utility class contains methods, which create a notification for the android system.
@@ -19,15 +22,15 @@ import rieger.alarmsmsapp.util.AppConstants;
  */
 public class NotificationCreator {
 
-    /**
-     * This method creates a standard notification with the light color <code>{@link Color#WHITE}</code>,
-     * with a light frequency of 0.1 minutes and without a icon,
-     * @param contentTitle the title of the notification as {@link String}
-     * @param contentText the text of the notification as {@link String}
-     */
-    public static void createSimpleNotification(String contentTitle, String contentText){
-        createFreeNotification(0,contentTitle,contentText,Color.WHITE, 6000, 6000, null, null);
-    }
+//    /**
+//     * This method creates a standard notification with the light color <code>{@link Color#WHITE}</code>,
+//     * with a light frequency of 0.1 minutes and without a icon,
+//     * @param contentTitle the title of the notification as {@link String}
+//     * @param contentText the text of the notification as {@link String}
+//     */
+//    public static void createSimpleNotification(String contentTitle, String contentText){
+//        createFreeNotification(0,contentTitle,contentText,Color.WHITE, 6000, 6000, null, null);
+//    }
 
     /**
      * This method creates a notification on which all settings can be set by the programmer.
@@ -150,5 +153,41 @@ public class NotificationCreator {
         notificationManager.notify(0, builder.build());
 
     }
+
+    /**
+     * This method creates a notification on which all settings can be set by the programmer.
+     * @param icon the resource id of the notification icon
+     * @param contentTitle the title of the notification as {@link String}
+     * @param contentText the text of the notification as {@link String}
+     * @param lightColor the color of the light, set like <code>{@link Color#RED}/code>
+     * @param timeLightOn the time in ms which the light is on
+     * @param timeLightOff the time in ms which the light is off
+     * @param vibrate array with the vibration interval
+     * @param calledActivity the activity, which is opend on klick.
+     */
+    public static void createFreeNotification(int icon, String contentTitle, String contentText, int lightColor, int timeLightOn, int timeLightOff, long[] vibrate, Class<?> calledActivity) {
+        NotificationManager notificationManager = (NotificationManager) CreateContextForResource.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent start = new Intent(CreateContextForResource.getContext(), calledActivity);
+        start.setFlags(Notification.FLAG_AUTO_CANCEL);
+
+        PendingIntent contentIntent =
+                PendingIntent.getActivity(CreateContextForResource.getContext(), 0, start, 0);
+
+        NotificationCompat.Builder builder=
+                new NotificationCompat.Builder(CreateContextForResource.getContext().getApplicationContext())
+                        .setSmallIcon(icon)
+                        .setContentTitle(contentTitle)
+                        .setContentText(contentText)
+                        .setLights(lightColor, timeLightOn, timeLightOff)
+                        .setVibrate(vibrate)
+                        .setAutoCancel(true)
+                        .setContentIntent(contentIntent);
+
+        notificationManager.notify(0, builder.build());
+
+    }
+
+
 
 }

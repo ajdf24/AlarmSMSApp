@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.view;
 
+import android.Manifest;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        AndroidBug5497Workaround.assistActivity(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
+        }
 
         ButterKnife.bind(this);
 
@@ -193,6 +200,20 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
+            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Snackbar snackbar = Snackbar
+                            .make(this.findViewById(android.R.id.content), R.string.toast_permission_sms_denied, Snackbar.LENGTH_LONG);
+
+                    View snackbarView = snackbar.getView();
+                    TextView textView = (TextView)snackbarView .findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.show();
+
+                    return;
+                }
+                break;
             case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE:
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 

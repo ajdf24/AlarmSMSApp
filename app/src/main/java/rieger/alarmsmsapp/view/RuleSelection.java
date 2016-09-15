@@ -819,7 +819,5 @@ public class RuleSelection extends AppCompatActivity {
                 }
             });
         }
-
-
     }
 }
