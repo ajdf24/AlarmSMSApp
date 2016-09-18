@@ -265,10 +265,24 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
      */
     private void readSettings(Context context){
 
-        DataSource db = new DataSource(context);
-        alarmSettings = db.getAlarm();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CreateContextForResource.getContext());
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
+            try {
+                alarmSettings = AlarmSettingsObserver.readSettings();
+            } catch (SettingsNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                departmentSettings = DepartmentObserver.readSettings();
+            } catch (SettingsNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else {
+            DataSource db = new DataSource(context);
+            alarmSettings = db.getAlarm();
 
-        departmentSettings = db.getAllDepartments().get(0);
+            departmentSettings = db.getAllDepartments().get(0);
+        }
     }
 
     /**

@@ -341,6 +341,10 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                             RuleObserver.deleteRuleFromFilesystem(rule);
                         }
 
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
+                        editor.commit();
+
                         Intent intent = new Intent();
 
                         intent.setClass(StartActivity.this, MainActivity.class);
