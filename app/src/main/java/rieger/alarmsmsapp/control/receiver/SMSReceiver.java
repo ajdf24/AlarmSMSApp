@@ -3,6 +3,7 @@ package rieger.alarmsmsapp.control.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +11,7 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -249,8 +251,13 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
      * This method reads all sms rules.
      */
     private void readRules(Context context){
-        DataSource db = new DataSource(context);
-        smsRules = db.getAllRules();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CreateContextForResource.getContext());
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
+            smsRules = RuleObserver.readAllSMSRulesFromFileSystem();
+        }else{
+            DataSource db = new DataSource(context);
+            smsRules = db.getAllRules();
+        }
     }
 
     /**

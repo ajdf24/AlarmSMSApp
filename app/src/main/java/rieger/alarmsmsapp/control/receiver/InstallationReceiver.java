@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 
 import rieger.alarmsmsapp.R;
@@ -21,8 +23,12 @@ public class InstallationReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationCreator.createFreeNotification(R.drawable.ic_notification, "Willkomen im Beta-Programm", "Probiere jetzt die Neuerungen aus.", Color.RED, 1000, 1000, null, StartActivity.class);
-        Log.e(LOG_TAG, "Install");
+
+//        String data = intent.getPackage();
+//
+//        Log.e("TEST", data.toString());
+//        NotificationCreator.createFreeNotification(R.drawable.ic_notification, "Willkomen im Beta-Programm", "Probiere jetzt die Neuerungen aus.", Color.RED, 1000, 1000, null, StartActivity.class);
+//        Log.e(LOG_TAG, "Install");
     }
 
 }
