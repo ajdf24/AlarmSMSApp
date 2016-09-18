@@ -214,4 +214,21 @@
     <string name="general_string_december">December</string>
     <string name="activity_alarm_chart_chart_description"># Alarms</string>
     <string name="general_string_date_format">MM/dd/yyyy HH:mm:ss</string>
+
+    <string name="activity_alarm_time_settings_name">Alarmtimes</string>
+
+    <string-array name="days_array">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday - Sunday</item>
+        <item>Monday - Friday</item>
+        <item>Friday - Sunday</item>
+        <item>Saturday - Sunday</item>
+    </string-array>
 </resources>

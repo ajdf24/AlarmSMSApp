@@ -3,6 +3,7 @@ package rieger.alarmsmsapp.control.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by sebastian on 14.08.16.
@@ -73,10 +74,31 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_DAY_NAME = "day_name";
     //END TABLE MESSAGES
 
+    //TABLE ALARMTIMES
+    public static final String TABLE_ALARM_TIMES = "table_alarmtimes";
+
+    public static final String COLUMN_RULE_FOREIGN_KEY = "rule_key";
+    public static final String COLUMN_DAYS = "days";
+    public static final String COLUMN_START_TIME_MINUTES = "start_time_minutes";
+    public static final String COLUMN_START_TIME_HOURS = "start_time_hours";
+    public static final String COULMN_END_TIME_MINUTES = "end_time_minutes";
+    public static final String COULMN_END_TIME_HOURS = "end_time_hours";
+    //END TABLE ALARMTIMES
+
     public static final String PRIMARY_KEY = " integer primary key autoincrement, ";
     public static final String TEXT = " text, ";
     public static final String INT = " integer not null, ";
     public static final String BOOL = " integer not null, ";
+
+    public static final String CREATE_TABLE_ALARM_TIMES = "create table "
+                + TABLE_ALARM_TIMES + "("
+                + COLUMN_ID + PRIMARY_KEY
+                + COLUMN_RULE_FOREIGN_KEY + INT
+                + COLUMN_DAYS + INT
+                + COLUMN_START_TIME_MINUTES + INT
+                + COLUMN_START_TIME_HOURS + INT
+                + COULMN_END_TIME_MINUTES + INT
+                + COULMN_END_TIME_HOURS + " integer not null);";
 
     public static final String CREATE_TABLE_RULES = "create table "
                 + TABLE_RULES + "("
@@ -148,5 +170,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.d(LOG_TAG, "New Database version detected");
+
+        if(oldVersion == 1){
+            if(newVersion >= 2){
+                db.execSQL(CREATE_TABLE_ALARM_TIMES);
+            }
+        }
     }
 }

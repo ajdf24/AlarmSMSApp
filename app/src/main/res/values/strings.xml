@@ -205,7 +205,6 @@
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Use only when it is dark</string>
     <string name="activty_alarm_settings_repeat_text">Repeat Alarm Sound</string>
     <string name="title_activity_alarm_chart">Alarm Chart</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_list_messages">ListMessages</string>
     <string name="general_string_january">January</string>
     <string name="general_string_february">February</string>
@@ -222,6 +221,21 @@
     <string name="activity_alarm_chart_chart_description"># Alarms</string>
     <string name="general_string_date_format">MM/dd/yyyy HH:mm:ss</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="activity_alarm_time_settings_name">Alarmtimes</string>
+
+    <string-array name="days_array">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday - Sunday</item>
+        <item>Monday - Friday</item>
+        <item>Friday - Sunday</item>
+        <item>Saturday - Sunday</item>
+    </string-array>
+
 </resources>
