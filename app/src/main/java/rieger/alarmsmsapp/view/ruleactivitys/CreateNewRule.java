@@ -89,34 +89,6 @@ public class CreateNewRule extends AppCompatActivity {
 					.blockAllTouches()
 					.build();
 
-			showcaseView.setOnShowcaseEventListener(new OnShowcaseEventListener() {
-				@Override
-				public void onShowcaseViewHide(ShowcaseView showcaseView) {
-
-				}
-
-				@Override
-				public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-					ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
-							.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
-							.setContentTitle("Speichern")
-							.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
-							.setContentText("Speichern und weiter")
-							.hideOnTouchOutside()
-							.blockAllTouches()
-							.build();
-				}
-
-				@Override
-				public void onShowcaseViewShow(ShowcaseView showcaseView) {
-
-				}
-
-				@Override
-				public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
-
-				}
-			});
 		}
 	}
 
@@ -208,6 +180,14 @@ public class CreateNewRule extends AppCompatActivity {
 						save.startAnimation(showSave);
 						save.setVisibility(View.VISIBLE);
 						saveVisible = true;
+						ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
+								.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
+								.setContentTitle("Speichern")
+								.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+								.setContentText("Speichern und weiter")
+								.hideOnTouchOutside()
+								.blockAllTouches()
+								.build();
 					}
 				}else {
 					Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_out);
