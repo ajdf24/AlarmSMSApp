@@ -8,12 +8,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".view.fragments.welcome.DepartmentExplanationFragment">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gerätehaus Einstellung"
+        android:text="@string/department_explanation_fragment_headline"
         android:id="@+id/fragment_department_explanation_title"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -24,8 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
-        android:text="AlarmSMS verwendet den Standort deines Gerätehauses, in verschiedenen Einstellungen.
-        \n So zum Beispiel bei der Entfernungsabhängigen SMS-Weiterleitung. \n\n Um den Standort einzugeben dücke auf weiter."
+        android:text="@string/department_explanation_fragment_text"
         android:id="@+id/fragment_department_explanation_text"
         android:layout_below="@+id/fragment_department_explanation_title"
         android:layout_alignParentLeft="true"

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/activity_department_settings_editText_department_location_hint"
-        android:layout_below="@+id/textView14"
+        android:layout_below="@+id/department_fragment_textview_explanation"
         android:layout_alignParentRight="true"
         android:textColor="@color/textcolor"
         android:layout_alignParentEnd="true"
@@ -26,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gerätehaus"
-        android:id="@+id/textView14"
+        android:text="@string/department_fragment_textview_explanation"
+        android:id="@+id/department_fragment_textview_explanation"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 

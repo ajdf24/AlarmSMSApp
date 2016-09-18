@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +16,19 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.observer.DepartmentObserver;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
-import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.googleplaces.GooglePlacesAutocompleteAdapter;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DepartmentFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * This fragment sets the Department and save it to the database
  */
 public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
-
+    /**
+     * log tag
+     */
     private static final String LOG_TAG = DepartmentFragment.class.getSimpleName();
 
     @Bind(R.id.activity_department_settings_autoCompleteTextView_department_location)
@@ -40,25 +36,31 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
     private DepartmentSettingsModel departmentSettings;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener listener;
 
     private View view;
 
+    /**
+     * constructor
+     */
     public DepartmentFragment() {
-        // Required empty public constructor
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_department, container, false);
 
         ButterKnife.bind(this, view);
@@ -70,6 +72,9 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
         return view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     private void getDepartmentSettingsForGUI() {
 
         try {
@@ -95,8 +100,10 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
     }
 
+    /**
+     * save the department to the database
+     */
     public void saveData(){
-
         if(view != null) {
             departmentSettings = new DepartmentSettingsModel();
 
@@ -107,21 +114,27 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     /**
@@ -138,6 +151,14 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * Show the selected item form the given places as toast
+     *
+     * @param adapterView adapter for select
+     * @param view the current view
+     * @param position the clicked position
+     * @param id the row id of the item that was clicked
+     */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         String str = (String) adapterView.getItemAtPosition(position);

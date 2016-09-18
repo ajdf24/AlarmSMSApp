@@ -11,59 +11,59 @@ import android.view.ViewGroup;
 import rieger.alarmsmsapp.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DepartmentExplanationFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DepartmentExplanationFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Explanation fragment for the department settings.
  */
 public class DepartmentExplanationFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    /**
+     * listener
+     */
+    private OnFragmentInteractionListener listener;
 
+    /**
+     * constructor
+     */
     public DepartmentExplanationFragment() {
-        // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DepartmentExplanation.
+     * {@inheritDoc}
      */
-    public static DepartmentExplanationFragment newInstance() {
-        DepartmentExplanationFragment fragment = new DepartmentExplanationFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_department_explanation, container, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     /**

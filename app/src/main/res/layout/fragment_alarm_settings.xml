@@ -16,18 +16,16 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Globale Alarmeinstellungen"
-        android:id="@+id/textView15"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-
-
+            <TextView
+                android:id="@+id/alarm_settings_fragment_headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:text="@string/alarm_settings_fragment_headline"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
             <android.support.v7.widget.SwitchCompat
@@ -36,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:text="@string/activity_alarm_settings_switch_alarm_activated"
-                android:layout_below="@id/textView15"/>
+                android:layout_below="@id/alarm_settings_fragment_headline"
+                android:text="@string/activity_alarm_settings_switch_alarm_activated" />
 
             <TextView
                 android:id="@+id/activity_alarm_settings_textView_label_for_seekBar_volume"
@@ -93,7 +91,7 @@
                 android:layout_alignLeft="@+id/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color"
                 android:layout_below="@+id/activity_alarm_settings_textView_label_for_spinner_for_notification_light_color"
                 android:layout_marginTop="15dp"
-                android:entries="@array/color_array"/>
+                android:entries="@array/color_array" />
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/activity_alarm_settings_switch_mute_alarm_activated"
@@ -106,35 +104,29 @@
                 android:text="@string/activity_alarm_settings_switch_mute_alarm_activated" />
 
             <EditText
+                android:id="@+id/activity_alarm_settings_repeat_alarm"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
-                android:ems="10"
-                android:id="@+id/activity_alarm_settings_repeat_alarm"
-                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:hint="1"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
                 android:digits="0123456789"
+                android:ems="10"
                 android:gravity="center"
-                />
-
+                android:hint="1"
+                android:inputType="numberSigned" />
 
 
             <TextView
+                android:id="@+id/activty_alarm_settings_repeat_help_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/activty_alarm_settings_repeat_text"
-                android:id="@+id/activty_alarm_settings_repeat_help_text"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/activity_alarm_settings_switch_mute_alarm_activated"
                 android:layout_marginTop="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-
-
+                android:text="@string/activty_alarm_settings_repeat_text"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </RelativeLayout>
-
     </ScrollView>
 </RelativeLayout>

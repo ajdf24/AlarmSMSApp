@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -37,6 +38,7 @@ import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.model.Version;
 import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.util.AnimationListener;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
@@ -89,7 +91,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             final WelcomeFragment welcomeFragment = new WelcomeFragment();
-            fragmentTransaction.add(R.id.fragment_container, welcomeFragment, "WelcomeFragment");
+            fragmentTransaction.add(R.id.fragment_container, welcomeFragment, AppConstants.Fragments.WELCOME_FRAGMENT);
             fragmentTransaction.commit();
 
             buttonNext.setOnClickListener(new View.OnClickListener() {
@@ -99,149 +101,110 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                 }
             });
         }else{
-            Intent intent = new Intent();
-
-            intent.setClass(StartActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            startNextActivity(MainActivity.class);
         }
 
     }
+
     /**
-     * This method redirect the user if there are no settings are found.
-     * @deprecated
+     * start the next activity
+     * @param cls the activity which should be started
      */
-    @Deprecated
-    private void redirectForFirstUse() {
-        try {
-            AlarmSettingsObserver.readSettings();
-        }catch (SettingsNotFoundException e) {
-                Log.i(this.getClass().getSimpleName(), "Alarm Settings not set. Start Alarm Settings");
-                startActivity(new Intent(this, AlarmSettings.class));
-                return;
-        }
-
-        try {
-            DepartmentObserver.readSettings();
-        }catch (SettingsNotFoundException e){
-            Log.i(this.getClass().getSimpleName(), "Department Settings not set. Start Alarm Settings");
-            startActivity(new Intent(this, DepartmentSettings.class));
-            return;
-        }
-
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-    private void startNextActivity(){
+    private void startNextActivity(Class<?> cls){
         Intent intent = new Intent();
 
-        intent.setClass(StartActivity.this, CreateNewRule.class);
+        intent.setClass(StartActivity.this, cls);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param uri
+     */
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
+    /**
+     * This method navigate the user through the different start fragments with the main settings.
+     * @param welcomeFragment the start fragment
+     */
     private void startConfiguration(Fragment welcomeFragment){
         if (clickCounter == 0) {
+            try {
+                final DynamicImageView imageView = (DynamicImageView) welcomeFragment.getView().findViewById(R.id.welcome_fragment_main_image);
+                final TextView headLineText = (TextView) welcomeFragment.getView().findViewById(R.id.welcome_fragment_headline);
+                final TextView welcomeText = (TextView) welcomeFragment.getView().findViewById(R.id.welcome_fragment_info_text);
 
-            final DynamicImageView imageView = (DynamicImageView) welcomeFragment.getView().findViewById(R.id.view2);
-            final TextView mainText = (TextView) welcomeFragment.getView().findViewById(R.id.textView13);
-            final TextView mainText2 = (TextView) welcomeFragment.getView().findViewById(R.id.textView2);
+                TranslateAnimation animation = new TranslateAnimation(0, 0, 0, -1000);
+                animation.setDuration(500);
+                animation.setFillAfter(false);
 
-            TranslateAnimation animation = new TranslateAnimation(0, 0, 0, -1000);
-            animation.setDuration(500);
-            animation.setFillAfter(false);
+                animation.setAnimationListener(new AnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        imageView.setVisibility(View.GONE);
+                        headLineText.setText(CreateContextForResource.getStringFromID(R.string.welcome_fragment_info_text_2));
+                        headLineText.setGravity(Gravity.CENTER);
+                    }
+                });
 
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+                imageView.startAnimation(animation);
 
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    imageView.setVisibility(View.GONE);
-                    mainText.setText("AlarmSMS nutzt globale Alarmeinstellungen, welche für jede Alarmierung gelten.");
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
-            imageView.startAnimation(animation);
-
-
-            mainText.startAnimation(animation);
-            mainText2.startAnimation(animation);
-
+                headLineText.startAnimation(animation);
+                welcomeText.startAnimation(animation);
+            }catch (NullPointerException e){
+                Log.e(LOG_TAG, "View not found");
+            }
         }
         if (clickCounter == 1) {
-
-
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 
             alarmSettingsFragment = new AlarmSettingsFragment();
 
-            ft.replace(R.id.fragment_container, alarmSettingsFragment, "AlarmSettingsFragment");
-            // Start the animated transition.
+            ft.replace(R.id.fragment_container, alarmSettingsFragment, AppConstants.Fragments.ALARM_SETTINGS_FRAGMENT);
             ft.commit();
         }
         if(clickCounter == 2){
-
             alarmSettingsFragment.saveData();
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 
             DepartmentExplanationFragment departmentExplanationFragment = new DepartmentExplanationFragment();
 
-            ft.replace(R.id.fragment_container, departmentExplanationFragment, "DepartmentExplanationFragment");
-            // Start the animated transition.
+            ft.replace(R.id.fragment_container, departmentExplanationFragment, AppConstants.Fragments.DEPARTMENT_EXPLANATION_FRAGMENT);
             ft.commit();
         }
         if(clickCounter == 3){
-
             FragmentTransaction ft = getFragmentManager().beginTransaction();
 
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 
             departmentFragment = new DepartmentFragment();
 
-            ft.replace(R.id.fragment_container, departmentFragment, "DepartmentFragment");
-            // Start the animated transition.
+            ft.replace(R.id.fragment_container, departmentFragment, AppConstants.Fragments.DEPARTMENT_FRAGMENT);
             ft.commit();
         }
         if(clickCounter == 4){
-
             departmentFragment.saveData();
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 
             ReadyFragment readyFragment = new ReadyFragment();
 
-            ft.replace(R.id.fragment_container, readyFragment, "ReadyFragment");
-            // Start the animated transition.
+            ft.replace(R.id.fragment_container, readyFragment, AppConstants.Fragments.READY_FRAGMENT);
             ft.commit();
 
         }
         if(clickCounter == 5){
-
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
-            editor.commit();
-            startNextActivity();
-
+            editor.apply();
+            startNextActivity(CreateNewRule.class);
         }
         clickCounter++;
     }
@@ -268,8 +231,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             }
 
             if (version == null){
-                //Erster Aufruf nach Installation
 
+                //Erster Aufruf nach Installation
                 version = new Version();
                 version.setVersion(packageInfo.versionCode);
                 VersionObserver.saveSettings(version);
@@ -277,12 +240,10 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             }else {
 
                 if (version.getVersion() < packageInfo.versionCode) {
-
                     boolean error = false;
 
                     //Alte Version gefunden --> import settings to database
-
-                    ProgressDialog dialog = ProgressDialog.show(this, "Importiere Einstellungen von alter Version", "Gerätehaus", true);
+                    ProgressDialog dialog = ProgressDialog.show(this, CreateContextForResource.getStringFromID(R.string.import_settings_dialog_title), CreateContextForResource.getStringFromID(R.string.import_settings_dialog_department), true);
 
                     DataSource source = new DataSource(this);
                     try {
@@ -293,8 +254,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                         error = true;
                     }
 
-                    dialog.setMessage("Alarmeinstellungen");
-
+                    dialog.setMessage(CreateContextForResource.getStringFromID(R.string.import_settings_dialog_alarm_settings));
                     try {
                         AlarmSettingsModel alarmSettingsModel = AlarmSettingsObserver.readSettings();
                         source.saveAlarmSetting(alarmSettingsModel);
@@ -303,7 +263,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                         error = true;
                     }
 
-                    dialog.setMessage("Regeln");
+                    dialog.setMessage(CreateContextForResource.getStringFromID(R.string.import_settings_dialog_rules));
 
                     try {
                         List<Rule> rules = RuleObserver.readAllRulesFromFileSystem();
@@ -322,28 +282,24 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                        builder.setTitle("Fehler beim Import")
-
-                                .setMessage("Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!")
+                        builder.setTitle(R.string.import_settings_dialog_import_error)
+                                .setMessage(R.string.import_settings_dialog_import_error_message)
                                 .setCancelable(false)
                                 .setIcon(R.drawable.ic_launcher)
-
                                 .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), null);
 
                         errorDialog = builder.create();
-
                         errorDialog.show();
                     }else {
 
                         List<Rule> rules = RuleObserver.readAllRulesFromFileSystem();
-
                         for (Rule rule : rules) {
                             RuleObserver.deleteRuleFromFilesystem(rule);
                         }
 
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
-                        editor.commit();
+                        editor.apply();
 
                         Intent intent = new Intent();
 
@@ -357,6 +313,5 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }

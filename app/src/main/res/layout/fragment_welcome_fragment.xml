@@ -10,16 +10,16 @@
         android:layout_height="400dp"
         android:scaleType="centerCrop"
         android:src="@drawable/launcher"
-        android:id="@+id/view2" />
+        android:id="@+id/welcome_fragment_main_image" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Willkommen bei AlarmSMS"
+        android:text="@string/welcome_fragment_headline"
         android:layout_marginTop="10dp"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/view2"
+        android:id="@+id/welcome_fragment_headline"
+        android:layout_below="@+id/welcome_fragment_main_image"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -28,24 +28,11 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Bitte konfiguriere im folgenden die App, \num das beste Ergebnis zu erhalten"
-        android:id="@+id/textView13"
+        android:text="@string/welcome_fragment_info_text"
+        android:id="@+id/welcome_fragment_info_text"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/welcome_fragment_headline"
         android:layout_centerHorizontal="true" />
-
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text="Feuerwehr"-->
-        <!--android:gravity="center"-->
-        <!--android:textColor="#FFD700"-->
-        <!--android:id="@+id/textView14"-->
-        <!--android:layout_marginTop="135dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
 
 </RelativeLayout>

@@ -19,19 +19,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.widget.AlarmWidget;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
-import rieger.alarmsmsapp.model.SettingsNotFoundException;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AlarmSettingsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * Fragment, in which the user can set the global alarm settings.
  */
 public class AlarmSettingsFragment extends Fragment {
 
+    /**
+     * log tag
+     */
     private static final String LOG_TAG = AlarmSettingsFragment.class.getSimpleName();
 
     @Bind(R.id.activity_alarm_settings_switch_alarm_activated)
@@ -55,7 +53,7 @@ public class AlarmSettingsFragment extends Fragment {
     @Bind(R.id.activity_alarm_settings_repeat_alarm)
     EditText repeatAlarm;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener listener;
 
     private AlarmSettingsModel alarmSettingsModel = new AlarmSettingsModel();
 
@@ -63,19 +61,25 @@ public class AlarmSettingsFragment extends Fragment {
 
     private DataSource db;
 
+    /**
+     * constructor
+     */
     public AlarmSettingsFragment() {
-        // Required empty public constructor
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_alarm_settings, container, false);
 
         db = new DataSource(view.getContext());
@@ -89,37 +93,41 @@ public class AlarmSettingsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
+    /**
+     * this method save the set data to the database
+     */
     public void saveData(){
 
         if(view != null) {
             alarmSettingsModel.setRepeatAlarm(Integer.parseInt(repeatAlarm.getText().toString()));
-            Log.d(LOG_TAG, "Gespeichert");
 
-            db = new DataSource(view.getContext());
             db.saveAlarmSetting(alarmSettingsModel);
 
             AlarmWidget.updateWidget(view.getContext());
         }
-
-        Log.i(LOG_TAG, "Alarmeinstellungen gespeichert");
-
     }
 
     /**
@@ -132,7 +140,6 @@ public class AlarmSettingsFragment extends Fragment {
         if (alarmSettingsModel == null){
             alarmSettingsModel = new AlarmSettingsModel();
         }
-
 
         getAlarms.setChecked(alarmSettingsModel.isAlarmActivated());
         alarmVolume.setProgress(alarmSettingsModel.getAlarmVolume());
@@ -193,7 +200,6 @@ public class AlarmSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 alarmSettingsModel.setNotificationLightActivated(alarmWithNotificationLight.isChecked());
-                Log.d(LOG_TAG, "Licht Aktiviert");
             }
         });
 

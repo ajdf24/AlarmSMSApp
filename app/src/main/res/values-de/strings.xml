@@ -236,4 +236,34 @@
         <item>Freitag - Sonntag</item>
         <item>Samstag - Sonntag</item>
     </string-array>
+
+
+<!--Welcome Fragment-->
+    <string name="welcome_fragment_headline">Willkommen bei AlarmSMS</string>
+    <string name="welcome_fragment_info_text">Bitte konfiguriere im folgenden die App, \num das beste Ergebnis zu erhalten</string>
+    <string name="welcome_fragment_info_text_2">AlarmSMS nutzt globale Alarmeinstellungen, welche für jede Alarmierung gelten.</string>
+
+<!--AlarmSettings Fragment-->
+
+    <string name="alarm_settings_fragment_headline">Globale Alarmeinstellungen</string>
+
+    <!--Department Explanation Fragment-->
+    <string name="department_explanation_fragment_headline">Gerätehaus Einstellung</string>
+    <string name="department_explanation_fragment_text">AlarmSMS verwendet den Standort deines Gerätehauses, in verschiedenen Einstellungen.
+        \n So zum Beispiel bei der Entfernungsabhängigen SMS-Weiterleitung. \n\n Um den Standort einzugeben dücke auf weiter.</string>
+
+    <!--department Fragment-->
+    <string name="department_fragment_textview_explanation">Gerätehaus</string>
+
+    <!--Ready Fragment-->
+    <string name="ready_fragment_title">Geschafft</string>
+    <string name="ready_fragment_text">AlarmSMS wurde konfiguriert. Erstelle nun deine Alarm-Regeln.</string>
+
+    <!--import settings dialog-->
+    <string name="import_settings_dialog_title">Importiere Einstellungen von alter Version</string>
+    <string name="import_settings_dialog_department">Gerätehaus</string>
+    <string name="import_settings_dialog_alarm_settings">Alarmeinstellungen</string>
+    <string name="import_settings_dialog_rules">Regeln</string>
+    <string name="import_settings_dialog_import_error">Fehler beim Import</string>
+    <string name="import_settings_dialog_import_error_message">Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!</string>
 </resources>

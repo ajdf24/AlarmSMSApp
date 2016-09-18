@@ -1,37 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".view.fragments.welcome.ReadyFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.welcome.ReadyFragment">
 
 
     <rieger.alarmsmsapp.control.widget.DynamicImageView
+        android:id="@+id/fragment_ready_image_view"
         android:layout_width="fill_parent"
         android:layout_height="400dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/launcher"
-        android:id="@+id/fragment_ready_view" />
+        android:src="@drawable/launcher" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:text="Geschafft"
-    android:id="@+id/fragment_ready_title"
-    android:gravity="center"
-    android:layout_below="@+id/fragment_ready_view"
-    android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/fragment_ready_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_ready_image_view"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/ready_fragment_title"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-    android:gravity="center"
-    android:text="AlarmSMS wurde konfiguriert. Erstelle nun deine Alarm-Regel."
-    android:id="@+id/fragment_ready_text"
-    android:layout_below="@+id/fragment_ready_title"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/fragment_ready_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fragment_ready_title"
+        android:gravity="center"
+        android:text="@string/ready_fragment_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
 

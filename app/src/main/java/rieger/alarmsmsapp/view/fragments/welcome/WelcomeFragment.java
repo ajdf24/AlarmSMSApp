@@ -11,45 +11,61 @@ import android.view.ViewGroup;
 import rieger.alarmsmsapp.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WelcomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * Start Fragment which greet the new user.
  */
 public class WelcomeFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    /**
+     * interaction listener
+     */
+    private OnFragmentInteractionListener listener;
 
+    /**
+     * constructor for this fragment
+     */
     public WelcomeFragment() {
     }
 
+    /**
+     * create the fragment
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Create the fragment view
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_welcome_fragment, container, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     /**

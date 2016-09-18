@@ -126,4 +126,12 @@ public interface AppConstants {
         String FIRST_SHOW_ALARM_TIME_LIST = "First show alarm time list";
     }
 
+    interface Fragments{
+        String WELCOME_FRAGMENT = "WelcomeFragment";
+        String ALARM_SETTINGS_FRAGMENT = "AlarmSettingsFragment";
+        String DEPARTMENT_EXPLANATION_FRAGMENT = "DepartmentExplanationFragment";
+        String DEPARTMENT_FRAGMENT = "DepartmentFragment";
+        String READY_FRAGMENT = "ReadyFragment";
+    }
+
 }
