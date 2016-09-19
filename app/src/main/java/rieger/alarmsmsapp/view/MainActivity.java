@@ -293,9 +293,9 @@ public class MainActivity extends AppCompatActivity implements
             ruleSelection.notifyDataSetChanced();
 
             Intent intent = getIntent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            finish();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+
         }else if (item.getTitle() == getResources().getString(R.string.test_rule)) {
 
             Bundle bundle = new Bundle();

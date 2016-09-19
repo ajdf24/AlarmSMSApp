@@ -38,6 +38,8 @@ import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.MainActivity;
+import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;
 
 public class RuleSettings extends AppCompatActivity {
 
@@ -103,7 +105,11 @@ public class RuleSettings extends AppCompatActivity {
 		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				RuleSettings.this.finish();
+				Intent intent = new Intent();
+
+				intent.setClass(RuleSettings.this, MainActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 			}
 		});
 	}
