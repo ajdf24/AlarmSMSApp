@@ -52,6 +52,7 @@
             android:label="@string/title_activity_create_new_rule" />
         <activity
             android:name=".view.ruleactivitys.RuleSettings"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_rule_settings" />
         <activity
             android:name=".view.ruleactivitys.SenderSelection"
@@ -125,9 +126,7 @@
             android:exported="false" />
 
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.ruleactivitys.AlarmTimeSettings">
-
-        </activity>
+        <activity android:name=".view.ruleactivitys.AlarmTimeSettings"/>
     </application>
 
 </manifest>

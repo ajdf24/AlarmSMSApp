@@ -142,11 +142,12 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                 ShowcaseView view = new ShowcaseView.Builder(this)
                         .setTarget(new ViewTarget(R.id.activity_alarm_time_settings_new_time, this))
                         .setContentTitle("")
-                        .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+                        .setStyle(R.style.CustomShowcaseTheme)
                         .setContentText("Erstelle eine neue Alarmzeit")
                         .hideOnTouchOutside()
                         .blockAllTouches()
                         .build();
+                view.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
                 break;
         }
     }

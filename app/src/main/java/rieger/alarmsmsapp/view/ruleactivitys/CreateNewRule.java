@@ -31,6 +31,7 @@ import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.MainActivity;
 
 /**
@@ -78,16 +79,17 @@ public class CreateNewRule extends AppCompatActivity {
 			// run your one time code
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_CREATE_RULE, false);
-			editor.commit();
+			editor.apply();
 
 			ShowcaseView showcaseView = new ShowcaseView.Builder(this)
 					.setTarget(new ViewTarget(R.id.activity_create_new_rule_editText_rule_name, this))
 					.setContentTitle("Namenwahl")
-					.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+					.setStyle(R.style.CustomShowcaseTheme)
 					.setContentText("Wähle einen Namen für deine Regel")
 					.hideOnTouchOutside()
 					.blockAllTouches()
 					.build();
+			showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 
 		}
 	}
@@ -180,14 +182,21 @@ public class CreateNewRule extends AppCompatActivity {
 						save.startAnimation(showSave);
 						save.setVisibility(View.VISIBLE);
 						saveVisible = true;
-						ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
-								.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
-								.setContentTitle("Speichern")
-								.setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
-								.setContentText("Speichern und weiter")
-								.hideOnTouchOutside()
-								.blockAllTouches()
-								.build();
+						SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(CreateNewRule.this);
+						if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_CREATE_RULE_SAVE, true)) {
+							SharedPreferences.Editor editor = prefs.edit();
+							editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_CREATE_RULE_SAVE, false);
+							editor.apply();
+							ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
+									.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
+									.setContentTitle("Speichern")
+									.setStyle(R.style.CustomShowcaseTheme)
+									.setContentText("Speichern und weiter")
+									.hideOnTouchOutside()
+									.blockAllTouches()
+									.build();
+							view.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
+						}
 					}
 				}else {
 					Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_out);

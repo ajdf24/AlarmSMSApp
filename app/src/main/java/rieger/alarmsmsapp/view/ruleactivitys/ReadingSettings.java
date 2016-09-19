@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,7 +35,7 @@ public class ReadingSettings extends AppCompatActivity {
 	CheckBox readOtherMessages;
 
 	@Bind(R.id.activity_reading_settings_button_save_read_settings)
-	Button save;
+	FloatingActionButton save;
 
     /**
      * This method is like a constructor and
@@ -88,6 +89,7 @@ public class ReadingSettings extends AppCompatActivity {
 				Bundle bundle = new Bundle();
 
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+				bundle.putInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER, 2);
 				intent.putExtras(bundle);
 				intent.setClass(ReadingSettings.this, RuleSettings.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

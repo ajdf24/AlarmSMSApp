@@ -89,6 +89,7 @@ public class WordSelection extends AppCompatActivity {
 				Bundle bundle = new Bundle();
 
 				bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+				bundle.putInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER, 1);
 				intent.putExtras(bundle);
 				intent.setClass(WordSelection.this, RuleSettings.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

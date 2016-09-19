@@ -44,6 +44,8 @@ public interface AppConstants {
      */
     String POWERMANAGEMENT_LOCK_NAME = "AlarmSMSAppLock_PowerManagement";
 
+    String BUNDLE_SETTINGS_TAB_NUMBER = "settings tab";
+
 
 
     interface CallBacks{
@@ -121,6 +123,7 @@ public interface AppConstants {
     interface SharedPreferencesKeys{
         String FIRST_START = "First Start";
         String FIRST_SHOW_CREATE_RULE = "First Create Rule";
+        String FIRST_SHOW_CREATE_RULE_SAVE = "First Create Rule Save";
         String FIRST_SHOW_SETTINGS = "First show settings";
         String FIRST_SHOW_RULES = "First show rules";
         String FIRST_SHOW_ALARM_TIME_LIST = "First show alarm time list";

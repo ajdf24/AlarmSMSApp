@@ -803,11 +803,12 @@ public class RuleSelection extends AppCompatActivity {
                         ShowcaseView showcaseView = new ShowcaseView.Builder(RuleSelection.this)
                                 .setTarget(new ViewTarget(listView.getChildAt(0).findViewById(R.id.list_item_rule_name)))
                                 .setContentTitle("Zusatzeinstellungen")
-                                .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
+                                .setStyle(R.style.CustomShowcaseTheme)
                                 .setContentText("Drücke lange auf die Regel für zusätzliche Optionen.")
                                 .hideOnTouchOutside()
                                 .blockAllTouches()
                                 .build();
+                        showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, false);
