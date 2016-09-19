@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS},
                     AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
         }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION);
+        }
+
 
         ButterKnife.bind(this);
 
@@ -219,6 +224,18 @@ public class MainActivity extends AppCompatActivity implements
 
                     Snackbar snackbar = Snackbar
                             .make(coordinatorLayout, R.string.toast_permission_storage_denied, Snackbar.LENGTH_LONG);
+
+                    View snackbarView = snackbar.getView();
+                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.WHITE);
+                    snackbar.show();
+                }
+                break;
+            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Snackbar snackbar = Snackbar
+                            .make(coordinatorLayout, R.string.toast_permission_location_denied, Snackbar.LENGTH_LONG);
 
                     View snackbarView = snackbar.getView();
                     TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
