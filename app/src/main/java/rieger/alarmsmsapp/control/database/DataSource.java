@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.control.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +13,7 @@ import java.util.List;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.Message;
+import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -80,6 +82,16 @@ public class DataSource {
             DatabaseHelper.COLUMN_YEAR,
             DatabaseHelper.COLUMN_MATCHING_RULE_NAME,
             DatabaseHelper.COLUMN_DAY_NAME
+    };
+
+    private String[] allCollumnsAllarmTimes = {
+            DatabaseHelper.COLUMN_ID,
+            DatabaseHelper.COLUMN_RULE_FOREIGN_KEY,
+            DatabaseHelper.COLUMN_DAYS,
+            DatabaseHelper.COLUMN_START_TIME_MINUTES,
+            DatabaseHelper.COLUMN_START_TIME_HOURS,
+            DatabaseHelper.COULMN_END_TIME_MINUTES,
+            DatabaseHelper.COULMN_END_TIME_HOURS
     };
 
     /**
@@ -163,8 +175,14 @@ public class DataSource {
 
     public void deleteRule(Rule rule){
         open();
+
+        innerDelete = true;
+        deleteAlarmTimesByRule(rule);
+        innerDelete = false;
+
         database.delete(helper.TABLE_RULES, helper.COLUMN_RULE_NAME
                 + " = ?" , new String[]{rule.getRuleName()});
+
         close();
     }
 
@@ -323,6 +341,69 @@ public class DataSource {
         close();
     }
 
+    public List<AlarmTimeModel> getAlarmTimes(Rule rule){
+
+        List<AlarmTimeModel> alarmTimes = new ArrayList<>();
+
+        open();
+        Cursor cursor = database.query(helper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            alarmTimes.add(cursorToAlarmTime(cursor));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        close();
+        return alarmTimes;
+    }
+
+    public AlarmTimeModel saveAlarmTime(AlarmTimeModel alarmTime, Rule rule){
+        ContentValues values = new ContentValues();
+
+        open();
+
+        values.put(DatabaseHelper.COLUMN_RULE_FOREIGN_KEY, getRuleId(rule));
+        values.put(DatabaseHelper.COLUMN_DAYS, AlarmTimeModel.daysToInt(alarmTime.getDay()));
+        values.put(DatabaseHelper.COLUMN_START_TIME_MINUTES, alarmTime.getStartTimeMinutes());
+        values.put(DatabaseHelper.COLUMN_START_TIME_HOURS, alarmTime.getStartTimeHours());
+        values.put(DatabaseHelper.COULMN_END_TIME_MINUTES, alarmTime.getEndTimeMinutes());
+        values.put(DatabaseHelper.COULMN_END_TIME_HOURS, alarmTime.getEndTimeHours());
+        long insertId = database.insert(DatabaseHelper.TABLE_ALARM_TIMES, "",
+                values);
+
+        Cursor cursor = database.query(DatabaseHelper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, DatabaseHelper.COLUMN_ID + " = " + insertId, null,
+                null, null, null);
+        cursor.moveToFirst();
+        AlarmTimeModel newAlarmTime = cursorToAlarmTime(cursor);
+        cursor.close();
+        return newAlarmTime;
+    }
+
+    public void deleteAlarmTime(AlarmTimeModel alarmTime){
+        open();
+        database.delete(DatabaseHelper.TABLE_ALARM_TIMES, DatabaseHelper.COLUMN_ID + " = ?", new String[]{Integer.toString(alarmTime.getId())});
+        close();
+    }
+
+    public void deleteAlarmTimesByRule(Rule rule){
+        open();
+        database.delete(DatabaseHelper.TABLE_ALARM_TIMES, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = ?", new String[]{getRuleId(rule) + ""});
+        close();
+    }
+
+    public int getRuleId(Rule rule){
+
+        Cursor cursorRule = database.query(helper.TABLE_RULES, new String[]{helper.COLUMN_ID}, helper.COLUMN_RULE_NAME + " = ? ", new String[]{rule.getRuleName()}, null, null, null);
+
+        cursorRule.moveToFirst();
+        int ruleID = cursorToRuleID(cursorRule);
+        cursorRule.close();
+
+        return ruleID;
+    }
+
     public Message cursorToMessage(Cursor cursor){
         Message message = new Message();
 
@@ -388,5 +469,35 @@ public class DataSource {
         }
 
         return  alarmSettingsModel;
+    }
+
+    public AlarmTimeModel cursorToAlarmTime(Cursor cursor){
+        AlarmTimeModel alarmTimeModel = new AlarmTimeModel();
+
+        try {
+            alarmTimeModel.setId(cursor.getInt(0));
+            alarmTimeModel.setDay(AlarmTimeModel.intToDays(cursor.getInt(2)));
+            alarmTimeModel.setStartTimeMinutes(cursor.getInt(3));
+            alarmTimeModel.setStartTimeHours(cursor.getInt(4));
+            alarmTimeModel.setEndTimeMinutes(cursor.getInt(5));
+            alarmTimeModel.setEndTimeHours(cursor.getInt(6));
+        }catch (IndexOutOfBoundsException e){
+            alarmTimeModel = null;
+        }finally {
+            return alarmTimeModel;
+        }
+    }
+
+    public int cursorToRuleID(Cursor cursor){
+
+        int id = 0;
+
+        try {
+            id = cursor.getInt(0);
+        }catch (IndexOutOfBoundsException e){
+            id = -1;
+        }finally {
+            return id;
+        }
     }
 }

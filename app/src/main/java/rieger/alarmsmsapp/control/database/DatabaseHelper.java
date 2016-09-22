@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "alarm_sms_app";
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     //TABLE RULES
     public static final String TABLE_RULES = "table_rule";
@@ -166,6 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_DEPARTMENTS);
         db.execSQL(CREATE_TABLE_ALARMS);
         db.execSQL(CREATE_TABLE_MESSAGES);
+        db.execSQL(CREATE_TABLE_ALARM_TIMES);
     }
 
     @Override

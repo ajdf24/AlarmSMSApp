@@ -38,6 +38,12 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
 
     private ActionCallback callback;
 
+    public boolean mustValidate = false;
+
+    public boolean firstStart = true;
+
+    public int errors = 0;
+
     public AlarmTimeAdapter(List<AlarmTimeModel> alarmTimes, Activity activity, ActionCallback callback) {
         this.alarmTimes = alarmTimes;
         this.activity = activity;
@@ -59,12 +65,20 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         setAnimation(holder.getView(), position);
 
         try {
-
             holder.getDays().setSelection(AlarmTimeModel.daysToInt(alarmTimes.get(position).getDay()));
             holder.getTimeFrom().setText(AlarmTimeModel.timeToString(alarmTimes.get(position).getStartTimeHours(), alarmTimes.get(position).getStartTimeMinutes()));
             holder.getTimeTo().setText(AlarmTimeModel.timeToString(alarmTimes.get(position).getEndTimeHours(), alarmTimes.get(position).getEndTimeMinutes()));
         }catch (NullPointerException e){
             Log.i(LOG_TAG, "No alarm time information");
+            if (!firstStart) {
+                if(holder.getTimeFrom().getText().length() == 0){
+                    holder.getTimeFrom().setError("");
+                }
+                if(holder.getTimeTo().getText().length() == 0){
+                    holder.getTimeTo().setError("");
+                }
+            }
+//            firstStart = false;
         }
     }
 
@@ -72,6 +86,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         alarmTimes.remove(position);
         if(alarmTimes.size() == 0){
             callback.actionCallBack(AppConstants.CallBacks.REMOVE_TIME_CALLBACK);
+            firstStart = true;
         }
         lastPosition--;
         this.notifyDataSetChanged();
@@ -136,7 +151,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
     }
 
     @Override
-    public void alarmTimeCallBack(String position, int listPosition, int hours, int minutes) {
+    public void alarmTimeCallBack(String position, int listPosition, int hours, int minutes, int days) {
         switch (position){
             case AppConstants.CallBacks.TIMEFIELED_FROM:
                 alarmTimes.get(listPosition).setStartTimeHours(hours);
@@ -147,5 +162,12 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
                 alarmTimes.get(listPosition).setEndTimeMinutes(minutes);
                 break;
         }
+
+        alarmTimes.get(listPosition).setDay(AlarmTimeModel.intToDays(days));
+    }
+
+    @Override
+    public void alarmTimeCallBack(int listPosition, int days) {
+        alarmTimes.get(listPosition).setDay(AlarmTimeModel.intToDays(days));
     }
 }

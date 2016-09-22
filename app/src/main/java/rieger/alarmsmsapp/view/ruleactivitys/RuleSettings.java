@@ -39,7 +39,6 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.MainActivity;
-import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;
 
 public class RuleSettings extends AppCompatActivity {
 
@@ -254,7 +253,7 @@ public class RuleSettings extends AppCompatActivity {
 			if(getArguments().getInt(ARG_SECTION_NUMBER) == 1){
 				activityList.add(new SenderSelection());
 				activityList.add(new WordSelection());
-//				activityList.add(new AlarmTimeSettings());
+				activityList.add(new AlarmTimeSettings());
 			}
 
 			if(getArguments().getInt(ARG_SECTION_NUMBER) == 2) {

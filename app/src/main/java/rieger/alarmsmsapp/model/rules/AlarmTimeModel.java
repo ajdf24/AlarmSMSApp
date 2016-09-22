@@ -5,6 +5,7 @@ package rieger.alarmsmsapp.model.rules;
  */
 public class AlarmTimeModel {
 
+    private int id;
     private Days day;
     private int startTimeMinutes;
     private int endTimeMinutes;
@@ -49,6 +50,14 @@ public class AlarmTimeModel {
 
     public void setEndTimeHours(int endTimeHours) {
         this.endTimeHours = endTimeHours;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public enum Days {

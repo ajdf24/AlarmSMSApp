@@ -125,7 +125,7 @@
             android:name=".control.services.SoundService"
             android:exported="false" />
 
-        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.MainActivity" ></activity>
         <activity android:name=".view.ruleactivitys.AlarmTimeSettings"/>
     </application>
 

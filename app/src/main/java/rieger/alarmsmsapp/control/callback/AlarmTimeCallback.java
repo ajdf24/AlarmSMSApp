@@ -5,5 +5,7 @@ package rieger.alarmsmsapp.control.callback;
  */
 public interface AlarmTimeCallback {
 
-    void alarmTimeCallBack(String position, int listPosition, int hours, int minutes);
+    void alarmTimeCallBack(String position, int listPosition, int hours, int minutes, int days);
+
+    void alarmTimeCallBack(int listPosition, int days);
 }

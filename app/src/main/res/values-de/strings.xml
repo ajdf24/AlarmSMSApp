@@ -110,7 +110,7 @@
     <string name="activity_reading_settings_description">Es ist möglich, 
         sich die erhaltene und folgende Nachrichten vorlesen zu lassen.</string>
     <string name="activity_reading_settings_label_checkBoxes_reading_settings">Triff deine Wahl</string>
-    <string name="activity_reading_settings_checkBox_read_this_message">Lies diese Nachricht vor</string>
+    <string name="activity_reading_settings_checkBox_read_this_message">Lies die Alarm-Nachricht vor</string>
     <string name="activity_reading_settings_checkBox_read_other_messages">Lies andere Nachrichten vor</string>
 
 <!--     Strings for the activity alarm_setting -->
@@ -230,7 +230,6 @@
         <item>Donnerstag</item>
         <item>Freitag</item>
         <item>Samstag</item>
-        <item>Sonntag</item>
         <item>Montag - Sonntag</item>
         <item>Montag - Freitag</item>
         <item>Freitag - Sonntag</item>

@@ -204,45 +204,47 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+        if(grantResults.length > 0) {
+            switch (requestCode) {
+                case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS:
+                    if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
-                    Snackbar snackbar = Snackbar
-                            .make(this.findViewById(android.R.id.content), R.string.toast_permission_sms_denied, Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar
+                                .make(this.findViewById(android.R.id.content), R.string.toast_permission_sms_denied, Snackbar.LENGTH_LONG);
 
-                    View snackbarView = snackbar.getView();
-                    TextView textView = (TextView)snackbarView .findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.WHITE);
-                    snackbar.show();
+                        View snackbarView = snackbar.getView();
+                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.WHITE);
+                        snackbar.show();
 
-                    return;
-                }
-                break;
-            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    break;
+                case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE:
+                    if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
-                    Snackbar snackbar = Snackbar
-                            .make(coordinatorLayout, R.string.toast_permission_storage_denied, Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar
+                                .make(coordinatorLayout, R.string.toast_permission_storage_denied, Snackbar.LENGTH_LONG);
 
-                    View snackbarView = snackbar.getView();
-                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.WHITE);
-                    snackbar.show();
-                }
-                break;
-            case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION:
-                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                        View snackbarView = snackbar.getView();
+                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.WHITE);
+                        snackbar.show();
+                    }
+                    break;
+                case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION:
+                    if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
-                    Snackbar snackbar = Snackbar
-                            .make(coordinatorLayout, R.string.toast_permission_location_denied, Snackbar.LENGTH_LONG);
+                        Snackbar snackbar = Snackbar
+                                .make(coordinatorLayout, R.string.toast_permission_location_denied, Snackbar.LENGTH_LONG);
 
-                    View snackbarView = snackbar.getView();
-                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                    textView.setTextColor(Color.WHITE);
-                    snackbar.show();
-                }
-                break;
+                        View snackbarView = snackbar.getView();
+                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.WHITE);
+                        snackbar.show();
+                    }
+                    break;
+            }
         }
     }
 
@@ -312,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            overridePendingTransition(0, 0);
 
         }else if (item.getTitle() == getResources().getString(R.string.test_rule)) {
 

@@ -3,14 +3,13 @@ import android.test.RenamingDelegatingContext;
 
 import java.util.List;
 
+import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.Message;
-import rieger.alarmsmsapp.model.rules.Sound;
-import rieger.alarmsmsapp.model.rules.AnswerBundle;
-import rieger.alarmsmsapp.model.rules.Rule;
-import rieger.alarmsmsapp.model.rules.SMSRule;
+import rieger.alarmsmsapp.model.rules.*;
+import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 
 /**
  * Created by sebastian on 14.08.16.
@@ -22,6 +21,8 @@ public class DatabaseTests extends AndroidTestCase {
     private DepartmentSettingsModel department;
     private AlarmSettingsModel alarm;
     private Message message;
+    private rieger.alarmsmsapp.model.rules.AlarmTimeModel alarmTime;
+
 
     @Override
     public void setUp() throws Exception {
@@ -41,6 +42,9 @@ public class DatabaseTests extends AndroidTestCase {
 
         message = new Message();
         message.setSender("TESTSender");
+
+        alarmTime = new AlarmTimeModel();
+        alarmTime.setDay(AlarmTimeModel.Days.THURSDAY);
     }
 
     public void testAddEntry() {
@@ -308,7 +312,7 @@ public class DatabaseTests extends AndroidTestCase {
         assertEquals(db.getAllMessages().size(), 1);
     }
 
-    public void testEmptyTable(){
+    public void testEmptyTableMessages(){
 
         assertEquals(db.getAllMessages().size(), 0);
     }
@@ -374,9 +378,38 @@ public class DatabaseTests extends AndroidTestCase {
         assertEquals(message.getDayName(), db.saveMessage(message).getDayName());
     }
 
+    public void testEmptyTableAlarmTimes(){
+
+        assertEquals(db.getAlarmTimes(rule).size(), 0);
+    }
+
+    public void testAddAlarmTime(){
+
+        db.saveAlarmTime(alarmTime, rule);
+
+        assertEquals(db.getAlarmTimes(rule).size(), 1);
+    }
+
+    public void testDeleteAlarmTime(){
+
+        alarmTime = db.saveAlarmTime(alarmTime, rule);
+        db.deleteAlarmTime(alarmTime);
+
+        assertEquals(db.getAlarmTimes(rule).size(), 0);
+    }
+
+    public void testDeleteCascadeAlarmTime(){
+
+        db.saveAlarmTime(alarmTime, rule);
+        db.saveRule(rule);
+
+        db.deleteRule(rule);
+
+        assertEquals(db.getAlarmTimes(rule).size(), 0);
+    }
+
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }
-
 }

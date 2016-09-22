@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.adapter.AlarmTimeAdapter;
 import rieger.alarmsmsapp.control.callback.AlarmTimeCallback;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -39,7 +41,7 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
 
     private AlarmTimeCallback callback;
 
-    public AlarmTimeViewHolder(final View itemView, AlarmTimeCallback callback) {
+    public AlarmTimeViewHolder(final View itemView, final AlarmTimeCallback callback) {
         super(itemView);
 
         this.callback = callback;
@@ -68,6 +70,18 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                 TimePickerDialog timePickerDialog = new TimePickerDialog(itemView.getContext(), AlarmTimeViewHolder.this, 0, 0, true);
                 timePickerDialog.show();
                 timeFiled = AppConstants.CallBacks.TIMEFIELD_TO;
+            }
+        });
+
+        days.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                callback.alarmTimeCallBack(getAdapterPosition(), position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -111,8 +125,13 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                     break;
                 }
                 timeFrom.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
+                if(timeFrom.getText() != null){
+                    if(((AlarmTimeAdapter)callback).errors > 0)
+                        ((AlarmTimeAdapter)callback).errors--;
+                }
+                timeFrom.setError(null);
                 timeFiled = null;
-                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELED_FROM, getAdapterPosition(), hourOfDay, minute);
+                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELED_FROM, getAdapterPosition(), hourOfDay, minute, days.getSelectedItemPosition());
                 break;
             case AppConstants.CallBacks.TIMEFIELD_TO:
                 if(getTimeFrom().getText().toString().compareTo(AlarmTimeModel.timeToString(hourOfDay, minute)) == 1){
@@ -120,13 +139,17 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                     break;
                 }
                 timeTo.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
+                if(timeTo.getText() != null){
+                    if(((AlarmTimeAdapter)callback).errors > 0)
+                        ((AlarmTimeAdapter)callback).errors--;
+                }
+                timeTo.setError(null);
                 timeFiled = null;
-                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELD_TO, getAdapterPosition(), hourOfDay, minute);
+                callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELD_TO, getAdapterPosition(), hourOfDay, minute, days.getSelectedItemPosition());
                 break;
             default:
                 Log.e(LOG_TAG, "WRONG timeString filed Selected");
                 break;
         }
     }
-
 }
