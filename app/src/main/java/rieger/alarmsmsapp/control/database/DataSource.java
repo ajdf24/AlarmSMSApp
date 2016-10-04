@@ -28,6 +28,8 @@ public class DataSource {
 
     private boolean innerDelete = false;
 
+    private boolean isConnected = false;
+
     private final String LOG_TAG = getClass().getSimpleName();
 
     private SQLiteDatabase database;
@@ -108,6 +110,7 @@ public class DataSource {
      * @throws SQLException if a error occurs
      */
     private void open() throws SQLException {
+        isConnected = true;
         database = helper.getWritableDatabase();
     }
 
@@ -115,9 +118,8 @@ public class DataSource {
      * close the db connection
      */
     private void close() {
-        if(!innerDelete) {
-            helper.close();
-        }
+        helper.close();
+        isConnected = false;
     }
 
     /**
@@ -126,13 +128,9 @@ public class DataSource {
      * @return the entry which was saved in the database
      */
     public Rule saveRule(Rule rule) {
-        open();
-
         ContentValues values = new ContentValues();
 
-        innerDelete = true;
         deleteRule(rule);
-        innerDelete = false;
 
         values.put(DatabaseHelper.COLUMN_RULE_NAME, rule.getRuleName());
         values.put(DatabaseHelper.COLUMN_SENDER, rule.getSender());
@@ -161,6 +159,9 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK, (rule.isActivateLightOnlyWhenDark())? 1 : 0);
         values.put(DatabaseHelper.COLUMN_LIGHT_TIME, rule.getLightTime());
         values.put(DatabaseHelper.COLUMN_RULE_ACTIVE, (rule.isActive())? 1 : 0);
+        if(!isConnected) {
+            open();
+        }
         long insertId = database.insert(DatabaseHelper.TABLE_RULES, "",
                 values);
         Cursor cursor = database.query(DatabaseHelper.TABLE_RULES,
@@ -170,26 +171,35 @@ public class DataSource {
         Rule newRule = cursorToRule(cursor);
         cursor.close();
         close();
+
+        if(isConnected){
+            close();
+        }
         return newRule;
     }
 
     public void deleteRule(Rule rule){
-        open();
 
-        innerDelete = true;
         deleteAlarmTimesByRule(rule);
-        innerDelete = false;
+
+        if(!isConnected) {
+            open();
+        }
 
         database.delete(helper.TABLE_RULES, helper.COLUMN_RULE_NAME
                 + " = ?" , new String[]{rule.getRuleName()});
 
-        close();
+        if(isConnected) {
+            close();
+        }
     }
 
     public List<Rule> getAllRules(){
         List<Rule> rules = new ArrayList<>();
 
-        open();
+        if(!isConnected) {
+            open();
+        }
         Cursor cursor = database.query(helper.TABLE_RULES, allColumnsRule, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -199,20 +209,26 @@ public class DataSource {
             cursor.moveToNext();
         }
         cursor.close();
-        close();
+
+        if(isConnected) {
+            close();
+        }
+
         return rules;
     }
 
     public DepartmentSettingsModel saveDepartment(DepartmentSettingsModel departmentSettings){
-        open();
 
-        innerDelete = true;
+
         deleteDepartment(departmentSettings);
-        innerDelete = false;
 
         ContentValues values = new ContentValues();
 
         values.put(DatabaseHelper.COLUMN_DEPARTMENT_ADDRESS, departmentSettings.getAddress());
+
+        if(!isConnected) {
+            open();
+        }
 
         long insertId = database.insert(DatabaseHelper.TABLE_DEPARTMENT_SETTINGS, "",
                 values);
@@ -222,14 +238,20 @@ public class DataSource {
         cursor.moveToFirst();
         DepartmentSettingsModel department = cursorToDepartment(cursor);
         cursor.close();
-        close();
+
+        if(isConnected) {
+            close();
+        }
+
         return department;
     }
 
     public List<DepartmentSettingsModel> getAllDepartments(){
         List<DepartmentSettingsModel> departments = new ArrayList<>();
 
-        open();
+        if(!isConnected) {
+            open();
+        }
         Cursor cursor = database.query(helper.TABLE_DEPARTMENT_SETTINGS, allColumnsDepartment, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -239,23 +261,29 @@ public class DataSource {
             cursor.moveToNext();
         }
         cursor.close();
-        close();
+
+        if(isConnected) {
+            close();
+        }
+
         return departments;
     }
 
     public void deleteDepartment(DepartmentSettingsModel department){
-        open();
+        if(!isConnected) {
+            open();
+        }
         database.delete(helper.TABLE_DEPARTMENT_SETTINGS, helper.COLUMN_DEPARTMENT_ADDRESS
                 + " = ?" , new String[]{department.getAddress()});
-        close();
+        if(isConnected) {
+            close();
+        }
     }
 
     public AlarmSettingsModel saveAlarmSetting(AlarmSettingsModel alarm){
-        open();
 
-        innerDelete = true;
+
         deleteAlarm();
-        innerDelete = false;
 
         ContentValues values = new ContentValues();
 
@@ -266,7 +294,9 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_NOTIFICATION_LIGHT_COLOR, alarm.getNotificationLightColor());
         values.put(DatabaseHelper.COLUMN_MUTE_ALARM, alarm.isMuteAlarmActivated());
         values.put(DatabaseHelper.COLUMN_REPEAT_NUMBER, alarm.getRepeatAlarm());
-
+        if(!isConnected) {
+            open();
+        }
         long insertId = database.insert(DatabaseHelper.TABLE_ALARM_SETTINGS, "",
                 values);
         Cursor cursor = database.query(DatabaseHelper.TABLE_ALARM_SETTINGS,
@@ -275,12 +305,16 @@ public class DataSource {
         cursor.moveToFirst();
         AlarmSettingsModel newAlarm = cursorToAlarm(cursor);
         cursor.close();
-        close();
+        if(isConnected) {
+            close();
+        }
         return newAlarm;
     }
 
     public Message saveMessage(Message message){
-        open();
+        if(!isConnected) {
+            open();
+        }
 
         ContentValues values = new ContentValues();
 
@@ -301,14 +335,18 @@ public class DataSource {
         cursor.moveToFirst();
         Message newMessage = cursorToMessage(cursor);
         cursor.close();
-        close();
+        if(isConnected) {
+            close();
+        }
         return newMessage;
     }
 
     public List<Message> getAllMessages(){
         List<Message> messages = new ArrayList<>();
 
-        open();
+        if(!isConnected) {
+            open();
+        }
         Cursor cursor = database.query(helper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -318,34 +356,46 @@ public class DataSource {
             cursor.moveToNext();
         }
         cursor.close();
-        close();
+        if(isConnected) {
+            close();
+        }
         return messages;
     }
 
     public AlarmSettingsModel getAlarm(){
 
-        open();
+        if(!isConnected) {
+            open();
+        }
         Cursor cursor = database.query(helper.TABLE_ALARM_SETTINGS, allColumnsAlarm, null, null, null, null, null);
 
         cursor.moveToFirst();
         AlarmSettingsModel alarm = cursorToAlarm(cursor);
 
         cursor.close();
-        close();
+        if(isConnected) {
+            close();
+        }
         return alarm;
     }
 
     public void deleteAlarm(){
-        open();
+        if(!isConnected) {
+            open();
+        }
         database.delete(helper.TABLE_ALARM_SETTINGS, null , null);
-        close();
+        if(isConnected) {
+            close();
+        }
     }
 
     public List<AlarmTimeModel> getAlarmTimes(Rule rule){
 
         List<AlarmTimeModel> alarmTimes = new ArrayList<>();
 
-        open();
+        if(!isConnected) {
+            open();
+        }
         Cursor cursor = database.query(helper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -355,14 +405,18 @@ public class DataSource {
         }
 
         cursor.close();
-        close();
+        if(isConnected) {
+            close();
+        }
         return alarmTimes;
     }
 
     public AlarmTimeModel saveAlarmTime(AlarmTimeModel alarmTime, Rule rule){
         ContentValues values = new ContentValues();
 
-        open();
+        if(!isConnected) {
+            open();
+        }
 
         values.put(DatabaseHelper.COLUMN_RULE_FOREIGN_KEY, getRuleId(rule));
         values.put(DatabaseHelper.COLUMN_DAYS, AlarmTimeModel.daysToInt(alarmTime.getDay()));
@@ -377,20 +431,30 @@ public class DataSource {
                 null, null, null);
         cursor.moveToFirst();
         AlarmTimeModel newAlarmTime = cursorToAlarmTime(cursor);
-        cursor.close();
+        if(isConnected) {
+            close();
+        }
         return newAlarmTime;
     }
 
     public void deleteAlarmTime(AlarmTimeModel alarmTime){
-        open();
+        if(!isConnected) {
+            open();
+        }
         database.delete(DatabaseHelper.TABLE_ALARM_TIMES, DatabaseHelper.COLUMN_ID + " = ?", new String[]{Integer.toString(alarmTime.getId())});
-        close();
+        if(isConnected) {
+            close();
+        }
     }
 
     public void deleteAlarmTimesByRule(Rule rule){
-        open();
+        if(!isConnected) {
+            open();
+        }
         database.delete(DatabaseHelper.TABLE_ALARM_TIMES, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = ?", new String[]{getRuleId(rule) + ""});
-        close();
+        if(isConnected) {
+            close();
+        }
     }
 
     public int getRuleId(Rule rule){

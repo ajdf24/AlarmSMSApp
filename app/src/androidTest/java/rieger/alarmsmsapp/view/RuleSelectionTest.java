@@ -35,10 +35,10 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class RuleSettingsTest {
+public class RuleSelectionTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class){
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class) {
         @Override
         protected void beforeActivityLaunched() {
 
@@ -48,7 +48,7 @@ public class RuleSettingsTest {
     };
 
     @Test
-    public void ruleSettingsTest() {
+    public void ruleSelectionTest() {
         ViewInteraction floatingActionButton = onView(
                 allOf(withId(R.id.fab), isDisplayed()));
         floatingActionButton.perform(click());
@@ -59,7 +59,7 @@ public class RuleSettingsTest {
 
         ViewInteraction appCompatEditText = onView(
                 withId(R.id.activity_create_new_rule_editText_rule_name));
-        appCompatEditText.perform(scrollTo(), closeSoftKeyboard());
+        appCompatEditText.perform(scrollTo(), replaceText("test"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.showcase_button), isDisplayed()));
@@ -68,22 +68,6 @@ public class RuleSettingsTest {
         ViewInteraction floatingActionButton2 = onView(
                 allOf(withId(R.id.activity_create_new_rule_button_save_rule_name), isDisplayed()));
         floatingActionButton2.perform(click());
-
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.list_item_is_active),
-                        withParent(childAtPosition(
-                                withId(R.id.activity_rule_selection_listView),
-                                0)),
-                        isDisplayed()));
-        appCompatCheckBox.perform(click());
-
-        ViewInteraction appCompatCheckBox2 = onView(
-                allOf(withId(R.id.list_item_is_active),
-                        withParent(childAtPosition(
-                                withId(R.id.activity_rule_selection_listView),
-                                0)),
-                        isDisplayed()));
-        appCompatCheckBox2.perform(click());
 
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(R.id.list_item_rule_name),
@@ -102,11 +86,11 @@ public class RuleSettingsTest {
         appCompatButton4.perform(click());
 
         ViewInteraction appCompatTextView2 = onView(
-                allOf(isDisplayed()));
+                allOf(withText("Alarmeinstellung"), isDisplayed()));
         appCompatTextView2.perform(click());
 
         ViewInteraction appCompatTextView3 = onView(
-                allOf(isDisplayed()));
+                allOf(withText("Auslöser"), isDisplayed()));
         appCompatTextView3.perform(click());
 
     }
