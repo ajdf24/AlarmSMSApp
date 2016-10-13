@@ -39,7 +39,9 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,6 +50,7 @@ import rieger.alarmsmsapp.control.callback.ActionCallback;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
+import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
@@ -301,6 +304,7 @@ public class RuleSelection extends Fragment {
          */
         private class ViewHolder {
             TextView ruleName;
+            TextView timeControlled;
             CheckBox isRuleActivated;
         }
 
@@ -347,8 +351,10 @@ public class RuleSelection extends Fragment {
                         convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
 
                         viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
+                        viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
                         viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
                         viewHolder.ruleName.setVisibility(View.INVISIBLE);
+                        viewHolder.timeControlled.setVisibility(View.INVISIBLE);
                         viewHolder.isRuleActivated.setVisibility(View.INVISIBLE);
                         convertView.setOnClickListener(null);
 
@@ -367,6 +373,7 @@ public class RuleSelection extends Fragment {
 
                     viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
                     viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
+                    viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
                     convertView.setTag(viewHolder);
 
                     viewHolder.isRuleActivated.setOnClickListener(new View.OnClickListener() {
@@ -399,6 +406,7 @@ public class RuleSelection extends Fragment {
                             startActivity(intent);
                         }
                     });
+
 //                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
 //                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
                     viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
@@ -425,6 +433,31 @@ public class RuleSelection extends Fragment {
                     viewHolder.ruleName.setText(rule.getRuleName());
                     viewHolder.isRuleActivated.setChecked(rule.isActive());
 
+                    if(rule.isAlarmEveryTime()){
+                        viewHolder.timeControlled.setVisibility(View.INVISIBLE);
+                    }else {
+
+                        String timeControlled = CreateContextForResource.getStringFromID(R.string.activity_rule_selection_time_controlled) + " ";
+
+                        DataSource db = new DataSource(getContext());
+
+                        Set<AlarmTimeModel.Days> daysSet = new HashSet<>();
+
+                        for(AlarmTimeModel alarmTime : db.getAlarmTimes(rule)){
+                            if(!daysSet.contains(alarmTime.getDay())) {
+                                timeControlled = timeControlled + AlarmTimeModel.getStringForDay(alarmTime.getDay()) + "; ";
+                                daysSet.add(alarmTime.getDay());
+                            }
+                        }
+
+                        if(timeControlled.length() > 40) {
+                            timeControlled = timeControlled.substring(0, 40);
+                            timeControlled = timeControlled + "...";
+                        }
+
+
+                        viewHolder.timeControlled.setText(timeControlled);
+                    }
                     /**
                      * This sets the {@link rieger.alarmsmsapp.model.rules.Rule} as tag to the ruleName and isRuleActivated,
                      * so the context menu and other methods can work with the selected rule.

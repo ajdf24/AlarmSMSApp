@@ -55,13 +55,13 @@
 	
 <!-- 	Strings for the activity rule_settings -->
 	<string name="title_activity_rule_settings">Regeleinstellungen</string>
-	
+
 <!-- 	Strings for the activity sender_selection -->
 	<string name="title_activity_sender_selection">Absenderauswahl</string>
 	<string name="activity_sender_selection_editText_for_sender_information_hint_sms">Absender Nummer</string>
 	<string name="activity_sender_selection_editText_for_sender_information_hint_mail">Absender Mail</string>
 	<string name="activity_sender_selection_textView_description">Absender auf den geachtet werden soll</string>
-	
+
 <!-- 	Strings for the activity word_selection -->
 	<string name="title_activity_word_selection">Schlagwortfilter</string>
 	<string name="activity_word_selection_textView_included_words">Gib and, welche Wörter in der Nachricht vorkommen müssen. 
@@ -265,4 +265,6 @@
     <string name="import_settings_dialog_rules">Regeln</string>
     <string name="import_settings_dialog_import_error">Fehler beim Import</string>
     <string name="import_settings_dialog_import_error_message">Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!</string>
+
+    <string name="activity_rule_selection_time_controlled">Zeitgesteuert: </string>
 </resources>

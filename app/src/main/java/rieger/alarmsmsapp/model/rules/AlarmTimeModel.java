@@ -1,5 +1,10 @@
 package rieger.alarmsmsapp.model.rules;
 
+import android.content.res.Resources;
+
+import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+
 /**
  * Created by sebastian on 16.08.16.
  */
@@ -228,6 +233,50 @@ public class AlarmTimeModel {
             timeString.append(minute);
         }
         return timeString.toString();
+    }
+
+    public static String getStringForDay(Days days){
+        Resources res = CreateContextForResource.getContext().getResources();
+        String[] daysArray = res.getStringArray(R.array.days_array);
+
+        String day = "";
+
+        switch (days){
+            case SUNDAY:
+                day = daysArray[0];
+                break;
+            case MONDAY:
+                day = daysArray[1];
+                break;
+            case TUESDAY:
+                day = daysArray[2];
+                break;
+            case WEDNESDAY:
+                day = daysArray[3];
+                break;
+            case THURSDAY:
+                day = daysArray[4];
+                break;
+            case FRIDAY:
+                day = daysArray[5];
+                break;
+            case SATURDAY:
+                day = daysArray[6];
+                break;
+            case MONDAY_TO_SUNDAY:
+                day = daysArray[7];
+                break;
+            case MONDAY_TO_FRIDAY:
+                day = daysArray[8];
+                break;
+            case FRIDAY_TO_SUNDAY:
+                day = daysArray[9];
+                break;
+            case SATURDAY_TO_SUNDAY:
+                day = daysArray[10];
+                break;
+        }
+        return day;
     }
 
 }

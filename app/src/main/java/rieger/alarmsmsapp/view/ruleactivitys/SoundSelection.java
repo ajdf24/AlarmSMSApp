@@ -122,13 +122,13 @@ public class SoundSelection extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void createListAdapter(SoundEvent event){
 
-        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_rule_settings, event.getSoundList() );
+        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_sound, event.getSoundList() );
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public synchronized void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
                 int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -138,7 +138,7 @@ public class SoundSelection extends AppCompatActivity {
                 }
 
 
-                selectedSound = (Sound) listView.getAdapter().getItem(arg2);
+                selectedSound = (Sound) listView.getAdapter().getItem(position);
 
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.stop();
