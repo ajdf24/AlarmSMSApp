@@ -239,6 +239,22 @@ public class DatabaseTests extends AndroidTestCase {
         assertEquals(rule.getLightTime(), db.saveRule(rule).getLightTime());
     }
 
+    public void testCorrectAlarmEveryTimeInit() {
+
+        db.saveRule(rule);
+
+        assertTrue(db.getAllRules().get(0).isAlarmEveryTime());
+    }
+
+    public void testCorrectAlarmEveryTime() {
+
+        rule.setAlarmEveryTime(false);
+
+        db.saveRule(rule);
+
+        assertFalse(db.getAllRules().get(0).isAlarmEveryTime());
+    }
+
     public void testAddDepartment() {
 
         assertEquals(department.getAddress(), db.saveDepartment(department).getAddress());

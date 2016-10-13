@@ -75,7 +75,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             }
         }
 
-//        isAlwaysAlarm.setChecked(rule.is);
+        isAlwaysAlarm.setChecked(rule.isAlarmEveryTime());
 
         toggleListVisibility();
 
@@ -91,9 +91,12 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             public void onClick(View v) {
 
                 alarmTimeAdapter.firstStart = false;
-                alarmTimeAdapter.notifyDataSetChanged();
+//                alarmTimeAdapter.notifyDataSetChanged();
 
-                if(alarmTimeAdapter.errors == 0) {
+//                if(alarmTimeAdapter.errors == 0) {
+                    rule.setAlarmEveryTime(isAlwaysAlarm.isChecked());
+                    rule.notifyObserver();
+
                     db.deleteAlarmTimesByRule(rule);
 
                     for (AlarmTimeModel alarmtime : alarmTimeList) {
@@ -109,7 +112,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.setClass(AlarmTimeSettings.this, RuleSettings.class);
                     startActivity(intent);
-                }
+//                }
             }
         });
 
@@ -117,7 +120,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             @Override
             public void onClick(View v) {
                 alarmTimeList.add(new AlarmTimeModel());
-                alarmTimeAdapter.errors = alarmTimeAdapter.errors + 2;
+//                alarmTimeAdapter.errors = alarmTimeAdapter.errors + 2;
                 alarmTimeAdapter.firstStart = true;
                 alarmTimeAdapter.notifyDataSetChanged();
             }
@@ -148,7 +151,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
 
             if(alarmTimeList.size() == 0) {
                 alarmTimeList.add(new AlarmTimeModel());
-                alarmTimeAdapter.errors = alarmTimeAdapter.errors + 2;
+//                alarmTimeAdapter.errors = alarmTimeAdapter.errors + 2;
             }
 
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -169,6 +172,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                     alarmTimeAdapter.onRemoveItem(viewHolder.getAdapterPosition());
+//                    alarmTimeAdapter.errors = alarmTimeAdapter.errors - 2;
                 }
             };
 
@@ -190,6 +194,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                         .setTarget(new ViewTarget(R.id.activity_alarm_time_settings_new_time, this))
                         .setContentTitle("")
                         .setStyle(R.style.CustomShowcaseTheme)
+                        .setContentTitle("Neue Alarmzeiten")
                         .setContentText("Erstelle eine neue Alarmzeit")
                         .hideOnTouchOutside()
                         .blockAllTouches()

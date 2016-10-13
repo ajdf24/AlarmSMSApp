@@ -39,6 +39,7 @@ import rieger.alarmsmsapp.model.AlarmSettingsModel;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
+import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.socialnetworks.twitter.CreateTweet;
@@ -329,21 +330,85 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         boolean foundMatchingRule= false;
 
+        int currentDay =  Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        int currentHour =  Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int currentMinute =  Calendar.getInstance().get(Calendar.MINUTE);
+        DataSource db = new DataSource(CreateContextForResource.getContext());
+
         for(Rule rule : smsRules){
             if (rule.isActive()){
+
+
+
                 if(rule.getSender() == null || messageSource == null){
                     continue;
                 }
                 if (messageSource.equals(rule.getSender())){
-                    matchingRules.add(rule);
-                    foundMatchingRule = true;
+                    if(!rule.isAlarmEveryTime()){
+                        List<AlarmTimeModel> times = db.getAlarmTimes(rule);
+                        for(AlarmTimeModel alarmTime : db.getAlarmTimes(rule)){
+                            if(alarmTime.checkDayForAlarmTime(currentDay)){
+                                if(alarmTime.getStartTimeHours() < currentHour && alarmTime.getEndTimeHours() > currentHour ){
+                                    matchingRules.add(rule);
+                                    foundMatchingRule = true;
+                                    break;
+                                }else {
+                                    if(alarmTime.getStartTimeHours() == currentHour){
+                                        if(alarmTime.getStartTimeMinutes() <= currentMinute){
+                                            matchingRules.add(rule);
+                                            foundMatchingRule = true;
+                                            break;
+                                        }
+                                    }
+                                    if(alarmTime.getEndTimeHours() == currentHour){
+                                        if(alarmTime.getEndTimeMinutes() >= currentMinute){
+                                            matchingRules.add(rule);
+                                            foundMatchingRule = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }else {
+                        matchingRules.add(rule);
+                        foundMatchingRule = true;
+                    }
                     continue;
                     //Teilnummer erkennen mit *
                 }if(rule.getSender().contains("*")){
                     String firstPart = rule.getSender().split("\\*")[0];
                     if(messageSource.startsWith(firstPart)){
-                        matchingRules.add(rule);
-                        foundMatchingRule = true;
+                        if(!rule.isAlarmEveryTime()){
+                            List<AlarmTimeModel> times = db.getAlarmTimes(rule);
+                            for(AlarmTimeModel alarmTime : db.getAlarmTimes(rule)){
+                                if(alarmTime.checkDayForAlarmTime(currentDay)){
+                                    if(alarmTime.getStartTimeHours() < currentHour && alarmTime.getEndTimeHours() > currentHour ){
+                                        matchingRules.add(rule);
+                                        foundMatchingRule = true;
+                                        break;
+                                    }else {
+                                        if(alarmTime.getStartTimeHours() == currentHour){
+                                            if(alarmTime.getStartTimeMinutes() <= currentMinute){
+                                                matchingRules.add(rule);
+                                                foundMatchingRule = true;
+                                                break;
+                                            }
+                                        }
+                                        if(alarmTime.getEndTimeHours() == currentHour){
+                                            if(alarmTime.getEndTimeMinutes() >= currentMinute){
+                                                matchingRules.add(rule);
+                                                foundMatchingRule = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            matchingRules.add(rule);
+                            foundMatchingRule = true;
+                        }
                     }
                 }
 

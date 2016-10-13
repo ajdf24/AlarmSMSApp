@@ -55,7 +55,8 @@ public class DataSource {
             DatabaseHelper.COLUMN_ACTIVATE_LIGHT,
             DatabaseHelper.COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK,
             DatabaseHelper.COLUMN_LIGHT_TIME,
-            DatabaseHelper.COLUMN_RULE_ACTIVE
+            DatabaseHelper.COLUMN_RULE_ACTIVE,
+            DatabaseHelper.COLUMN_ALARM_EVERY_TIME
     };
 
     private String[] allColumnsDepartment = {
@@ -159,6 +160,7 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK, (rule.isActivateLightOnlyWhenDark())? 1 : 0);
         values.put(DatabaseHelper.COLUMN_LIGHT_TIME, rule.getLightTime());
         values.put(DatabaseHelper.COLUMN_RULE_ACTIVE, (rule.isActive())? 1 : 0);
+        values.put(DatabaseHelper.COLUMN_ALARM_EVERY_TIME, (rule.isAlarmEveryTime())? 1 : 0);
         if(!isConnected) {
             open();
         }
@@ -505,6 +507,7 @@ public class DataSource {
         rule.setActivateLightOnlyWhenDark(cursor.getInt(17) == 1);
         rule.setLightTime(cursor.getInt(18));
         rule.setActive(cursor.getInt(19) == 1);
+        rule.setAlarmEveryTime(cursor.getInt(20) == 1);
 
         return rule;
     }

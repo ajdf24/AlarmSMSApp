@@ -126,8 +126,8 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                 }
                 timeFrom.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
                 if(timeFrom.getText() != null){
-                    if(((AlarmTimeAdapter)callback).errors > 0)
-                        ((AlarmTimeAdapter)callback).errors--;
+//                    if(((AlarmTimeAdapter)callback).errors > 0)
+//                        ((AlarmTimeAdapter)callback).errors--;
                 }
                 timeFrom.setError(null);
                 timeFiled = null;
@@ -140,8 +140,8 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                 }
                 timeTo.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
                 if(timeTo.getText() != null){
-                    if(((AlarmTimeAdapter)callback).errors > 0)
-                        ((AlarmTimeAdapter)callback).errors--;
+//                    if(((AlarmTimeAdapter)callback).errors > 0)
+//                        ((AlarmTimeAdapter)callback).errors--;
                 }
                 timeTo.setError(null);
                 timeFiled = null;

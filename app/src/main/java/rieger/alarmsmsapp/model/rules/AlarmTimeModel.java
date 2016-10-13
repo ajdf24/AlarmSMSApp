@@ -148,6 +148,72 @@ public class AlarmTimeModel {
         return dayInt;
     }
 
+    public boolean checkDayForAlarmTime(int dayNumber){
+
+        switch (day){
+            case SUNDAY:
+                if(dayNumber == 1){
+                    return true;
+                }
+                break;
+            case MONDAY:
+                if(dayNumber == 2){
+                    return true;
+                }
+                break;
+            case TUESDAY:
+                if(dayNumber == 3){
+                    return true;
+                }
+                break;
+            case WEDNESDAY:
+                if(dayNumber == 4){
+                    return true;
+                }
+                break;
+            case THURSDAY:
+                if(dayNumber == 5){
+                    return true;
+                }
+                break;
+            case FRIDAY:
+                if(dayNumber == 6){
+                    return true;
+                }
+                break;
+            case SATURDAY:
+                if(dayNumber == 7){
+                    return true;
+                }
+                break;
+            case MONDAY_TO_SUNDAY:
+                return true;
+            case MONDAY_TO_FRIDAY:
+                if(dayNumber >= 2 && dayNumber <= 6){
+                    return true;
+                }
+                break;
+            case FRIDAY_TO_SUNDAY:
+                if(dayNumber >= 6){
+                    return true;
+                }
+                if(dayNumber == 1){
+                    return true;
+                }
+                break;
+            case SATURDAY_TO_SUNDAY:
+                if(dayNumber == 7){
+                    return true;
+                }
+                if(dayNumber == 1){
+                    return true;
+                }
+                break;
+        }
+
+        return false;
+    }
+
     public static String timeToString(int hourOfDay, int minute){
         StringBuffer timeString = new StringBuffer();
         if(hourOfDay < 10){

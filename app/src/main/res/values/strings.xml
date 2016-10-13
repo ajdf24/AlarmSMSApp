@@ -237,5 +237,20 @@
         <item>Friday - Sunday</item>
         <item>Saturday - Sunday</item>
     </string-array>
+    <string name="alarm_settings_fragment_headline">Global Alarm Settings</string>
+    <string name="department_explanation_fragment_headline">Department Settings</string>
+    <string name="department_explanation_fragment_text">AlarmSMS uses the location of your department, in various settings. \\n\\n For example, in the case of distance-dependent SMS forwarding. \\n\\n To enter the location, press next.</string>
+    <string name="department_fragment_textview_explanation">Department</string>
+    <string name="import_settings_dialog_alarm_settings">Alarm Settings</string>
+    <string name="import_settings_dialog_department">Department</string>
+    <string name="import_settings_dialog_import_error">Failed to import</string>
+    <string name="import_settings_dialog_import_error_message">Not all settings could be transferred. Please re-enter the app!</string>
+    <string name="import_settings_dialog_rules">Rules</string>
+    <string name="import_settings_dialog_title">Import settings from old version</string>
+    <string name="ready_fragment_text">AlarmSMS has been configured. Now create your alarm rules.</string>
+    <string name="ready_fragment_title">Done</string>
+    <string name="welcome_fragment_headline">Welcome to AlarmSMS</string>
+    <string name="welcome_fragment_info_text">Please configure the app  to get the best result</string>
+    <string name="welcome_fragment_info_text_2">AlarmSMS uses global alarm settings, which apply to each alarm.</string>
 
 </resources>

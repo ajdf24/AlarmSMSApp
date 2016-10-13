@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "alarm_sms_app";
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     //TABLE RULES
     public static final String TABLE_RULES = "table_rule";
@@ -39,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COLUMN_ACTIVATE_LIGHT = "activate_light";
     public static final String COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK = "activate_light_only_when_dark";
     public static final String COLUMN_LIGHT_TIME = "light_time";
+    public static final String COLUMN_ALARM_EVERY_TIME = "alarm_every_time";
     //END TABLE RULES
 
 
@@ -121,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_ADD_MESSAGE_TO_TWITTER + BOOL
                 + COLUMN_ACTIVATE_LIGHT + BOOL
                 + COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK + BOOL
+                + COLUMN_ALARM_EVERY_TIME + BOOL
                 + COLUMN_LIGHT_TIME + " integer not null);";
 
     public static final String CREATE_TABLE_DEPARTMENTS = "create table "
@@ -151,6 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             + COLUMN_MATCHING_RULE_NAME + TEXT
             + COLUMN_DAY_NAME + " text not null);";
 
+    public static final String UPDATE_VERSION_3 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ALARM_EVERY_TIME + " integer default 1;";
+
 
     /**
      * constructor
@@ -177,6 +181,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 2){
                 db.execSQL(CREATE_TABLE_ALARM_TIMES);
             }
+            if(newVersion >= 3){
+                db.execSQL(UPDATE_VERSION_3);
+            }
         }
+
+        if(oldVersion == 2){
+            if(newVersion >= 3){
+                db.execSQL(UPDATE_VERSION_3);
+            }
+        }
+
     }
 }

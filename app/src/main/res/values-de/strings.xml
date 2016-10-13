@@ -249,7 +249,7 @@
     <!--Department Explanation Fragment-->
     <string name="department_explanation_fragment_headline">Gerätehaus Einstellung</string>
     <string name="department_explanation_fragment_text">AlarmSMS verwendet den Standort deines Gerätehauses, in verschiedenen Einstellungen.
-        \n So zum Beispiel bei der Entfernungsabhängigen SMS-Weiterleitung. \n\n Um den Standort einzugeben dücke auf weiter.</string>
+        \n So zum Beispiel bei der Entfernungsabhängigen SMS-Weiterleitung. \n\n Um den Standort einzugeben drücke auf weiter.</string>
 
     <!--department Fragment-->
     <string name="department_fragment_textview_explanation">Gerätehaus</string>

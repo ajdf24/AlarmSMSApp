@@ -51,6 +51,8 @@ public abstract class Rule implements Serializable{
 
 	protected int lightTime = 30000;
 
+	protected boolean alarmEveryTime = true;
+
 	/**
 	 * Default constructor for the serialization.<br>
 	 * <b>Note</b>: Don't use them!
@@ -450,5 +452,13 @@ public abstract class Rule implements Serializable{
 		if (automaticallyAnswer!=null) {
 			automaticallyAnswer.setSendAnswerEveryTime(set);
 		}
+	}
+
+	public boolean isAlarmEveryTime() {
+		return alarmEveryTime;
+	}
+
+	public void setAlarmEveryTime(boolean alarmEveryTime) {
+		this.alarmEveryTime = alarmEveryTime;
 	}
 }
