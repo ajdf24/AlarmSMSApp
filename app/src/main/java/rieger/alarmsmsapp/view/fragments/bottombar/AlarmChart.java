@@ -72,6 +72,8 @@ public class AlarmChart extends Fragment {
 
     private View view;
 
+    private boolean showList = false;
+
     public AlarmChart() {
         // Required empty public constructor
     }
@@ -121,12 +123,20 @@ public class AlarmChart extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        showList = true;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showList = true;
     }
 
     /**
@@ -256,7 +266,11 @@ public class AlarmChart extends Fragment {
 
                     intent.putExtras(bundle);
                     intent.setClass(getActivity(), ListMessages.class);
-                    startActivity(intent);
+
+                    if(showList){
+                        startActivity(intent);
+                        showList = false;
+                    }
                     Log.d("Chart", "Entry: " + e.getXIndex());
 
                 }
