@@ -15,7 +15,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weiter"
+        android:text="@string/general_string_button_next"
         android:background="?android:attr/selectableItemBackground"
         android:id="@+id/start_activity_button_next"
         android:textColor="@color/my_accent"

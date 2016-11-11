@@ -38,11 +38,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
 
     private ActionCallback callback;
 
-    public boolean mustValidate = false;
-
-    public boolean firstStart = true;
-
-//    public int errors = 0;
+    private boolean firstStart = true;
 
     public AlarmTimeAdapter(List<AlarmTimeModel> alarmTimes, Activity activity, ActionCallback callback) {
         this.alarmTimes = alarmTimes;
@@ -78,7 +74,6 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
                     holder.getTimeTo().setError("");
                 }
             }
-//            firstStart = false;
         }
     }
 
@@ -110,10 +105,9 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
 
                 ShowcaseView showcaseView = new ShowcaseView.Builder(activity)
                         .setTarget(new ViewTarget(viewToAnimate.findViewById(R.id.list_item_alarm_time_cardview)))
-                        .setContentTitle("Alarmzeiten")
                         .setStyle(R.style.CustomShowcaseTheme)
-                        .setStyle(com.github.amlcurran.showcaseview.R.style.TextAppearance_ShowcaseView_Detail_Light)
-                        .setContentText("Setze zeiten, wann deine Regel einen Alarm auslösen soll. Wische nach links oder rechts, um die Zeit zu löschen.")
+                        .setContentTitle(R.string.activity_alarm_time_settings_name)
+                        .setContentText(R.string.showcase_rule_settings_alarm_times_text)
                         .hideOnTouchOutside()
                         .blockAllTouches()
                         .build();
@@ -170,5 +164,9 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
     @Override
     public void alarmTimeCallBack(int listPosition, int days) {
         alarmTimes.get(listPosition).setDay(AlarmTimeModel.intToDays(days));
+    }
+
+    public List<AlarmTimeModel> getAlarmTimes() {
+        return alarmTimes;
     }
 }

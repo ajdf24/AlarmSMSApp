@@ -255,6 +255,28 @@ public class DatabaseTests extends AndroidTestCase {
         assertFalse(db.getAllRules().get(0).isAlarmEveryTime());
     }
 
+    public void testCorrectAlarmTimes(){
+
+        AlarmTimeModel alarmTimeModel = new AlarmTimeModel();
+        alarmTimeModel.setDay(AlarmTimeModel.Days.SATURDAY);
+        AlarmTimeModel alarmTimeModel2 = new AlarmTimeModel();
+        alarmTimeModel2.setDay(AlarmTimeModel.Days.FRIDAY);
+
+        SMSRule rule2 = new SMSRule();
+        rule2.setRuleName("Regel2");
+
+        db.saveRule(rule);
+        db.saveRule(rule2);
+
+        db.saveAlarmTime(alarmTimeModel, rule);
+        db.saveAlarmTime(alarmTimeModel2, rule2);
+
+        assertEquals(1, db.getAlarmTimes(rule).size());
+        assertEquals(1, db.getAlarmTimes(rule2).size());
+    }
+
+    //TODO: Teste Where statement Alarmzeiten
+
     public void testAddDepartment() {
 
         assertEquals(department.getAddress(), db.saveDepartment(department).getAddress());
@@ -416,8 +438,8 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testDeleteCascadeAlarmTime(){
 
-        db.saveAlarmTime(alarmTime, rule);
         db.saveRule(rule);
+        db.saveAlarmTime(alarmTime, rule);
 
         db.deleteRule(rule);
 

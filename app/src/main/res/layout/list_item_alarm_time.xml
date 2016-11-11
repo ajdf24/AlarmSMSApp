@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:focusableInTouchMode="false"
-                    android:hint="Zeit von" />
+                    android:hint="@string/time_from" />
 
                 <EditText
                     android:id="@+id/list_item_alarm_time_to"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:focusableInTouchMode="false"
-                    android:hint="Zeit bis" />
+                    android:hint="@string/time_to" />
             </LinearLayout>
 
         </RelativeLayout>

@@ -90,17 +90,28 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             @Override
             public void onClick(View v) {
 
-                alarmTimeAdapter.firstStart = false;
-//                alarmTimeAdapter.notifyDataSetChanged();
+            List<AlarmTimeModel> alarmTimes = alarmTimeAdapter.getAlarmTimes();
 
-//                if(alarmTimeAdapter.errors == 0) {
+            boolean alarmTimesCorrect = true;
+            for(AlarmTimeModel alarmTime : alarmTimes ){
+                if(alarmTime.getStartTimeHours() == -1){
+                    alarmTimesCorrect = false;
+                    break;
+                }
+                if(alarmTime.getEndTimeHours() == -1){
+                    alarmTimesCorrect = false;
+                    break;
+                }
+            }
+
+                if(alarmTimesCorrect) {
                     rule.setAlarmEveryTime(isAlwaysAlarm.isChecked());
                     rule.notifyObserver();
 
                     db.deleteAlarmTimesByRule(rule);
 
-                    for (AlarmTimeModel alarmtime : alarmTimeList) {
-                        db.saveAlarmTime(alarmtime, rule);
+                    for (AlarmTimeModel alarmTime : alarmTimeList) {
+                        db.saveAlarmTime(alarmTime, rule);
                     }
 
                     Intent intent = new Intent();
@@ -112,7 +123,9 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.setClass(AlarmTimeSettings.this, RuleSettings.class);
                     startActivity(intent);
-//                }
+                }else {
+                    Toast.makeText(AlarmTimeSettings.this, "Test", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -120,8 +133,6 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             @Override
             public void onClick(View v) {
                 alarmTimeList.add(new AlarmTimeModel());
-//                alarmTimeAdapter.errors = alarmTimeAdapter.errors + 2;
-                alarmTimeAdapter.firstStart = true;
                 alarmTimeAdapter.notifyDataSetChanged();
             }
         });
@@ -192,10 +203,9 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
             case AppConstants.CallBacks.SHOW_SHOW_CASE_VIEW_NEW_ALARM_TIME:
                 ShowcaseView view = new ShowcaseView.Builder(this)
                         .setTarget(new ViewTarget(R.id.activity_alarm_time_settings_new_time, this))
-                        .setContentTitle("")
                         .setStyle(R.style.CustomShowcaseTheme)
-                        .setContentTitle("Neue Alarmzeiten")
-                        .setContentText("Erstelle eine neue Alarmzeit")
+                        .setContentTitle(R.string.showcase_rule_settings_new_alarm_time_title)
+                        .setContentText(R.string.showcase_rule_settings_new_alarm_time_text)
                         .hideOnTouchOutside()
                         .blockAllTouches()
                         .build();

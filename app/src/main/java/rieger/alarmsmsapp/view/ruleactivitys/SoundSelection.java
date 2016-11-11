@@ -122,7 +122,7 @@ public class SoundSelection extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void createListAdapter(SoundEvent event){
 
-        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_sound, event.getSoundList() );
+        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_rule_settings, event.getSoundList() );
 
         listView.setAdapter(adapter);
 

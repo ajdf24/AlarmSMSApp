@@ -35,7 +35,6 @@
                 android:hint=""
                 android:inputType="textMultiLine">
 
-                <requestFocus />
             </EditText>
 
             <CheckBox
@@ -43,14 +42,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/activity_facebook_post_selection_editText_message_for_facebook"
+                android:layout_below="@+id/activity_facebook_post_selection_textView_character_counter"
                 android:text="@string/activity_twitter_post_selection_checkBox_add_message_text" />
 
             <TextView
                 android:id="@+id/activity_facebook_post_selection_textView_character_counter"
                 android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/activity_facebook_post_selection_checkBox_add_message_text"
+                android:layout_below="@+id/activity_facebook_post_selection_editText_message_for_facebook"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </RelativeLayout>

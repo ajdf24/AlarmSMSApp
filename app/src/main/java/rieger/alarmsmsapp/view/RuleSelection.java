@@ -812,7 +812,7 @@ public class RuleSelection extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, false);
-                        editor.commit();
+                        editor.apply();
 
                     } else {
                         System.out.println("Element nicht vorhanden");

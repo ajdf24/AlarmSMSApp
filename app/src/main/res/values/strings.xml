@@ -252,5 +252,27 @@
     <string name="welcome_fragment_headline">Welcome to AlarmSMS</string>
     <string name="welcome_fragment_info_text">Please configure the app  to get the best result</string>
     <string name="welcome_fragment_info_text_2">AlarmSMS uses global alarm settings, which apply to each alarm.</string>
+    <string name="activity_rule_selection_time_controlled">Time controlled:</string>
+    <string name="alarm">Alert</string>
+    <string name="alarm_time_settings_switch_always_alarm">Always alert</string>
+    <string name="alarm_time_settings_title">Choose when your rule should alert you.</string>
+    <string name="end_befor_start_time">End time before start time</string>
+    <string name="general_string_button_next">Next</string>
+    <string name="showcase_rule_name_save_text">Save and continue</string>
+    <string name="showcase_rule_name_text">Choose a name for your alarm rule.</string>
+    <string name="showcase_rule_name_title">Name selection</string>
+    <string name="showcase_rule_settings_alarm_settings_text">Here is what should happen when an alarm is received.</string>
+    <string name="showcase_rule_settings_alarm_times_text">Set times when your rule should trigger an alarm. Swipe left or right to clear the time.</string>
+    <string name="showcase_rule_settings_new_alarm_time_text">Create a new alarm time.</string>
+    <string name="showcase_rule_settings_new_alarm_time_title">New alarm times</string>
+    <string name="showcase_rule_settings_trigger_text">Set the sender and other further triggers.</string>
+    <string name="showcase_rule_settings_trigger_title">Trigger</string>
+    <string name="start_befor_end_time">Start time after end time</string>
+    <string name="statistics">Statistics</string>
+    <string name="time_from">Time from</string>
+    <string name="time_to">Time to</string>
+    <string name="showcase_more_rule_options_text">Briefly tap the rule to open the settings or long for additional options.</string>
+    <string name="showcase_more_rule_options_title">Additional settings</string>
+    <string name="alarm_times_not_correct">Alarm times not correct</string>
 
 </resources>

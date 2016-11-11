@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Wähle aus, wann deine Regel dich Alarmieren soll."
+        android:text="@string/alarm_time_settings_title"
         android:id="@+id/activity_alarm_time_settings_maintext"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Immer alarmieren"
+        android:text="@string/alarm_time_settings_switch_always_alarm"
         android:id="@+id/activity_alarm_time_settings_switch"
         android:layout_below="@+id/activity_alarm_time_settings_maintext"
         android:layout_alignParentLeft="true"

@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,8 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -317,7 +320,10 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 					PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 
 					try {
-						PhoneNumber number = phoneUtil.parse(phoneNumber, "DE");
+						TelephonyManager manager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+						String ISO2 = manager.getSimCountryIso();
+
+						PhoneNumber number = phoneUtil.parse(phoneNumber, ISO2.toUpperCase());
 						phoneNumber = phoneUtil.format(number,
 								PhoneNumberFormat.E164);
 

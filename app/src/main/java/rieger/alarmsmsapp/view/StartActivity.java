@@ -79,7 +79,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         ButterKnife.bind(this);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
         prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
@@ -145,8 +145,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         imageView.setVisibility(View.GONE);
-                        headLineText.setText(CreateContextForResource.getStringFromID(R.string.welcome_fragment_info_text_2));
-                        headLineText.setGravity(Gravity.CENTER);
+                        welcomeText.setText(CreateContextForResource.getStringFromID(R.string.welcome_fragment_info_text_2));
+                        welcomeText.setGravity(Gravity.CENTER);
                     }
                 });
 

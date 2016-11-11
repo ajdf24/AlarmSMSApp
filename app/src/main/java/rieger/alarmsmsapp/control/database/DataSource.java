@@ -131,7 +131,9 @@ public class DataSource {
     public Rule saveRule(Rule rule) {
         ContentValues values = new ContentValues();
 
-        deleteRule(rule);
+        int ruleID = getRuleId(rule);
+
+//        deleteRule(rule);
 
         values.put(DatabaseHelper.COLUMN_RULE_NAME, rule.getRuleName());
         values.put(DatabaseHelper.COLUMN_SENDER, rule.getSender());
@@ -164,15 +166,29 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        long insertId = database.insert(DatabaseHelper.TABLE_RULES, "",
-                values);
-        Cursor cursor = database.query(DatabaseHelper.TABLE_RULES,
-                allColumnsRule, DatabaseHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
-        cursor.moveToFirst();
-        Rule newRule = cursorToRule(cursor);
-        cursor.close();
-        close();
+        Rule newRule = null;
+        if(ruleID == -1) {
+            long insertId = database.insert(DatabaseHelper.TABLE_RULES, "",
+                    values);
+
+            Cursor cursor = database.query(DatabaseHelper.TABLE_RULES,
+                    allColumnsRule, DatabaseHelper.COLUMN_ID + " = " + insertId, null,
+                    null, null, null);
+            cursor.moveToFirst();
+            newRule = cursorToRule(cursor);
+            cursor.close();
+            close();
+        }else {
+            database.update(DatabaseHelper.TABLE_RULES, values, DatabaseHelper.COLUMN_ID + "=" + ruleID, null);
+
+            Cursor cursor = database.query(DatabaseHelper.TABLE_RULES,
+                    allColumnsRule, DatabaseHelper.COLUMN_ID + " = " + ruleID, null,
+                    null, null, null);
+            cursor.moveToFirst();
+            newRule = cursorToRule(cursor);
+            cursor.close();
+            close();
+        }
 
         if(isConnected){
             close();
@@ -392,24 +408,26 @@ public class DataSource {
     }
 
     public List<AlarmTimeModel> getAlarmTimes(Rule rule){
-
         List<AlarmTimeModel> alarmTimes = new ArrayList<>();
 
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, null, null, null, null, null);
 
+        Cursor cursor = database.query(helper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = " + getRuleId(rule), null, null, null, null);
         cursor.moveToFirst();
+
         while (!cursor.isAfterLast()){
             alarmTimes.add(cursorToAlarmTime(cursor));
             cursor.moveToNext();
         }
 
         cursor.close();
+
         if(isConnected) {
             close();
         }
+
         return alarmTimes;
     }
 
@@ -460,7 +478,9 @@ public class DataSource {
     }
 
     public int getRuleId(Rule rule){
-
+        if(!isConnected) {
+            open();
+        }
         Cursor cursorRule = database.query(helper.TABLE_RULES, new String[]{helper.COLUMN_ID}, helper.COLUMN_RULE_NAME + " = ? ", new String[]{rule.getRuleName()}, null, null, null);
 
         cursorRule.moveToFirst();

@@ -83,9 +83,9 @@ public class CreateNewRule extends AppCompatActivity {
 
 			ShowcaseView showcaseView = new ShowcaseView.Builder(this)
 					.setTarget(new ViewTarget(R.id.activity_create_new_rule_editText_rule_name, this))
-					.setContentTitle("Namenwahl")
+					.setContentTitle(R.string.showcase_rule_name_title)
 					.setStyle(R.style.CustomShowcaseTheme)
-					.setContentText("Wähle einen Namen für deine Regel")
+					.setContentText(R.string.showcase_rule_name_text)
 					.hideOnTouchOutside()
 					.blockAllTouches()
 					.build();
@@ -189,9 +189,9 @@ public class CreateNewRule extends AppCompatActivity {
 							editor.apply();
 							ShowcaseView view = new ShowcaseView.Builder(CreateNewRule.this)
 									.setTarget(new ViewTarget(R.id.activity_create_new_rule_button_save_rule_name, CreateNewRule.this))
-									.setContentTitle("Speichern")
+									.setContentTitle(R.string.general_string_button_save)
 									.setStyle(R.style.CustomShowcaseTheme)
-									.setContentText("Speichern und weiter")
+									.setContentText(R.string.showcase_rule_name_save_text)
 									.hideOnTouchOutside()
 									.blockAllTouches()
 									.build();

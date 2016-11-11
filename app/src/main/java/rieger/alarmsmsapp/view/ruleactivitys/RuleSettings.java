@@ -122,8 +122,8 @@ public class RuleSettings extends AppCompatActivity {
 
 			ShowcaseView showcaseView = new ShowcaseView.Builder(this)
 					.setTarget(new ViewTarget(((ViewGroup) tabLayout.getChildAt(0)).getChildAt(0)))
-					.setContentTitle("Auslöser")
-					.setContentText("Stelle hier den Absender und sonstige weitere Auslöser aus.")
+					.setContentTitle(R.string.showcase_rule_settings_trigger_title)
+					.setContentText(R.string.showcase_rule_settings_trigger_text)
 					.hideOnTouchOutside()
 					.blockAllTouches()
 					.setStyle(R.style.CustomShowcaseTheme)
@@ -136,8 +136,8 @@ public class RuleSettings extends AppCompatActivity {
 					super.onShowcaseViewHide(showcaseView);
 					ShowcaseView showcaseView2 = new ShowcaseView.Builder(RuleSettings.this)
 							.setTarget(new ViewTarget(((ViewGroup) tabLayout.getChildAt(0)).getChildAt(1)))
-							.setContentTitle("Alarmeinstellungen")
-							.setContentText("Stelle hier ein was passieren soll, wenn ein Alarm eingeht.")
+							.setContentTitle(R.string.import_settings_dialog_alarm_settings)
+							.setContentText(R.string.showcase_rule_settings_alarm_settings_text)
 							.hideOnTouchOutside()
 							.blockAllTouches()
 							.setStyle(R.style.CustomShowcaseTheme)
@@ -172,9 +172,9 @@ public class RuleSettings extends AppCompatActivity {
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 				case 0:
-					return "Auslöser";
+					return getString(R.string.showcase_rule_settings_trigger_title);
 				case 1:
-					return "Alarmeinstellung";
+					return getString(R.string.import_settings_dialog_alarm_settings);
 			}
 			return null;
 		}

@@ -3,19 +3,19 @@
     <item
         android:id="@+id/bottomBarItemOne"
         android:icon="@drawable/ic_list_black_24dp"
-        android:title="Regeln"/>
+        android:title="@string/import_settings_dialog_rules"/>
     <item
         android:id="@+id/bottomBarItemTwo"
         android:icon="@drawable/ic_alarm_black_24dp"
-        android:title="Alarm"/>
+        android:title="@string/alarm"/>
 
     <item
         android:id="@+id/bottomBarItemThree"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Gerätehaus"/>
+        android:title="@string/import_settings_dialog_department"/>
 
     <item
         android:id="@+id/bottomBarItemFour"
         android:icon="@drawable/ic_assessment_black_24dp"
-        android:title="Statistik"/>
+        android:title="@string/statistics"/>
 </menu>

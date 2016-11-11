@@ -267,4 +267,28 @@
     <string name="import_settings_dialog_import_error_message">Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!</string>
 
     <string name="activity_rule_selection_time_controlled">Zeitgesteuert: </string>
+
+    <string name="showcase_rule_name_save_text">Speichern und weiter</string>
+    <string name="showcase_rule_settings_trigger_title">Auslöser</string>
+    <string name="showcase_rule_settings_trigger_text">Stelle hier den Absender und sonstige weitere Auslöser aus.</string>
+    <string name="showcase_rule_settings_alarm_settings_text">Stelle hier ein was passieren soll, wenn ein Alarm eingeht.</string>
+    <string name="showcase_rule_settings_alarm_times_text">Setze zeiten, wann deine Regel einen Alarm auslösen soll. Wische nach links oder rechts, um die Zeit zu löschen.</string>
+    <string name="showcase_rule_settings_new_alarm_time_title">Neue Alarmzeiten</string>
+    <string name="showcase_rule_settings_new_alarm_time_text">Erstelle eine neue Alarmzeit.</string>
+
+    <string name="start_befor_end_time">Start-Zeit nach End-Zeit</string>
+    <string name="end_befor_start_time">End-Zeit vor Start-Zeit</string>
+    <string name="statistics">Statistik</string>
+    <string name="time_from">Zeit von</string>
+    <string name="time_to">Zeit bis</string>
+    <string name="alarm_time_settings_title">Wähle aus, wann deine Regel dich Alarmieren soll.</string>
+    <string name="alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
+    <string name="general_string_button_next">Weiter</string>
+    <string name="showcase_rule_name_text">Wähle einen Namen für Ihre Alarmregel.</string>
+    <string name="showcase_rule_name_title">Namenwahl</string>
+    <string name="showcase_more_rule_options_title">Zusatzeinstellungen</string>
+    <string name="showcase_more_rule_options_text">Tippe kurz auf die Regel um die Einstellungen zu öffnen oder lang für zusätzliche Optionen.</string>
+    <string name="alarm">Alarm</string>
+
+    <string name="alarm_times_not_correct">Alarmzeiten nicht korrekt.</string>
 </resources>

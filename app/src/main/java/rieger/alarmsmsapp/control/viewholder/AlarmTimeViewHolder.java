@@ -121,7 +121,7 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
         switch (timeFiled){
             case AppConstants.CallBacks.TIMEFIELED_FROM:
                 if(getTimeTo().getText().toString().compareTo(AlarmTimeModel.timeToString(hourOfDay, minute)) == -1){
-                    Toast.makeText(view.getContext(), "Start-Zeit nach End-Zeit", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), R.string.start_befor_end_time, Toast.LENGTH_LONG).show();
                     break;
                 }
                 timeFrom.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
@@ -135,7 +135,7 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                 break;
             case AppConstants.CallBacks.TIMEFIELD_TO:
                 if(getTimeFrom().getText().toString().compareTo(AlarmTimeModel.timeToString(hourOfDay, minute)) == 1){
-                    Toast.makeText(view.getContext(), "End-Zeit vor Start-Zeit", Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(), R.string.end_befor_start_time, Toast.LENGTH_LONG).show();
                     break;
                 }
                 timeTo.setText(AlarmTimeModel.timeToString(hourOfDay, minute));

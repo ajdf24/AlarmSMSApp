@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +26,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,6 +148,45 @@ public class RuleSelection extends Fragment {
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        prefs = PreferenceManager.getDefaultSharedPreferences(CreateContextForResource.getContext());
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, true)) {
+
+            final FrameLayout layout = (FrameLayout) layoutView.findViewById(R.id.fragment_rule_selection);
+            ViewTreeObserver vto = layout.getViewTreeObserver();
+            vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    layout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    int width = layout.getMeasuredWidth();
+                    int height = layout.getMeasuredHeight();
+                    System.out.println(listView.isShown());
+
+                    if (listView.getChildAt(0) != null) {
+//                        ShowcaseView showcaseView = new ShowcaseView.Builder(getActivity())
+//                                .setTarget(new ViewTarget(listView.getChildAt(0).findViewById(R.id.list_item_rule_name)))
+//                                .setContentTitle(R.string.showcase_more_rule_options_title)
+//                                .setStyle(R.style.CustomShowcaseTheme)
+//                                .setContentText(R.string.showcase_more_rule_options_text)
+//                                .hideOnTouchOutside()
+//                                .blockAllTouches()
+//                                .build();
+//                        showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, false);
+                        editor.apply();
+
+                    } else {
+                        System.out.println("Element nicht vorhanden");
+                    }
+                }
+            });
         }
     }
 
@@ -406,6 +449,18 @@ public class RuleSelection extends Fragment {
                             startActivity(intent);
                         }
                     });
+                    viewHolder.timeControlled.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
+
+                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                            intent.putExtras(bundle);
+                            intent.setClass(getActivity(), RuleSettings.class);
+                            startActivity(intent);
+                        }
+                    });
 
 //                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
 //                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
@@ -455,6 +510,10 @@ public class RuleSelection extends Fragment {
                             timeControlled = timeControlled + "...";
                         }
 
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                                RelativeLayout.LayoutParams.WRAP_CONTENT
+                        );
 
                         viewHolder.timeControlled.setText(timeControlled);
                     }

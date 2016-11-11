@@ -12,10 +12,10 @@ public class AlarmTimeModel {
 
     private int id;
     private Days day;
-    private int startTimeMinutes;
-    private int endTimeMinutes;
-    private int startTimeHours;
-    private int endTimeHours;
+    private int startTimeMinutes = -1;
+    private int endTimeMinutes = -1;
+    private int startTimeHours = -1;
+    private int endTimeHours = -1;
 
     public Days getDay() {
         return day;

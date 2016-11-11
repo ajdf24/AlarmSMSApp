@@ -16,6 +16,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import junit.framework.Test;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,6 +75,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
     private SensorManager mSensorManager;
 
     private Sensor mLight;
+
+    private boolean isTest = false;
 
     private float currentLuxValue = -1;
 
@@ -345,6 +349,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
                 }
                 if (messageSource.equals(rule.getSender())){
                     if(!rule.isAlarmEveryTime()){
+
                         List<AlarmTimeModel> times = db.getAlarmTimes(rule);
                         for(AlarmTimeModel alarmTime : db.getAlarmTimes(rule)){
                             if(alarmTime.checkDayForAlarmTime(currentDay)){
@@ -358,16 +363,26 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
                                             matchingRules.add(rule);
                                             foundMatchingRule = true;
                                             break;
+                                        }else {
+                                            showWrongTimeToast();
                                         }
+                                    }else {
+                                        showWrongTimeToast();
                                     }
                                     if(alarmTime.getEndTimeHours() == currentHour){
                                         if(alarmTime.getEndTimeMinutes() >= currentMinute){
                                             matchingRules.add(rule);
                                             foundMatchingRule = true;
                                             break;
+                                        }else {
+                                            showWrongTimeToast();
                                         }
+                                    }else {
+                                        showWrongTimeToast();
                                     }
                                 }
+                            }else {
+                                showWrongTimeToast();
                             }
                         }
                     }else {
@@ -423,7 +438,16 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
         return foundMatchingRule;
     }
 
+    private void showWrongTimeToast(){
+        if(isTest){
+            Toast.makeText(CreateContextForResource.getContext(), "Regel gefunden, aber falsche Zeit!", Toast.LENGTH_SHORT).show();
+            isTest = false;
+        }
+    }
+
     public void testReceiver(Context context, String number, String message) {
+
+        isTest = true;
 
         resourceIdForNotificationIcon = R.drawable.ic_notification;
 
