@@ -14,9 +14,9 @@
 <!--     Strings for the menu -->
     <string name="alarm_settings">Alarm Einstellungen</string>
     <string name="department_settings">Gerätehaus Einstellungen</string>
-    <string name="rule_list">Regelübersicht</string>
-    <string name="create_new_rule">Neue Regel</string>
-    <string name="test_rule">Regel testen</string>
+    <string name="rule_list">Alarmübersicht</string>
+    <string name="create_new_rule">Neuen Alarm</string>
+    <string name="test_rule">Alarm testen</string>
     <string name="help">Hilfe</string>
 
 <!-- 	Strings for the Toats -->
@@ -24,37 +24,37 @@
 	<string name="toast_mail_not_found">Keine E-Mail Adresse für den gewählten Kontakt vorhanden</string>
     
 <!--     Strings for the activity rule_activity_title -->
-    <string name="title_activity_rule_selection">Regelauswahl</string>
+    <string name="title_activity_rule_selection">Alarmauswahl</string>
 
         <!-- Strings for the Alert Dialog-->
         <string name="activity_rule_selection_alert_dialog_title_first_use">Konfiguration zur ersten Benutzung.</string>
-        <string name="activity_rule_selection_alert_dialog_text">Nutze den Stift unten rechts um neue Regeln zu erstellen.</string>
+        <string name="activity_rule_selection_alert_dialog_text">Nutze den Stift unten rechts um neue Alarme zu erstellen.</string>
 
 
         <!-- Strings for Context Menu -->
-		<string name="activity_rule_selection_context_menu_title">Regel Einstellungen</string>
-		<string name="activity_rule_selection_context_menu_action_edit">Regel editieren</string>
-        <string name="activity_rule_selection_context_menu_action_send">Regel teilen</string>
-		<string name="activity_rule_selection_context_menu_action_delete">Regel löschen</string>
-        <string name="activity_rule_selection_context_menu_selection_title">Sende Regel über&#8230;</string>
+		<string name="activity_rule_selection_context_menu_title">Alarmeinstellungen</string>
+		<string name="activity_rule_selection_context_menu_action_edit">Alarm editieren</string>
+        <string name="activity_rule_selection_context_menu_action_send">Alarm teilen</string>
+		<string name="activity_rule_selection_context_menu_action_delete">Alarm löschen</string>
+        <string name="activity_rule_selection_context_menu_selection_title">Sende Alarm über&#8230;</string>
 		
 		<!-- Strings for Toasts -->
-		<string name="activity_rule_selection_toast_rule_deleted">Regel %1$s gelöscht</string>
-        <string name="activity_rule_selection_toast_rule_activated">Regel %1$s aktivert</string>
-        <string name="activity_rule_selection_toast_rule_deactivated">Regel %1$s deaktiviert</string>
-        <string name="activity_rule_selection_toast_rule_received">Regel %1$s empfangen</string>
+		<string name="activity_rule_selection_toast_rule_deleted">Alarm %1$s gelöscht</string>
+        <string name="activity_rule_selection_toast_rule_activated">Alarm %1$s aktivert</string>
+        <string name="activity_rule_selection_toast_rule_deactivated">Alarm %1$s deaktiviert</string>
+        <string name="activity_rule_selection_toast_rule_received">Alarm %1$s empfangen</string>
         <string name="activity_rule_selection_toast_rule_received_but_error">Datei konnte nicht gelesen werden</string>
 
 <!--     Strings for the activity create_new_rule -->
-	<string name="title_activity_create_new_rule">Neue Regel Hinzufügen</string>
-	<string name="activity_create_new_rule_editText_rule_name_hint">Name der Regel</string>
+	<string name="title_activity_create_new_rule">Neuen Alarm erstellen</string>
+	<string name="activity_create_new_rule_editText_rule_name_hint">Name des Alarms</string>
 	<string name="activity_create_new_rule_textView_label_for_editText_rule_name">Name:</string>
-	<string name="activity_create_new_rule_textView_description_of_radio_buttons">Für welchen Eingang soll die Regel gelten?</string>
-	<string name="activity_create_new_rule_radio_content_sms">SMS Regel</string>
-    <string name="activity_create_new_rule_radio_content_mail">E-Mail Regel</string>
+	<string name="activity_create_new_rule_textView_description_of_radio_buttons">Für welchen Eingang soll der Alarm gelten?</string>
+	<string name="activity_create_new_rule_radio_content_sms">SMS Alarm</string>
+    <string name="activity_create_new_rule_radio_content_mail">E-Mail Alarm</string>
 	
 <!-- 	Strings for the activity rule_settings -->
-	<string name="title_activity_rule_settings">Regeleinstellungen</string>
+	<string name="title_activity_rule_settings">Alarmeinstellungen</string>
 
 <!-- 	Strings for the activity sender_selection -->
 	<string name="title_activity_sender_selection">Absenderauswahl</string>
@@ -140,7 +140,7 @@
 
         <!-- Strings for the Alert Dialog-->
         <string name="activity_department_settings_alert_dialog_title">Konfiguration zur ersten Benutzung.</string>
-        <string name="activity_department_settings_alert_dialog_text">Bitte gib die Adresse deines Gerätehauses ein. Dies ist für gewisse Regeleinstellungen notwendig. \n\n </string>
+        <string name="activity_department_settings_alert_dialog_text">Bitte gib die Adresse deines Gerätehauses ein. Dies ist für gewisse Alarmeinstellungen notwendig. \n\n </string>
         <string name="activity_department_settings_alert_dialog_button">OK</string>
 
 <!--    Stings for Notification -->
@@ -151,7 +151,7 @@
 
 <!--    Utility Strings-->
     <string name="twitter_not_found">Twitter App nicht gefunden</string>
-    <string name="can_not_read_rule">Es konnten nicht alle Regeln gelesen werden.</string>
+    <string name="can_not_read_rule">Es konnten nicht alle Alarme gelesen werden.</string>
 
 <!--    Widget Strings -->
     <string name="widget_text_activ">Aktiv</string>
@@ -162,11 +162,11 @@
     <string name="toast_permission_sms_denied">Die App darf keine SMS lesen. Dies führt dazu, dass die App nicht richtig arbeitet!</string>
     <string name="toast_permission_location_denied">Die App darf keine Standorte erfasse. Es können nicht alle Aktionen korrekt ausgeführt werden.</string>
     <string name="toast_permission_storage_denied">Die App darf keine externen Dateien lesen.</string>
-    <string name="title_activity_test_rule">Regel Testen</string>
-    <string name="toast_no_rule_match">Keine passende Regel gefunden.</string>
+    <string name="title_activity_test_rule">Alarm Testen</string>
+    <string name="toast_no_rule_match">Kein passender Alarm gefunden.</string>
 
     <!-- Strings Test Activity -->
-    <string name="activity_test_rule_maintext">Du kannst deine Regeln hier testen!</string>
+    <string name="activity_test_rule_maintext">Du kannst deinen Alarm hier testen!</string>
     <string name="activity_test_rule_sender_description">Der Absender den du testen möchtest.</string>
     <string name="activity_test_rule_text_description">Die Nachricht, welche du testen möchtest.</string>
     <string name="activity_test_rule_hint_message">Nachricht</string>
@@ -199,7 +199,7 @@
     <string name="dialog_sender_selection_button_got_it">Verstanden</string>
     <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantische Absenderauswahl\n\n- Neue Hilfe für Absenderauswahl\n\n- Interne Änderungen</string>
     <string name="activity_rule_selection_whats_new_text_for_version_15">- Bugfix Absturz beim starten</string>
-    <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Regel: %1$s gewählt!"</string>
+    <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Alarm: %1$s gewählt!"</string>
     <string name="activity_rule_selection_snackbar_button">Jetzt Auswählen</string>
     <string name="activity_light_settings_set_light_on_when_dark_checkbox">Lampe nur einschalten wenn es dunkel ist</string>
     <string name="activty_alarm_settings_repeat_text">Alarmton wiederholen</string>
@@ -262,7 +262,7 @@
     <string name="import_settings_dialog_title">Importiere Einstellungen von alter Version</string>
     <string name="import_settings_dialog_department">Gerätehaus</string>
     <string name="import_settings_dialog_alarm_settings">Alarmeinstellungen</string>
-    <string name="import_settings_dialog_rules">Regeln</string>
+    <string name="import_settings_dialog_rules">Alarme</string>
     <string name="import_settings_dialog_import_error">Fehler beim Import</string>
     <string name="import_settings_dialog_import_error_message">Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!</string>
 
@@ -272,7 +272,7 @@
     <string name="showcase_rule_settings_trigger_title">Auslöser</string>
     <string name="showcase_rule_settings_trigger_text">Stelle hier den Absender und sonstige weitere Auslöser aus.</string>
     <string name="showcase_rule_settings_alarm_settings_text">Stelle hier ein was passieren soll, wenn ein Alarm eingeht.</string>
-    <string name="showcase_rule_settings_alarm_times_text">Setze zeiten, wann deine Regel einen Alarm auslösen soll. Wische nach links oder rechts, um die Zeit zu löschen.</string>
+    <string name="showcase_rule_settings_alarm_times_text">Setze zeiten, wann deine Alarm-Regel einen Alarm auslösen soll. Wische nach links oder rechts, um die Zeit zu löschen.</string>
     <string name="showcase_rule_settings_new_alarm_time_title">Neue Alarmzeiten</string>
     <string name="showcase_rule_settings_new_alarm_time_text">Erstelle eine neue Alarmzeit.</string>
 
@@ -281,13 +281,13 @@
     <string name="statistics">Statistik</string>
     <string name="time_from">Zeit von</string>
     <string name="time_to">Zeit bis</string>
-    <string name="alarm_time_settings_title">Wähle aus, wann deine Regel dich Alarmieren soll.</string>
+    <string name="alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
     <string name="alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
     <string name="general_string_button_next">Weiter</string>
     <string name="showcase_rule_name_text">Wähle einen Namen für Ihre Alarmregel.</string>
     <string name="showcase_rule_name_title">Namenwahl</string>
     <string name="showcase_more_rule_options_title">Zusatzeinstellungen</string>
-    <string name="showcase_more_rule_options_text">Tippe kurz auf die Regel um die Einstellungen zu öffnen oder lang für zusätzliche Optionen.</string>
+    <string name="showcase_more_rule_options_text">Tippe kurz auf den Alarm um die Einstellungen zu öffnen oder lang für zusätzliche Optionen.</string>
     <string name="alarm">Alarm</string>
 
     <string name="alarm_times_not_correct">Alarmzeiten nicht korrekt.</string>

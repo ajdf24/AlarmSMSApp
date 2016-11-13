@@ -124,7 +124,7 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                     intent.setClass(AlarmTimeSettings.this, RuleSettings.class);
                     startActivity(intent);
                 }else {
-                    Toast.makeText(AlarmTimeSettings.this, "Test", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AlarmTimeSettings.this, R.string.alarm_times_not_correct, Toast.LENGTH_LONG).show();
                 }
             }
         });
