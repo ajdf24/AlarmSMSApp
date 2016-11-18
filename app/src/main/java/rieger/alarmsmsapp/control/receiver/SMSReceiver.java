@@ -30,7 +30,6 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.control.observer.DepartmentObserver;
-import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.control.receiver.worker.AlarmSoundPlayer;
 import rieger.alarmsmsapp.control.receiver.worker.AnswerSender;

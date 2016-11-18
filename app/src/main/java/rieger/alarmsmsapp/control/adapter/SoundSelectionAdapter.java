@@ -39,7 +39,7 @@ public class SoundSelectionAdapter extends RecyclerView.Adapter<SoundSelectionVi
     @Override
     public void onBindViewHolder(SoundSelectionViewHolder holder, int position) {
         holder.getSoundName().setText(soundList.get(position).getName());
-        if(rule.getAlarmSound().equals(soundList.get(position))){
+        if(rule.getAlarmSound().getName().equals(soundList.get(position).getName())){
             holder.getIsActive().setVisibility(View.VISIBLE);
         }else {
             holder.getIsActive().setVisibility(View.INVISIBLE);

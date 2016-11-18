@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:tag="dialog"
-    tools:context=".view.SenderSelectionDialog">
+    tools:context=".view.dialogs.SenderSelectionDialog">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -21,6 +21,7 @@ import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
 /**
  * Activity from which it is possible to set the global alarm settings.
  */
+ @Deprecated
 public class AlarmSettings extends AppCompatActivity implements AlarmSettingsFragment.OnFragmentInteractionListener {
 
     private static final String LOG_TAG = AlarmSettings.class.getSimpleName();

@@ -32,13 +32,11 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
-import java.util.Locale;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
-import rieger.alarmsmsapp.view.SenderSelectionDialog;
+import rieger.alarmsmsapp.view.dialogs.SenderSelectionDialog;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;

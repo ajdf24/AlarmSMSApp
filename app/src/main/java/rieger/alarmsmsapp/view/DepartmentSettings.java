@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
 
+@Deprecated
 public class DepartmentSettings extends AppCompatActivity implements DepartmentFragment.OnFragmentInteractionListener  {
 
     private static final String LOG_TAG = DepartmentSettings.class.getSimpleName();

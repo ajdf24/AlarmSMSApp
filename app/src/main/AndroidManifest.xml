@@ -116,9 +116,6 @@
             android:name=".view.ruleactivitys.LightSettings"
             android:label="@string/title_activity_light_settings" />
         <activity
-            android:name=".view.AlarmChart"
-            android:label="@string/title_activity_alarm_chart" />
-        <activity
             android:name=".view.ListMessages"
             android:label="@string/title_activity_list_messages" />
 

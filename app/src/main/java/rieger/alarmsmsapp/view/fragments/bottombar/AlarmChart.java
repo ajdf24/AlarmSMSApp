@@ -36,7 +36,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.observer.MessageObserver;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;

@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.view;
+package rieger.alarmsmsapp.view.dialogs;
 
 import android.app.DialogFragment;
 import android.net.Uri;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * A simple {@link Fragment} subclass.
