@@ -81,7 +81,7 @@ public class RuleSelection extends Fragment {
     @Bind(R.id.activity_rule_selection_listView)
     ListView listView;
 
-    private ListAdapter listAdapter;
+    private RuleSelectionAdapter listAdapter;
 
     @Bind(R.id.fab)
     FloatingActionButton floatingActionButton;
@@ -154,6 +154,7 @@ public class RuleSelection extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         prefs = PreferenceManager.getDefaultSharedPreferences(CreateContextForResource.getContext());
         if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, true)) {
 
@@ -272,7 +273,7 @@ public class RuleSelection extends Fragment {
             @Override
             public int compare(Rule rule1, Rule rule2) {
 
-                return rule1.getRuleName().compareTo(rule2.getRuleName());
+                return rule1.getRuleName().compareToIgnoreCase(rule2.getRuleName());
             }
         });
     }
@@ -532,7 +533,8 @@ public class RuleSelection extends Fragment {
     }
 
     public void notifyDataSetChanced(){
-        ((BaseAdapter) listAdapter).notifyDataSetChanged();
+        sortRuleList();
+        listAdapter.notifyDataSetChanged();
     }
 
 //    @Override
@@ -579,4 +581,5 @@ public class RuleSelection extends Fragment {
 //
 //
 //    }
+
 }

@@ -1,11 +1,18 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +23,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -126,7 +134,7 @@ public class CreateNewRule extends AppCompatActivity {
 				}
 
 				Log.d(LOG_TAG, rulename.getText().toString());
-				Intent intent = new Intent();
+				final Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 
 				RadioButton rb = (RadioButton) findViewById(ruleType.getCheckedRadioButtonId());
@@ -137,30 +145,48 @@ public class CreateNewRule extends AppCompatActivity {
 					rule = new SMSRule();
 					rule.setRuleName(rulename.getText().toString());
 
-//					rule = RuleCreator.saveRule(rulename.getText().toString(), RuleType.SMS_RULE);
-
 					rule = db.saveRule(rule);
 
 					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 
 					intent.putExtras(bundle);
-					intent.setClass(CreateNewRule.this, MainActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
+
+					AlertDialog.Builder builder = new AlertDialog.Builder(CreateNewRule.this, R.style.AlertDialogCustom);
+					builder.setTitle(R.string.dialog_create_alarm_from_sms_title);
+					builder.setMessage(R.string.dialog_create_alarm_from_sms_text);
+
+
+					builder.setPositiveButton(R.string.general_yes, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+
+							if(ContextCompat.checkSelfPermission(getBaseContext(), "android.permission.READ_SMS") == PackageManager.PERMISSION_GRANTED) {
+								intent.setClass(CreateNewRule.this, CreateRuleFromSMS.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+								startActivity(intent);
+
+								CreateNewRule.this.finish();
+							}else {
+								final int REQUEST_CODE_ASK_PERMISSIONS = 123;
+								ActivityCompat.requestPermissions(CreateNewRule.this, new String[]{"android.permission.READ_SMS"}, REQUEST_CODE_ASK_PERMISSIONS);
+							}
+						}
+					});
+					builder.setNegativeButton(R.string.general_no, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							intent.setClass(CreateNewRule.this, MainActivity.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+							startActivity(intent);
+
+							CreateNewRule.this.finish();
+						}
+					});
+
+					AlertDialog dialog = builder.create();
+					dialog.show();
+					dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.my_accent));
+					dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.my_accent));
 
 				}
-//				if (getString(R.string.activity_create_new_rule_radio_content_mail)==rb.getText().toString() ){
-//
-//					rule = RuleCreator.saveRule(rulename.getText().toString(), RuleType.EMAIL_RULE);
-//
-//					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
-//
-//					intent.putExtras(bundle);
-//					intent.setClass(CreateNewRule.this, RuleSettings.class);
-//					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//					startActivity(intent);
-//				}
-
 			}
 		});
 		rulename.addTextChangedListener(new TextWatcher() {
@@ -205,18 +231,8 @@ public class CreateNewRule extends AppCompatActivity {
 					saveVisible = false;
 				}
 
-//				if(!s.toString().isEmpty()){
-//					if(!(s.toString().length() > 0)) {
-//						Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_in);
-//						save.startAnimation(showSave);
-//						save.setVisibility(View.VISIBLE);
-//					}
-//				}else {
-//					Animation showSave = AnimationUtils.loadAnimation(CreateNewRule.this, R.anim.expand_out);
-//					save.startAnimation(showSave);
-//					save.setVisibility(View.INVISIBLE);
-//				}
 			}
 		});
+
 	}
 }

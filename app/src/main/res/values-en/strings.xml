@@ -268,4 +268,14 @@
     <string name="showcase_more_rule_options_text">Briefly tap the rule to open the settings or long for additional options.</string>
     <string name="showcase_more_rule_options_title">Additional settings</string>
     <string name="alarm_times_not_correct">Alarm times not correct</string>
+    <string name="dialog_choose_sms_text">Please type one of your AlarmSMS so we can create an alarm for you.</string>
+    <string name="dialog_choose_sms_title">Select SMS</string>
+    <string name="dialog_create_alarm_from_sms_text">If you have already received an AlarmSMS, it is possible to automatically create an alarm rule. Would you like to create a rule automatically?</string>
+    <string name="dialog_create_alarm_from_sms_title">Create alarm from SMS?</string>
+    <string name="dialog_create_alarm_text">Would you like to create an alarm for %1$s?</string>
+    <string name="dialog_create_alarm_title">Create alarm</string>
+    <string name="dialog_trigger_already_set_text">The trigger has already been configured for you. Under Alarm Settings, set how the app should behave in the event of an alarm.</string>
+    <string name="general_no">No</string>
+    <string name="general_ok">Ok</string>
+    <string name="general_yes">Yes</string>
 </resources>

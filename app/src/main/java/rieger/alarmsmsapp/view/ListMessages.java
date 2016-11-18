@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.adapter.MessageListAdapter;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.ContactsWorker;
@@ -36,7 +39,7 @@ public class ListMessages extends AppCompatActivity {
     List<Message> messageList = new ArrayList<Message>();
 
     @Bind(R.id.activity_list_messages_list_view)
-    ListView messageListView;
+    RecyclerView messageListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,61 +57,15 @@ public class ListMessages extends AppCompatActivity {
             message = (Message) intent.getExtras().getSerializable(AppConstants.BUNDLE_CONTEXT_SERIALIZED_MESSAGE + currentMessage);
         }
 
-        ListAdapter messageListAdapter = new MessageListAdapter(getApplicationContext(), R.layout.list_item_message, messageList);
+
+        MessageListAdapter messageListAdapter = new MessageListAdapter(this, messageList, null);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        messageListView.setLayoutManager(linearLayoutManager);
         messageListView.setAdapter(messageListAdapter);
 
-    }
-
-
-    private class MessageListAdapter extends ArrayAdapter<Message> {
-
-        public MessageListAdapter(Context context, int textViewResourceId, List<Message> objects) {
-            super(context, textViewResourceId, objects);
-        }
-
-        private class ViewHolder{
-            TextView messageBody;
-            TextView messageDate;
-            TextView messageSender;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            final ViewHolder viewHolder = new ViewHolder();
-
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_item_message, null);
-
-            viewHolder.messageBody = (TextView) convertView.findViewById(R.id.list_item_message_body);
-            viewHolder.messageDate = (TextView) convertView.findViewById(R.id.list_item_message_date);
-            viewHolder.messageSender = (TextView) convertView.findViewById(R.id.list_item_message_sender);
-
-            viewHolder.messageBody.setText(messageList.get(position).getMessage());
-            viewHolder.messageDate.setText(
-                    new SimpleDateFormat(
-                            CreateContextForResource.getStringFromID(
-                                    R.string.general_string_date_format)).format(
-                            messageList.get(position).getTimeStamp()));
-
-            String contactName = null;
-
-            if (ActivityCompat.checkSelfPermission(ListMessages.this, Manifest.permission.READ_CONTACTS)!= PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(ListMessages.this, new String[]{Manifest.permission.READ_CONTACTS},
-                        AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS);
-            }else{
-                contactName = ContactsWorker.getContactName(ListMessages.this, messageList.get(position).getSender());
-            }
-
-            if(contactName != null){
-                viewHolder.messageSender.setText(contactName);
-            }else {
-                viewHolder.messageSender.setText(messageList.get(position).getSender());
-            }
-
-            convertView.setTag(viewHolder);
-            return convertView;
-        }
 
     }
+
+
 }

@@ -1,17 +1,22 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -94,6 +99,24 @@ public class RuleSettings extends AppCompatActivity {
 		Bundle bundle = getIntent().getExtras();
 		if(bundle.getInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER) >= 0) {
 			mViewPager.setCurrentItem(bundle.getInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER) - 1);
+		}
+
+		if(bundle.getBoolean(AppConstants.BUNDLE_SETTINGS_SHOW_TRIGGER_ALREADY_SET)){
+			AlertDialog.Builder builder = new AlertDialog.Builder(RuleSettings.this);
+			builder.setTitle(R.string.showcase_rule_settings_trigger_title);
+			builder.setMessage(R.string.dialog_trigger_already_set_text);
+
+
+			builder.setPositiveButton(R.string.general_ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.my_accent));
+			dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.my_accent));
 		}
 
 		mViewPager.getChildAt(0);

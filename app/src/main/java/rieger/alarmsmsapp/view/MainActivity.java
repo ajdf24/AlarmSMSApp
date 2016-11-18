@@ -334,4 +334,17 @@ public class MainActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Rule rule){
         selectedRule = rule;
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        if(ruleSelection != null){
+            ruleSelection.notifyDataSetChanced();
+
+            Intent intent = getIntent();
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
 }

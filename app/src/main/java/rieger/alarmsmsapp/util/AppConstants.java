@@ -45,6 +45,7 @@ public interface AppConstants {
     String POWERMANAGEMENT_LOCK_NAME = "AlarmSMSAppLock_PowerManagement";
 
     String BUNDLE_SETTINGS_TAB_NUMBER = "settings tab";
+    String BUNDLE_SETTINGS_SHOW_TRIGGER_ALREADY_SET = "trigger already set";
 
 
 

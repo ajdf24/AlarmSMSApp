@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -52,8 +53,8 @@
             android:label="@string/title_activity_create_new_rule" />
         <activity
             android:name=".view.ruleactivitys.RuleSettings"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_rule_settings" />
+            android:label="@string/title_activity_rule_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.SenderSelection"
             android:label="@string/title_activity_sender_selection" />
@@ -125,8 +126,13 @@
             android:name=".control.services.SoundService"
             android:exported="false" />
 
-        <activity android:name=".view.MainActivity" ></activity>
-        <activity android:name=".view.ruleactivitys.AlarmTimeSettings"/>
+        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.ruleactivitys.AlarmTimeSettings" />
+        <activity android:name=".view.ruleactivitys.CreateRuleFromSMS"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
