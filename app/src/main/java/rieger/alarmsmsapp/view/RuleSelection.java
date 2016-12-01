@@ -39,6 +39,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -808,6 +809,12 @@ public class RuleSelection extends AppCompatActivity {
                                 .hideOnTouchOutside()
                                 .blockAllTouches()
                                 .build();
+                        RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                        lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+                        int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+                        lps.setMargins(margin, margin, margin, margin);
+                        showcaseView.setButtonPosition(lps);
                         showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 
                         SharedPreferences.Editor editor = prefs.edit();

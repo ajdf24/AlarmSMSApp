@@ -285,19 +285,20 @@ public class RuleSelection extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            try {
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
 
-                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE,
-                        (Rule) listView.getAdapter().getItem(position));
+                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
                 intent.putExtras(bundle);
                 intent.setClass(getActivity(), RuleSettings.class);
                 startActivity(intent);
+            }catch (IndexOutOfBoundsException e) {
+                Log.w(LOG_TAG, "Banner Clicked");
             }
-        });
+        }});
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

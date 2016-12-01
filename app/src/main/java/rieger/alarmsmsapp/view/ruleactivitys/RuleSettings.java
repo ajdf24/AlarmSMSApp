@@ -28,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
@@ -151,6 +152,12 @@ public class RuleSettings extends AppCompatActivity {
 					.blockAllTouches()
 					.setStyle(R.style.CustomShowcaseTheme)
 					.build();
+			final RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+			lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+			lps.setMargins(margin, margin, margin, margin);
+			showcaseView.setButtonPosition(lps);
 			showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 
 			showcaseView.setOnShowcaseEventListener(new SimpleShowcaseEventListener() {
@@ -165,6 +172,7 @@ public class RuleSettings extends AppCompatActivity {
 							.blockAllTouches()
 							.setStyle(R.style.CustomShowcaseTheme)
 							.build();
+					showcaseView2.setButtonPosition(lps);
 					showcaseView2.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 				}
 			});

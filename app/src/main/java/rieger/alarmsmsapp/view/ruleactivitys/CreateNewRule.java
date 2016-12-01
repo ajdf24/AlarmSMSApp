@@ -20,12 +20,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
@@ -62,6 +64,7 @@ public class CreateNewRule extends AppCompatActivity {
 	private Rule rule;
 
 	private boolean saveVisible = false;
+	RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     /**
      * This method is like a constructor and
@@ -75,6 +78,11 @@ public class CreateNewRule extends AppCompatActivity {
 		initializeGUI();
 
 		initializeActiveElements();
+
+		lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		lps.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		int margin = ((Number) (getResources().getDisplayMetrics().density * 12)).intValue();
+		lps.setMargins(margin, margin, margin, margin);
 
 		showCases();
 
@@ -97,6 +105,7 @@ public class CreateNewRule extends AppCompatActivity {
 					.hideOnTouchOutside()
 					.blockAllTouches()
 					.build();
+			showcaseView.setButtonPosition(lps);
 			showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 
 		}
@@ -221,6 +230,7 @@ public class CreateNewRule extends AppCompatActivity {
 									.hideOnTouchOutside()
 									.blockAllTouches()
 									.build();
+							view.setButtonPosition(lps);
 							view.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
 						}
 					}

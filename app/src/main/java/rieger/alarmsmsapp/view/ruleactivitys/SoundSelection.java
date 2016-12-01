@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -29,6 +31,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.adapter.SoundSelectionAdapter;
 import rieger.alarmsmsapp.control.eventbus.BusProvider;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.services.SoundService;
@@ -52,16 +55,16 @@ public class SoundSelection extends AppCompatActivity {
 
 	private Sound selectedSound;
 
-    private ListAdapter adapter;
-
 	@Bind(R.id.activity_sound_selection_listView)
-	ListView listView;
+	RecyclerView listView;
 
 
 	@Bind(R.id.activity_sound_selection_button_save_sound)
 	FloatingActionButton save;
 
 	private MediaPlayer mediaPlayer = new MediaPlayer();
+
+	SoundSelectionAdapter adapter;
 
     /**
      * This method is like a constructor and
@@ -122,63 +125,69 @@ public class SoundSelection extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void createListAdapter(SoundEvent event){
 
-        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_rule_settings, event.getSoundList() );
+		adapter = new SoundSelectionAdapter(event.getSoundList(), rule);
+		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+		linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+		listView.setLayoutManager(linearLayoutManager);
+		listView.setAdapter(adapter);
 
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-                int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
-
-                if (currentVolume == 0) {
-                    Toast.makeText(CreateContextForResource.getContext(), CreateContextForResource.getStringFromID(R.string.activity_sound_selection_volume_toast), Toast.LENGTH_SHORT).show();
-                }
-
-
-                selectedSound = (Sound) listView.getAdapter().getItem(position);
-
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.stop();
-                }
-
-                Resources resources = getResources();
-                if (selectedSound.isInternalSound()) {
-                    mediaPlayer = MediaPlayer.create(SoundSelection.this, resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
-                } else {
-                    mediaPlayer = MediaPlayer.create(SoundSelection.this, Uri.parse(selectedSound.getIdForSound()));
-                    mediaPlayer.setLooping(false);
-                }
-
-                mediaPlayer.start();
-
-				/*
-				 * This Thread is a workaround, because there is a Bug in Android.
-				 * The ANDROID_LOOP flag in a ogg-File like the ringtones dose override the method setLooping(false)
-				 * of the MediaPlayer class.
-				 *
-				 * The Thread is only for not blocking the GUI.
-				 */
-                if (!selectedSound.isInternalSound()) {
-                    Thread thread = new Thread() {
-                        @Override
-                        public void run() {
-                            long currentTime = System.currentTimeMillis();
-                            while (currentTime + mediaPlayer.getDuration() > System.currentTimeMillis()) {
-
-                            }
-                            mediaPlayer.stop();
-                            Thread.currentThread().interrupt();
-                            return;
-                        }
-                    };
-                    thread.start();
-                }
-                //End of the Workaround
-            }
-        });
+//        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_rule_settings, event.getSoundList() );
+//
+//        listView.setAdapter(adapter);
+//
+//        listView.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+//                int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+//
+//                if (currentVolume == 0) {
+//                    Toast.makeText(CreateContextForResource.getContext(), CreateContextForResource.getStringFromID(R.string.activity_sound_selection_volume_toast), Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//                selectedSound = (Sound) listView.getAdapter().getItem(position);
+//
+//                if (mediaPlayer.isPlaying()) {
+//                    mediaPlayer.stop();
+//                }
+//
+//                Resources resources = getResources();
+//                if (selectedSound.isInternalSound()) {
+//                    mediaPlayer = MediaPlayer.create(SoundSelection.this, resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
+//                } else {
+//                    mediaPlayer = MediaPlayer.create(SoundSelection.this, Uri.parse(selectedSound.getIdForSound()));
+//                    mediaPlayer.setLooping(false);
+//                }
+//
+//                mediaPlayer.start();
+//
+//				/*
+//				 * This Thread is a workaround, because there is a Bug in Android.
+//				 * The ANDROID_LOOP flag in a ogg-File like the ringtones dose override the method setLooping(false)
+//				 * of the MediaPlayer class.
+//				 *
+//				 * The Thread is only for not blocking the GUI.
+//				 */
+//                if (!selectedSound.isInternalSound()) {
+//                    Thread thread = new Thread() {
+//                        @Override
+//                        public void run() {
+//                            long currentTime = System.currentTimeMillis();
+//                            while (currentTime + mediaPlayer.getDuration() > System.currentTimeMillis()) {
+//
+//                            }
+//                            mediaPlayer.stop();
+//                            Thread.currentThread().interrupt();
+//                            return;
+//                        }
+//                    };
+//                    thread.start();
+//                }
+//                //End of the Workaround
+//            }
+//        });
 
     }
 
@@ -199,9 +208,7 @@ public class SoundSelection extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 
-				mediaPlayer.stop();
-				RuleCreator.changeAlarmSound(rule, selectedSound );
-
+				adapter.stopMediaPlayer();
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 
