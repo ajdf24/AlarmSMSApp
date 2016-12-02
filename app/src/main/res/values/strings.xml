@@ -285,5 +285,6 @@
     <string name="general_ok">Ok</string>
     <string name="general_yes">Yes</string>
     <string name="snackbar_no_sms">Do not you find any AlarmSMS?</string>
+    <string name="saved_satistic">Photo saved</string>
 
 </resources>

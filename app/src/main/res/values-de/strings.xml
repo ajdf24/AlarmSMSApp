@@ -302,4 +302,5 @@
     <string name="dialog_create_alarm_title">Alarm erstellen</string>
     <string name="dialog_create_alarm_text">Möchtest du einen Alarm für %1$s erstellen?</string>
     <string name="dialog_trigger_already_set_text">Der Auslöser wurde bereits für dich Konfiguriert. \n\n Stelle unter Alarmeinstellungen nun ein, wie sich die App im Alarmfall verhalten soll.</string>
+    <string name="saved_satistic">Foto gespeichert</string>
 </resources>

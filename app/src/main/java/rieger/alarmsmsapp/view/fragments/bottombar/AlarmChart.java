@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -27,6 +30,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,6 +44,7 @@ import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.ListMessages;
+import rieger.alarmsmsapp.view.ruleactivitys.CreateRuleFromSMS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -173,6 +178,19 @@ public class AlarmChart extends Fragment {
                             AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
                 }
                 chart.saveToGallery("Alarm_Chart_" + new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + ".jpg", 100);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                {
+                    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    File f = new File("file://"+ Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
+                    Uri contentUri = Uri.fromFile(f);
+                    mediaScanIntent.setData(contentUri);
+                    AlarmChart.this.getActivity().sendBroadcast(mediaScanIntent);
+                }
+                else
+                {
+                    AlarmChart.this.getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
+                }
+                Toast.makeText(CreateContextForResource.getContext(), R.string.saved_satistic, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -202,10 +220,10 @@ public class AlarmChart extends Fragment {
         protected ArrayList<BarEntry> doInBackground(Object... objects) {
 
             ArrayList<BarEntry> entries = new ArrayList<>();
-            for(int month = 0; month < 12 ; month++){
+            for(int month = 1; month < 13 ; month++){
                 int numberOfMessagesPerMonth = 0;
                 for(Message message : (ArrayList<Message>) objects[0]){
-                    if(message.getMonth() == month){
+                    if(message.getMonth() -1  == month){
                         numberOfMessagesPerMonth++;
                     }
                 }

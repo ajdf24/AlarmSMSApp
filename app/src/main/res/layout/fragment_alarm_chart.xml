@@ -45,7 +45,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/activity_alarm_chart_save_chart"
         android:layout_alignParentBottom="true"
-        android:visibility="invisible"
         android:text="@string/general_string_button_save"
         android:layout_alignRight="@+id/relativeLayout"
         android:layout_alignEnd="@+id/relativeLayout"
