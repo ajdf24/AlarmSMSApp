@@ -149,7 +149,6 @@ public class RuleSettings extends AppCompatActivity {
 					.setContentTitle(R.string.showcase_rule_settings_trigger_title)
 					.setContentText(R.string.showcase_rule_settings_trigger_text)
 					.hideOnTouchOutside()
-					.blockAllTouches()
 					.setStyle(R.style.CustomShowcaseTheme)
 					.build();
 			final RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -169,7 +168,6 @@ public class RuleSettings extends AppCompatActivity {
 							.setContentTitle(R.string.import_settings_dialog_alarm_settings)
 							.setContentText(R.string.showcase_rule_settings_alarm_settings_text)
 							.hideOnTouchOutside()
-							.blockAllTouches()
 							.setStyle(R.style.CustomShowcaseTheme)
 							.build();
 					showcaseView2.setButtonPosition(lps);

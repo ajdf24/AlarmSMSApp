@@ -110,7 +110,6 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
                         .setContentTitle(R.string.activity_alarm_time_settings_name)
                         .setContentText(R.string.showcase_rule_settings_alarm_times_text)
                         .hideOnTouchOutside()
-                        .blockAllTouches()
                         .build();
                 RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

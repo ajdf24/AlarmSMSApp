@@ -807,7 +807,6 @@ public class RuleSelection extends AppCompatActivity {
                                 .setStyle(R.style.CustomShowcaseTheme)
                                 .setContentText("Drücke lange auf die Regel für zusätzliche Optionen.")
                                 .hideOnTouchOutside()
-                                .blockAllTouches()
                                 .build();
                         RelativeLayout.LayoutParams lps = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                         lps.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

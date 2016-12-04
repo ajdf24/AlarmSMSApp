@@ -207,7 +207,6 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                         .setContentTitle(R.string.showcase_rule_settings_new_alarm_time_title)
                         .setContentText(R.string.showcase_rule_settings_new_alarm_time_text)
                         .hideOnTouchOutside()
-                        .blockAllTouches()
                         .build();
                 view.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
                 break;

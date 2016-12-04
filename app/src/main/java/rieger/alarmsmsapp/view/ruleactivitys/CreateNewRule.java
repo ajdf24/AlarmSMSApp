@@ -103,7 +103,6 @@ public class CreateNewRule extends AppCompatActivity {
 					.setStyle(R.style.CustomShowcaseTheme)
 					.setContentText(R.string.showcase_rule_name_text)
 					.hideOnTouchOutside()
-					.blockAllTouches()
 					.build();
 			showcaseView.setButtonPosition(lps);
 			showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
@@ -228,7 +227,6 @@ public class CreateNewRule extends AppCompatActivity {
 									.setStyle(R.style.CustomShowcaseTheme)
 									.setContentText(R.string.showcase_rule_name_save_text)
 									.hideOnTouchOutside()
-									.blockAllTouches()
 									.build();
 							view.setButtonPosition(lps);
 							view.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
