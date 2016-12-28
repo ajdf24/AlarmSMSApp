@@ -21,7 +21,7 @@
     </style>
 
     <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
-        <item name="sv_backgroundColor">#3300A600</item>
+        <item name="sv_backgroundColor">#f000a650</item>
         <item name="sv_showcaseColor">#00801A</item>
         <item name="sv_buttonText">Hide</item>
         <item name="sv_tintButtonColor">false</item>
@@ -29,7 +29,7 @@
     </style>
 
     <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
-        <item name="android:textColor">@color/my_accent</item>
+        <item name="android:textColor">#ff000000</item>
     </style>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">

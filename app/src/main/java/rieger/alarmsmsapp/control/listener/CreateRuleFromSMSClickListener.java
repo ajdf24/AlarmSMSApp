@@ -11,6 +11,7 @@ import android.view.View;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -49,6 +50,7 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
         builder.setPositiveButton(R.string.general_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 rule.setSender(message.getSender());
+                rule.notifyObserver();
 
                 Intent intent = new Intent().setClass(recyclerView.getContext(), RuleSettings.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Bundle bundle = new Bundle();

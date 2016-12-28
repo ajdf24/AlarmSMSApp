@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements
                     AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION);
         }
 
-
         ButterKnife.bind(this);
 
         mBottomBar = BottomBar.attach(this, savedInstanceState);

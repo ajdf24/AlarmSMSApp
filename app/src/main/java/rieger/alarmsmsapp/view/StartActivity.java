@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -80,6 +82,9 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         ButterKnife.bind(this);
 
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS},
+                AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
 
 
         prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);

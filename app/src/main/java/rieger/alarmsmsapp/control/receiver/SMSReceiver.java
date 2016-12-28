@@ -287,6 +287,10 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
             departmentSettings = db.getAllDepartments().get(0);
         }
+
+        if(alarmSettings == null){
+            alarmSettings = new AlarmSettingsModel();
+        }
     }
 
     /**
