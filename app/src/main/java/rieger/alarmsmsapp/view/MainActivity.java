@@ -35,7 +35,6 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.Rule;
-import rieger.alarmsmsapp.util.AndroidBug5497Workaround;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;

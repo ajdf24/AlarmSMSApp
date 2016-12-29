@@ -380,6 +380,29 @@ public class DataSource {
         return messages;
     }
 
+    public List<Message> getAllMessagesForYear(int year){
+        List<Message> messages = new ArrayList<>();
+
+        if(!isConnected) {
+            open();
+        }
+        Cursor cursor = database.query(helper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Message message = cursorToMessage(cursor);
+            if(year == message.getYear()) {
+                messages.add(message);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+        if(isConnected) {
+            close();
+        }
+        return messages;
+    }
+
     public AlarmSettingsModel getAlarm(){
 
         if(!isConnected) {

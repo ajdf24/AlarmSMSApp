@@ -16,6 +16,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import junit.framework.Test;
 
 import java.text.DateFormat;
@@ -79,6 +81,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
     private float currentLuxValue = -1;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public SMSReceiver(){
         mSensorManager = (SensorManager)CreateContextForResource.getContext().getSystemService(Context.SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -89,6 +93,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 	public void onReceive(Context context, Intent intent) {
 
 	    Log.i(LOG_TAG, "SMS empfangen");
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
 
         resourceIdForNotificationIcon = R.drawable.ic_notification;
 
@@ -102,6 +108,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         if (createAlarm){
             doRuleSettings();
+
+            mFirebaseAnalytics.logEvent("created_alarm", null);
 
             saveMessage(context, messageSource, messageBody);
         }

@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.view.fragments.bottombar;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +11,21 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -29,6 +36,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -43,7 +51,9 @@ import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.util.standard.SpinnerUtil;
 import rieger.alarmsmsapp.view.ListMessages;
+import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 import rieger.alarmsmsapp.view.ruleactivitys.CreateRuleFromSMS;
 
 /**
@@ -58,6 +68,8 @@ public class AlarmChart extends Fragment {
 
     private static final String LOG_TAG = AlarmChart.class.getSimpleName();
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Bind(R.id.adView)
     AdView adView;
 
@@ -69,6 +81,9 @@ public class AlarmChart extends Fragment {
 
     @Bind(R.id.activity_alarm_chart_progressBar)
     ProgressBar progressBar;
+
+    @Bind(R.id.activity_alarm_chart_year)
+    Spinner spinner;
 
     List<Message> messageList;
 
@@ -103,6 +118,8 @@ public class AlarmChart extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_alarm_chart, container, false);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext());
 
         ButterKnife.bind(this, view);
 
@@ -159,16 +176,12 @@ public class AlarmChart extends Fragment {
     }
 
     private void initializeActiveElements() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        if(adView != null){
-            adView.loadAd(adRequest);
-        }
 
-        DataSource db = new DataSource(view.getContext());
-        messageList = db.getAllMessages();
+        createAdd();
 
-        LoadStatisticTask task = new LoadStatisticTask();
-        task.execute(messageList);
+        createYearSpinner();
+
+        loadStatisticForYear(Calendar.getInstance().get(Calendar.YEAR));
 
         saveChart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +206,69 @@ public class AlarmChart extends Fragment {
                 Toast.makeText(CreateContextForResource.getContext(), R.string.saved_satistic, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void createAdd(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        if(adView != null){
+            adView.loadAd(adRequest);
+        }
+    }
+
+    private void createYearSpinner(){
+        List<String> years = new ArrayList<>();
+
+        for(int year = 2016; year <= Calendar.getInstance().get(Calendar.YEAR); year++){
+            years.add(year + "");
+        }
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_item, years);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinner.setAdapter(spinnerArrayAdapter);
+        spinner.setSelection(SpinnerUtil.getIndex(spinner, Calendar.getInstance().get(Calendar.YEAR) + ""));
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                loadStatisticForYear(2016 + i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                loadStatisticForYear(2016 + i);
+//            }
+//        });
+
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                ShowcaseView showcaseView = new ShowcaseView.Builder(getActivity())
+//                        .setTarget(new ViewTarget(view.findViewById(R.id.activity_alarm_chart_year)))
+//                        .setContentTitle(R.string.showcase_rule_settings_trigger_title)
+//                        .setContentText(R.string.showcase_rule_settings_trigger_text)
+//                        .hideOnTouchOutside()
+//                        .setStyle(R.style.CustomShowcaseTheme)
+//                        .build();
+//            }
+//        }, 600);
+
+
+    }
+
+    private void loadStatisticForYear(int year){
+        DataSource db = new DataSource(view.getContext());
+        messageList = db.getAllMessagesForYear(year);
+
+        LoadStatisticTask task = new LoadStatisticTask();
+        task.execute(messageList);
     }
 
     @Override
@@ -237,6 +313,8 @@ public class AlarmChart extends Fragment {
         protected void onPostExecute(ArrayList<BarEntry> result) {
             super.onPostExecute(result);
 
+            mFirebaseAnalytics.logEvent("show_statistics", null);
+
             progressBar.setVisibility(View.INVISIBLE);
             saveChart.setEnabled(true);
 
@@ -275,7 +353,7 @@ public class AlarmChart extends Fragment {
                     Bundle bundle = new Bundle();
                     int currentMessageNumber = 0;
                     for(Message message : messageList){
-                        if(message.getMonth() == e.getXIndex()){
+                        if(message.getMonth() == (e.getXIndex() + 1)){
                             bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_SERIALIZED_MESSAGE + currentMessageNumber, message );
                             currentMessageNumber++;
                         }
