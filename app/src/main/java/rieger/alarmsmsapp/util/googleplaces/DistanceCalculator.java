@@ -9,6 +9,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +23,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * Created by sebastian on 14.03.15.
  */
 public class DistanceCalculator {
+
+    public static final String LOG_TAG = "DistanceCalculator";
 
     /**
      * This method calculate the distance between the current location and the given location in meter.
@@ -57,6 +62,8 @@ public class DistanceCalculator {
 
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
+            FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "can not calculate distance.");
+            FirebaseCrash.report(e);
         }
 
 

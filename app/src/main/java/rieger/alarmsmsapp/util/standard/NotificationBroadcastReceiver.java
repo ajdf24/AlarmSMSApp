@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import rieger.alarmsmsapp.control.receiver.worker.AlarmSoundPlayer;
 import rieger.alarmsmsapp.util.AppConstants;
 
@@ -14,6 +16,8 @@ import rieger.alarmsmsapp.util.AppConstants;
  * Receives a Broadcast from a Notification.
  */
 public class NotificationBroadcastReceiver extends BroadcastReceiver {
+
+    public static final String LOG_TAG = "NotificationBroadcastReceiver";
 
     /**
      *
@@ -34,7 +38,8 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         try {
             AlarmSoundPlayer.getGlobalMediaPlayer().stop();
         }catch (NullPointerException e){
-            Log.w(AppConstants.DEBUG_TAG,"No mediaplayer Instance found");
+            FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "No mediaplayer Instance found.");
+            FirebaseCrash.report(e);
         }
     }
 

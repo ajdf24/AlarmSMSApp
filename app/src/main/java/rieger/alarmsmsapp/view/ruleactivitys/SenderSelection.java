@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -23,10 +25,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
@@ -36,6 +40,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
+import rieger.alarmsmsapp.util.Chips.ChipsView;
+import rieger.alarmsmsapp.util.Chips.Content;
 import rieger.alarmsmsapp.view.dialogs.SenderSelectionDialog;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -54,9 +60,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 	private Rule rule;
 
-	@Bind(R.id.activity_sender_selection_editText_for_sender_information)
-	TextView sender;
-
 	@Bind(R.id.activity_sender_selection_button_choose_contacts_for_sender)
 	Button selectSenderFromContacts;
 
@@ -67,6 +70,9 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 	private View layoutView;
 
+	@Bind(R.id.cv_contacts)
+	ChipsView mChipsView;
+
     /**
      * This method is like a constructor and
      * initialize all components of the activity.
@@ -76,6 +82,8 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sender_selection);
+
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 		ButterKnife.bind(this);
 
@@ -104,6 +112,44 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 		initializeActiveElements();
 
+	}
+
+	public static String getContactName(Context context, String phoneNumber) {
+		ContentResolver cr = context.getContentResolver();
+		Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+		Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME}, null, null, null);
+		if (cursor == null) {
+			return null;
+		}
+		String contactName = null;
+		if(cursor.moveToFirst()) {
+			contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
+		}
+
+		if(cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+
+		return contactName;
+	}
+
+	public static Uri getContactImageUri(Context context, String phoneNumber) {
+		ContentResolver cr = context.getContentResolver();
+		Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+		Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI}, null, null, null);
+		if (cursor == null) {
+			return null;
+		}
+		String contactUriString = null;
+		if(cursor.moveToFirst()) {
+			contactUriString = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI));
+		}
+
+		if(cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+
+		return contactUriString != null ? Uri.parse(contactUriString) : null;
 	}
 
 	void showDialog() {
@@ -138,14 +184,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
      */
 	private void initializeGUI(){
 
-
-		if (rule instanceof SMSRule) {
-			sender.setHint(R.string.activity_sender_selection_editText_for_sender_information_hint_sms);
-		}
-		if (rule instanceof EMailRule) {
-			sender.setHint(R.string.activity_sender_selection_editText_for_sender_information_hint_mail);
-		}
-
 	}
 
     /**
@@ -157,8 +195,15 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			@Override
 			public void onClick(View v) {
 
+				if(mChipsView.getChips().size() == 0) {
+					mChipsView.readyToSave();
+				}
 
-				RuleCreator.changeSender(rule, sender.getText().toString());
+				if(mChipsView.getChips().size() == 1) {
+					RuleCreator.changeSender(rule, mChipsView.getChips().get(0).getContact().getContent().toString());
+				}else {
+					RuleCreator.changeSender(rule, "");
+				}
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
@@ -184,6 +229,28 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 					Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
 					startActivityForResult(intent, PICK_CONTACT);
 				}
+			}
+		});
+
+		mChipsView.getEditText().setCursorVisible(true);
+
+		mChipsView.setChipsListener(new ChipsView.ChipsListener() {
+			@Override
+			public void onChipAdded(ChipsView.Chip chip) {
+				if(mChipsView.getChips().size() > 1)
+				{
+					rule.setSender(mChipsView.getChips().get(1).getContact().getDisplayName());
+					rule.notifyObserver();
+					mChipsView.removeChipByIndex(0);
+				}
+			}
+
+			@Override
+			public void onChipDeleted(ChipsView.Chip chip) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence text) {
 			}
 		});
 
@@ -267,7 +334,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 			} catch (Exception e) {
 				Log.e(LOG_TAG, "Failed to get email data", e);
 			} finally {
-				sender.setText(mailAddress);
+//				sender.setText(mailAddress);
 				if (mailCursor != null) {
 					mailCursor.close();
 				}
@@ -326,21 +393,24 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 								PhoneNumberFormat.E164);
 
 					} catch (NumberParseException e) {
-						Log.e(LOG_TAG, "Can't parse number!");
+						FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can't parse number.");
+						FirebaseCrash.report(e);
 					}
 
 				}
 				phoneCursor.close();
 
 			} catch (Exception e) {
-				Log.e(LOG_TAG, "Failed to get phone data", e);
+				FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Failed to get phone data.");
+				FirebaseCrash.report(e);
 			} finally {
-				sender.setText(phoneNumber);
 				if (phoneCursor != null) {
 					phoneCursor.close();
 				}
 				if (phoneNumber == null) {
 					Toast.makeText(this, this.getResources().getString(R.string.toast_number_not_found), Toast.LENGTH_LONG).show();
+				}else{
+					mChipsView.addChip(phoneNumber, getContactImageUri(this, phoneNumber), new Content(null, phoneNumber, null));
 				}
 			}
 		} else {
@@ -352,7 +422,9 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
      * This method get the current values from the rule and sets the GUI to this values.
      */
 	private void getRuleSettingsForGUI() {
-		sender.setText(rule.getSender());
+		if(rule.getSender() != null && !rule.getSender().isEmpty()) {
+			mChipsView.addChip(rule.getSender(), getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
+		}
 	}
 
 	@Override
@@ -391,4 +463,5 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
         return true;
     }
+
 }

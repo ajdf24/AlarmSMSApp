@@ -13,4 +13,21 @@
     <color name="my_divider">#B6B6B6</color>
     <color name="background">#ffffff</color>
     <color name="button_color">#66009688</color>
+
+
+
+
+
+    <color name="colorPrimary">@color/blue</color>
+    <color name="colorPrimaryDark">@color/mediumBlue</color>
+
+    <color name="paper">#fafafa</color>
+
+    <color name="blue">#4a90e2</color>
+    <color name="mediumBlue">#3978c1</color>
+
+    <color name="color_error">#FFCB0017</color>
+
+    <color name="base10">#eaeaea</color>
+    <color name="base30">#c1c1c1</color>
 </resources>

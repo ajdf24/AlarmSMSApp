@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * Created by sebastian on 27.09.15.
  */
 public class VersionObserver {
+
+    public static final String LOG_TAG = "VersionObserver";
 
     /**
      * This method saves a settings to the file system.
@@ -33,7 +36,8 @@ public class VersionObserver {
         try {
             mapper.writeValue(settingsFile, version);
         } catch (IOException e) {
-            Log.e(AppConstants.DEBUG_TAG, "Error while writing settings to file system", e);
+            FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Error while writing settings to file system.");
+            FirebaseCrash.report(e);
         }
     }
 
@@ -55,6 +59,8 @@ public class VersionObserver {
                 try {
                     return mapper.readValue(fileWithSettings, Version.class);
                 } catch (IOException e) {
+                    FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can not read Files.");
+                    FirebaseCrash.report(e);
                     Log.e(AppConstants.DEBUG_TAG, "Can not read Files.", e);
                 }
             }

@@ -24,6 +24,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -160,7 +162,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                 headLineText.startAnimation(animation);
                 welcomeText.startAnimation(animation);
             }catch (NullPointerException e){
-                Log.e(LOG_TAG, "View not found");
+                FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "View not found");
+                FirebaseCrash.report(e);
             }
         }
         if (clickCounter == 1) {
@@ -316,7 +319,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Version string not found");
+            FirebaseCrash.report(e);
         }
     }
 }

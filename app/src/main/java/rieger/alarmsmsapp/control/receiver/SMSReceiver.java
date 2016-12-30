@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 
 import junit.framework.Test;
 
@@ -133,7 +134,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             try{
                 messageReader.readOtherMessages(createAlarm, messageBody);
             }catch (NullPointerException e){
-
+                FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can read other messages.");
+                FirebaseCrash.report(e);
             }
         }
 
@@ -206,7 +208,8 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             try {
                 messageReader.readMessage(messageBody, matchingRules);
             }catch (NullPointerException e){
-
+                FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can read other messages.");
+                FirebaseCrash.report(e);
             }
         }
 

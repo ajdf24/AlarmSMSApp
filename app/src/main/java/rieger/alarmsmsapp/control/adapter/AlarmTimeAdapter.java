@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.List;
 
@@ -66,7 +67,8 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
             holder.getTimeFrom().setText(AlarmTimeModel.timeToString(alarmTimes.get(position).getStartTimeHours(), alarmTimes.get(position).getStartTimeMinutes()));
             holder.getTimeTo().setText(AlarmTimeModel.timeToString(alarmTimes.get(position).getEndTimeHours(), alarmTimes.get(position).getEndTimeMinutes()));
         }catch (NullPointerException e){
-            Log.i(LOG_TAG, "No alarm time information");
+            FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "No alarm time information");
+            FirebaseCrash.report(e);
             if (!firstStart) {
                 if(holder.getTimeFrom().getText().length() == 0){
                     holder.getTimeFrom().setError("");

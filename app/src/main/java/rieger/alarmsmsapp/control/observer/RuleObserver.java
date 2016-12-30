@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,8 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  */
 
 public class RuleObserver {
+
+	public static final String LOG_TAG = "RuleObserver";
 
     /**
      * This method saves a rule to the file system.
@@ -112,7 +115,8 @@ public class RuleObserver {
 				try {
 					ruleList.add(mapper.readValue(fileWithRule, SMSRule.class));
 				} catch (IOException e) {
-					Log.e(AppConstants.DEBUG_TAG, "Can not read Files.", e);
+					FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can not read Files.");
+					FirebaseCrash.report(e);
                     Toast.makeText(CreateContextForResource.getContext(),CreateContextForResource.getStringFromID(R.string.can_not_read_rule), Toast.LENGTH_LONG).show();
 				}
 			}
@@ -123,7 +127,8 @@ public class RuleObserver {
 				try {
 					ruleList.add(mapper.readValue(fileWithRule, EMailRule.class));
 				} catch (IOException e) {
-					Log.e(AppConstants.DEBUG_TAG, "Can not read Files.", e);
+					FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can not read Files.");
+					FirebaseCrash.report(e);
                     Toast.makeText(CreateContextForResource.getContext(),CreateContextForResource.getStringFromID(R.string.can_not_read_rule), Toast.LENGTH_LONG).show();
 				}
 			}
@@ -151,6 +156,7 @@ public class RuleObserver {
 			File ruleFile = new File( ruleFilePath );
 			if(ruleFile.delete()){
 			}else{
+				FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Delete operation is failed.");
 				Log.e(AppConstants.DEBUG_TAG, "Delete operation is failed.");
 			}
 		}
@@ -160,6 +166,7 @@ public class RuleObserver {
 			File ruleFile = new File( ruleFilePath );
 			if(ruleFile.delete()){
 			}else{
+				FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Delete operation is failed.");
 				Log.e(AppConstants.DEBUG_TAG, "Delete operation is failed.");
 			}
 		}

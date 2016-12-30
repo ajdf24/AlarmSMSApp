@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import rieger.alarmsmsapp.util.AppConstants;
 
 /**
@@ -21,6 +23,8 @@ import rieger.alarmsmsapp.util.AppConstants;
  */
 public class CreateContextForResource extends Application {
 	private static Context context;
+
+	public static final String LOG_TAG = "CreateContextForResource";
 
 	/**
 	 * This method create a context from it self.
@@ -52,7 +56,8 @@ public class CreateContextForResource extends Application {
 		return resources.getString(id);
 
 		}catch(NotFoundException e){
-			Log.e(AppConstants.DEBUG_TAG, "Resource not found", e);
+			FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Resource not found.");
+			FirebaseCrash.report(e);
 		}
 		return null;
 	}

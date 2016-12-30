@@ -7,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
@@ -32,6 +34,8 @@ import java.util.ArrayList;
  */
 public class GooglePlacesAutocompleteAdapter extends ArrayAdapter<String>
 		implements Filterable {
+
+		public static final String LOG_TAG = "GooglePlacesAutocompleteAdapter";
 
 	/**
 	 * Do not filter the list by a country.
@@ -223,10 +227,12 @@ public class GooglePlacesAutocompleteAdapter extends ArrayAdapter<String>
 
 
 		} catch (MalformedURLException e) {
-			Log.e(AppConstants.DEBUG_TAG, "Error processing Places API URL", e);
+			FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Error processing Places API URL.");
+			FirebaseCrash.report(e);
 			return resultList;
 		} catch (IOException e) {
-			Log.e(AppConstants.DEBUG_TAG, "Error connecting to Places API", e);
+			FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Error connecting to Places API.");
+			FirebaseCrash.report(e);
 			return resultList;
 		} finally {
 			if (connection != null) {
@@ -245,7 +251,8 @@ public class GooglePlacesAutocompleteAdapter extends ArrayAdapter<String>
 						"description"));
 			}
 		} catch (JSONException e) {
-			Log.e(AppConstants.DEBUG_TAG, "Cannot process JSON results", e);
+			FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Cannot process JSON results.");
+			FirebaseCrash.report(e);
 		}
 		return resultList;
 	}

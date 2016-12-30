@@ -20,7 +20,8 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:clipToPadding="false">
 
             <TextView
                 android:id="@+id/activity_sender_selection_textView_label_for_editText_for_sender_information"
@@ -29,26 +30,38 @@
                 android:layout_alignParentLeft="true"
                 android:text="@string/activity_sender_selection_textView_description" />
 
-            <EditText
-                android:id="@+id/activity_sender_selection_editText_for_sender_information"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_sender_selection_textView_label_for_editText_for_sender_information"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/activity_sender_selection_textView_label_for_editText_for_sender_information"
-                android:ems="10"
-                android:hint="@string/activity_sender_selection_editText_for_sender_information_hint_sms">
 
-            </EditText>
+            <rieger.alarmsmsapp.util.Chips.ChipsView
+                android:id="@+id/cv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:cv_color_clicked="@color/my_accent"
+                app:cv_bg_color_clicked="@color/base30"
+                app:cv_text_color_clicked="#000000"
+                app:cv_hint="@string/activity_sender_selection_editText_for_sender_information_hint_sms"
+                app:cv_max_height="120dp"
+                app:cv_vertical_spacing="2dp"
+                android:layout_below="@+id/activity_sender_selection_textView_label_for_editText_for_sender_information"
+                />
+
+            <!--<View-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="1dip"-->
+                <!--android:layout_below="@+id/cv_contacts"-->
+                <!--android:background="#000000" />-->
 
             <Button
                 android:id="@+id/activity_sender_selection_button_choose_contacts_for_sender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_sender_selection_editText_for_sender_information"
-                android:layout_below="@+id/activity_sender_selection_editText_for_sender_information"
+                android:layout_alignLeft="@+id/cv_contacts"
+                android:layout_below="@+id/cv_contacts"
                 android:layout_marginTop="14dp"
                 android:text="@string/general_string_button_choose_contact" />
+
+
+
 
         </RelativeLayout>
 

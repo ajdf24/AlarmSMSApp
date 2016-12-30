@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
 
@@ -289,7 +290,8 @@ public class MainActivity extends AppCompatActivity implements
                 initialStream.close();
                 outStream.close();
             } catch (Exception e) {
-                Log.e(LOG_TAG, e.getMessage());
+                FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "can not write to external storage");
+                FirebaseCrash.report(e);
             }
 
             // Get the Uri from the external file and add it to the intent

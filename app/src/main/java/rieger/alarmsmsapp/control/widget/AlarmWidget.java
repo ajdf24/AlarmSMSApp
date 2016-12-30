@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
@@ -25,6 +27,8 @@ import rieger.alarmsmsapp.view.AlarmSettings;
 public class AlarmWidget extends AppWidgetProvider {
     private static RemoteViews remoteViews;
     private static ComponentName watchWidget;
+
+    public static final String LOG_TAG = "AlarmWidget";
 
     static AlarmSettingsModel alarmSettingsModel = null;
 
@@ -121,7 +125,8 @@ public class AlarmWidget extends AppWidgetProvider {
             try {
                 (AppWidgetManager.getInstance(CreateContextForResource.getContext())).updateAppWidget(watchWidget, remoteViews);
             } catch (NullPointerException e) {
-                Log.e("AlarmWidget.java", e.getMessage());
+                FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Can not update alarm widget.");
+                FirebaseCrash.report(e);
                 //Es muss noch erforscht werden, warum hier eine NPE auftritt wenn die App neu startet, und des trotz fangen der NPE geht!
             }
         }
