@@ -157,7 +157,6 @@ public class RuleObserver {
 			if(ruleFile.delete()){
 			}else{
 				FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Delete operation is failed.");
-				Log.e(AppConstants.DEBUG_TAG, "Delete operation is failed.");
 			}
 		}
 		if (rule instanceof EMailRule) {

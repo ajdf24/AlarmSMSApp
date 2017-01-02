@@ -409,80 +409,86 @@ public class RuleSelection extends Fragment {
                 }
             } else {
 
-                final ViewHolder viewHolder = new ViewHolder();
-                Log.v(LOG_TAG, String.valueOf(position));
+                    final ViewHolder viewHolder = new ViewHolder();
+                    Log.v(LOG_TAG, String.valueOf(position));
 
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
+                    if (convertView == null) {
+                        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
 
-                    viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
-                    viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
-                    viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
-                    convertView.setTag(viewHolder);
+                        viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
+                        viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
+                        viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
+                        convertView.setTag(viewHolder);
 
-                    viewHolder.isRuleActivated.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            CheckBox checkBox = (CheckBox) view;
-                            Rule rule = (Rule) checkBox.getTag();
-                            if (checkBox.isChecked()) {
-                                Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
-                                rule.setActive(true);
-                            } else {
-                                Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
-                                rule.setActive(false);
+                        viewHolder.isRuleActivated.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CheckBox checkBox = (CheckBox) view;
+                                Rule rule = (Rule) checkBox.getTag();
+                                if (checkBox.isChecked()) {
+                                    Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                    rule.setActive(true);
+                                } else {
+                                    Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                    rule.setActive(false);
+                                }
+                                RuleCreator.changeActive(rule, checkBox.isChecked());
+                                DataSource db = new DataSource(view.getContext());
+                                db.saveRule(rule);
                             }
-                            RuleCreator.changeActive(rule, checkBox.isChecked());
-                            DataSource db = new DataSource(view.getContext());
-                            db.saveRule(rule);
-                        }
-                    });
-                    viewHolder.ruleName.setOnClickListener(new View.OnClickListener() {
+                        });
+                        viewHolder.ruleName.setOnClickListener(new View.OnClickListener() {
 
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            Bundle bundle = new Bundle();
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                Bundle bundle = new Bundle();
 
-                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                            intent.putExtras(bundle);
-                            intent.setClass(getActivity(), RuleSettings.class);
-                            startActivity(intent);
-                        }
-                    });
-                    viewHolder.timeControlled.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent();
-                            Bundle bundle = new Bundle();
+                                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                                intent.putExtras(bundle);
+                                intent.setClass(getActivity(), RuleSettings.class);
+                                startActivity(intent);
+                            }
+                        });
+                        viewHolder.timeControlled.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                Bundle bundle = new Bundle();
 
-                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                            intent.putExtras(bundle);
-                            intent.setClass(getActivity(), RuleSettings.class);
-                            startActivity(intent);
-                        }
-                    });
+                                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                                intent.putExtras(bundle);
+                                intent.setClass(getActivity(), RuleSettings.class);
+                                startActivity(intent);
+                            }
+                        });
 
 //                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
 //                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
-                    viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                        viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
-                        @Override
-                        public void onCreateContextMenu(ContextMenu menu, View view,
-                                                        ContextMenu.ContextMenuInfo menuInfo) {
-                            menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
-                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
-                            menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
-                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
-                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
+                            @Override
+                            public void onCreateContextMenu(ContextMenu menu, View view,
+                                                            ContextMenu.ContextMenuInfo menuInfo) {
+                                menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
+                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
+                                menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
+                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
+                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
+//                try {
 
-                            mListener.onFragmentInteraction((Rule) viewHolder.ruleName.getTag());
+                                mListener.onFragmentInteraction(ruleList.get(position));
 
-                        }
+//                }catch (NullPointerException e){
+//
+//                }
+                            }
 
-                    });
-                }
+                        });
+
+                    }
+
 
                 Rule rule = ruleList.get(position);
 

@@ -30,6 +30,7 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.EMailRule;
@@ -110,11 +111,14 @@ public class AnswerCreation extends AppCompatActivity {
 				int distance = getDistanceFromSpinner();
 
 				AnswerBundle answerBundle = new AnswerBundle();
-				answerBundle.setReceiver(receiver.getText().toString());
+				answerBundle.addReceiver(receiver.getText().toString());
 				answerBundle.setMessage(message.getText().toString());
 				answerBundle.setDistance(distance);
 
 				RuleCreator.changeAutomaticallyAnswer(rule, answerBundle);
+				DataSource db = new DataSource(CreateContextForResource.getContext());
+				db.saveRule(rule);
+
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
@@ -309,7 +313,9 @@ public class AnswerCreation extends AppCompatActivity {
      * This method get the current values from the rule and sets the GUI to this values.
      */
 	private void getRuleSettingsForGUI() {
-		receiver.setText(rule.getReceiver());
+		if(rule.getReceivers().size() > 0) {
+			receiver.setText(rule.getReceivers().get(0));
+		}
 		message.setText(rule.getMessage());
 		switch (rule.getDistance()) {
 		case 5:

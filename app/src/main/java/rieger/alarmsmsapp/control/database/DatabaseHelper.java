@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.List;
+
+import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+
 /**
  * Created by sebastian on 14.08.16.
  */
@@ -14,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "alarm_sms_app";
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     //TABLE RULES
     public static final String TABLE_RULES = "table_rule";
@@ -86,6 +91,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COULMN_END_TIME_HOURS = "end_time_hours";
     //END TABLE ALARMTIMES
 
+    //TABLE MESSAGE_RECEIVER_FOR_RULE
+    public static final String TABLE_MESSAGE_RECEIVER_FOR_RULE = "table_message_receiver_for_rule";
+
+    public static final String COLUMN_RECEIVER = "receiver";
+    //END TABLE MESSAGE_RECEIVER_FOR_RULE
+
     public static final String PRIMARY_KEY = " integer primary key autoincrement, ";
     public static final String TEXT = " text, ";
     public static final String INT = " integer not null, ";
@@ -100,6 +111,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_START_TIME_HOURS + INT
                 + COULMN_END_TIME_MINUTES + INT
                 + COULMN_END_TIME_HOURS + " integer not null);";
+
+    public static final String CREATE_TABLE_MESSAGE_RECEIVER_FOR_RULE = "create table "
+                + TABLE_MESSAGE_RECEIVER_FOR_RULE + "("
+                + COLUMN_ID + PRIMARY_KEY
+                + COLUMN_RULE_FOREIGN_KEY + INT
+                + COLUMN_RECEIVER + " text);";
 
     public static final String CREATE_TABLE_RULES = "create table "
                 + TABLE_RULES + "("
@@ -171,6 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_ALARMS);
         db.execSQL(CREATE_TABLE_MESSAGES);
         db.execSQL(CREATE_TABLE_ALARM_TIMES);
+        db.execSQL(CREATE_TABLE_MESSAGE_RECEIVER_FOR_RULE);
     }
 
     @Override
@@ -184,13 +202,29 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 3){
                 db.execSQL(UPDATE_VERSION_3);
             }
+            if(newVersion >= 4){
+                updateToVersion4(db);
+            }
         }
 
         if(oldVersion == 2){
             if(newVersion >= 3){
                 db.execSQL(UPDATE_VERSION_3);
             }
+            if(newVersion >= 4){
+                updateToVersion4(db);
+            }
         }
 
+        if(oldVersion == 3){
+            if(newVersion >= 4){
+                updateToVersion4(db);
+            }
+        }
+
+    }
+
+    private void updateToVersion4(SQLiteDatabase db){
+        db.execSQL(CREATE_TABLE_MESSAGE_RECEIVER_FOR_RULE);
     }
 }

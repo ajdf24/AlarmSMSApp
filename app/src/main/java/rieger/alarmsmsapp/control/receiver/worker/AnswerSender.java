@@ -25,16 +25,20 @@ public class AnswerSender {
 
 
         float[] results;
-        if (departmentSettings != null && departmentSettings.getAddress() !=null && !departmentSettings.getAddress().isEmpty()) {
+        if (departmentSettings != null && departmentSettings.getAddress() != null && !departmentSettings.getAddress().isEmpty()) {
             results = DistanceCalculator.calculateDistance(departmentSettings.getAddress());
             if(results[0] == 0.0){
                 return;
             }
             for (Rule rule : matchingRules) {
-                if (rule.getMessage() != null && rule.getReceiver() != null && !rule.getReceiver().isEmpty() && results[0] / 1000 > rule.getDistance()) {
-
-                    SmsManager sms = SmsManager.getDefault();
-                    sms.sendTextMessage(rule.getReceiver(), null, rule.getMessage(), null, null);
+                System.out.println("muss");
+                if (rule.getMessage() != null && rule.getReceivers() != null && results[0] / 1000 > rule.getDistance()) {
+                    System.out.println("Hier");
+                    for (String receiver : rule.getReceivers()) {
+                        System.out.println("test");
+                        SmsManager sms = SmsManager.getDefault();
+                        sms.sendTextMessage(receiver, null, rule.getMessage(), null, null);
+                    }
                 }
             }
         }

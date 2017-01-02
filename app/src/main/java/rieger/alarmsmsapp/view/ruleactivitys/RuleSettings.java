@@ -85,7 +85,7 @@ public class RuleSettings extends AppCompatActivity {
 		toolbar.setTitle(getResources().getString(R.string.title_activity_rule_settings)+ ": "+rule.getRuleName());
 		setSupportActionBar(toolbar);
 
-		final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+		final Drawable upArrow = getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp);
 		upArrow.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
 		getSupportActionBar().setHomeAsUpIndicator(upArrow);
 

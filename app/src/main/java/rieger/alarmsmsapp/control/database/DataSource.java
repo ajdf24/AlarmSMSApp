@@ -64,6 +64,12 @@ public class DataSource {
             DatabaseHelper.COLUMN_DEPARTMENT_ADDRESS
     };
 
+    private String[] allColumnsMessageReceiver = {
+            DatabaseHelper.COLUMN_ID,
+            DatabaseHelper.COLUMN_RULE_FOREIGN_KEY,
+            DatabaseHelper.COLUMN_RECEIVER
+    };
+
     private String[] allColumnsAlarm = {
             DatabaseHelper.COLUMN_ID,
             DatabaseHelper.COLUMN_ALARM_ACTIVE,
@@ -149,7 +155,7 @@ public class DataSource {
             values.put(DatabaseHelper.COLUMN_INTERNAL_SOUND, 0);
         }
         if(rule.getAutomaticallyAnswer() != null) {
-            values.put(DatabaseHelper.COLUMN_ANSWER_RECEIVER, rule.getAutomaticallyAnswer().getReceiver());
+//            values.put(DatabaseHelper.COLUMN_ANSWER_RECEIVER, rule.getAutomaticallyAnswer().getReceiver());
             values.put(DatabaseHelper.COLUMN_ANSWER_MESSAGE, rule.getAutomaticallyAnswer().getMessage());
             values.put(DatabaseHelper.COLUMN_ANSWER_DISTANCE, rule.getAutomaticallyAnswer().getDistance());
         }
@@ -190,6 +196,31 @@ public class DataSource {
             close();
         }
 
+        if(!isConnected){
+            open();
+        }
+
+        database.delete(DatabaseHelper.TABLE_MESSAGE_RECEIVER_FOR_RULE, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = ?", new String[]{getRuleId(rule) + ""});
+
+        for (String receiver : rule.getAutomaticallyAnswer().getReceivers()){
+            ContentValues receiverValues = new ContentValues();
+            receiverValues.put(DatabaseHelper.COLUMN_RULE_FOREIGN_KEY, getRuleId(rule));
+            receiverValues.put(DatabaseHelper.COLUMN_RECEIVER, receiver);
+            database.insert(DatabaseHelper.TABLE_MESSAGE_RECEIVER_FOR_RULE, "",
+                    receiverValues);
+        }
+
+
+
+
+        Cursor cursor1 = database.query(DatabaseHelper.TABLE_MESSAGE_RECEIVER_FOR_RULE, allColumnsMessageReceiver, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = ?" , new String[]{getRuleId(newRule) + ""}, null, null, null, null);
+        cursor1.moveToFirst();
+        while (!cursor1.isAfterLast()){
+            newRule.getAutomaticallyAnswer().addReceiver(cursorToRuleForReceiver(cursor1));
+            cursor1.moveToNext();
+        }
+        cursor1.close();
+
         if(isConnected){
             close();
         }
@@ -218,11 +249,18 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_RULES, allColumnsRule, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_RULES, allColumnsRule, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Rule rule = cursorToRule(cursor);
+            Cursor cursor1 = database.query(DatabaseHelper.TABLE_MESSAGE_RECEIVER_FOR_RULE, allColumnsMessageReceiver, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = ? ", new String[]{getRuleId(rule) + ""}, null, null, null, null);
+            cursor1.moveToFirst();
+            while (!cursor1.isAfterLast()){
+                rule.getAutomaticallyAnswer().addReceiver(cursorToRuleForReceiver(cursor1));
+                cursor1.moveToNext();
+            }
+            cursor1.close();
             rules.add(rule);
             cursor.moveToNext();
         }
@@ -528,6 +566,11 @@ public class DataSource {
         return message;
     }
 
+    public String cursorToRuleForReceiver(Cursor cursor){
+
+        return cursor.getString(2);
+    }
+
     public Rule cursorToRule(Cursor cursor){
         Rule rule = new SMSRule();
 
@@ -538,9 +581,11 @@ public class DataSource {
         if(cursor.getString(5) != ""){
             rule.setAlarmSound(new Sound(cursor.getString(5), cursor.getString(6), (cursor.getInt(7) == 1)));
         }
-        if(cursor.getString(8) != ""){
-            rule.setAutomaticallyAnswer(new AnswerBundle(cursor.getString(8), cursor.getString(9), cursor.getInt(10)));
+        List<String> receivers = new ArrayList<>();
+        if(cursor.getString(8) != null && !cursor.getString(8).isEmpty()){
+            receivers.add(cursor.getString(8));
         }
+        rule.setAutomaticallyAnswer(new AnswerBundle(receivers, cursor.getString(9), cursor.getInt(10)));
         rule.setMessageToPostOnTwitter(cursor.getString(11));
         rule.setNavigationTarget(cursor.getString(12));
         rule.setReadThisMessage(cursor.getInt(13) == 1);

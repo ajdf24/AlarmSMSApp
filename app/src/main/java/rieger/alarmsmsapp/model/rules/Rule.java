@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.model.rules;
 
 import java.io.Serializable;
+import java.util.List;
 
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
@@ -244,22 +245,22 @@ public abstract class Rule implements Serializable{
 
 	/**
 	 * @return
-	 * @see rieger.alarmsmsapp.model.rules.AnswerBundle#getReceiver()
+	 * @see rieger.alarmsmsapp.model.rules.AnswerBundle#getReceivers()
 	 */
-	public String getReceiver() {
+	public List<String> getReceivers() {
 		if (automaticallyAnswer==null) {
 			return null;
 		}
-		return automaticallyAnswer.getReceiver();
+		return automaticallyAnswer.getReceivers();
 	}
 
 	/**
 	 * @param receiver
-	 * @see rieger.alarmsmsapp.model.rules.AnswerBundle#setReceiver(String)
+	 * @see rieger.alarmsmsapp.model.rules.AnswerBundle#addReceiver(String)
 	 */
 	public void setReceiver(String receiver) {
 		if (automaticallyAnswer!=null) {
-			automaticallyAnswer.setReceiver(receiver);
+			automaticallyAnswer.addReceiver(receiver);
 		}
 	}
 

@@ -5,11 +5,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
 
-import rieger.alarmsmsapp.util.AppConstants;
 
 /**
  * Helper class for getting string resources without {@link Context}.
@@ -21,7 +21,7 @@ import rieger.alarmsmsapp.util.AppConstants;
  * @author sebastian
  *
  */
-public class CreateContextForResource extends Application {
+public class CreateContextForResource extends MultiDexApplication {
 	private static Context context;
 
 	public static final String LOG_TAG = "CreateContextForResource";

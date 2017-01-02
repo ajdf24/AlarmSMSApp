@@ -1,6 +1,7 @@
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
@@ -42,6 +43,7 @@ public class DatabaseTests extends AndroidTestCase {
 
         message = new Message();
         message.setSender("TESTSender");
+        message.setYear(2016);
 
         alarmTime = new AlarmTimeModel();
         alarmTime.setDay(AlarmTimeModel.Days.THURSDAY);
@@ -49,6 +51,7 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testAddEntry() {
         assertEquals(rule, db.saveRule(rule));
+        assertEquals(rule, db.getAllRules().get(0));
     }
 
     public void testEmptyRules() {
@@ -106,11 +109,53 @@ public class DatabaseTests extends AndroidTestCase {
 
     public void testCorrectAutoAnswer() {
 
+        List<String> receivers = new ArrayList<>();
+
         String receiver = "+5543**";
         String message = "Das ist eine Nachricht";
         int distance = 500;
 
-        AnswerBundle answerBundle = new AnswerBundle(receiver, message, distance);
+        receivers.add(receiver);
+
+        AnswerBundle answerBundle = new AnswerBundle(receivers, message, distance);
+
+        rule.setAutomaticallyAnswer(answerBundle);
+
+        assertEquals(rule.getAutomaticallyAnswer(), db.saveRule(rule).getAutomaticallyAnswer());
+    }
+
+    public void testCorrectAutoAnswerGetAllRules() {
+
+        List<String> receivers = new ArrayList<>();
+
+        String receiver = "+5543**";
+        String message = "Das ist eine Nachricht";
+        int distance = 500;
+
+        receivers.add(receiver);
+
+        AnswerBundle answerBundle = new AnswerBundle(receivers, message, distance);
+
+        rule.setAutomaticallyAnswer(answerBundle);
+
+        db.saveRule(rule);
+
+        assertEquals(rule.getAutomaticallyAnswer(), db.getAllRules().get(0).getAutomaticallyAnswer());
+    }
+
+    public void testCorrectMultiAutoAnswer() {
+
+        List<String> receivers = new ArrayList<>();
+
+        String receiver = "+5543**";
+        String receiver2 = "+222222243**";
+        String message = "Das ist eine Nachricht";
+        int distance = 500;
+
+        receivers.add(receiver);
+        receivers.add(receiver2);
+
+        AnswerBundle answerBundle = new AnswerBundle(receivers, message, distance);
 
         rule.setAutomaticallyAnswer(answerBundle);
 
@@ -445,6 +490,27 @@ public class DatabaseTests extends AndroidTestCase {
 
         assertEquals(db.getAlarmTimes(rule).size(), 0);
     }
+
+    public void testGetRulesForYear(){
+
+        assertEquals(db.getAllMessagesForYear(2016).size(), 0);
+
+        db.saveMessage(message);
+
+        assertEquals(db.getAllMessagesForYear(2016).size(), 1);
+        assertEquals(db.getAllMessagesForYear(2017).size(), 0);
+
+        Message message1 = new Message();
+        message1.setYear(2017);
+
+        db.saveMessage(message1);
+
+        assertEquals(db.getAllMessagesForYear(2016).size(), 1);
+        assertEquals(db.getAllMessagesForYear(2017).size(), 1);
+
+    }
+
+
 
     @Override
     public void tearDown() throws Exception {

@@ -1,6 +1,10 @@
 package rieger.alarmsmsapp.model.rules;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Bundle class for the automatically answer.
@@ -16,7 +20,7 @@ public class AnswerBundle implements Serializable {
 	 */
 	private static final long serialVersionUID = 913136032042403079L;
 
-	private String receiver;
+	private List<String> receivers;
 
 	private String message;
 
@@ -29,16 +33,17 @@ public class AnswerBundle implements Serializable {
 	 * <b>Note</b>: Don't use them!
 	 */
 	public AnswerBundle() {
+		receivers = new ArrayList<>();
 	}
 
 	/**
 	 * Constructor for creating a instance of this class.
-	 * @param receiver the number of the receiver
+	 * @param receivers list of numbers of the receiver
 	 * @param message the message which should be send
 	 * @param distance the distance from which the home point
 	 */
-	public AnswerBundle(String receiver, String message, int distance) {
-		this.receiver = receiver;
+	public AnswerBundle(@NonNull List<String> receivers, String message, int distance) {
+		this.receivers = receivers;
 		this.message = message;
 		this.distance = distance;
 	}
@@ -46,15 +51,15 @@ public class AnswerBundle implements Serializable {
 	/**
 	 * @return the receiver
 	 */
-	public String getReceiver() {
-		return receiver;
+	public List<String> getReceivers() {
+		return receivers;
 	}
 
 	/**
-	 * @param receiver the receiver to set
+	 * @param receivers the receivers to set
 	 */
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+	public void setReceivers(List<String> receivers) {
+		this.receivers = receivers;
 	}
 
 	/**
@@ -93,62 +98,45 @@ public class AnswerBundle implements Serializable {
 		this.sendAnswerEveryTime = sendAnswerEveryTime;
 	}
 
-	/* (non-Javadoc)
-         * @see java.lang.Object#hashCode()
-         */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + distance;
-		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result
-				+ ((receiver == null) ? 0 : receiver.hashCode());
-		return result;
+	public void addReceiver(String receiver){
+		receivers.add(receiver);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof AnswerBundle)) {
-			return false;
-		}
-		AnswerBundle other = (AnswerBundle) obj;
-		if (distance != other.distance) {
-			return false;
-		}
-		if (message == null) {
-			if (other.message != null) {
-				return false;
-			}
-		} else if (!message.equals(other.message)) {
-			return false;
-		}
-		if (receiver == null) {
-			if (other.receiver != null) {
-				return false;
-			}
-		} else if (!receiver.equals(other.receiver)) {
-			return false;
-		}
-		return true;
+	public void removeReceiver(String receiver){
+		receivers.remove(receiver);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "AnswerBundle [receiver=" + receiver + ", message="
-				+ message + ", distance=" + distance + "]";
+		return "AnswerBundle{" +
+				"receivers=" + receivers +
+				", message='" + message + '\'' +
+				", distance=" + distance +
+				", sendAnswerEveryTime=" + sendAnswerEveryTime +
+				'}';
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof AnswerBundle)) return false;
+
+		AnswerBundle that = (AnswerBundle) o;
+
+		if (distance != that.distance) return false;
+		if (sendAnswerEveryTime != that.sendAnswerEveryTime) return false;
+		if (receivers != null ? !receivers.equals(that.receivers) : that.receivers != null)
+			return false;
+		return message != null ? message.equals(that.message) : that.message == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = receivers != null ? receivers.hashCode() : 0;
+		result = 31 * result + (message != null ? message.hashCode() : 0);
+		result = 31 * result + distance;
+		result = 31 * result + (sendAnswerEveryTime ? 1 : 0);
+		return result;
+	}
 }
