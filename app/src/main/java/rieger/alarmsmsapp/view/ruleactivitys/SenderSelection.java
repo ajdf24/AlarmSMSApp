@@ -42,6 +42,7 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.util.Chips.ChipsView;
 import rieger.alarmsmsapp.util.Chips.Content;
+import rieger.alarmsmsapp.util.standard.ContactsWorker;
 import rieger.alarmsmsapp.view.dialogs.SenderSelectionDialog;
 import rieger.alarmsmsapp.model.rules.EMailRule;
 import rieger.alarmsmsapp.model.rules.Rule;
@@ -133,24 +134,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 		return contactName;
 	}
 
-	public static Uri getContactImageUri(Context context, String phoneNumber) {
-		ContentResolver cr = context.getContentResolver();
-		Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-		Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI}, null, null, null);
-		if (cursor == null) {
-			return null;
-		}
-		String contactUriString = null;
-		if(cursor.moveToFirst()) {
-			contactUriString = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI));
-		}
 
-		if(cursor != null && !cursor.isClosed()) {
-			cursor.close();
-		}
-
-		return contactUriString != null ? Uri.parse(contactUriString) : null;
-	}
 
 	void showDialog() {
 
@@ -410,7 +394,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 				if (phoneNumber == null) {
 					Toast.makeText(this, this.getResources().getString(R.string.toast_number_not_found), Toast.LENGTH_LONG).show();
 				}else{
-					mChipsView.addChip(phoneNumber, getContactImageUri(this, phoneNumber), new Content(null, phoneNumber, null));
+					mChipsView.addChip(phoneNumber, ContactsWorker.getContactImageUri(this, phoneNumber), new Content(null, phoneNumber, null));
 				}
 			}
 		} else {
@@ -423,7 +407,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
      */
 	private void getRuleSettingsForGUI() {
 		if(rule.getSender() != null && !rule.getSender().isEmpty()) {
-			mChipsView.addChip(rule.getSender(), getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
+			mChipsView.addChip(rule.getSender(), ContactsWorker.getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
 		}
 	}
 

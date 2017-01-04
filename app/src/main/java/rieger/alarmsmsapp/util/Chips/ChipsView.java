@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.util.Chips;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ObbInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -39,6 +40,7 @@ import java.util.Collections;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.util.standard.ContactsWorker;
 
 /**
  * Created by sebastian on 30.12.16.
@@ -263,6 +265,14 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         return Collections.unmodifiableList(mChipList);
     }
 
+    public List<Object> getContentList(){
+        List<Object> contentList = new ArrayList<>();
+        for(Chip chip : mChipList){
+            contentList.add(chip.getContact().getContent());
+        }
+        return contentList;
+    }
+
     public boolean removeChipBy(Content content) {
         for (int i = 0; i < mChipList.size(); i++) {
             if (mChipList.get(i).mContent != null && mChipList.get(i).mContent.equals(content)) {
@@ -352,7 +362,9 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
 
 
     private void onEnterPressed(String text) {
-        Chip chip = new Chip(text, null, new Content(null, text, null));
+        String contactName = ContactsWorker.getContactName(getContext(), text);
+
+        Chip chip = new Chip(contactName != null && !contactName.isEmpty()? contactName : text, ContactsWorker.getContactImageUri(getContext(), text), new Content(null, text, null));
         mChipList.add(chip);
         if (mChipsListener != null) {
             mChipsListener.onChipAdded(chip);

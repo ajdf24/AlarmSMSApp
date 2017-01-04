@@ -31,11 +31,8 @@ public class AnswerSender {
                 return;
             }
             for (Rule rule : matchingRules) {
-                System.out.println("muss");
                 if (rule.getMessage() != null && rule.getReceivers() != null && results[0] / 1000 > rule.getDistance()) {
-                    System.out.println("Hier");
                     for (String receiver : rule.getReceivers()) {
-                        System.out.println("test");
                         SmsManager sms = SmsManager.getDefault();
                         sms.sendTextMessage(receiver, null, rule.getMessage(), null, null);
                     }

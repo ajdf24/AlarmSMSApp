@@ -36,4 +36,23 @@ public class ContactsWorker {
 
         return contactName;
     }
+
+    public static Uri getContactImageUri(Context context, String phoneNumber) {
+        ContentResolver cr = context.getContentResolver();
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
+        Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI}, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        String contactUriString = null;
+        if(cursor.moveToFirst()) {
+            contactUriString = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI));
+        }
+
+        if(cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+
+        return contactUriString != null ? Uri.parse(contactUriString) : null;
+    }
 }

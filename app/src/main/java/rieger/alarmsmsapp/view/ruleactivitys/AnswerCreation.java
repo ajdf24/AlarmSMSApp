@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ObbInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -27,6 +28,10 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
@@ -38,6 +43,9 @@ import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.Chips.ChipsView;
+import rieger.alarmsmsapp.util.Chips.Content;
+import rieger.alarmsmsapp.util.standard.ContactsWorker;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
@@ -51,7 +59,7 @@ public class AnswerCreation extends AppCompatActivity {
 	private Rule rule;
 
 	@Bind(R.id.activity_answer_creation_editText_for_receiver)
-	TextView receiver;
+	ChipsView receiver;
 
 	@Bind(R.id.activity_answer_creation_button_choose_contacts_for_answer)
 	Button selectReceiverFromContext;
@@ -111,13 +119,31 @@ public class AnswerCreation extends AppCompatActivity {
 				int distance = getDistanceFromSpinner();
 
 				AnswerBundle answerBundle = new AnswerBundle();
-				answerBundle.addReceiver(receiver.getText().toString());
+
+				receiver.readyToSave();
+
+//				if(receiver.getChips().size() == 1) {
+//					RuleCreator.changeSender(rule, mChipsView.getChips().get(0).getContact().getContent().toString());
+//				}else {
+//					RuleCreator.changeSender(rule, "");
+//				}
+
+				List<String> receiverList = new ArrayList<String>();
+				List<Object> contentList = receiver.getContentList();
+
+				for (Object object : contentList){
+					receiverList.add((String) object);
+				}
+
+				answerBundle.setReceivers(receiverList);
+
+//				answerBundle.addReceiver(receiver.getText().toString());
 				answerBundle.setMessage(message.getText().toString());
 				answerBundle.setDistance(distance);
 
 				RuleCreator.changeAutomaticallyAnswer(rule, answerBundle);
-				DataSource db = new DataSource(CreateContextForResource.getContext());
-				db.saveRule(rule);
+//				DataSource db = new DataSource(CreateContextForResource.getContext());
+//				db.saveRule(rule);
 
 
 				Intent intent = new Intent();
@@ -209,7 +235,6 @@ public class AnswerCreation extends AppCompatActivity {
 			} catch (Exception e) {
 				Log.e(LOG_TAG, "Failed to get phone data", e);
 			} finally {
-				receiver.setText(phoneNumber);
 				if (phoneCursor != null) {
 					phoneCursor.close();
 				}
@@ -225,7 +250,15 @@ public class AnswerCreation extends AppCompatActivity {
 					textView.setTextColor(Color.WHITE);
 					snackbar.show();
 
+				}else {
+					String contactName = ContactsWorker.getContactName(this, phoneNumber);
+					if(contactName != null && !contactName.isEmpty()){
+						receiver.addChip(contactName, ContactsWorker.getContactImageUri(this, phoneNumber), new Content(null, phoneNumber, null));
+					}else {
+						receiver.addChip(phoneNumber, ContactsWorker.getContactImageUri(this, phoneNumber), new Content(null, phoneNumber, null));
+					}
 				}
+
 			}
 		} else {
 			Log.w(LOG_TAG, "Warning: activity result not ok");
@@ -267,7 +300,13 @@ public class AnswerCreation extends AppCompatActivity {
 			} catch (Exception e) {
 				Log.e(LOG_TAG, "Failed to get email data", e);
 			} finally {
-				receiver.setText(mailAddress);
+//				receiver.setText(mailAddress);
+				String contactName = ContactsWorker.getContactName(this, mailAddress);
+				if(contactName != null && !contactName.isEmpty()){
+					receiver.addChip(contactName, ContactsWorker.getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
+				}else {
+					receiver.addChip(mailAddress, ContactsWorker.getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
+				}
 				if (mailCursor != null) {
 					mailCursor.close();
 				}
@@ -314,7 +353,16 @@ public class AnswerCreation extends AppCompatActivity {
      */
 	private void getRuleSettingsForGUI() {
 		if(rule.getReceivers().size() > 0) {
-			receiver.setText(rule.getReceivers().get(0));
+			for(String receiverString : rule.getReceivers()){
+
+
+				String contactName = ContactsWorker.getContactName(this, receiverString);
+				if(contactName != null && !contactName.isEmpty()){
+					receiver.addChip(contactName, ContactsWorker.getContactImageUri(this, receiverString), new Content(null, receiverString, null));
+				}else {
+					receiver.addChip(receiverString, ContactsWorker.getContactImageUri(this, receiverString), new Content(null, receiverString, null));
+				}
+			}
 		}
 		message.setText(rule.getMessage());
 		switch (rule.getDistance()) {

@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_answer_creation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,24 +30,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_answer_creation_description" />
 
-            <TextView
-                android:id="@+id/activity_answer_creation_textView_label_for_editText_receiver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_answer_creation_textView_answer_activity_description"
-                android:layout_below="@+id/activity_answer_creation_textView_answer_activity_description"
-                android:layout_marginTop="14dp"
-                android:text="@string/activity_answer_creation_label_for_editText_for_receiver" />
-
-            <EditText
-                android:id="@+id/activity_answer_creation_editText_for_receiver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/activity_answer_creation_textView_label_for_editText_receiver"
-                android:layout_alignBottom="@+id/activity_answer_creation_textView_label_for_editText_receiver"
-                android:layout_toRightOf="@+id/activity_answer_creation_textView_label_for_editText_receiver"
-                android:ems="10"
-                android:hint="@string/activity_answer_creation_editText_for_receiver_hint" />
+            <!--<EditText-->
+                <!--android:id="@+id/activity_answer_creation_editText_for_receiver"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBaseline="@+id/activity_answer_creation_textView_label_for_editText_receiver"-->
+                <!--android:layout_alignBottom="@+id/activity_answer_creation_textView_label_for_editText_receiver"-->
+                <!--android:layout_toRightOf="@+id/activity_answer_creation_textView_label_for_editText_receiver"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/activity_answer_creation_editText_for_receiver_hint" />-->
 
             <Button
                 android:id="@+id/activity_answer_creation_button_choose_contacts_for_answer"
@@ -98,6 +90,34 @@
                 android:layout_marginTop="15dp"
                 android:entries="@array/distance_arrays"
                 android:prompt="@string/activity_answer_creation_spinner_for_answer_distance_prompt" />
+
+            <rieger.alarmsmsapp.util.Chips.ChipsView
+                android:id="@+id/activity_answer_creation_editText_for_receiver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:cv_color_clicked="@color/my_accent"
+                app:cv_bg_color_clicked="@color/base30"
+                app:cv_text_color_clicked="#000000"
+                android:layout_marginLeft="16dp"
+                app:cv_hint="@string/activity_answer_creation_editText_for_receiver_hint"
+                app:cv_max_height="120dp"
+                app:cv_vertical_spacing="2dp"
+                android:layout_below="@+id/activity_answer_creation_textView_answer_activity_description"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_toRightOf="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:layout_toEndOf="@+id/activity_answer_creation_textView_label_for_editText_receiver" />
+
+            <TextView
+                android:id="@+id/activity_answer_creation_textView_label_for_editText_receiver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/activity_answer_creation_label_for_editText_for_receiver"
+                android:layout_below="@+id/activity_answer_creation_textView_answer_activity_description"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>
