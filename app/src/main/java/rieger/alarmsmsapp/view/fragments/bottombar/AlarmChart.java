@@ -296,10 +296,10 @@ public class AlarmChart extends Fragment {
         protected ArrayList<BarEntry> doInBackground(Object... objects) {
 
             ArrayList<BarEntry> entries = new ArrayList<>();
-            for(int month = 1; month < 13 ; month++){
+            for(int month = 0; month < 12 ; month++){
                 int numberOfMessagesPerMonth = 0;
                 for(Message message : (ArrayList<Message>) objects[0]){
-                    if(message.getMonth() -1  == month){
+                    if(message.getMonth() -1 == month){
                         numberOfMessagesPerMonth++;
                     }
                 }

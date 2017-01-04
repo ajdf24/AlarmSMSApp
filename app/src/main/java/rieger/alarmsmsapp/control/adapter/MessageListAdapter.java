@@ -21,6 +21,7 @@ import rieger.alarmsmsapp.util.standard.ContactsWorker;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
+ * Adapter class for sms messages
  * Created by sebastian on 16.11.16.
  */
 
@@ -34,6 +35,12 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageViewHolder> 
 
     private CreateRuleFromSMSClickListener listener;
 
+    /**
+     * Constructor
+     * @param activity the activity which needs the adapter
+     * @param messageList a list of {@link Message}
+     * @param listener
+     */
     public MessageListAdapter(Activity activity, List<Message> messageList, CreateRuleFromSMSClickListener listener) {
         this.activity = activity;
         this.messageList = messageList;

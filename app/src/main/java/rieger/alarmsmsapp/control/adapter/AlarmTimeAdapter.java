@@ -28,6 +28,7 @@ import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
 
 /**
+ * Adapter for alarm times.
  * Created by sebastian on 16.08.16.
  */
 public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> implements AlarmTimeCallback {
@@ -42,6 +43,12 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
 
     private boolean firstStart = true;
 
+    /**
+     * constructor
+     * @param alarmTimes a list of all alarm times
+     * @param activity the activity on which the adapter is needed
+     * @param callback a instance of {@link ActionCallback}
+     */
     public AlarmTimeAdapter(List<AlarmTimeModel> alarmTimes, Activity activity, ActionCallback callback) {
         this.alarmTimes = alarmTimes;
         this.activity = activity;
@@ -51,6 +58,9 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
     // Allows to remember the last item shown on screen
     private int lastPosition = -1;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public AlarmTimeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -58,6 +68,9 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         return new AlarmTimeViewHolder(itemView, this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBindViewHolder(AlarmTimeViewHolder holder, int position) {
         setAnimation(holder.getView(), position);
@@ -80,6 +93,10 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         }
     }
 
+    /**
+     * delete item on specific position
+     * @param position the position
+     */
     public void onRemoveItem(final int position){
         alarmTimes.remove(position);
         if(alarmTimes.size() == 0){
@@ -90,11 +107,19 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         this.notifyDataSetChanged();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemCount() {
         return alarmTimes.size();
     }
 
+    /**
+     * sets the animation to the view holder
+     * @param viewToAnimate
+     * @param position
+     */
     private void setAnimation(final View viewToAnimate, int position)
     {
         // If the bound view wasn't previously displayed on screen, it's animated
@@ -153,6 +178,9 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void alarmTimeCallBack(String position, int listPosition, int hours, int minutes, int days) {
         switch (position){
@@ -169,11 +197,18 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         alarmTimes.get(listPosition).setDay(AlarmTimeModel.intToDays(days));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void alarmTimeCallBack(int listPosition, int days) {
         alarmTimes.get(listPosition).setDay(AlarmTimeModel.intToDays(days));
     }
 
+    /**
+     * getter for all alarm times
+     * @return
+     */
     public List<AlarmTimeModel> getAlarmTimes() {
         return alarmTimes;
     }
