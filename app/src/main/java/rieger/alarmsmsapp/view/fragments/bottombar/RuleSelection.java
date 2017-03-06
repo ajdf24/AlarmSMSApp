@@ -39,6 +39,7 @@ import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -156,7 +157,7 @@ public class RuleSelection extends Fragment {
         super.onResume();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(CreateContextForResource.getContext());
-        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, true)) {
+        if (prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_RULES, true)) {
 
             final FrameLayout layout = (FrameLayout) layoutView.findViewById(R.id.fragment_rule_selection);
             ViewTreeObserver vto = layout.getViewTreeObserver();
@@ -196,7 +197,7 @@ public class RuleSelection extends Fragment {
         super.onPause();
 
         // Pause the AdView.
-        if(adView != null)
+        if (adView != null)
             adView.pause();
     }
 
@@ -205,7 +206,7 @@ public class RuleSelection extends Fragment {
         super.onDestroy();
 
         // Destroy the AdView.
-        if(adView != null)
+        if (adView != null)
             adView.destroy();
     }
 
@@ -235,8 +236,8 @@ public class RuleSelection extends Fragment {
      */
     private void checkAlarmSounds() {
 
-        for(final Rule rule : ruleList ){
-            if(rule.getAlarmSound() == null){
+        for (final Rule rule : ruleList) {
+            if (rule.getAlarmSound() == null) {
                 Snackbar snackbar = Snackbar
                         .make(layoutView, getString(R.string.activity_rule_selection_snackbar_label, rule.getRuleName()), Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction(R.string.activity_rule_selection_snackbar_button, new View.OnClickListener() {
@@ -285,20 +286,21 @@ public class RuleSelection extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            try {
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    Intent intent = new Intent();
+                    Bundle bundle = new Bundle();
 
-                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                intent.putExtras(bundle);
-                intent.setClass(getActivity(), RuleSettings.class);
-                startActivity(intent);
-            }catch (IndexOutOfBoundsException e) {
-                Log.w(LOG_TAG, "Banner Clicked");
+                    bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                    intent.putExtras(bundle);
+                    intent.setClass(getActivity(), RuleSettings.class);
+                    startActivity(intent);
+                } catch (IndexOutOfBoundsException e) {
+                    Log.w(LOG_TAG, "Banner Clicked");
+                }
             }
-        }});
+        });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -329,10 +331,10 @@ public class RuleSelection extends Fragment {
         /**
          * Constructor
          *
-         * @param context The current context.
+         * @param context            The current context.
          * @param textViewResourceId The resource ID for a layout file containing a TextView to use when
-         *                 instantiating views.
-         * @param ruleList The objects to represent in the ListView.
+         *                           instantiating views.
+         * @param ruleList           The objects to represent in the ListView.
          */
         public RuleSelectionAdapter(Context context, int textViewResourceId,
                                     ArrayList<Rule> ruleList) {
@@ -341,7 +343,7 @@ public class RuleSelection extends Fragment {
 
         @Override
         public int getCount() {
-            return ruleList.size() +1 ;
+            return ruleList.size() + 1;
         }
 
         /**
@@ -385,8 +387,7 @@ public class RuleSelection extends Fragment {
                         adView.loadAd(new AdRequest.Builder().build());
 
                         return adView;
-                    }catch (Exception e){
-
+                    } catch (Exception e) {
 
 
                         //Workaround, sollte es bei der Darstellung der ad zu Fehlern irgendeiner Art kommen
@@ -409,85 +410,85 @@ public class RuleSelection extends Fragment {
                 }
             } else {
 
-                    final ViewHolder viewHolder = new ViewHolder();
-                    Log.v(LOG_TAG, String.valueOf(position));
+                final ViewHolder viewHolder = new ViewHolder();
+                Log.v(LOG_TAG, String.valueOf(position));
 
-                    if (convertView == null) {
-                        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
 
-                        viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
-                        viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
-                        viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
-                        convertView.setTag(viewHolder);
+                    viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
+                    viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
+                    viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
+                    convertView.setTag(viewHolder);
 
-                        viewHolder.isRuleActivated.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                CheckBox checkBox = (CheckBox) view;
-                                Rule rule = (Rule) checkBox.getTag();
-                                if (checkBox.isChecked()) {
-                                    Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
-                                    rule.setActive(true);
-                                } else {
-                                    Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
-                                    rule.setActive(false);
-                                }
-                                RuleCreator.changeActive(rule, checkBox.isChecked());
-                                DataSource db = new DataSource(view.getContext());
-                                db.saveRule(rule);
+                    viewHolder.isRuleActivated.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            CheckBox checkBox = (CheckBox) view;
+                            Rule rule = (Rule) checkBox.getTag();
+                            if (checkBox.isChecked()) {
+                                Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_activated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                rule.setActive(true);
+                            } else {
+                                Toast.makeText(CreateContextForResource.getContext(), getResources().getString(R.string.activity_rule_selection_toast_rule_deactivated, rule.getRuleName()), Toast.LENGTH_SHORT).show();
+                                rule.setActive(false);
                             }
-                        });
-                        viewHolder.ruleName.setOnClickListener(new View.OnClickListener() {
+                            RuleCreator.changeActive(rule, checkBox.isChecked());
+                            DataSource db = new DataSource(view.getContext());
+                            db.saveRule(rule);
+                        }
+                    });
+                    viewHolder.ruleName.setOnClickListener(new View.OnClickListener() {
 
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent();
-                                Bundle bundle = new Bundle();
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
 
-                                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                                intent.putExtras(bundle);
-                                intent.setClass(getActivity(), RuleSettings.class);
-                                startActivity(intent);
-                            }
-                        });
-                        viewHolder.timeControlled.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent();
-                                Bundle bundle = new Bundle();
+                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                            intent.putExtras(bundle);
+                            intent.setClass(getActivity(), RuleSettings.class);
+                            startActivity(intent);
+                        }
+                    });
+                    viewHolder.timeControlled.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            Bundle bundle = new Bundle();
 
-                                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
-                                intent.putExtras(bundle);
-                                intent.setClass(getActivity(), RuleSettings.class);
-                                startActivity(intent);
-                            }
-                        });
+                            bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, (Rule) listView.getAdapter().getItem(position));
+                            intent.putExtras(bundle);
+                            intent.setClass(getActivity(), RuleSettings.class);
+                            startActivity(intent);
+                        }
+                    });
 
 //                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
 //                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
-                        viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                    viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
-                            @Override
-                            public void onCreateContextMenu(ContextMenu menu, View view,
-                                                            ContextMenu.ContextMenuInfo menuInfo) {
-                                menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
-                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
-                                menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
-                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
-                                menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
-//                try {
+                        @Override
+                        public void onCreateContextMenu(ContextMenu menu, View view,
+                                                        ContextMenu.ContextMenuInfo menuInfo) {
+                            menu.setHeaderTitle(getResources().getString(R.string.activity_rule_selection_context_menu_title));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_edit));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.test_rule));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_send));
+                            menu.add(0, view.getId(), 0, getResources().getString(R.string.activity_rule_selection_context_menu_action_delete));
+                            try {
 
                                 mListener.onFragmentInteraction(ruleList.get(position));
 
-//                }catch (NullPointerException e){
-//
-//                }
+                            } catch (NullPointerException e) {
+
                             }
+                        }
 
-                        });
+                    });
 
-                    }
+                }
 
 
                 Rule rule = ruleList.get(position);
@@ -496,9 +497,9 @@ public class RuleSelection extends Fragment {
                     viewHolder.ruleName.setText(rule.getRuleName());
                     viewHolder.isRuleActivated.setChecked(rule.isActive());
 
-                    if(rule.isAlarmEveryTime()){
+                    if (rule.isAlarmEveryTime()) {
                         viewHolder.timeControlled.setVisibility(View.INVISIBLE);
-                    }else {
+                    } else {
 
                         String timeControlled = CreateContextForResource.getStringFromID(R.string.activity_rule_selection_time_controlled) + " ";
 
@@ -506,14 +507,14 @@ public class RuleSelection extends Fragment {
 
                         Set<AlarmTimeModel.Days> daysSet = new HashSet<>();
 
-                        for(AlarmTimeModel alarmTime : db.getAlarmTimes(rule)){
-                            if(!daysSet.contains(alarmTime.getDay())) {
+                        for (AlarmTimeModel alarmTime : db.getAlarmTimes(rule)) {
+                            if (!daysSet.contains(alarmTime.getDay())) {
                                 timeControlled = timeControlled + AlarmTimeModel.getStringForDay(alarmTime.getDay()) + "; ";
                                 daysSet.add(alarmTime.getDay());
                             }
                         }
 
-                        if(timeControlled.length() > 40) {
+                        if (timeControlled.length() > 40) {
                             timeControlled = timeControlled.substring(0, 40);
                             timeControlled = timeControlled + "...";
                         }
@@ -539,7 +540,7 @@ public class RuleSelection extends Fragment {
 
     }
 
-    public void notifyDataSetChanced(){
+    public void notifyDataSetChanced() {
         sortRuleList();
         listAdapter.notifyDataSetChanged();
     }

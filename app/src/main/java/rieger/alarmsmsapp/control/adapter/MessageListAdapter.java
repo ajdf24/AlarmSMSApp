@@ -69,7 +69,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageViewHolder> 
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS},
                     AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS);
         }else{
-            contactName = ContactsWorker.getContactName(itemView.getContext(), messageList.get(position).getSender());
+            contactName = ContactsWorker.getContactName((Activity) itemView.getContext(), messageList.get(position).getSender());
         }
 
         if(contactName != null){

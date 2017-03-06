@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.util.Chips;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ObbInfo;
 import android.content.res.TypedArray;
@@ -362,9 +363,9 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
 
 
     private void onEnterPressed(String text) {
-        String contactName = ContactsWorker.getContactName(getContext(), text);
+        String contactName = ContactsWorker.getContactName((Activity) getContext(), text);
 
-        Chip chip = new Chip(contactName != null && !contactName.isEmpty()? contactName : text, ContactsWorker.getContactImageUri(getContext(), text), new Content(null, text, null));
+        Chip chip = new Chip(contactName != null && !contactName.isEmpty()? contactName : text, ContactsWorker.getContactImageUri((Activity) getContext(), text), new Content(null, text, null));
         mChipList.add(chip);
         if (mChipsListener != null) {
             mChipsListener.onChipAdded(chip);

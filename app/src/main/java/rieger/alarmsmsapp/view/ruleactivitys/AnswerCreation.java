@@ -410,10 +410,16 @@ public class AnswerCreation extends AppCompatActivity {
 										   String permissions[], int[] grantResults) {
 		switch (requestCode) {
 			case AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS: {
-				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-					Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-					startActivityForResult(intent, PICK_CONTACT);
+					finish();
+					Bundle bundle = new Bundle();
+					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+
+					Intent intent = new Intent(this, AnswerCreation.class);
+					intent.putExtras(bundle);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY);
+					startActivity(intent);
 
 				} else {
 

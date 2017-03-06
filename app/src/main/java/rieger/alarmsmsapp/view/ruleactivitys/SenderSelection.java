@@ -406,9 +406,10 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
      * This method get the current values from the rule and sets the GUI to this values.
      */
 	private void getRuleSettingsForGUI() {
-		if(rule.getSender() != null && !rule.getSender().isEmpty()) {
-			mChipsView.addChip(rule.getSender(), ContactsWorker.getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
-		}
+
+			if (rule.getSender() != null && !rule.getSender().isEmpty()) {
+				mChipsView.addChip(rule.getSender(), ContactsWorker.getContactImageUri(this, rule.getSender()), new Content(null, rule.getSender(), null));
+			}
 	}
 
 	@Override
