@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -18,11 +19,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.crash.FirebaseCrash;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnMenuTabClickListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,16 +53,16 @@ public class MainActivity extends AppCompatActivity implements
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.activity_main_coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
+    RelativeLayout coordinatorLayout;
 
-    private BottomBar mBottomBar;
+    @Bind(R.id.navigation)
+    BottomNavigationView bottomNavigationView;
 
     private RuleSelection ruleSelection;
     private AlarmSettingsFragment alarmSettings;
     private DepartmentFragment departmentSettings;
     private AlarmChart alarmChart;
 
-    private boolean isFirstStart = true;
     private int currentFragment = 0;
 
     private Rule selectedRule;
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        AndroidBug5497Workaround.assistActivity(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)!= PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS},
@@ -84,91 +83,86 @@ public class MainActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
-        mBottomBar = BottomBar.attach(this, savedInstanceState);
-        mBottomBar.setItems(R.menu.bottombar_menu);
-        mBottomBar.setOnMenuTabClickListener(new OnMenuTabClickListener() {
-            @Override
-            public void onMenuTabSelected(@IdRes int menuItemId) {
-                if (menuItemId == R.id.bottomBarItemOne) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
-                    if(isFirstStart){
-                        isFirstStart = false;
-                    }else {
-                        setAnimation(ft, currentFragment, 0);
-                    }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        ruleSelection = new RuleSelection();
+
+        ft.replace(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
+        ft.commit();
+
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+            if(alarmSettings != null) {
+                alarmSettings.saveData();
+            }
+            if(departmentSettings != null) {
+                departmentSettings.saveData();
+            }
+
+            switch (item.getItemId()) {
+                case R.id.bottomBarItemOne:
+
+                    setAnimation(ft, currentFragment, 0);
 
                     ruleSelection = new RuleSelection();
 
                     ft.replace(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
-                    // Start the animated transition.
                     ft.commit();
                     currentFragment = 0;
-                }
-                if(menuItemId == R.id.bottomBarItemTwo){
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    return true;
+                case R.id.bottomBarItemTwo:
 
                     setAnimation(ft, currentFragment, 1);
 
                     alarmSettings = new AlarmSettingsFragment();
 
                     ft.replace(R.id.fragment_container, alarmSettings, "AlarmSettingsFragment");
-                    // Start the animated transition.
                     ft.commit();
                     currentFragment = 1;
-                }
-                if(menuItemId == R.id.bottomBarItemThree){
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    return true;
+                case R.id.bottomBarItemThree:
 
                     setAnimation(ft, currentFragment, 2);
 
                     departmentSettings = new DepartmentFragment();
 
                     ft.replace(R.id.fragment_container, departmentSettings, "DepartmentSettingsFragment");
-                    // Start the animated transition.
                     ft.commit();
                     currentFragment = 2;
-                }
-                if(menuItemId == R.id.bottomBarItemFour){
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    return true;
+                case R.id.bottomBarItemFour:
+
 
                     setAnimation(ft, currentFragment, 3);
 
                     alarmChart = new AlarmChart();
 
                     ft.replace(R.id.fragment_container, alarmChart, "AlarmChartFragment");
-                    // Start the animated transition.
                     ft.commit();
                     currentFragment = 3;
-                }
 
-                if(alarmSettings != null) {
-                    alarmSettings.saveData();
-                }
-                if(departmentSettings != null) {
-                    departmentSettings.saveData();
-                }
+                    return true;
             }
+            return false;
+        }
 
-            @Override
-            public void onMenuTabReSelected(@IdRes int menuItemId) {
-                if (menuItemId == R.id.bottomBarItemOne) {
-                    // The user reselected item number one, scroll your content to top.
-                }
-            }
-        });
-
-        mBottomBar.mapColorForTab(0, ContextCompat.getColor(this, R.color.my_primary));
-        mBottomBar.mapColorForTab(1, 0xFF5D4037);
-        mBottomBar.mapColorForTab(2, "#7B1FA2");
-        mBottomBar.mapColorForTab(3, "#FF5252");
-    }
+    };
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        mBottomBar.onSaveInstanceState(outState);
     }
 
     @Override

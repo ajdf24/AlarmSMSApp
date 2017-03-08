@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+<!-- 	 Strings for The App -->
+    <string name="app_name">AlarmSMS</string>
+    <string name="hello_world">Hallo Welt!</string>
+    <string name="general_yes">Ja</string>
+    <string name="general_no">Nein</string>
+    <string name="general_ok">Ok</string>
+
+    <!-- General Strings -->
+    	<string name="general_string_button_quit">Abbrechen</string>
+    	<string name="general_string_button_save">Speichern</string>
+    	<string name="general_string_button_choose_contact">Auswahl aus Kontakten</string>
+        <string name="general_string_button_test">Test</string>
+    
+<!--     Strings for the menu -->
+    <string name="alarm_settings">Alarm Einstellungen</string>
+    <string name="department_settings">Gerätehaus Einstellungen</string>
+    <string name="rule_list">Alarmübersicht</string>
+    <string name="create_new_rule">Neuen Alarm</string>
+    <string name="test_rule">Alarm testen</string>
+    <string name="help">Hilfe</string>
+
+<!-- 	Strings for the Toats -->
+	<string name="toast_number_not_found">Keine Nummer für den gewählten Kontakt vorhanden</string>
+	<string name="toast_mail_not_found">Keine E-Mail Adresse für den gewählten Kontakt vorhanden</string>
+    
+<!--     Strings for the activity rule_activity_title -->
+    <string name="title_activity_rule_selection">Alarmauswahl</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_rule_selection_alert_dialog_title_first_use">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_rule_selection_alert_dialog_text">Nutze den Stift unten rechts um neue Alarme zu erstellen.</string>
+
+
+        <!-- Strings for Context Menu -->
+		<string name="activity_rule_selection_context_menu_title">Alarmeinstellungen</string>
+		<string name="activity_rule_selection_context_menu_action_edit">Alarm editieren</string>
+        <string name="activity_rule_selection_context_menu_action_send">Alarm teilen</string>
+		<string name="activity_rule_selection_context_menu_action_delete">Alarm löschen</string>
+        <string name="activity_rule_selection_context_menu_selection_title">Sende Alarm über&#8230;</string>
+		
+		<!-- Strings for Toasts -->
+		<string name="activity_rule_selection_toast_rule_deleted">Alarm %1$s gelöscht</string>
+        <string name="activity_rule_selection_toast_rule_activated">Alarm %1$s aktivert</string>
+        <string name="activity_rule_selection_toast_rule_deactivated">Alarm %1$s deaktiviert</string>
+        <string name="activity_rule_selection_toast_rule_received">Alarm %1$s empfangen</string>
+        <string name="activity_rule_selection_toast_rule_received_but_error">Datei konnte nicht gelesen werden</string>
+
+<!--     Strings for the activity create_new_rule -->
+	<string name="title_activity_create_new_rule">Neuen Alarm erstellen</string>
+	<string name="activity_create_new_rule_editText_rule_name_hint">Name des Alarms</string>
+	<string name="activity_create_new_rule_textView_label_for_editText_rule_name">Name:</string>
+	<string name="activity_create_new_rule_textView_description_of_radio_buttons">Für welchen Eingang soll der Alarm gelten?</string>
+	<string name="activity_create_new_rule_radio_content_sms">SMS Alarm</string>
+    <string name="activity_create_new_rule_radio_content_mail">E-Mail Alarm</string>
+	
+<!-- 	Strings for the activity rule_settings -->
+	<string name="title_activity_rule_settings">Alarmeinstellungen</string>
+
+<!-- 	Strings for the activity sender_selection -->
+	<string name="title_activity_sender_selection">Absenderauswahl</string>
+	<string name="activity_sender_selection_editText_for_sender_information_hint_sms">Absender Nummer</string>
+	<string name="activity_sender_selection_editText_for_sender_information_hint_mail">Absender Mail</string>
+	<string name="activity_sender_selection_textView_description">Absender auf den geachtet werden soll</string>
+
+<!-- 	Strings for the activity word_selection -->
+	<string name="title_activity_word_selection">Schlagwortfilter</string>
+	<string name="activity_word_selection_textView_included_words">Gib and, welche Wörter in der Nachricht vorkommen müssen. 
+	    Trenn die Wörter durch Leerzeichen!</string>
+	<string name="activity_word_selection_editText_included_words_hint">Wörter, welche in der Nachricht enthalten sein sollen</string>
+	<string name="activity_word_selection_textView_not_included_words">Gib and, welche Wörter in der Nachricht NICHT vorkommen dürfen.</string>
+	<string name="activity_word_selection_editText_not_included_words_hint">Wörter, welche in der Nachricht nicht enthalten sein sollen</string>
+	
+<!-- 	Strings for the activity sound_selection -->
+    <string name="title_activity_sound_selection">Alarmton Auswahl</string>
+    <string name="activity_sound_selection_volume_toast">Bitte Lautstärke erhöhen</string>
+    
+<!--     Strings for the activity answer_creation -->
+    <string name="title_activity_answer_creation">Automatische Antwort</string>
+    <string name="activity_answer_creation_description">Du kannst eine automatisch zu versendende Nachricht wählen.</string>
+    <string name="activity_answer_creation_label_for_editText_for_receiver">Empfänger</string>
+    <string name="activity_answer_creation_editText_for_receiver_hint">Empfänger</string>
+    <string name="activity_answer_creation_label_for_editText_message">Gib den Text ein, welcher versendet werden soll.</string>
+    <string name="activity_answer_creation_editText_for_message_hint">Nachricht, welche gesendet werden soll.</string>
+    <string name="activity_answer_creation_label_for_spinner_for_answer_distance">Ab welcher Entfernung 
+        vom Gerätehaus soll die Nachricht gesendet werden.</string>
+    <string name="activity_answer_creation_spinner_for_answer_distance_prompt">Wähle eine Entfernung</string>
+ 
+    <string-array name="distance_arrays">
+        <item>5 km</item>
+        <item>10 km</item>
+        <item>25 km</item>
+        <item>50 km</item>
+    </string-array>    
+    
+<!--     Strings for the activity twitter_post_selection -->
+    <string name="title_activity_twitter_post_selection">Twitter Post</string>
+    <string name="activity_twitter_post_selection_description">Wähle einen Text, der auf Twitter gepostet werden soll.</string>
+    <string name="activity_twitter_post_selection_editText_message_for_twitter">Post auf Twitter</string>
+    <string name="activity_twitter_post_selection_checkBox_add_message_text">Nachrichtentext anhängen</string>
+
+<!--     Strings for the activity navigation_target_selection -->
+    <string name="title_activity_navigation_target_selection">Navigation</string>
+    <string name="activity_navigation_target_selection_description">Beim erhalt einer Nachricht, 
+        wird automatisch eine Navigation gestartet.</string>
+    <string name="activity_navigation_target_selection_label_editText_navigation_target">Wähle ein Navigationsziel.</string>
+    <string name="activity_navigation_target_selection_editText_navigation_target_hint">Adresse</string>
+    
+<!--     Strings for the activity reading_settings -->
+    <string name="title_activity_reading_settings">Automatisches Vorlesen</string>
+    <string name="activity_reading_settings_description">Es ist möglich, 
+        sich die erhaltene und folgende Nachrichten vorlesen zu lassen.</string>
+    <string name="activity_reading_settings_label_checkBoxes_reading_settings">Triff deine Wahl</string>
+    <string name="activity_reading_settings_checkBox_read_this_message">Lies die Alarm-Nachricht vor</string>
+    <string name="activity_reading_settings_checkBox_read_other_messages">Lies andere Nachrichten vor</string>
+
+<!--     Strings for the activity alarm_setting -->
+	<string name="title_activity_alarm_settings">Alarm Einstellungen</string>
+	<string name="activity_alarm_settings_switch_alarm_activated">Alarmierungen erhalten</string>
+	<string name="activity_alarm_settings_textView_label_for_seekBar_volume">Lautstärke mit der alarmiert wird</string>
+	<string name="activity_alarm_settings_switch_vibration_activated">Mit Vibration alarmieren</string>
+	<string name="activity_alarm_settings_switch_notification_light_activated">Mit Notification Light alarmieren</string>
+	<string name="activity_alarm_settings_textView_label_for_spinner_for_notification_light_color">Farbe für Notification Light</string>
+	<string name="activity_alarm_settings_switch_mute_alarm_activated">Alarmierung auch erhalten wenn Telefon Lautlos</string>
+
+    <string-array name="color_array">
+        <item>rot</item>
+        <item>grün</item>
+        <item>blau</item>
+    </string-array>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_alarm_settings_alert_dialog_title">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_alarm_settings_alert_dialog_text">Bitte gib die globalen Alarmeinstellungen für die App ein, mit denen du alarmiert werden möchtest. \n\n</string>
+        <string name="activity_alarm_settings_alert_dialog_button">OK</string>
+
+<!--     Strings for the activity department_settings -->
+	<string name="title_activity_department_settings"> Gerätehaus Einstellungen</string>
+	<string name="activity_department_settings_textView_label_for_editText_department_location">Standort des Gerätehauses</string>
+	<string name="activity_department_settings_editText_department_location_hint">Adresse des Gerätehauses</string>
+
+        <!-- Strings for the Alert Dialog-->
+        <string name="activity_department_settings_alert_dialog_title">Konfiguration zur ersten Benutzung.</string>
+        <string name="activity_department_settings_alert_dialog_text">Bitte gib die Adresse deines Gerätehauses ein. Dies ist für gewisse Alarmeinstellungen notwendig. \n\n </string>
+        <string name="activity_department_settings_alert_dialog_button">OK</string>
+
+<!--    Stings for Notification -->
+    <string name="notification_title">Alarmierung</string>
+
+<!--    Strings for the Receiver -->
+    <string name="receiver_no_sound_selected">Kein Alarmton gewählt</string>
+
+<!--    Utility Strings-->
+    <string name="twitter_not_found">Twitter App nicht gefunden</string>
+    <string name="can_not_read_rule">Es konnten nicht alle Alarme gelesen werden.</string>
+
+<!--    Widget Strings -->
+    <string name="widget_text_activ">Aktiv</string>
+    <string name="widget_text_inactiv">Inaktiv</string>
+
+    <!--    General Stings -->
+    <string name="toast_permission_contacts_denied">Kontakte dürfen nicht gelesen werden. Trage den Absender per Hand ein oder gib die Berechtigung frei!</string>
+    <string name="toast_permission_sms_denied">Die App darf keine SMS lesen. Dies führt dazu, dass die App nicht richtig arbeitet!</string>
+    <string name="toast_permission_location_denied">Die App darf keine Standorte erfasse. Es können nicht alle Aktionen korrekt ausgeführt werden.</string>
+    <string name="toast_permission_storage_denied">Die App darf keine externen Dateien lesen.</string>
+    <string name="title_activity_test_rule">Alarm Testen</string>
+    <string name="toast_no_rule_match">Kein passender Alarm gefunden.</string>
+
+    <!-- Strings Test Activity -->
+    <string name="activity_test_rule_maintext">Du kannst deinen Alarm hier testen!</string>
+    <string name="activity_test_rule_sender_description">Der Absender den du testen möchtest.</string>
+    <string name="activity_test_rule_text_description">Die Nachricht, welche du testen möchtest.</string>
+    <string name="activity_test_rule_hint_message">Nachricht</string>
+    
+    <string name="activity_rule_selection_whats_new">Was ist neu!</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_9">- Regeln können nun einzeln getestet werden\n\n- Es können mehrere Regeln zusammen getestet werden\n\n- Über das Menü kann ein Hilfe-Video angezeigt werden \n\n- Verbesserte SMS-Auswertung \n\n- Verbesserte Ort-Vervollständigung \n\n- Vollständige Android 6.0 unterstützung</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_10">- Bugfix im Widget\n\n- Bugfix beim Vorlesen</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_11">- Bugfix Übersetzung</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_12">- Bugfix Alarmton-Player\n\n- Bugfix Schlagwortfilter</string>
+
+
+    <string name="title_activity_light_settings">Licht Einstellungen</string>
+    <string name="activity_light_settings_main_text">Im Alarmfall kann die App deinen Bildschirm auf die maximale Helligkeit setzten, so das dein Telefon dir als Taschenlampe dient.</string>
+    <string name="activity_light_settings_set_light_on_checkbox" >Nutze Bildschirm als Lampe</string>
+    <string name="activity_light_settings_text_sipnner" >Wie lange soll der Display leuchten?</string>
+    <string-array name="time_array">
+        <item>0,5 min</item>
+        <item>1 min</item>
+        <item>2 min</item>
+        <item>3 min</item>
+    </string-array>
+    <string name="activity_rule_selection_whats_new_text_for_version_13">- Neue Einstellungen für Beleuchtung\n\n- Bugfix für Sony Smartphones\n\n- Bugfix Regel import</string>
+    <string name="fb_like_button">Werde Facebook-Freund</string>
+    <string name="sender_selection_help">Hilfe für Absender-Einstellungen?</string>
+    <string name="title_dialog_sender_selection">Hilfe: Absender Auswahl</string>
+    <string name="dialog_sender_selection_example_number_1">Absender Nummer: +49151333333</string>
+    <string name="dialog_sender_selection_headline_match">Folgende Konfiguration passen:</string>
+    <string name="dialog_sender_selection_headline_no_match">Folgende Konfigurationen passen NICHT:</string>
+    <string name="dialog_sender_selection_example_number_2">Absender Nummer: AlarmSMS</string>
+    <string name="dialog_sender_selection_button_got_it">Verstanden</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantische Absenderauswahl\n\n- Neue Hilfe für Absenderauswahl\n\n- Interne Änderungen</string>
+    <string name="activity_rule_selection_whats_new_text_for_version_15">- Bugfix Absturz beim starten</string>
+    <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Alarm: %1$s gewählt!"</string>
+    <string name="activity_rule_selection_snackbar_button">Jetzt Auswählen</string>
+    <string name="activity_light_settings_set_light_on_when_dark_checkbox">Lampe nur einschalten wenn es dunkel ist</string>
+    <string name="activty_alarm_settings_repeat_text">Alarmton wiederholen</string>
+    <string name="title_activity_alarm_chart">Alarm Statistik</string>
+    <string name="title_activity_list_messages">Nachrichten Liste</string>
+    <string name="general_string_january">Januar</string>
+    <string name="general_string_february">Februar</string>
+    <string name="general_string_march">März</string>
+    <string name="general_string_april">April</string>
+    <string name="general_string_may">Mai</string>
+    <string name="general_string_june">Juni</string>
+    <string name="general_string_july">Juli</string>
+    <string name="general_string_august">August</string>
+    <string name="general_string_september">September</string>
+    <string name="general_string_october">Oktober</string>
+    <string name="general_string_november">November</string>
+    <string name="general_string_december">Dezember</string>
+    <string name="activity_alarm_chart_chart_description"># Alarme</string>
+    <string name="general_string_date_format">dd.MM.yyyy HH:mm:ss</string>
+
+    <string name="activity_alarm_time_settings_name">Alarmzeiten</string>
+
+    <string-array name="days_array">
+        <item>Sonntag</item>
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>Freitag</item>
+        <item>Samstag</item>
+        <item>Montag - Sonntag</item>
+        <item>Montag - Freitag</item>
+        <item>Freitag - Sonntag</item>
+        <item>Samstag - Sonntag</item>
+    </string-array>
+
+
+<!--Welcome Fragment-->
+    <string name="welcome_fragment_headline">Willkommen bei AlarmSMS</string>
+    <string name="welcome_fragment_info_text">Bitte konfiguriere im folgenden die App, \num das beste Ergebnis zu erhalten</string>
+    <string name="welcome_fragment_info_text_2">AlarmSMS nutzt globale Alarmeinstellungen, welche für jede Alarmierung gelten.</string>
+
+<!--AlarmSettings Fragment-->
+
+    <string name="alarm_settings_fragment_headline">Globale Alarmeinstellungen</string>
+
+    <!--Department Explanation Fragment-->
+    <string name="department_explanation_fragment_headline">Gerätehaus Einstellung</string>
+    <string name="department_explanation_fragment_text">AlarmSMS verwendet den Standort deines Gerätehauses, in verschiedenen Einstellungen.
+        \n So zum Beispiel bei der Entfernungsabhängigen SMS-Weiterleitung. \n\n Um den Standort einzugeben drücke auf weiter.</string>
+
+    <!--department Fragment-->
+    <string name="department_fragment_textview_explanation">Gerätehaus</string>
+
+    <!--Ready Fragment-->
+    <string name="ready_fragment_title">Geschafft</string>
+    <string name="ready_fragment_text">AlarmSMS wurde konfiguriert. Erstelle nun deine Alarm-Regeln.</string>
+
+    <!--import settings dialog-->
+    <string name="import_settings_dialog_title">Importiere Einstellungen von alter Version</string>
+    <string name="import_settings_dialog_department">Gerätehaus</string>
+    <string name="import_settings_dialog_alarm_settings">Alarmeinstellungen</string>
+    <string name="import_settings_dialog_rules">Alarme</string>
+    <string name="import_settings_dialog_import_error">Fehler beim Import</string>
+    <string name="import_settings_dialog_import_error_message">Es konnten nicht alle Einstellungen übertragen werden. Bitte stell die App neu ein!</string>
+
+    <string name="activity_rule_selection_time_controlled">Zeitgesteuert: </string>
+
+    <string name="showcase_rule_name_save_text">Speichern und weiter</string>
+    <string name="showcase_rule_settings_trigger_title">Auslöser</string>
+    <string name="showcase_rule_settings_trigger_text">Stelle hier den Absender und sonstige weitere Auslöser aus.</string>
+    <string name="showcase_rule_settings_alarm_settings_text">Stelle hier ein was passieren soll, wenn ein Alarm eingeht.</string>
+    <string name="showcase_rule_settings_alarm_times_text">Setze zeiten, wann deine Alarm-Regel einen Alarm auslösen soll. Wische nach links oder rechts, um die Zeit zu löschen.</string>
+    <string name="showcase_rule_settings_new_alarm_time_title">Neue Alarmzeiten</string>
+    <string name="showcase_rule_settings_new_alarm_time_text">Erstelle eine neue Alarmzeit.</string>
+
+    <string name="start_befor_end_time">Start-Zeit nach End-Zeit</string>
+    <string name="end_befor_start_time">End-Zeit vor Start-Zeit</string>
+    <string name="statistics">Statistik</string>
+    <string name="time_from">Zeit von</string>
+    <string name="time_to">Zeit bis</string>
+    <string name="alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
+    <string name="alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
+    <string name="general_string_button_next">Weiter</string>
+    <string name="showcase_rule_name_text">Wähle einen Namen für Ihre Alarmregel.</string>
+    <string name="showcase_rule_name_title">Namenwahl</string>
+    <string name="showcase_more_rule_options_title">Zusatzeinstellungen</string>
+    <string name="showcase_more_rule_options_text">Tippe kurz auf den Alarm um die Einstellungen zu öffnen oder lang für zusätzliche Optionen.</string>
+    <string name="alarm">Alarm</string>
+
+    <string name="alarm_times_not_correct">Alarmzeiten nicht korrekt.</string>
+    <string name="dialog_create_alarm_from_sms_title">Alarm aus SMS erstellen?</string>
+    <string name="dialog_create_alarm_from_sms_text">Wenn du schon eine AlarmSMS empfangen hast, ist es möglich automatisch eine Alarmregel zu erstellen. Möchtest du eine Regel automatisch erstellen?</string>
+    <string name="dialog_choose_sms_title">SMS auswählen</string>
+    <string name="dialog_choose_sms_text">Bitte tippe eine deiner AlarmSMS an, damit wir einen Alarm für dich erstellen können.</string>
+    <string name="snackbar_no_sms">Findest du keine AlarmSMS?</string>
+    <string name="dialog_create_alarm_title">Alarm erstellen</string>
+    <string name="dialog_create_alarm_text">Möchtest du einen Alarm für %1$s erstellen?</string>
+    <string name="dialog_trigger_already_set_text">Der Auslöser wurde bereits für dich Konfiguriert. \n\n Stelle unter Alarmeinstellungen nun ein, wie sich die App im Alarmfall verhalten soll.</string>
+    <string name="saved_satistic">Foto gespeichert</string>
+    <string name="statistic_for">Statistik für:</string>
+</resources>
