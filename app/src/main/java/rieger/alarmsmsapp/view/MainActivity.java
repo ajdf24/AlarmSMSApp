@@ -6,19 +6,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,26 +25,27 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.callback.RuleSelected;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.fragments.bottombar.*;
 import rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection;
 import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
 import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
-import rieger.alarmsmsapp.view.fragments.bottombar.AlarmChart;
 import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 public class MainActivity extends AppCompatActivity implements
-                                                    RuleSelection.OnFragmentInteractionListener,
                                                     AlarmSettingsFragment.OnFragmentInteractionListener,
                                                     DepartmentFragment.OnFragmentInteractionListener,
-                                                    AlarmChart.OnFragmentInteractionListener{
+                                                    AlarmChart.OnFragmentInteractionListener, RuleSelected, Serializable{
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -87,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        ruleSelection = new RuleSelection();
+        ruleSelection = rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection.newInstance(this);
 
-        ft.replace(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
+        ft.add(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
         ft.commit();
 
     }
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     setAnimation(ft, currentFragment, 0);
 
-                    ruleSelection = new RuleSelection();
+                    ruleSelection = RuleSelection.newInstance(MainActivity.this);
 
                     ft.replace(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
                     ft.commit();
@@ -159,11 +156,6 @@ public class MainActivity extends AppCompatActivity implements
         }
 
     };
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -303,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements
             db.deleteRule(selectedRule);
 //            ruleList.remove(selectedRule);
 
-            ruleSelection.notifyDataSetChanced();
+//            ruleSelection.notifyDataSetChanced();
 
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -334,11 +326,16 @@ public class MainActivity extends AppCompatActivity implements
         super.onRestart();
 
         if(ruleSelection != null){
-            ruleSelection.notifyDataSetChanced();
+//            ruleSelection.notifyDataSetChanced();
 
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void selectedRule(Rule rule) {
+        selectedRule = rule;
     }
 }

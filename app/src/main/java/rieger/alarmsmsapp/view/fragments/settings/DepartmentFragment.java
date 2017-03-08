@@ -2,6 +2,7 @@ package rieger.alarmsmsapp.view.fragments.settings;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -19,6 +21,7 @@ import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.util.googleplaces.GooglePlacesAutocompleteAdapter;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 
 /**
@@ -97,7 +100,6 @@ public class DepartmentFragment extends Fragment implements OnItemClickListener{
 
         autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(CreateContextForResource.getContext(), R.layout.list_item_for_autocomplete, GooglePlacesAutocompleteAdapter.AUTO_FILTER_BY_THE_CURRENT_COUNTRY));
         autoCompView.setOnItemClickListener(this);
-
     }
 
     /**
