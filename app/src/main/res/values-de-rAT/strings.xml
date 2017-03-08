@@ -89,6 +89,7 @@
     <string name="activity_answer_creation_spinner_for_answer_distance_prompt">Wähle eine Entfernung</string>
  
     <string-array name="distance_arrays">
+        <item>immer weiterleiten</item>
         <item>5 km</item>
         <item>10 km</item>
         <item>25 km</item>

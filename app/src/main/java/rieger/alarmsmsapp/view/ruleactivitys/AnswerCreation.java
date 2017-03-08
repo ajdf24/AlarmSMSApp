@@ -366,18 +366,21 @@ public class AnswerCreation extends AppCompatActivity {
 		}
 		message.setText(rule.getMessage());
 		switch (rule.getDistance()) {
-		case 5:
+		case 0:
 			area.setSelection(0);
+			break;
+		case 5:
+			area.setSelection(1);
 			break;
 
 		case 10:
-			area.setSelection(1);
-			break;
-		case 25:
 			area.setSelection(2);
 			break;
-		case 50:
+		case 25:
 			area.setSelection(3);
+			break;
+		case 50:
+			area.setSelection(4);
 			break;
 		}
 	}
