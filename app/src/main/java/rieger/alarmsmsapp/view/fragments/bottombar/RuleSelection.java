@@ -1,45 +1,33 @@
 package rieger.alarmsmsapp.view.fragments.bottombar;
 
 import android.app.Fragment;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +42,6 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.callback.ActionCallback;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
-import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -87,9 +74,10 @@ public class RuleSelection extends Fragment {
     @Bind(R.id.fab)
     FloatingActionButton floatingActionButton;
 
-    private View layoutView;
+    @Bind(R.id.adView3)
+    AdView adView;
 
-    private AdView adView;
+    private View layoutView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -135,10 +123,19 @@ public class RuleSelection extends Fragment {
 
         checkAlarmSounds();
 
+        createAdd();
+
         return layoutView;
     }
 
     public void onButtonPressed(Uri uri) {
+    }
+
+    private void createAdd(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        if(adView != null){
+            adView.loadAd(adRequest);
+        }
     }
 
     @Override
@@ -196,7 +193,6 @@ public class RuleSelection extends Fragment {
     public void onPause() {
         super.onPause();
 
-        // Pause the AdView.
         if (adView != null)
             adView.pause();
     }
@@ -205,7 +201,6 @@ public class RuleSelection extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        // Destroy the AdView.
         if (adView != null)
             adView.destroy();
     }
@@ -343,7 +338,7 @@ public class RuleSelection extends Fragment {
 
         @Override
         public int getCount() {
-            return ruleList.size() + 1;
+            return ruleList.size();
         }
 
         /**
@@ -362,53 +357,6 @@ public class RuleSelection extends Fragment {
         @Override
         public synchronized View getView(final int position, View convertView, ViewGroup parent) {
 
-            //Create Ad on the last item of the List
-            if (position >= ruleList.size()) {
-                if (convertView instanceof AdView) {
-                    // Don’t instantiate new AdView, reuse old one
-                    return convertView;
-                } else {
-                    try {
-                        // Create a new AdView
-                        adView = new AdView(parent.getContext());
-                        adView.setAdSize(AdSize.BANNER);
-                        adView.setAdUnitId("ca-app-pub-5905277784747964/9606094931");
-
-                        // Convert the default layout parameters so that they play nice with
-                        // ListView.
-
-                        float density = parent.getResources().getDisplayMetrics().density;
-                        int height = Math.round(AdSize.BANNER.getHeight() * density);
-                        AbsListView.LayoutParams params = new AbsListView.LayoutParams(
-                                AbsListView.LayoutParams.FILL_PARENT,
-                                height);
-                        adView.setLayoutParams(params);
-
-                        adView.loadAd(new AdRequest.Builder().build());
-
-                        return adView;
-                    } catch (Exception e) {
-
-
-                        //Workaround, sollte es bei der Darstellung der ad zu Fehlern irgendeiner Art kommen
-                        final ViewHolder viewHolder = new ViewHolder();
-
-                        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        convertView = inflater.inflate(R.layout.list_item_rule_selection, null);
-
-                        viewHolder.ruleName = (TextView) convertView.findViewById(R.id.list_item_rule_name);
-                        viewHolder.timeControlled = (TextView) convertView.findViewById(R.id.list_item_rule_time_controlled);
-                        viewHolder.isRuleActivated = (CheckBox) convertView.findViewById(R.id.list_item_is_active);
-                        viewHolder.ruleName.setVisibility(View.INVISIBLE);
-                        viewHolder.timeControlled.setVisibility(View.INVISIBLE);
-                        viewHolder.isRuleActivated.setVisibility(View.INVISIBLE);
-                        convertView.setOnClickListener(null);
-
-                        return convertView;
-
-                    }
-                }
-            } else {
 
                 final ViewHolder viewHolder = new ViewHolder();
                 Log.v(LOG_TAG, String.valueOf(position));
@@ -465,8 +413,6 @@ public class RuleSelection extends Fragment {
                         }
                     });
 
-//                    Context wrapper = new ContextThemeWrapper(getContext(), R.style.PopupMenu);
-//                    PopupMenu popupMenu = new PopupMenu(wrapper, viewHolder.ruleName);
                     viewHolder.ruleName.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
 
                         @Override
@@ -535,7 +481,6 @@ public class RuleSelection extends Fragment {
 
                 }
                 return convertView;
-            }
         }
 
     }
