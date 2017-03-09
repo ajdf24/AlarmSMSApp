@@ -40,7 +40,7 @@
                 android:text="@string/activity_sender_selection_textView_description" />
 
 
-            <rieger.alarmsmsapp.util.Chips.ChipsView
+            <rieger.alarmsmsapp.util.chips.ChipsView
                 android:id="@+id/cv_contacts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

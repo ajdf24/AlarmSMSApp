@@ -251,8 +251,8 @@
 
     <string name="showcase_rule_name_title">Name selection</string>
     <string name="showcase_rule_name_text">Choose a name for your alarm rule.</string>
-    <string name="alarm_time_settings_switch_always_alarm">Always alert</string>
-    <string name="alarm_time_settings_title">Choose when your rule should alert you.</string>
+    <string name="activity_alarm_time_settings_switch_always_alarm">Always alert</string>
+    <string name="activity_alarm_time_settings_title">Choose when your rule should alert you.</string>
     <string name="end_befor_start_time">End time before start time</string>
     <string name="showcase_rule_name_save_text">Save and continue</string>
     <string name="showcase_rule_settings_alarm_settings_text">Here is what should happen when an alarm is received.</string>

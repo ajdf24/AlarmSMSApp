@@ -31,9 +31,10 @@ import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
-public class AlarmTimeSettings extends AppCompatActivity implements ActionCallback {
+public class AlarmTimeSettings extends AbstractRuleActivity implements ActionCallback {
 
     @Bind(R.id.activity_alarm_time_settings_switch)
     Switch isAlwaysAlarm;
@@ -57,8 +58,8 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_time_settings);
+        super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
 
@@ -183,7 +184,6 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                     alarmTimeAdapter.onRemoveItem(viewHolder.getAdapterPosition());
-//                    alarmTimeAdapter.errors = alarmTimeAdapter.errors - 2;
                 }
             };
 
@@ -216,5 +216,10 @@ public class AlarmTimeSettings extends AppCompatActivity implements ActionCallba
     @Override
     public String toString() {
         return CreateContextForResource.getStringFromID(R.string.activity_alarm_time_settings_name);
+    }
+
+    @Override
+    protected void showHelpDialog() {
+        DialogHelper.createHelpDialog(this, R.string.activity_alarm_time_settings_help_dialog_title, R.string.activity_alarm_time_settings_help_dialog_text, R.string.dialog_button_got_it);
     }
 }

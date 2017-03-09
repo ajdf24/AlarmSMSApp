@@ -255,8 +255,8 @@
     <string name="welcome_fragment_info_text_2">AlarmSMS uses global alarm settings, which apply to each alarm.</string>
     <string name="activity_rule_selection_time_controlled">Time controlled:</string>
     <string name="alarm">Alert</string>
-    <string name="alarm_time_settings_switch_always_alarm">Always alert</string>
-    <string name="alarm_time_settings_title">Choose when your rule should alert you.</string>
+    <string name="activity_alarm_time_settings_switch_always_alarm">Always alert</string>
+    <string name="activity_alarm_time_settings_title">Choose when your rule should alert you.</string>
     <string name="end_befor_start_time">End time before start time</string>
     <string name="general_string_button_next">Next</string>
     <string name="showcase_rule_name_save_text">Save and continue</string>

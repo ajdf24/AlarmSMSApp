@@ -1,9 +1,8 @@
-package rieger.alarmsmsapp.util.Chips;
+package rieger.alarmsmsapp.util.chips;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ObbInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;

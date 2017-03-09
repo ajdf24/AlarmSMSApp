@@ -75,7 +75,7 @@
 	<string name="activity_word_selection_textView_not_included_words">Gib and, welche Wörter in der Nachricht NICHT vorkommen dürfen.</string>
 	<string name="activity_word_selection_editText_not_included_words_hint">Wörter, welche in der Nachricht nicht enthalten sein sollen</string>
 	<string name="activity_word_selection_help_dialog_title">Hilfe: Schlagworte</string>
-	<string name="activity_word_selection_help_dialog_text">Schlagworte grenzen den den Alarm ein. \n Nur wenn alle Schlagworte übereinstimmen wird ein Alarm ausgelöst.</string>
+	<string name="activity_word_selection_help_dialog_text">Schlagworte grenzen den den Alarm ein. \nNur wenn alle Schlagworte übereinstimmen wird ein Alarm ausgelöst.</string>
 
 <!-- 	Strings for the activity sound_selection -->
     <string name="title_activity_sound_selection">Alarmton Auswahl</string>
@@ -281,8 +281,7 @@
     <string name="statistics">Statistik</string>
     <string name="time_from">Zeit von</string>
     <string name="time_to">Zeit bis</string>
-    <string name="alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
-    <string name="alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
+
     <string name="general_string_button_next">Weiter</string>
     <string name="showcase_rule_name_text">Wähle einen Namen für Ihre Alarmregel.</string>
     <string name="showcase_rule_name_title">Namenwahl</string>
@@ -301,4 +300,10 @@
     <string name="dialog_trigger_already_set_text">Der Auslöser wurde bereits für dich Konfiguriert. \n\n Stelle unter Alarmeinstellungen nun ein, wie sich die App im Alarmfall verhalten soll.</string>
     <string name="saved_satistic">Foto gespeichert</string>
     <string name="statistic_for">Statistik für:</string>
+
+    <!--AlarmTimes Activity-->
+    <string name="activity_alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
+    <string name="activity_alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
+    <string name="activity_alarm_time_settings_help_dialog_title">Hilfe: Alarmzeiten</string>
+    <string name="activity_alarm_time_settings_help_dialog_text">Alarmzeiten helfen die Zeiten zu beschränken, in der die App auslöst.\n\nWenn Alarmzeiten eingestellt sind, löst die App nur innerhalb der eingestellten Zeitfenster aus.</string>
 </resources>

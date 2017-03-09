@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.util.Chips;
+package rieger.alarmsmsapp.util.chips;
 
 import android.content.Context;
 import android.view.View;

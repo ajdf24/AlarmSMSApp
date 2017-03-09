@@ -15,6 +15,7 @@ import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
@@ -109,13 +110,6 @@ public class WordSelection extends AbstractRuleActivity {
 
 	@Override
 	protected void showHelpDialog() {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		alertDialogBuilder.setTitle(R.string.activity_word_selection_help_dialog_title)
-			.setMessage(R.string.activity_word_selection_help_dialog_text)
-			.setPositiveButton(R.string.dialog_button_got_it, null);
-
-		AlertDialog helpDialog = alertDialogBuilder.create();
-		helpDialog.show();
+		DialogHelper.createHelpDialog(this, R.string.activity_word_selection_help_dialog_title, R.string.activity_word_selection_help_dialog_text, R.string.dialog_button_got_it);
 	}
 }

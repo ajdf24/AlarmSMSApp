@@ -1,4 +1,4 @@
-package rieger.alarmsmsapp.util.Chips;
+package rieger.alarmsmsapp.util.chips;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;

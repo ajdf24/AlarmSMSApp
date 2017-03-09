@@ -285,8 +285,8 @@
     <string name="statistics">Statistik</string>
     <string name="time_from">Zeit von</string>
     <string name="time_to">Zeit bis</string>
-    <string name="alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
-    <string name="alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
+    <string name="activity_alarm_time_settings_title">Wähle aus, wann die App dich Alarmieren soll.</string>
+    <string name="activity_alarm_time_settings_switch_always_alarm">Immer alarmieren</string>
     <string name="general_string_button_next">Weiter</string>
     <string name="showcase_rule_name_text">Wähle einen Namen für Ihre Alarmregel.</string>
     <string name="showcase_rule_name_title">Namenwahl</string>

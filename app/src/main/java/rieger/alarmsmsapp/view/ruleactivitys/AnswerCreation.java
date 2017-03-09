@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ObbInfo;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -30,12 +29,10 @@ import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.EMailRule;
@@ -43,8 +40,8 @@ import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
-import rieger.alarmsmsapp.util.Chips.ChipsView;
-import rieger.alarmsmsapp.util.Chips.Content;
+import rieger.alarmsmsapp.util.chips.ChipsView;
+import rieger.alarmsmsapp.util.chips.Content;
 import rieger.alarmsmsapp.util.standard.ContactsWorker;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 

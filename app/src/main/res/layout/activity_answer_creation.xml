@@ -91,7 +91,7 @@
                 android:entries="@array/distance_arrays"
                 android:prompt="@string/activity_answer_creation_spinner_for_answer_distance_prompt" />
 
-            <rieger.alarmsmsapp.util.Chips.ChipsView
+            <rieger.alarmsmsapp.util.chips.ChipsView
                 android:id="@+id/activity_answer_creation_editText_for_receiver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

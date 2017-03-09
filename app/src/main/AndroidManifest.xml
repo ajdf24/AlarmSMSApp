@@ -126,9 +126,13 @@
             android:exported="false" />
 
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.ruleactivitys.AlarmTimeSettings" />
-        <activity android:name=".view.ruleactivitys.CreateRuleFromSMS"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".view.ruleactivitys.AlarmTimeSettings"
+            android:label="@string/activity_alarm_time_settings_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ruleactivitys.CreateRuleFromSMS"></activity>
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+        App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
