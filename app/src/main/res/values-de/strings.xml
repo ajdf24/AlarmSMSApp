@@ -116,7 +116,9 @@
         wird automatisch eine Navigation gestartet.</string>
     <string name="activity_navigation_target_selection_label_editText_navigation_target">Wähle ein Navigationsziel.</string>
     <string name="activity_navigation_target_selection_editText_navigation_target_hint">Adresse</string>
-    
+    <string name="activity_navigation_target_selection_help_dialog_title">Hilfe: Navigation</string>
+    <string name="activity_navigation_target_selection_help_dialog_text">Du kannst hier ein Navigationsziel voreinstellen. \n\nBei einem Alarm wird automatisch die Navigation zu diesem Ort geöffnet.</string>
+
 <!--     Strings for the activity reading_settings -->
     <string name="title_activity_reading_settings">Automatisches Vorlesen</string>
     <string name="activity_reading_settings_description">Es ist möglich, 
@@ -190,7 +192,7 @@
     <string name="activity_light_settings_set_light_on_checkbox" >Nutze Bildschirm als Lampe</string>
     <string name="activity_light_settings_text_sipnner" >Wie lange soll der Display leuchten?</string>
     <string name="activity_light_settings_help_dialog_title">Hilfe: Lichteinstellungen</string>
-    <string name="activity_light_settings_help_dialog_text">Bei einem Alarm kann dein Display als Nachtlicht dienen. Wenn ein Alarm eingeht, wird das Display eingeschaltet und hilft die zum Beispiel im dunklen.",</string>
+    <string name="activity_light_settings_help_dialog_text">Bei einem Alarm kann dein Display als Nachtlicht dienen. Wenn ein Alarm eingeht, wird das Display eingeschaltet und hilft dier zum Beispiel im dunklen.</string>
     <string-array name="time_array">
         <item>0,5 min</item>
         <item>1 min</item>

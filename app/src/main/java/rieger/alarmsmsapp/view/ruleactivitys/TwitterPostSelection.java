@@ -26,6 +26,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 /**
  * This activity is for creating a facebook post.
  * In this activity it is possible to set all the things which are needed for the post.
+ * @deprecated
  */
 public class TwitterPostSelection extends AppCompatActivity {
 

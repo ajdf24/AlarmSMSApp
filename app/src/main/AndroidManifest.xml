@@ -76,7 +76,8 @@
             android:label="@string/title_activity_twitter_post_selection" />
         <activity
             android:name=".view.ruleactivitys.NavigationTargetSelection"
-            android:label="@string/title_activity_navigation_target_selection" />
+            android:label="@string/title_activity_navigation_target_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.ReadingSettings"
             android:label="@string/title_activity_reading_settings" />

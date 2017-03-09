@@ -19,6 +19,7 @@ import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.googleplaces.GooglePlacesAutocompleteAdapter;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
@@ -26,7 +27,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * This activity is for creating a navigation target.
  * In this activity it is possible to set all the things which are needed for the target.
  */
-public class NavigationTargetSelection extends AppCompatActivity implements OnItemClickListener{
+public class NavigationTargetSelection extends AbstractRuleActivity implements OnItemClickListener{
 
 	private static final String LOG_TAG = NavigationTargetSelection.class.getSimpleName();
 
@@ -38,13 +39,14 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
 	@Bind(R.id.activity_navigation_target_selection_button_save_navigation_target)
 	FloatingActionButton save;
 
-    /**
+	/**
      * This method is like a constructor and
      * initialize all components of the activity.
      * @param savedInstanceState
      */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.activity_navigation_target_selection);
 		super.onCreate(savedInstanceState);
 
 		rule = BundleHandler.getRuleFromBundle(this);
@@ -86,7 +88,7 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
-		setContentView(R.layout.activity_navigation_target_selection);
+
 
 		ButterKnife.bind(this);
 	}
@@ -123,5 +125,10 @@ public class NavigationTargetSelection extends AppCompatActivity implements OnIt
      */
 	private void getRuleSettingsForGUI() {
 		autoCompView.setText(rule.getNavigationTarget());
+	}
+
+	@Override
+	protected void showHelpDialog() {
+		DialogHelper.createHelpDialog(this, R.string.activity_navigation_target_selection_help_dialog_title, R.string.activity_navigation_target_selection_help_dialog_text, R.string.dialog_button_got_it);
 	}
 }

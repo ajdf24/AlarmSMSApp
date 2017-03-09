@@ -13,6 +13,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 /**
  * This class contains methods for creating a tweet on twitter.
  * Created by sebastian on 23.03.15.
+ * @deprecated
  */
 public class CreateTweet {
 
