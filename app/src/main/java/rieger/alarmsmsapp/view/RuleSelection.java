@@ -711,7 +711,7 @@ public class RuleSelection extends AppCompatActivity {
                 Uri sharedText = intent.getData();
                 String path = null;
                 try {
-                    String[] proj = { MediaStore.Images.Media.DATA };
+                    String[] proj = { MediaStore.Files.FileColumns.DATA };
                     Cursor cursor = this.getContentResolver().query(sharedText, proj, null, null, null);
                     int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                     cursor.moveToFirst();

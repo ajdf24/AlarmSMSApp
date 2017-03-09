@@ -45,6 +45,7 @@ public class RuleObserver {
      * The method saves instances of {@link rieger.alarmsmsapp.model.rules.EMailRule} and {@link rieger.alarmsmsapp.model.rules.SMSRule}
      * in different folders.
      * @param rule the instance of a {@link rieger.alarmsmsapp.model.rules.Rule} which should be saved.
+	 * @deprecated
      */
 	public static void saveRuleToFileSystem(Rule rule){
 		ObjectMapper mapper = new ObjectMapper();

@@ -1,11 +1,19 @@
 package rieger.alarmsmsapp.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.FragmentTransaction;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -17,12 +25,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -34,6 +47,7 @@ import rieger.alarmsmsapp.control.callback.RuleSelected;
 import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.control.observer.RuleObserver;
 import rieger.alarmsmsapp.model.rules.Rule;
+import rieger.alarmsmsapp.model.rules.SMSRule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.bottombar.*;
@@ -79,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         ButterKnife.bind(this);
+
+        checkForIncomingRule();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
@@ -265,16 +281,20 @@ public class MainActivity extends AppCompatActivity implements
 
 
             // Copy file to external storage
-            File publicFile = new File("/sdcard/" + selectedRule.getRuleName());
+            File publicFile = new File(Environment.getExternalStorageDirectory() + "/" + selectedRule.getRuleName() + ".txt");
             try {
-                InputStream initialStream = new FileInputStream(new File(RuleObserver.getUriFromSMSRule(selectedRule.getRuleName()).getPath()));
-                byte[] buffer = new byte[initialStream.available()];
-                initialStream.read(buffer);
+//                InputStream initialStream = new FileInputStream(new File(RuleObserver.getUriFromSMSRule(selectedRule.getRuleName()).getPath()));
+//                byte[] buffer = new byte[initialStream.available()];
+//                initialStream.read(buffer);
+//
+//                OutputStream outStream = new FileOutputStream(publicFile);
+//                outStream.write(buffer);
+//                initialStream.close();
+//                outStream.close();
 
-                OutputStream outStream = new FileOutputStream(publicFile);
-                outStream.write(buffer);
-                initialStream.close();
-                outStream.close();
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writeValue(publicFile, selectedRule);
+
             } catch (Exception e) {
                 FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "can not write to external storage");
                 FirebaseCrash.report(e);
@@ -337,5 +357,201 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void selectedRule(Rule rule) {
         selectedRule = rule;
+    }
+
+    /**
+     * This method checks the {@link Intent} for a rule.
+     * Is a rule was detected so the {@link rieger.alarmsmsapp.model.rules.Rule} is saved to the system.
+     */
+    @SuppressLint("StringFormatInvalid")
+    private void checkForIncomingRule(){
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+
+        if (Intent.ACTION_VIEW.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
+                }
+
+                Uri sharedText = intent.getData();
+                String path = getPath(sharedText);
+
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    Rule rule = mapper.readValue(new File(path), SMSRule.class);
+                    DataSource db = new DataSource(this);
+                    db.saveRule(rule);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }else{
+                Toast.makeText(this, getString(R.string.activity_rule_selection_toast_rule_received_but_error), Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+    private String getPath(final Uri uri) {
+
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        if(isKitKat) {
+            // MediaStore (and general)
+            return getForApi19(uri);
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+            // Return the remote address
+            if (isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return getDataColumn(uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
+
+        return null;
+    }
+
+    @TargetApi(19)
+    private String getForApi19(Uri uri) {
+        Log.e(LOG_TAG, "+++ API 19 URI :: " + uri);
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+            Log.e(LOG_TAG, "+++ Document URI");
+            // ExternalStorageProvider
+            if (isExternalStorageDocument(uri)) {
+                Log.e(LOG_TAG, "+++ External Document URI");
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                if ("primary".equalsIgnoreCase(type)) {
+                    Log.e(LOG_TAG, "+++ Primary External Document URI");
+                    return Environment.getExternalStorageDirectory() + "/" + split[1];
+                }
+
+                // TODO handle non-primary volumes
+            }
+            // DownloadsProvider
+            else if (isDownloadsDocument(uri)) {
+                Log.e(LOG_TAG, "+++ Downloads External Document URI");
+                final String id = DocumentsContract.getDocumentId(uri);
+                final Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                return getDataColumn(contentUri, null, null);
+            }
+            // MediaProvider
+            else if (isMediaDocument(uri)) {
+                Log.e(LOG_TAG, "+++ Media Document URI");
+                final String docId = DocumentsContract.getDocumentId(uri);
+                final String[] split = docId.split(":");
+                final String type = split[0];
+
+                Uri contentUri = null;
+                if ("image".equals(type)) {
+                    Log.e(LOG_TAG, "+++ Image Media Document URI");
+                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                } else if ("video".equals(type)) {
+                    Log.e(LOG_TAG, "+++ Video Media Document URI");
+                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                } else if ("audio".equals(type)) {
+                    Log.e(LOG_TAG, "+++ Audio Media Document URI");
+                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                }
+
+                final String selection = "_id=?";
+                final String[] selectionArgs = new String[] {
+                        split[1]
+                };
+
+                return getDataColumn(contentUri, selection, selectionArgs);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            Log.e(LOG_TAG, "+++ No DOCUMENT URI :: CONTENT ");
+
+            // Return the remote address
+            if (isGooglePhotosUri(uri))
+                return uri.getLastPathSegment();
+
+            return getDataColumn(uri, null, null);
+        }
+        // File
+        else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            Log.e(LOG_TAG, "+++ No DOCUMENT URI :: FILE ");
+            return uri.getPath();
+        }
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public String getDataColumn(Uri uri, String selection,
+                                String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 }

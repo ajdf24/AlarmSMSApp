@@ -121,8 +121,8 @@
     <orderEntry type="library" exported="" name="play-services-gass-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-25.2.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-annotations-2.6.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-cast-framework-10.2.0" level="project" />
+    <orderEntry type="library" exported="" name="jackson-annotations-2.8.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wallet-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-10.2.0" level="project" />
@@ -171,10 +171,10 @@
     <orderEntry type="library" exported="" name="play-services-vision-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-storage-10.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-core-2.2.2" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-2.6.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-api-10.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="rules-0.5" level="project" />
+    <orderEntry type="library" exported="" name="jackson-databind-2.8.7" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-messaging-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-10.2.0" level="project" />
@@ -182,7 +182,6 @@
     <orderEntry type="library" exported="" name="firebase-analytics-impl-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="eventbus-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-instantapps-10.2.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.6.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-iid-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-compat-25.2.0" level="project" />
@@ -195,6 +194,7 @@
     <orderEntry type="library" exported="" name="play-services-drive-10.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="constraint-layout-solver-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-2.8.7" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-25.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-25.2.0" level="project" />
   </component>
