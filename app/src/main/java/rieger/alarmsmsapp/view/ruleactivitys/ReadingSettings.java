@@ -3,10 +3,8 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.CheckBox;
 
 import butterknife.Bind;
@@ -16,13 +14,14 @@ import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * This activity is for creating the reading settings.
  * In this activity it is possible to set all the things which are needed for the reading.
  */
-public class ReadingSettings extends AppCompatActivity {
+public class ReadingSettings extends AbstractRuleActivity {
 
 	private static final String LOG_TAG = ReadingSettings.class.getSimpleName();
 
@@ -37,13 +36,14 @@ public class ReadingSettings extends AppCompatActivity {
 	@Bind(R.id.activity_reading_settings_button_save_read_settings)
 	FloatingActionButton save;
 
-    /**
+	/**
      * This method is like a constructor and
      * initialize all components of the activity.
      * @param savedInstanceState
      */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setContentView(R.layout.activity_reading_settings);
 		super.onCreate(savedInstanceState);
 
 		rule = BundleHandler.getRuleFromBundle(this);
@@ -69,10 +69,7 @@ public class ReadingSettings extends AppCompatActivity {
      * This method initialize the all GUI elements.
      */
 	private void initializeGUI() {
-		setContentView(R.layout.activity_reading_settings);
-
 		ButterKnife.bind(this);
-
 	}
 
     /**
@@ -105,5 +102,10 @@ public class ReadingSettings extends AppCompatActivity {
 	private void getRuleSettingsForGUI() {
 		readThisMessage.setChecked(rule.isReadThisMessage());
 		readOtherMessages.setChecked(rule.isReadOtherMessages());
+	}
+
+	@Override
+	protected void showHelpDialog() {
+		DialogHelper.createHelpDialog(this, R.string.activity_reading_settings_help_dialog_title, R.string.activity_reading_settings_help_dialog_text, R.string.dialog_button_got_it);
 	}
 }

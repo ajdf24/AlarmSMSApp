@@ -126,6 +126,8 @@
     <string name="activity_reading_settings_label_checkBoxes_reading_settings">Triff deine Wahl</string>
     <string name="activity_reading_settings_checkBox_read_this_message">Lies die Alarm-Nachricht vor</string>
     <string name="activity_reading_settings_checkBox_read_other_messages">Lies andere Nachrichten vor</string>
+    <string name="activity_reading_settings_help_dialog_title">Hilfe: Vorlesen</string>
+    <string name="activity_reading_settings_help_dialog_text">Bei einem Alarm kannst du dir zusätzlich zum Alarmton den Nachrichteninhalt vorlesen lassen. Du kannst die auch auf die AlarmSMS folgende Nachrichten vorlesen lassen.</string>
 
 <!--     Strings for the activity alarm_setting -->
 	<string name="title_activity_alarm_settings">Alarm Einstellungen</string>

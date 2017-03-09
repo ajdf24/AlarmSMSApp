@@ -80,7 +80,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.ReadingSettings"
-            android:label="@string/title_activity_reading_settings" />
+            android:label="@string/title_activity_reading_settings"
+            android:theme="@style/AppTheme.NoActionBar"  />
         <activity
             android:name=".view.AlarmSettings"
             android:label="@string/title_activity_alarm_settings" />
