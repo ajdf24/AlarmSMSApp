@@ -4,17 +4,14 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -289,6 +286,7 @@ public class RuleSettings extends AppCompatActivity {
 				activityList.add(new SoundSelection());
 				activityList.add(new AnswerCreation());
 				activityList.add(new LightSettings());
+				//will be deleted in v3.0
 //				activityList.add(new TwitterPostSelection());
 				activityList.add(new NavigationTargetSelection());
 				activityList.add(new ReadingSettings());

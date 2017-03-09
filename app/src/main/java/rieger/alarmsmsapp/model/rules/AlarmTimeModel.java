@@ -6,6 +6,7 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
+ * Model class for alarm times
  * Created by sebastian on 16.08.16.
  */
 public class AlarmTimeModel {
@@ -68,7 +69,7 @@ public class AlarmTimeModel {
     public enum Days {
         MONDAY_TO_SUNDAY, MONDAY_TO_FRIDAY, FRIDAY_TO_SUNDAY, SATURDAY_TO_SUNDAY,
         SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-        THURSDAY, FRIDAY, SATURDAY;
+        THURSDAY, FRIDAY, SATURDAY
     }
 
     public static int daysToInt(Days day){

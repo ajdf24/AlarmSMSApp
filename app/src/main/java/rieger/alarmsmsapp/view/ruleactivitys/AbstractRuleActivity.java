@@ -2,7 +2,6 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
-import butterknife.Bind;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;

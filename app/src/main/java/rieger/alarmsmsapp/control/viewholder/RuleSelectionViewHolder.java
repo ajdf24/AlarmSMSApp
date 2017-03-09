@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 
 /**
+ * ViewHolder for rule selection
  * Created by sebastian on 08.03.17.
  */
 
@@ -24,12 +25,8 @@ public class RuleSelectionViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.list_item_is_active)
     CheckBox active;
 
-    View itemView;
-
     public RuleSelectionViewHolder(View itemView) {
         super(itemView);
-
-        this.itemView = itemView;
 
         ButterKnife.bind(this, itemView);
     }
@@ -46,7 +43,4 @@ public class RuleSelectionViewHolder extends RecyclerView.ViewHolder {
         return active;
     }
 
-    public View getItemView() {
-        return itemView;
-    }
 }

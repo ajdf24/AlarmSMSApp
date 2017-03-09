@@ -1,7 +1,6 @@
 package rieger.alarmsmsapp.util.standard;
 
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;

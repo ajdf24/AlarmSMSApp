@@ -26,7 +26,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * Also the class can change a file from a {@link rieger.alarmsmsapp.model.AlarmSettingsModel}.
  *
  * Created by sebastian on 02.03.15.
- * @deprecated
+ * @deprecated delete in v3.0
  */
 public class AlarmSettingsObserver {
 

@@ -19,6 +19,7 @@ import rieger.alarmsmsapp.view.MainActivity;
 import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 /**
+ * Listener for recycler view which lists {@link Message}
  * Created by sebastian on 16.11.16.
  */
 
@@ -43,11 +44,9 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
         final Message message = messageList.get(itemPosition);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(recyclerView.getContext());
-        builder.setTitle(R.string.dialog_create_alarm_title);
-        builder.setMessage(String.format(view.getResources().getString(R.string.dialog_create_alarm_text), message.getSender()));
-
-
-        builder.setPositiveButton(R.string.general_yes, new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_create_alarm_title)
+            .setMessage(String.format(view.getResources().getString(R.string.dialog_create_alarm_text), message.getSender()))
+            .setPositiveButton(R.string.general_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 rule.setSender(message.getSender());
                 rule.notifyObserver();
@@ -62,9 +61,8 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
 
                 ((Activity) recyclerView.getContext()).finish();
             }
-        });
-
-        builder.setNegativeButton(R.string.general_string_button_quit, new DialogInterface.OnClickListener() {
+        })
+            .setNegativeButton(R.string.general_string_button_quit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 recyclerView.getContext().startActivity(new Intent().setClass(recyclerView.getContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -73,7 +71,7 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-        dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(view.getContext().getResources().getColor(R.color.my_accent));
-        dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(view.getContext().getResources().getColor(R.color.my_accent));
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(view.getContext().getResources().getColor(R.color.my_accent));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(view.getContext().getResources().getColor(R.color.my_accent));
     }
 }

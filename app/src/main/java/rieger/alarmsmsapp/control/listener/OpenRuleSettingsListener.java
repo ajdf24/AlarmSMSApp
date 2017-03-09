@@ -13,6 +13,7 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.view.ruleactivitys.RuleSettings;
 
 /**
+ * Listener for recycler view which shows {@link Rule}
  * Created by sebastian on 08.03.17.
  */
 

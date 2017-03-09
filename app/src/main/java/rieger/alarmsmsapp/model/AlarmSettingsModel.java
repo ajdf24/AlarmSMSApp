@@ -1,9 +1,5 @@
 package rieger.alarmsmsapp.model;
 
-import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
-import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-
 /**
  * A model class, which contains all settings for the alarm.
  *

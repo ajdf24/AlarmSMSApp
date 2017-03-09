@@ -3,7 +3,6 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;

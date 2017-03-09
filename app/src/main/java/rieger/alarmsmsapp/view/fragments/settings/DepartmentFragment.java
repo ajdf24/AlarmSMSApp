@@ -2,7 +2,6 @@ package rieger.alarmsmsapp.view.fragments.settings;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -21,7 +19,6 @@ import rieger.alarmsmsapp.control.database.DataSource;
 import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.util.googleplaces.GooglePlacesAutocompleteAdapter;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 
 /**

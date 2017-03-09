@@ -1,7 +1,6 @@
 package rieger.alarmsmsapp.view.fragments.bottombar;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,8 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -53,8 +49,6 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.util.standard.SpinnerUtil;
 import rieger.alarmsmsapp.view.ListMessages;
-import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
-import rieger.alarmsmsapp.view.ruleactivitys.CreateRuleFromSMS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,7 +62,7 @@ public class AlarmChart extends Fragment {
 
     private static final String LOG_TAG = AlarmChart.class.getSimpleName();
 
-    private FirebaseAnalytics mFirebaseAnalytics;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Bind(R.id.adView)
     AdView adView;
@@ -94,7 +88,6 @@ public class AlarmChart extends Fragment {
     private boolean showList = false;
 
     public AlarmChart() {
-        // Required empty public constructor
     }
 
     /**
@@ -119,7 +112,7 @@ public class AlarmChart extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_alarm_chart, container, false);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext());
+        firebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext());
 
         ButterKnife.bind(this, view);
 
@@ -313,7 +306,7 @@ public class AlarmChart extends Fragment {
         protected void onPostExecute(ArrayList<BarEntry> result) {
             super.onPostExecute(result);
 
-            mFirebaseAnalytics.logEvent("show_statistics", null);
+            firebaseAnalytics.logEvent("show_statistics", null);
 
             progressBar.setVisibility(View.INVISIBLE);
             saveChart.setEnabled(true);

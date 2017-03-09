@@ -14,12 +14,12 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.control.adapter.AlarmTimeAdapter;
 import rieger.alarmsmsapp.control.callback.AlarmTimeCallback;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
 
 /**
+ * ViewHolder for alarm times
  * Created by sebastian on 16.08.16.
  */
 public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements TimePickerDialog.OnTimeSetListener{
@@ -91,24 +91,12 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
         return timeFrom;
     }
 
-    public void setTimeFrom(EditText timeFrom) {
-        this.timeFrom = timeFrom;
-    }
-
     public EditText getTimeTo() {
         return timeTo;
     }
 
-    public void setTimeTo(EditText timeTo) {
-        this.timeTo = timeTo;
-    }
-
     public Spinner getDays() {
         return days;
-    }
-
-    public void setDays(Spinner days) {
-        this.days = days;
     }
 
     public View getView() {
@@ -125,10 +113,6 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                     break;
                 }
                 timeFrom.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
-                if(timeFrom.getText() != null){
-//                    if(((AlarmTimeAdapter)callback).errors > 0)
-//                        ((AlarmTimeAdapter)callback).errors--;
-                }
                 timeFrom.setError(null);
                 timeFiled = null;
                 callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELED_FROM, getAdapterPosition(), hourOfDay, minute, days.getSelectedItemPosition());
@@ -139,10 +123,6 @@ public class AlarmTimeViewHolder extends RecyclerView.ViewHolder implements Time
                     break;
                 }
                 timeTo.setText(AlarmTimeModel.timeToString(hourOfDay, minute));
-                if(timeTo.getText() != null){
-//                    if(((AlarmTimeAdapter)callback).errors > 0)
-//                        ((AlarmTimeAdapter)callback).errors--;
-                }
                 timeTo.setError(null);
                 timeFiled = null;
                 callback.alarmTimeCallBack(AppConstants.CallBacks.TIMEFIELD_TO, getAdapterPosition(), hourOfDay, minute, days.getSelectedItemPosition());

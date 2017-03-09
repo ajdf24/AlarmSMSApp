@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 
 
 /**
+ * Helper class for creating dialogs
  * Created by sebastian on 09.03.17.
  */
 

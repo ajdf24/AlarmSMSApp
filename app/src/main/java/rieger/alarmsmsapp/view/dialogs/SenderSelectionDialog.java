@@ -28,8 +28,6 @@ public class SenderSelectionDialog extends DialogFragment {
     @Bind(R.id.dialog_help_sender_selection_button_got_it)
     Button buttonGotIt;
 
-    private OnFragmentInteractionListener mListener;
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.

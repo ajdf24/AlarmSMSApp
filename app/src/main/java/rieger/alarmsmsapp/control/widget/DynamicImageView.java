@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
+ * ImageView which scales a picture to the correct size
  * Created by sebastian on 07.04.16.
  */
 public class DynamicImageView extends ImageView {

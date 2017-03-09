@@ -14,8 +14,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
-import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.viewholder.AlarmTimeViewHolder;
 import rieger.alarmsmsapp.control.viewholder.SoundSelectionViewHolder;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.Sound;
@@ -29,11 +27,11 @@ public class SoundSelectionAdapter extends RecyclerView.Adapter<SoundSelectionVi
 
     private final String LOG_TAG = getClass().getSimpleName();
 
-    List<Sound> soundList;
+    private List<Sound> soundList;
 
-    Rule rule;
+    private Rule rule;
 
-    View itemView;
+    private View itemView;
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -120,9 +118,6 @@ public class SoundSelectionAdapter extends RecyclerView.Adapter<SoundSelectionVi
     @Override
     public int getItemCount() {
         return soundList.size();
-    }
-
-    public void onSelectItem(){
     }
 
     public void stopMediaPlayer(){

@@ -12,6 +12,9 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.BundleHandler;
 
+/**
+ * Clear activity as light
+ */
 public class LightActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = LightActivity.class.getSimpleName();
@@ -37,13 +40,6 @@ public class LightActivity extends AppCompatActivity {
 
                 }
                 finish();
-
-                //TODO:Keyguard einschalten!!!
-//                KeyguardManager keyguardManager = (KeyguardManager) CreateContextForResource.getContext()
-//                        .getSystemService(Context.KEYGUARD_SERVICE);
-//                final KeyguardManager.KeyguardLock keyguardLock = keyguardManager
-//                        .newKeyguardLock(AppConstants.KEYGUARD_LOCK_NAME);
-//                keyguardLock.reenableKeyguard();
 
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
                 startMain.addCategory(Intent.CATEGORY_HOME);

@@ -6,14 +6,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
-import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.crash.FirebaseCrash;
@@ -23,6 +21,7 @@ import java.util.List;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.callback.ActionCallback;
 import rieger.alarmsmsapp.control.callback.AlarmTimeCallback;
+import rieger.alarmsmsapp.control.listener.OnShowcaseEventListener;
 import rieger.alarmsmsapp.control.viewholder.AlarmTimeViewHolder;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -56,7 +55,6 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
         this.callback = callback;
     }
 
-    // Allows to remember the last item shown on screen
     private int lastPosition = -1;
 
     /**
@@ -101,7 +99,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
     public void onRemoveItem(final int position){
         alarmTimes.remove(position);
         if(alarmTimes.size() == 0){
-            callback.actionCallBack(AppConstants.CallBacks.REMOVE_TIME_CALLBACK);
+            callback.actionCallback(AppConstants.CallBacks.REMOVE_TIME_CALLBACK);
             firstStart = true;
         }
         lastPosition--;
@@ -148,23 +146,8 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
                 showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
                 showcaseView.setOnShowcaseEventListener(new OnShowcaseEventListener() {
                     @Override
-                    public void onShowcaseViewHide(ShowcaseView showcaseView) {
-
-                    }
-
-                    @Override
                     public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
-                        callback.actionCallBack(AppConstants.CallBacks.SHOW_SHOW_CASE_VIEW_NEW_ALARM_TIME);
-                    }
-
-                    @Override
-                    public void onShowcaseViewShow(ShowcaseView showcaseView) {
-
-                    }
-
-                    @Override
-                    public void onShowcaseViewTouchBlocked(MotionEvent motionEvent) {
-
+                        callback.actionCallback(AppConstants.CallBacks.SHOW_SHOW_CASE_VIEW_NEW_ALARM_TIME);
                     }
                 });
 
@@ -209,7 +192,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
 
     /**
      * getter for all alarm times
-     * @return
+     * @return list of alarm times
      */
     public List<AlarmTimeModel> getAlarmTimes() {
         return alarmTimes;

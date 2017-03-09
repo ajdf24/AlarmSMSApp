@@ -114,7 +114,6 @@ public interface AppConstants {
      * Ints, which are the ids for all permissions.
      */
     interface PermissionsIDs{
-        int PERMISSION_ID_FOR_ALL = 0;
         int PERMISSION_ID_FOR_SMS = 1;
         int PERMISSION_ID_FOR_CONTACTS = 2;
         int PERMISSION_ID_FOR_LOCATION = 3;
@@ -126,9 +125,7 @@ public interface AppConstants {
         String FIRST_SHOW_CREATE_RULE = "First Create Rule";
         String FIRST_SHOW_CREATE_RULE_SAVE = "First Create Rule Save";
         String FIRST_SHOW_SETTINGS = "First show settings";
-        String FIRST_SHOW_RULES = "First show rules";
         String FIRST_SHOW_ALARM_TIME_LIST = "First show alarm time list";
-        String FIRST_SHOW_STATISTIC_YEAR = "First show statistic year";
         String FIRST_SHOW_HELP = "First show help";
     }
 
@@ -138,6 +135,8 @@ public interface AppConstants {
         String DEPARTMENT_EXPLANATION_FRAGMENT = "DepartmentExplanationFragment";
         String DEPARTMENT_FRAGMENT = "DepartmentFragment";
         String READY_FRAGMENT = "ReadyFragment";
+        String RULE_SELECTION_FRAGMENT = "RuleSelectionFragment";
+        String ALARM_CHART_FRAGMENT = "AlarmChartFragment";
     }
 
 }

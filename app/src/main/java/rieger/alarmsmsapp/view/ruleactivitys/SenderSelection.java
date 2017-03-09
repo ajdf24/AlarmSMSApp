@@ -112,32 +112,9 @@ public class SenderSelection extends AbstractRuleActivity implements SenderSelec
 
 	}
 
-	public static String getContactName(Context context, String phoneNumber) {
-		ContentResolver cr = context.getContentResolver();
-		Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
-		Cursor cursor = cr.query(uri, new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME}, null, null, null);
-		if (cursor == null) {
-			return null;
-		}
-		String contactName = null;
-		if(cursor.moveToFirst()) {
-			contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME));
-		}
-
-		if(cursor != null && !cursor.isClosed()) {
-			cursor.close();
-		}
-
-		return contactName;
-	}
-
-
 	@Override
 	protected void showHelpDialog() {
 
-		// DialogFragment.show() will take care of adding the fragment
-		// in a transaction.  We also want to remove any currently showing
-		// dialog, so make our own transaction and take care of that here.
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		Fragment prev = getFragmentManager().findFragmentByTag("dialog");
 		if (prev != null) {
@@ -145,7 +122,6 @@ public class SenderSelection extends AbstractRuleActivity implements SenderSelec
 		}
 		ft.addToBackStack(null);
 
-		// Create and show the dialog.
 		DialogFragment newFragment = SenderSelectionDialog.newInstance();
 		newFragment.show(ft, "dialog");
 	}
@@ -315,7 +291,6 @@ public class SenderSelection extends AbstractRuleActivity implements SenderSelec
 			} catch (Exception e) {
 				Log.e(LOG_TAG, "Failed to get email data", e);
 			} finally {
-//				sender.setText(mailAddress);
 				if (mailCursor != null) {
 					mailCursor.close();
 				}

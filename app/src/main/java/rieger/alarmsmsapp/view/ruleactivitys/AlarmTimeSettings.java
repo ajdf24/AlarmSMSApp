@@ -2,12 +2,10 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,7 +24,6 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.callback.ActionCallback;
 import rieger.alarmsmsapp.control.adapter.AlarmTimeAdapter;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.viewholder.AlarmTimeViewHolder;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
@@ -193,7 +190,7 @@ public class AlarmTimeSettings extends AbstractRuleActivity implements ActionCal
     }
 
     @Override
-    public void actionCallBack(String identifier) {
+    public void actionCallback(String identifier) {
 
         switch (identifier){
             case AppConstants.CallBacks.REMOVE_TIME_CALLBACK:

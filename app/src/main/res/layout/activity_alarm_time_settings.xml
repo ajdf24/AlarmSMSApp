@@ -53,26 +53,27 @@
             android:layout_below="@+id/activity_alarm_time_settings_switch"
             android:layout_marginTop="10dp" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_alarm_time_settings_new_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/activity_alarm_time_settings_cardview"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_add"
-            android:visibility="invisible" />
+    </RelativeLayout>
 
-        </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_alarm_time_settings_new_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_add"
+        android:visibility="invisible" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_alarm_time_settings_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_done" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activity_alarm_time_settings_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_done" />
 
 
 </RelativeLayout>

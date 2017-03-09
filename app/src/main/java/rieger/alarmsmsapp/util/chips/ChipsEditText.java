@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 /**
+ * Edit text field for chips
  * Created by sebastian on 30.12.16.
  */
 

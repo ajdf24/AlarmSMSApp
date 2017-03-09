@@ -1,25 +1,11 @@
 package rieger.alarmsmsapp.view;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +15,6 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.adapter.MessageListAdapter;
 import rieger.alarmsmsapp.model.Message;
 import rieger.alarmsmsapp.util.AppConstants;
-import rieger.alarmsmsapp.util.standard.ContactsWorker;
-import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class ListMessages extends AppCompatActivity {
 

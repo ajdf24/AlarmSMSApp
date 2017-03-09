@@ -11,10 +11,6 @@ public class DepartmentSettingsModel {
     public DepartmentSettingsModel() {
     }
 
-    public DepartmentSettingsModel(String address) {
-        this.address = address;
-    }
-
     /**
      *
      * @return the address

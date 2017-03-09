@@ -32,7 +32,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * This class saves the instances of the class {@link Rule} in a JSON based file.
  * Also the class can remove or change a file from a {@link rieger.alarmsmsapp.model.rules.Rule}.
  * @author sebastian
- *
+ * @deprecated will be deleted in v3.0
  */
 
 public class RuleObserver {

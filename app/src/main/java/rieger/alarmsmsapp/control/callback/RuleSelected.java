@@ -5,6 +5,7 @@ import java.io.Serializable;
 import rieger.alarmsmsapp.model.rules.Rule;
 
 /**
+ * Callback for rule selection
  * Created by sebastian on 08.03.17.
  */
 

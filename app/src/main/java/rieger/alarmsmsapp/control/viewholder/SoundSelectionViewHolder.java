@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 
 /**
+ * ViewHolder for sound selection
  * Created by sebastian on 13.10.16.
  */
 

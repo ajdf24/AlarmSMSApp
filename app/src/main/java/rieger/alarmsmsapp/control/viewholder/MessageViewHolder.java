@@ -9,6 +9,7 @@ import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 
 /**
+ * ViewHolder for messages
  * Created by sebastian on 16.11.16.
  */
 

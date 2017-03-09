@@ -8,7 +8,6 @@ import android.util.Log;
 import com.google.firebase.crash.FirebaseCrash;
 
 import rieger.alarmsmsapp.control.receiver.worker.AlarmSoundPlayer;
-import rieger.alarmsmsapp.util.AppConstants;
 
 /**
  * Created by sebastian on 23.03.16.

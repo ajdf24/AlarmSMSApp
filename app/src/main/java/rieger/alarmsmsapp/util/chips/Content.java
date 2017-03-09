@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import java.io.Serializable;
 
 /**
+ * content for chips
  * Created by sebastian on 30.12.16.
  */
 

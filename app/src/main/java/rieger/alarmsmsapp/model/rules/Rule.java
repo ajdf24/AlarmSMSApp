@@ -32,7 +32,7 @@ public abstract class Rule implements Serializable{
 
 	protected String notOccurredWords;
 
-	protected Sound alarmSoundUri;
+	protected Sound alarmSoundUri = new Sound();
 
 	protected AnswerBundle automaticallyAnswer;
 

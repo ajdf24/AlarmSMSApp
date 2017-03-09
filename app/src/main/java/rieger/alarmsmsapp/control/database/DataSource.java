@@ -2,7 +2,6 @@ package rieger.alarmsmsapp.control.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,15 +17,12 @@ import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.rules.AnswerBundle;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.model.rules.SMSRule;
-import rieger.alarmsmsapp.view.AlarmSettings;
 
 /**
- * Data source  for the all local app data.
+ * Data source for the all local app data.
  * Created by sebastian on 14.08.16.
  */
 public class DataSource {
-
-    private boolean innerDelete = false;
 
     private boolean isConnected = false;
 
@@ -99,8 +95,8 @@ public class DataSource {
             DatabaseHelper.COLUMN_DAYS,
             DatabaseHelper.COLUMN_START_TIME_MINUTES,
             DatabaseHelper.COLUMN_START_TIME_HOURS,
-            DatabaseHelper.COULMN_END_TIME_MINUTES,
-            DatabaseHelper.COULMN_END_TIME_HOURS
+            DatabaseHelper.COLUMN_END_TIME_MINUTES,
+            DatabaseHelper.COLUMN_END_TIME_HOURS
     };
 
     /**
@@ -139,8 +135,6 @@ public class DataSource {
 
         int ruleID = getRuleId(rule);
 
-//        deleteRule(rule);
-
         values.put(DatabaseHelper.COLUMN_RULE_NAME, rule.getRuleName());
         values.put(DatabaseHelper.COLUMN_SENDER, rule.getSender());
         values.put(DatabaseHelper.COLUMN_OCCURRED_WORDS, rule.getOccurredWords());
@@ -155,7 +149,6 @@ public class DataSource {
             values.put(DatabaseHelper.COLUMN_INTERNAL_SOUND, 0);
         }
         if(rule.getAutomaticallyAnswer() != null) {
-//            values.put(DatabaseHelper.COLUMN_ANSWER_RECEIVER, rule.getAutomaticallyAnswer().getReceiver());
             values.put(DatabaseHelper.COLUMN_ANSWER_MESSAGE, rule.getAutomaticallyAnswer().getMessage());
             values.put(DatabaseHelper.COLUMN_ANSWER_DISTANCE, rule.getAutomaticallyAnswer().getDistance());
         }
@@ -172,7 +165,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Rule newRule = null;
+        Rule newRule;
         if(ruleID == -1) {
             long insertId = database.insert(DatabaseHelper.TABLE_RULES, "",
                     values);
@@ -235,7 +228,7 @@ public class DataSource {
             open();
         }
 
-        database.delete(helper.TABLE_RULES, helper.COLUMN_RULE_NAME
+        database.delete(DatabaseHelper.TABLE_RULES, DatabaseHelper.COLUMN_RULE_NAME
                 + " = ?" , new String[]{rule.getRuleName()});
 
         if(isConnected) {
@@ -308,7 +301,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_DEPARTMENT_SETTINGS, allColumnsDepartment, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_DEPARTMENT_SETTINGS, allColumnsDepartment, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -329,7 +322,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        database.delete(helper.TABLE_DEPARTMENT_SETTINGS, helper.COLUMN_DEPARTMENT_ADDRESS
+        database.delete(DatabaseHelper.TABLE_DEPARTMENT_SETTINGS, DatabaseHelper.COLUMN_DEPARTMENT_ADDRESS
                 + " = ?" , new String[]{department.getAddress()});
         if(isConnected) {
             close();
@@ -403,7 +396,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -424,7 +417,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_MESSAGES, allColumnsMessage, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -446,7 +439,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        Cursor cursor = database.query(helper.TABLE_ALARM_SETTINGS, allColumnsAlarm, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_ALARM_SETTINGS, allColumnsAlarm, null, null, null, null, null);
 
         cursor.moveToFirst();
         AlarmSettingsModel alarm = cursorToAlarm(cursor);
@@ -462,7 +455,7 @@ public class DataSource {
         if(!isConnected) {
             open();
         }
-        database.delete(helper.TABLE_ALARM_SETTINGS, null , null);
+        database.delete(DatabaseHelper.TABLE_ALARM_SETTINGS, null , null);
         if(isConnected) {
             close();
         }
@@ -475,7 +468,7 @@ public class DataSource {
             open();
         }
 
-        Cursor cursor = database.query(helper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = " + getRuleId(rule), null, null, null, null);
+        Cursor cursor = database.query(DatabaseHelper.TABLE_ALARM_TIMES, allCollumnsAllarmTimes, DatabaseHelper.COLUMN_RULE_FOREIGN_KEY + " = " + getRuleId(rule), null, null, null, null);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()){
@@ -503,8 +496,8 @@ public class DataSource {
         values.put(DatabaseHelper.COLUMN_DAYS, AlarmTimeModel.daysToInt(alarmTime.getDay()));
         values.put(DatabaseHelper.COLUMN_START_TIME_MINUTES, alarmTime.getStartTimeMinutes());
         values.put(DatabaseHelper.COLUMN_START_TIME_HOURS, alarmTime.getStartTimeHours());
-        values.put(DatabaseHelper.COULMN_END_TIME_MINUTES, alarmTime.getEndTimeMinutes());
-        values.put(DatabaseHelper.COULMN_END_TIME_HOURS, alarmTime.getEndTimeHours());
+        values.put(DatabaseHelper.COLUMN_END_TIME_MINUTES, alarmTime.getEndTimeMinutes());
+        values.put(DatabaseHelper.COLUMN_END_TIME_HOURS, alarmTime.getEndTimeHours());
         long insertId = database.insert(DatabaseHelper.TABLE_ALARM_TIMES, "",
                 values);
 
@@ -538,11 +531,11 @@ public class DataSource {
         }
     }
 
-    public int getRuleId(Rule rule){
+    private int getRuleId(Rule rule){
         if(!isConnected) {
             open();
         }
-        Cursor cursorRule = database.query(helper.TABLE_RULES, new String[]{helper.COLUMN_ID}, helper.COLUMN_RULE_NAME + " = ? ", new String[]{rule.getRuleName()}, null, null, null);
+        Cursor cursorRule = database.query(DatabaseHelper.TABLE_RULES, new String[]{DatabaseHelper.COLUMN_ID}, DatabaseHelper.COLUMN_RULE_NAME + " = ? ", new String[]{rule.getRuleName()}, null, null, null);
 
         cursorRule.moveToFirst();
         int ruleID = cursorToRuleID(cursorRule);
@@ -551,7 +544,7 @@ public class DataSource {
         return ruleID;
     }
 
-    public Message cursorToMessage(Cursor cursor){
+    private Message cursorToMessage(Cursor cursor){
         Message message = new Message();
 
         message.setSender(cursor.getString(1));
@@ -566,12 +559,12 @@ public class DataSource {
         return message;
     }
 
-    public String cursorToRuleForReceiver(Cursor cursor){
+    private String cursorToRuleForReceiver(Cursor cursor){
 
         return cursor.getString(2);
     }
 
-    public Rule cursorToRule(Cursor cursor){
+    private Rule cursorToRule(Cursor cursor){
         Rule rule = new SMSRule();
 
         rule.setRuleName(cursor.getString(1));
@@ -600,7 +593,7 @@ public class DataSource {
         return rule;
     }
 
-    public DepartmentSettingsModel cursorToDepartment(Cursor cursor){
+    private DepartmentSettingsModel cursorToDepartment(Cursor cursor){
         DepartmentSettingsModel department = new DepartmentSettingsModel();
 
         department.setAddress(cursor.getString(1));
@@ -608,7 +601,7 @@ public class DataSource {
         return department;
     }
 
-    public AlarmSettingsModel cursorToAlarm(Cursor cursor){
+    private AlarmSettingsModel cursorToAlarm(Cursor cursor){
         AlarmSettingsModel alarmSettingsModel = new AlarmSettingsModel();
 
         try {
@@ -626,7 +619,7 @@ public class DataSource {
         return  alarmSettingsModel;
     }
 
-    public AlarmTimeModel cursorToAlarmTime(Cursor cursor){
+    private AlarmTimeModel cursorToAlarmTime(Cursor cursor){
         AlarmTimeModel alarmTimeModel = new AlarmTimeModel();
 
         try {
@@ -638,21 +631,19 @@ public class DataSource {
             alarmTimeModel.setEndTimeHours(cursor.getInt(6));
         }catch (IndexOutOfBoundsException e){
             alarmTimeModel = null;
-        }finally {
-            return alarmTimeModel;
         }
+        return alarmTimeModel;
     }
 
-    public int cursorToRuleID(Cursor cursor){
+    private int cursorToRuleID(Cursor cursor){
 
-        int id = 0;
+        int id;
 
         try {
             id = cursor.getInt(0);
         }catch (IndexOutOfBoundsException e){
             id = -1;
-        }finally {
-            return id;
         }
+        return id;
     }
 }

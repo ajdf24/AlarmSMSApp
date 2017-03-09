@@ -277,6 +277,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
     /**
      * This method reads the alarm settings.
+     * <note>will be changed in v3.0</note>
      */
     private void readSettings(Context context){
 

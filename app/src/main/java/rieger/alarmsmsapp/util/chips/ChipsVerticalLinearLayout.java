@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * linear layout for chips
  * Created by sebastian on 30.12.16.
  */
 
@@ -86,11 +87,11 @@ public class ChipsVerticalLinearLayout extends LinearLayout {
         removeAllViews();
     }
 
-    public static class TextLineParams {
-        public int row;
-        public int lineMargin;
+    static class TextLineParams {
+        int row;
+        int lineMargin;
 
-        public TextLineParams(int row, int lineMargin) {
+        TextLineParams(int row, int lineMargin) {
             this.row = row;
             this.lineMargin = lineMargin;
         }

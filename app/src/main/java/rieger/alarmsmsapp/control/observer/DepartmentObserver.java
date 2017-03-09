@@ -16,7 +16,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Created by sebastian on 04.03.15.
- * @deprecated
+ * @deprecated will be deleted in v3.0
  */
 public class DepartmentObserver {
 

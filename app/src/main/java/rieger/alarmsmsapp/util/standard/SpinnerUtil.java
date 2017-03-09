@@ -3,6 +3,7 @@ package rieger.alarmsmsapp.util.standard;
 import android.widget.Spinner;
 
 /**
+ * Helper class for {@link Spinner}
  * Created by sebastian on 29.12.16.
  */
 public class SpinnerUtil {

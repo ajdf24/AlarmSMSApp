@@ -1,26 +1,15 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,7 +22,6 @@ import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.adapter.SoundSelectionAdapter;
 import rieger.alarmsmsapp.control.eventbus.BusProvider;
-import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.control.services.SoundService;
 import rieger.alarmsmsapp.model.rules.Sound;
 import rieger.alarmsmsapp.model.events.SoundEvent;
@@ -51,10 +39,6 @@ public class SoundSelection extends AbstractRuleActivity {
     private static final String LOG_TAG = SoundSelection.class.getSimpleName();
 
 	private Rule rule;
-
-	private List<Sound> soundList = new ArrayList<Sound>();
-
-	private Sound selectedSound;
 
 	@Bind(R.id.activity_sound_selection_listView)
 	RecyclerView listView;

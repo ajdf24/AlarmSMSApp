@@ -43,6 +43,7 @@ import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.util.standard.ContactsWorker;
 
 /**
+ * View for chips
  * Created by sebastian on 30.12.16.
  */
 

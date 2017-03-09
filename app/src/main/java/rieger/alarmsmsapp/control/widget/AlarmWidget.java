@@ -10,15 +10,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
 import rieger.alarmsmsapp.R;
 import rieger.alarmsmsapp.control.database.DataSource;
-import rieger.alarmsmsapp.control.observer.AlarmSettingsObserver;
 import rieger.alarmsmsapp.model.AlarmSettingsModel;
-import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-import rieger.alarmsmsapp.view.AlarmSettings;
+import rieger.alarmsmsapp.view.MainActivity;
 
 /**
  * Controler class for the alarm widget.
@@ -32,6 +31,8 @@ public class AlarmWidget extends AppWidgetProvider {
 
     static AlarmSettingsModel alarmSettingsModel = null;
 
+    FirebaseAnalytics firebaseAnalytics;
+
     /**
      *
      * @param context
@@ -41,6 +42,9 @@ public class AlarmWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context);
+        firebaseAnalytics.logEvent("AlarmWidget_used", null);
 
         remoteViews = new RemoteViews( context.getPackageName(), R.layout.widget_activate_alarm );
         watchWidget = new ComponentName( context, AlarmWidget.class );
@@ -137,7 +141,7 @@ public class AlarmWidget extends AppWidgetProvider {
         alarmSettingsModel = db.getAlarm();
 
         if(alarmSettingsModel == null){
-            CreateContextForResource.getContext().startActivity(new Intent(CreateContextForResource.getContext(), AlarmSettings.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            CreateContextForResource.getContext().startActivity(new Intent(CreateContextForResource.getContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

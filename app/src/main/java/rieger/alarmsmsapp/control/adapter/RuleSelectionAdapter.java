@@ -27,13 +27,13 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 public class RuleSelectionAdapter extends RecyclerView.Adapter<RuleSelectionViewHolder> {
 
-    View itemView;
+    private View itemView;
 
-    List<Rule> ruleList;
+    private List<Rule> ruleList;
 
-    OpenRuleSettingsListener openRuleSettingsListener;
+    private OpenRuleSettingsListener openRuleSettingsListener;
 
-    RuleSelected callback;
+    private RuleSelected callback;
 
     public RuleSelectionAdapter(RuleSelected callback, List<Rule> ruleList, OpenRuleSettingsListener openRuleSettingsListener) {
         this.ruleList = ruleList;

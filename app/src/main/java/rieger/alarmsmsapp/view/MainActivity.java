@@ -30,14 +30,8 @@ import android.widget.Toast;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.crash.FirebaseCrash;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 
 import butterknife.Bind;
@@ -102,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements
 
         ruleSelection = rieger.alarmsmsapp.view.fragments.bottombar.RuleSelection.newInstance(this);
 
-        ft.add(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
+        ft.add(R.id.fragment_container, ruleSelection, AppConstants.Fragments.RULE_SELECTION_FRAGMENT);
         ft.commit();
 
     }
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     ruleSelection = RuleSelection.newInstance(MainActivity.this);
 
-                    ft.replace(R.id.fragment_container, ruleSelection, "RuleSelectionFragment");
+                    ft.replace(R.id.fragment_container, ruleSelection, AppConstants.Fragments.RULE_SELECTION_FRAGMENT);
                     ft.commit();
                     currentFragment = 0;
 
@@ -139,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     alarmSettings = new AlarmSettingsFragment();
 
-                    ft.replace(R.id.fragment_container, alarmSettings, "AlarmSettingsFragment");
+                    ft.replace(R.id.fragment_container, alarmSettings, AppConstants.Fragments.ALARM_SETTINGS_FRAGMENT);
                     ft.commit();
                     currentFragment = 1;
 
@@ -150,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     departmentSettings = new DepartmentFragment();
 
-                    ft.replace(R.id.fragment_container, departmentSettings, "DepartmentSettingsFragment");
+                    ft.replace(R.id.fragment_container, departmentSettings, AppConstants.Fragments.DEPARTMENT_FRAGMENT);
                     ft.commit();
                     currentFragment = 2;
 
@@ -162,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements
 
                     alarmChart = new AlarmChart();
 
-                    ft.replace(R.id.fragment_container, alarmChart, "AlarmChartFragment");
+                    ft.replace(R.id.fragment_container, alarmChart, AppConstants.Fragments.ALARM_CHART_FRAGMENT);
                     ft.commit();
                     currentFragment = 3;
 
@@ -318,10 +312,6 @@ public class MainActivity extends AppCompatActivity implements
             return false;
         }
         return true;
-    }
-
-    public void onFragmentInteraction(Rule rule){
-        selectedRule = rule;
     }
 
     @Override

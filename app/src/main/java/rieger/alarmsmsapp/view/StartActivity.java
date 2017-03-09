@@ -42,7 +42,7 @@ import rieger.alarmsmsapp.model.DepartmentSettingsModel;
 import rieger.alarmsmsapp.model.SettingsNotFoundException;
 import rieger.alarmsmsapp.model.Version;
 import rieger.alarmsmsapp.model.rules.Rule;
-import rieger.alarmsmsapp.util.AnimationListener;
+import rieger.alarmsmsapp.control.listener.AnimationListener;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
@@ -83,7 +83,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         ButterKnife.bind(this);
 
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS},
                 AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
@@ -91,7 +91,6 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
         if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, true)) {
-            // run your one time code
 
             checkVersionAndUpdate();
 
@@ -220,6 +219,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
     /**
      * Check if an old version was found.
      * If the settings from a former version was found the method import this this to the database.
+     * @deprecated will be deleted in v3.0
      */
     private void checkVersionAndUpdate() {
         int id = 0;

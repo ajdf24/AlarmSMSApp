@@ -35,6 +35,7 @@ import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 import rieger.alarmsmsapp.view.ruleactivitys.SoundSelection;
 
 /**
+ * Fragment for rule selection
  * Created by sebastian on 08.03.17.
  */
 
@@ -155,7 +156,7 @@ public class RuleSelection extends Fragment {
     private void checkAlarmSounds() {
 
         for (final Rule rule : ruleList) {
-            if (rule.getAlarmSoundUri().getIdForSound().isEmpty()) {
+            if (rule.getAlarmSoundUri().getIdForSound() != null && rule.getAlarmSoundUri().getIdForSound().isEmpty()) {
                 Snackbar snackbar = Snackbar
                         .make(relativeLayout, getString(R.string.activity_rule_selection_snackbar_label, rule.getRuleName()), Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction(R.string.activity_rule_selection_snackbar_button, new View.OnClickListener() {

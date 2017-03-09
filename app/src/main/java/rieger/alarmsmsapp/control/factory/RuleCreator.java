@@ -10,7 +10,7 @@ import rieger.alarmsmsapp.model.rules.SMSRule;
 /**
  * Factory class, which can create and change a {@link Rule}.
  * @author sebastian
- *
+ * @deprecated
  */
 public class RuleCreator {
 
@@ -20,6 +20,7 @@ public class RuleCreator {
      * @param type the type of the rule as instance of {@link RuleType}
 	 * @return a instance of the given {@link Rule} like {@link SMSRule} or <code>null</code> when
      * the {@link RuleType} is not implemented in this class.
+	 * @deprecated
 	 */
 	public static Rule createRule(String name, RuleType type) {
 		switch (type) {
@@ -46,7 +47,8 @@ public class RuleCreator {
 	 * Adds a String to the rule, which contains an identifier like a phonenumber or a mail-address.
      * @param rule the {@link rieger.alarmsmsapp.model.rules.Rule}, which should be changed
      * @param identifierString the identifier from the sender
-     */
+	 * @deprecated
+	 */
 	public static void changeSender(Rule rule, String identifierString) {
 		rule.setSender(identifierString);
 		rule.notifyObserver();
@@ -57,7 +59,8 @@ public class RuleCreator {
      * @param rule the {@link rieger.alarmsmsapp.model.rules.Rule}, which should be changed
      * @param occurredWords a {@link String} with the occured words.
      * @param notOccurredWords a {@link String} with the words which should not occured.
-     */
+	 * @deprecated
+	 */
 	public static void changeWords(Rule rule, String occurredWords, String notOccurredWords) {
 		rule.setOccurredWords(occurredWords);
 		rule.setNotOccurredWords(notOccurredWords);
@@ -68,6 +71,7 @@ public class RuleCreator {
 	 * This method changes a alarm sound to the rule, which should be played.
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param soundUri the {@link String} of the sound.
+	 * @deprecated
 	 */
 	public static void changeAlarmSound(Rule rule, Sound soundUri) {
 		rule.setAlarmSound(soundUri);
@@ -78,6 +82,7 @@ public class RuleCreator {
 	 * Changes a automatically answer to the rule.
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param answer the answer which should be send
+	 * @deprecated
 	 */
 	public static void changeAutomaticallyAnswer(Rule rule, AnswerBundle answer) {
 		rule.setAutomaticallyAnswer(answer);
@@ -89,6 +94,7 @@ public class RuleCreator {
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param message the message, which should posted
 	 * @param addMessage true, if the message should add to the post
+	 * @deprecated
 	 */
 	public static void changeFacebookPost(Rule rule, String message, boolean addMessage) {
 		rule.setMessageToPostOnTwitter(message);
@@ -100,6 +106,7 @@ public class RuleCreator {
 	 * Changes the rule a navigation target.
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param target the target for the navigation
+	 * @deprecated
 	 */
 	public static void changeNavigationTarget(Rule rule, String target) {
 		rule.setNavigationTarget(target);
@@ -111,6 +118,7 @@ public class RuleCreator {
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param readThisMessage the value if this message should read
 	 * @param readOtherMessages the value if other messages should read
+	 * @deprecated
 	 */
 	public static void changeReadingSettings(Rule rule, boolean readThisMessage, boolean readOtherMessages){
 		rule.setReadThisMessage(readThisMessage);
@@ -122,12 +130,20 @@ public class RuleCreator {
 	 * Changes the active status of the rule.
 	 * @param rule the {@link Rule}, which should be changed
 	 * @param active the value if the rule active
+	 * @deprecated
 	 */
 	public static void changeActive(Rule rule, boolean active){
 		rule.setActive(active);
 		rule.notifyObserver();
 	}
 
+	/**
+	 * @deprecated
+	 * @param rule
+	 * @param activateLight
+	 * @param lightTime
+	 * @param activateOnlyWhenDark
+	 */
 	public static void changeLightSettings(Rule rule, boolean activateLight, int lightTime, boolean activateOnlyWhenDark){
 		rule.setActivateLightOnlyWhenDark(activateOnlyWhenDark);
 		rule.setActivateLight(activateLight);
