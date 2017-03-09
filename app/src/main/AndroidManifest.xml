@@ -65,10 +65,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.SoundSelection"
-            android:label="@string/title_activity_sound_selection" />
+            android:label="@string/title_activity_sound_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.AnswerCreation"
-            android:label="@string/title_activity_answer_creation" />
+            android:label="@string/title_activity_answer_creation"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.TwitterPostSelection"
             android:label="@string/title_activity_twitter_post_selection" />

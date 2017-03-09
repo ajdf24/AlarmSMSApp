@@ -40,12 +40,13 @@ import rieger.alarmsmsapp.model.events.SoundEvent;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * This activity is for choosing a sound.
  */
-public class SoundSelection extends AppCompatActivity {
+public class SoundSelection extends AbstractRuleActivity {
 
     private static final String LOG_TAG = SoundSelection.class.getSimpleName();
 
@@ -66,15 +67,15 @@ public class SoundSelection extends AppCompatActivity {
 
 	SoundSelectionAdapter adapter;
 
-    /**
+	/**
      * This method is like a constructor and
      * initialize all components of the activity.
      * @param savedInstanceState
      */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sound_selection);
+		super.onCreate(savedInstanceState);
 
 		rule = BundleHandler.getRuleFromBundle(this);
 
@@ -131,64 +132,6 @@ public class SoundSelection extends AppCompatActivity {
 		listView.setLayoutManager(linearLayoutManager);
 		listView.setAdapter(adapter);
 
-//        adapter = new ArrayAdapter<>( getApplicationContext(), R.layout.list_item_rule_settings, event.getSoundList() );
-//
-//        listView.setAdapter(adapter);
-//
-//        listView.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public synchronized void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-//                int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
-//
-//                if (currentVolume == 0) {
-//                    Toast.makeText(CreateContextForResource.getContext(), CreateContextForResource.getStringFromID(R.string.activity_sound_selection_volume_toast), Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//                selectedSound = (Sound) listView.getAdapter().getItem(position);
-//
-//                if (mediaPlayer.isPlaying()) {
-//                    mediaPlayer.stop();
-//                }
-//
-//                Resources resources = getResources();
-//                if (selectedSound.isInternalSound()) {
-//                    mediaPlayer = MediaPlayer.create(SoundSelection.this, resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
-//                } else {
-//                    mediaPlayer = MediaPlayer.create(SoundSelection.this, Uri.parse(selectedSound.getIdForSound()));
-//                    mediaPlayer.setLooping(false);
-//                }
-//
-//                mediaPlayer.start();
-//
-//				/*
-//				 * This Thread is a workaround, because there is a Bug in Android.
-//				 * The ANDROID_LOOP flag in a ogg-File like the ringtones dose override the method setLooping(false)
-//				 * of the MediaPlayer class.
-//				 *
-//				 * The Thread is only for not blocking the GUI.
-//				 */
-//                if (!selectedSound.isInternalSound()) {
-//                    Thread thread = new Thread() {
-//                        @Override
-//                        public void run() {
-//                            long currentTime = System.currentTimeMillis();
-//                            while (currentTime + mediaPlayer.getDuration() > System.currentTimeMillis()) {
-//
-//                            }
-//                            mediaPlayer.stop();
-//                            Thread.currentThread().interrupt();
-//                            return;
-//                        }
-//                    };
-//                    thread.start();
-//                }
-//                //End of the Workaround
-//            }
-//        });
-
     }
 
 	/**
@@ -236,5 +179,10 @@ public class SoundSelection extends AppCompatActivity {
 		super.onPause();
 
 		mediaPlayer.stop();
+	}
+
+	@Override
+	protected void showHelpDialog() {
+		DialogHelper.createHelpDialog(this, R.string.activity_sound_selection_help_dialog_title, R.string.activity_sound_selection_help_dialog_text, R.string.dialog_button_got_it);
 	}
 }

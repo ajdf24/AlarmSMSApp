@@ -80,9 +80,11 @@
 <!-- 	Strings for the activity sound_selection -->
     <string name="title_activity_sound_selection">Alarmton Auswahl</string>
     <string name="activity_sound_selection_volume_toast">Bitte Lautstärke erhöhen</string>
-    
+    <string name="activity_sound_selection_help_dialog_title">Hilfe: Alarmtöne</string>
+    <string name="activity_sound_selection_help_dialog_text">Du kannst einen Alarmton auswählen, mit dem du im Alarmfall alarmiert wirst.</string>
+
 <!--     Strings for the activity answer_creation -->
-    <string name="title_activity_answer_creation">Automatische Antwort</string>
+    <string name="title_activity_answer_creation">Weiterleitung</string>
     <string name="activity_answer_creation_description">Du kannst eine automatisch zu versendende Nachricht wählen.</string>
     <string name="activity_answer_creation_label_for_editText_for_receiver">Empfänger</string>
     <string name="activity_answer_creation_editText_for_receiver_hint">Empfänger</string>
@@ -91,7 +93,9 @@
     <string name="activity_answer_creation_label_for_spinner_for_answer_distance">Ab welcher Entfernung 
         vom Gerätehaus soll die Nachricht gesendet werden.</string>
     <string name="activity_answer_creation_spinner_for_answer_distance_prompt">Wähle eine Entfernung</string>
- 
+    <string name="activity_answer_creation_help_dialog_title">Hilfe: Weiterleitung</string>
+    <string name="activity_answer_creation_help_dialog_text">Du kannst hier einen Text vorgeben, welcher beim erhalt einer Alarmierung automatisch gesendet wird. \n\nDer Text kann an einen oder mehrere Empfanger versendet werden. \n\nDie Weiterleitung kann abhängig zur aktuellen Entfernung zum Gerätehaus eingestellt werden.</string>
+
     <string-array name="distance_arrays">
         <item>immer weiterleiten</item>
         <item>5 km</item>

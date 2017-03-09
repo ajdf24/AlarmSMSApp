@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="rieger.alarmsmsapp.view.ruleactivitys.AlarmTimeSettings">
@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,54 +23,56 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/activity_alarm_time_settings_title"
-        android:id="@+id/activity_alarm_time_settings_maintext"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/activity_alarm_time_settings_maintext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/activity_alarm_time_settings_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_alarm_time_settings_switch_always_alarm"
-        android:id="@+id/activity_alarm_time_settings_switch"
-        android:layout_below="@+id/activity_alarm_time_settings_maintext"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/activity_alarm_time_settings_maintext"
-        android:layout_alignEnd="@+id/activity_alarm_time_settings_maintext" />
+        <Switch
+            android:id="@+id/activity_alarm_time_settings_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/activity_alarm_time_settings_maintext"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/activity_alarm_time_settings_maintext"
+            android:layout_below="@+id/activity_alarm_time_settings_maintext"
+            android:text="@string/activity_alarm_time_settings_switch_always_alarm" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_alarm_time_settings_cardview"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_alarm_time_settings_switch"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/activity_alarm_time_settings_save" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_alarm_time_settings_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/activity_alarm_time_settings_switch"
+            android:layout_marginTop="10dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_alarm_time_settings_cardview"
-        android:src="@drawable/ic_add"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/activity_alarm_time_settings_new_time"
-        android:visibility="invisible" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_alarm_time_settings_new_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_alarm_time_settings_cardview"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_add"
+            android:visibility="invisible" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/activity_alarm_time_settings_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_done"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"/>
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/activity_alarm_time_settings_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_done" />
+
 
 </RelativeLayout>

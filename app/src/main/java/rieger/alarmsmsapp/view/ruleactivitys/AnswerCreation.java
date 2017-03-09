@@ -42,6 +42,7 @@ import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
 import rieger.alarmsmsapp.util.chips.ChipsView;
 import rieger.alarmsmsapp.util.chips.Content;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.ContactsWorker;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
@@ -49,7 +50,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * This activity is for creating a automatically answer after a alarm.
  * In this activity it is possible to set all the things which are needed for the answer.
  */
-public class AnswerCreation extends AppCompatActivity {
+public class AnswerCreation extends AbstractRuleActivity {
 
 	private static final String LOG_TAG = AnswerCreation.class.getSimpleName();
 
@@ -73,15 +74,15 @@ public class AnswerCreation extends AppCompatActivity {
 
 	private static final int PICK_CONTACT = 1;
 
-    /**
+	/**
      * This method is like a constructor and
      * initialize all components of the activity.
      * @param savedInstanceState
      */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_answer_creation);
+		super.onCreate(savedInstanceState);
 
 		rule = BundleHandler.getRuleFromBundle(this);
 
@@ -437,6 +438,11 @@ public class AnswerCreation extends AppCompatActivity {
 				return;
 			}
 		}
+	}
+
+	@Override
+	protected void showHelpDialog() {
+		DialogHelper.createHelpDialog(this, R.string.activity_answer_creation_help_dialog_title, R.string.activity_answer_creation_help_dialog_text, R.string.dialog_button_got_it);
 	}
 
 }
