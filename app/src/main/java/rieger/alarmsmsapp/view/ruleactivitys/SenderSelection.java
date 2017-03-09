@@ -55,7 +55,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
  * This activity is for creating a sender.
  * In this activity it is possible to set all the things which are needed for the sender.
  */
-public class SenderSelection extends AppCompatActivity implements SenderSelectionDialog.OnFragmentInteractionListener{
+public class SenderSelection extends AbstractRuleActivity implements SenderSelectionDialog.OnFragmentInteractionListener{
 
 	private static final String LOG_TAG = SenderSelection.class.getSimpleName();
 
@@ -95,7 +95,7 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 		snackbar.setAction(R.string.help, new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				showDialog();
+				showHelpDialog();
 				snackbar.dismiss();
 			}
 		});
@@ -135,8 +135,8 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 	}
 
 
-
-	void showDialog() {
+	@Override
+	protected void showHelpDialog() {
 
 		// DialogFragment.show() will take care of adding the fragment
 		// in a transaction.  We also want to remove any currently showing
@@ -417,36 +417,6 @@ public class SenderSelection extends AppCompatActivity implements SenderSelectio
 
 	}
 
-    /**
-     * This method handles the action for the options menu.
-     * @param item the selected itel
-     * @return boolean return false to allow normal menu processing to
-     *         proceed, true to consume it here.
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_sender_selection_help){
-            showDialog();
-        }else{
-            return false;
-        }
 
-        return true;
-    }
-
-    /**
-     * Creates the options menu for this activity.
-     * @param menu the options menu in which you place your items.
-     * @return you must return true for the menu to be displayed;
-     *         if you return false it will not be shown.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sender_selection, menu);
-
-        return true;
-    }
 
 }
