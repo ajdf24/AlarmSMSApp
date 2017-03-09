@@ -57,10 +57,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.SenderSelection"
-            android:label="@string/title_activity_sender_selection" />
+            android:label="@string/title_activity_sender_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.WordSelection"
-            android:label="@string/title_activity_word_selection" />
+            android:label="@string/title_activity_word_selection"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ruleactivitys.SoundSelection"
             android:label="@string/title_activity_sound_selection" />

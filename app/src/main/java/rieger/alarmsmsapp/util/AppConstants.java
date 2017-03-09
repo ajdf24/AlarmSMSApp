@@ -129,6 +129,7 @@ public interface AppConstants {
         String FIRST_SHOW_RULES = "First show rules";
         String FIRST_SHOW_ALARM_TIME_LIST = "First show alarm time list";
         String FIRST_SHOW_STATISTIC_YEAR = "First show statistic year";
+        String FIRST_SHOW_HELP = "First show help";
     }
 
     interface Fragments{

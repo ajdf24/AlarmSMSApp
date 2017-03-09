@@ -166,7 +166,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="?android:attr/selectableItemBackground"
-            android:text="@string/dialog_sender_selection_button_got_it"
+            android:text="@string/dialog_button_got_it"
             android:textColor="@color/my_accent" />
     </RelativeLayout>
 

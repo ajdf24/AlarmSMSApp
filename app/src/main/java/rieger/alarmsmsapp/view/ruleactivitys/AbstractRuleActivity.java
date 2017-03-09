@@ -1,21 +1,67 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
+
+import butterknife.Bind;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Abstract class, which renders the standard menu for all rule activities.
  *
  * Extended classes only must implement the method {@link AbstractRuleActivity#showHelpDialog()}
+ *
+ * <note>The layout file of the extended activity needs a {@link Toolbar} with the id "toolbar" in the layout file</note>
+ *
+ * <note>Activities which extend {@link AbstractRuleActivity} must call {@link android.app.Activity#setContentView(int)} before
+ * <code>super.onCreate(Bundle)</code> is called. Otherwise the Toolbar is not shown correctly.</note>
  * Created by sebastian on 09.03.17.
  */
 
 abstract class AbstractRuleActivity extends AppCompatActivity {
 
+    protected Toolbar toolbar;
+
     abstract protected void showHelpDialog();
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.abstract_rule_activity);
+        setSupportActionBar(toolbar);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_HELP, true)) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_SHOW_HELP, false);
+            editor.apply();
+
+            ViewTarget target = new ViewTarget(toolbar.findViewById(R.id.menu_sender_selection_help));
+            ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                    .setTarget(target)
+                    .setStyle(R.style.CustomShowcaseTheme)
+                    .setContentTitle(R.string.general_string_help_showcase_title)
+                    .setContentText(R.string.general_string_help_showcase_text)
+                    .hideOnTouchOutside()
+                    .build();
+            showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
+
+        }
+    }
 
     /**
      * This method handles the action for the options menu.
@@ -43,7 +89,6 @@ abstract class AbstractRuleActivity extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.abstract_rule_activity, menu);
 
         return true;

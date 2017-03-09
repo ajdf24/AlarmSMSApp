@@ -200,7 +200,7 @@
     <string name="dialog_sender_selection_headline_match">Folgende Konfiguration passen:</string>
     <string name="dialog_sender_selection_headline_no_match">Folgende Konfigurationen passen NICHT:</string>
     <string name="dialog_sender_selection_example_number_2">Absender Nummer: AlarmSMS</string>
-    <string name="dialog_sender_selection_button_got_it">Verstanden</string>
+    <string name="dialog_button_got_it">Verstanden</string>
     <string name="activity_rule_selection_whats_new_text_for_version_14">- Semantische Absenderauswahl\n\n- Neue Hilfe für Absenderauswahl\n\n- Interne Änderungen</string>
     <string name="activity_rule_selection_whats_new_text_for_version_15">- Bugfix Absturz beim starten</string>
     <string name="activity_rule_selection_snackbar_label">"Kein Alarmton für Alarm: %1$s gewählt!"</string>

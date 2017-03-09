@@ -26,6 +26,7 @@ import rieger.alarmsmsapp.control.callback.AlarmTimeCallback;
 import rieger.alarmsmsapp.control.viewholder.AlarmTimeViewHolder;
 import rieger.alarmsmsapp.model.rules.AlarmTimeModel;
 import rieger.alarmsmsapp.util.AppConstants;
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Adapter for alarm times.
@@ -144,6 +145,7 @@ public class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHolder> 
                 int margin = ((Number) (viewToAnimate.getResources().getDisplayMetrics().density * 12)).intValue();
                 lps.setMargins(margin, margin, margin, margin);
                 showcaseView.setButtonPosition(lps);
+                showcaseView.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
                 showcaseView.setOnShowcaseEventListener(new OnShowcaseEventListener() {
                     @Override
                     public void onShowcaseViewHide(ShowcaseView showcaseView) {

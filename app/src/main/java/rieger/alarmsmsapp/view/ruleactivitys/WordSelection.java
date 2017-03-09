@@ -3,10 +3,9 @@ package rieger.alarmsmsapp.view.ruleactivitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -21,7 +20,7 @@ import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 /**
  * This activity is for choosing all words.
  */
-public class WordSelection extends AppCompatActivity {
+public class WordSelection extends AbstractRuleActivity {
 
 	private static final String LOG_TAG = WordSelection.class.getSimpleName();
 
@@ -43,8 +42,8 @@ public class WordSelection extends AppCompatActivity {
      */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_word_selection);
+		super.onCreate(savedInstanceState);
 
 		rule = BundleHandler.getRuleFromBundle(this);
 
@@ -106,5 +105,17 @@ public class WordSelection extends AppCompatActivity {
 	private void getRuleSettingsForGUI() {
 		occurredWords.setText(rule.getOccurredWords());
 		notOccurredWords.setText(rule.getNotOccurredWords());
+	}
+
+	@Override
+	protected void showHelpDialog() {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		alertDialogBuilder.setTitle(R.string.activity_word_selection_help_dialog_title)
+			.setMessage(R.string.activity_word_selection_help_dialog_text)
+			.setPositiveButton(R.string.dialog_button_got_it, null);
+
+		AlertDialog helpDialog = alertDialogBuilder.create();
+		helpDialog.show();
 	}
 }
