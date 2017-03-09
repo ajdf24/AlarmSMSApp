@@ -272,25 +272,12 @@ public class MainActivity extends AppCompatActivity implements
         } else if (item.getTitle() == getResources().getString(
                 R.string.activity_rule_selection_context_menu_action_send)) {
 
-            // Create the intent
             final Intent intent = new Intent(Intent.ACTION_SEND);
 
-            // set the MIME type and grant access to the uri (for the attached file, although I'm not sure if the grant access is required)
             intent.setType("text/plain");
-            //intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-
-            // Copy file to external storage
             File publicFile = new File(Environment.getExternalStorageDirectory() + "/" + selectedRule.getRuleName() + ".txt");
             try {
-//                InputStream initialStream = new FileInputStream(new File(RuleObserver.getUriFromSMSRule(selectedRule.getRuleName()).getPath()));
-//                byte[] buffer = new byte[initialStream.available()];
-//                initialStream.read(buffer);
-//
-//                OutputStream outStream = new FileOutputStream(publicFile);
-//                outStream.write(buffer);
-//                initialStream.close();
-//                outStream.close();
 
                 ObjectMapper mapper = new ObjectMapper();
                 mapper.writeValue(publicFile, selectedRule);
@@ -300,7 +287,6 @@ public class MainActivity extends AppCompatActivity implements
                 FirebaseCrash.report(e);
             }
 
-            // Get the Uri from the external file and add it to the intent
             Uri uri = Uri.fromFile(publicFile);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
 
@@ -313,9 +299,6 @@ public class MainActivity extends AppCompatActivity implements
 
             DataSource db = new DataSource(this);
             db.deleteRule(selectedRule);
-//            ruleList.remove(selectedRule);
-
-//            ruleSelection.notifyDataSetChanced();
 
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -346,8 +329,6 @@ public class MainActivity extends AppCompatActivity implements
         super.onRestart();
 
         if(ruleSelection != null){
-//            ruleSelection.notifyDataSetChanced();
-
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

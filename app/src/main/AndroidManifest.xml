@@ -32,11 +32,6 @@
             </intent-filter>
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".view.RuleSelection"-->
-            <!--android:label="@string/app_name">-->
-            <!---->
-        <!--</activity>-->
         <activity
             android:name=".view.ruleactivitys.CreateNewRule"
             android:label="@string/title_activity_create_new_rule" />
@@ -61,9 +56,6 @@
             android:label="@string/title_activity_answer_creation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ruleactivitys.TwitterPostSelection"
-            android:label="@string/title_activity_twitter_post_selection" />
-        <activity
             android:name=".view.ruleactivitys.NavigationTargetSelection"
             android:label="@string/title_activity_navigation_target_selection"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -71,12 +63,6 @@
             android:name=".view.ruleactivitys.ReadingSettings"
             android:label="@string/title_activity_reading_settings"
             android:theme="@style/AppTheme.NoActionBar"  />
-        <activity
-            android:name=".view.AlarmSettings"
-            android:label="@string/title_activity_alarm_settings" />
-        <activity
-            android:name=".view.DepartmentSettings"
-            android:label="@string/title_activity_department_settings" />
 
         <receiver android:name=".control.receiver.SMSReceiver">
             <intent-filter>
@@ -94,13 +80,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_alarm" />
-        </receiver>
-        <receiver android:name=".control.receiver.InstallationReceiver">
-            <intent-filter android:priority="100">
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
         </receiver>
 
         <activity

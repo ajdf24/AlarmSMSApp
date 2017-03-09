@@ -16,6 +16,7 @@ import rieger.alarmsmsapp.view.StartActivity;
 /**
  * Receives when the installation is completed and check if there are old rules, which should be saved in the Database.
  * Created by sebastian on 14.08.16.
+ * @deprecated
  */
 public class InstallationReceiver extends BroadcastReceiver{
 
