@@ -41,7 +41,13 @@ abstract class AbstractRuleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.inflateMenu(R.menu.abstract_rule_activity);
+
+        try {
+            toolbar.inflateMenu(R.menu.abstract_rule_activity);
+        }catch (NullPointerException e){
+            throw new RuntimeException("setContentView() must be called before super.onCreate()");
+        }
+
         setSupportActionBar(toolbar);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);

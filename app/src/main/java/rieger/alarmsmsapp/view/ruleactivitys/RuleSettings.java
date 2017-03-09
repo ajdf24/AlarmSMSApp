@@ -289,7 +289,7 @@ public class RuleSettings extends AppCompatActivity {
 				activityList.add(new SoundSelection());
 				activityList.add(new AnswerCreation());
 				activityList.add(new LightSettings());
-				activityList.add(new TwitterPostSelection());
+//				activityList.add(new TwitterPostSelection());
 				activityList.add(new NavigationTargetSelection());
 				activityList.add(new ReadingSettings());
 			}

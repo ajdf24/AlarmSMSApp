@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
-import android.widget.Button;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,12 +15,13 @@ import rieger.alarmsmsapp.control.factory.RuleCreator;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
+import rieger.alarmsmsapp.util.dialoghelper.DialogHelper;
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
 
 /**
  * Activity, on which the user can set the light settings for a rule
  */
-public class LightSettings extends AppCompatActivity {
+public class LightSettings extends AbstractRuleActivity {
 
     private static final String LOG_TAG = LightSettings.class.getSimpleName();
 
@@ -41,8 +41,8 @@ public class LightSettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_settings);
+        super.onCreate(savedInstanceState);
 
         rule = BundleHandler.getRuleFromBundle(this);
 
@@ -117,5 +117,10 @@ public class LightSettings extends AppCompatActivity {
     @Override
     public String toString() {
         return CreateContextForResource.getStringFromID(R.string.title_activity_light_settings);
+    }
+
+    @Override
+    protected void showHelpDialog() {
+        DialogHelper.createHelpDialog(this, R.string.activity_light_settings_help_dialog_title, R.string.activity_light_settings_help_dialog_text, R.string.dialog_button_got_it);
     }
 }

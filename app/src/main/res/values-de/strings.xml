@@ -185,16 +185,19 @@
     
     <string name="activity_rule_selection_whats_new">Was ist neu!</string>
 
-    <string name="title_activity_light_settings">Licht Einstellungen</string>
+    <string name="title_activity_light_settings">Lichteinstellungen</string>
     <string name="activity_light_settings_main_text">Im Alarmfall kann die App deinen Bildschirm auf die maximale Helligkeit setzten, so das dein Telefon dir als Taschenlampe dient.</string>
     <string name="activity_light_settings_set_light_on_checkbox" >Nutze Bildschirm als Lampe</string>
     <string name="activity_light_settings_text_sipnner" >Wie lange soll der Display leuchten?</string>
+    <string name="activity_light_settings_help_dialog_title">Hilfe: Lichteinstellungen</string>
+    <string name="activity_light_settings_help_dialog_text">Bei einem Alarm kann dein Display als Nachtlicht dienen. Wenn ein Alarm eingeht, wird das Display eingeschaltet und hilft die zum Beispiel im dunklen.",</string>
     <string-array name="time_array">
         <item>0,5 min</item>
         <item>1 min</item>
         <item>2 min</item>
         <item>3 min</item>
     </string-array>
+
     <string name="fb_like_button">Werde Facebook-Freund</string>
     <string name="sender_selection_help">Hilfe für Absender-Einstellungen?</string>
     <string name="title_dialog_sender_selection">Hilfe: Absender Auswahl</string>

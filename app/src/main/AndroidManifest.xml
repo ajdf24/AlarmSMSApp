@@ -118,7 +118,8 @@
         <activity android:name=".view.LightActivity" />
         <activity
             android:name=".view.ruleactivitys.LightSettings"
-            android:label="@string/title_activity_light_settings" />
+            android:label="@string/title_activity_light_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ListMessages"
             android:label="@string/title_activity_list_messages" />
@@ -128,9 +129,11 @@
             android:exported="false" />
 
         <activity android:name=".view.MainActivity" />
+
         <activity android:name=".view.ruleactivitys.AlarmTimeSettings"
             android:label="@string/activity_alarm_time_settings_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".view.ruleactivitys.CreateRuleFromSMS"></activity>
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
