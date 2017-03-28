@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragments.welcome.WelcomeFragment"
-    android:background="#a8a9ad">
+    android:background="#a6a3a4">
 
     <rieger.alarmsmsapp.control.widget.DynamicImageView
         android:layout_width="fill_parent"

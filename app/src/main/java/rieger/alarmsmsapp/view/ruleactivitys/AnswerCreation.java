@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
@@ -119,12 +120,6 @@ public class AnswerCreation extends AbstractRuleActivity {
 
 				receiver.readyToSave();
 
-//				if(receiver.getChips().size() == 1) {
-//					RuleCreator.changeSender(rule, mChipsView.getChips().get(0).getContact().getContent().toString());
-//				}else {
-//					RuleCreator.changeSender(rule, "");
-//				}
-
 				List<String> receiverList = new ArrayList<String>();
 				List<Object> contentList = receiver.getContentList();
 
@@ -134,14 +129,14 @@ public class AnswerCreation extends AbstractRuleActivity {
 
 				answerBundle.setReceivers(receiverList);
 
-//				answerBundle.addReceiver(receiver.getText().toString());
 				answerBundle.setMessage(message.getText().toString());
 				answerBundle.setDistance(distance);
 
 				RuleCreator.changeAutomaticallyAnswer(rule, answerBundle);
-//				DataSource db = new DataSource(CreateContextForResource.getContext());
-//				db.saveRule(rule);
-
+				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(AnswerCreation.this);
+				Bundle firebaseBundle = new Bundle();
+				firebaseBundle.putInt("NumberOfReceivers", rule.getAutomaticallyAnswer().getReceivers().size());
+				firebaseAnalytics.logEvent("AnswerCreation_Changed", firebaseBundle);
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
@@ -83,6 +85,8 @@ public class WordSelection extends AbstractRuleActivity {
 			public void onClick(View v) {
 
 				RuleCreator.changeWords(rule, occurredWords.getText().toString(), notOccurredWords.getText().toString());
+                FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(WordSelection.this);
+                firebaseAnalytics.logEvent("Match_Words_Changed", null);
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();

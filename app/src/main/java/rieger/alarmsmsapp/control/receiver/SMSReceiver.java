@@ -12,8 +12,10 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -21,11 +23,15 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import junit.framework.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -84,14 +90,17 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    public SMSReceiver(){
-        mSensorManager = (SensorManager)CreateContextForResource.getContext().getSystemService(Context.SENSOR_SERVICE);
-        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
-    }
+//    public SMSReceiver(){
+//        mSensorManager = (SensorManager)CreateContextForResource.getContext().getSystemService(Context.SENSOR_SERVICE);
+//        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+//
+//    }
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
+        mSensorManager = (SensorManager)CreateContextForResource.getContext().getSystemService(Context.SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
 	    Log.i(LOG_TAG, "SMS empfangen");
 
@@ -170,22 +179,24 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
 
-        ScreenWorker.unlockScreen();
-
-        ScreenWorker.turnScreenOn();
-
-//        Intent intent = new Intent();
-//        intent.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.setClass(CreateContextForResource.getContext(), LightActivity.class);
-//
-//        CreateContextForResource.getContext().startActivity(intent);
-
         for (Rule rule : matchingRules){
             if (rule.isAddMessageToTwitterPost()){
                 CreateTweet.tweetWithApp(rule.getMessageToPostOnTwitter() + " \"" + messageBody + "\"");
             }else{
                 CreateTweet.tweetWithApp(rule.getMessageToPostOnTwitter());
             }
+
+//            if(rule.isActivateLight()){
+//
+//                Intent intent = new Intent();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
+//                intent.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtras(bundle);
+//                intent.setClass(CreateContextForResource.getContext(), LightActivity.class);
+//
+//                CreateContextForResource.getContext().startActivity(intent);
+//            }
 
         }
 
@@ -257,7 +268,7 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
 
         bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
         lightIntent.putExtras(bundle);
-        lightIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+        lightIntent.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | Intent.FLAG_ACTIVITY_NEW_TASK);
         lightIntent.setClass(CreateContextForResource.getContext(), LightActivity.class);
         CreateContextForResource.getContext().startActivity(lightIntent);
     }
@@ -273,6 +284,63 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             DataSource db = new DataSource(context);
             smsRules = db.getAllRules();
         }
+    }
+
+    private static void createFakeSms(Context context, String sender,
+                                      String body) {
+        byte[] pdu = null;
+        byte[] scBytes = PhoneNumberUtils
+                .networkPortionToCalledPartyBCD("0000000000");
+        byte[] senderBytes = PhoneNumberUtils
+                .networkPortionToCalledPartyBCD(sender);
+        int lsmcs = scBytes.length;
+        byte[] dateBytes = new byte[7];
+        Calendar calendar = new GregorianCalendar();
+        dateBytes[0] = reverseByte((byte) (calendar.get(Calendar.YEAR)));
+        dateBytes[1] = reverseByte((byte) (calendar.get(Calendar.MONTH) + 1));
+        dateBytes[2] = reverseByte((byte) (calendar.get(Calendar.DAY_OF_MONTH)));
+        dateBytes[3] = reverseByte((byte) (calendar.get(Calendar.HOUR_OF_DAY)));
+        dateBytes[4] = reverseByte((byte) (calendar.get(Calendar.MINUTE)));
+        dateBytes[5] = reverseByte((byte) (calendar.get(Calendar.SECOND)));
+        dateBytes[6] = reverseByte((byte) ((calendar.get(Calendar.ZONE_OFFSET) + calendar
+                .get(Calendar.DST_OFFSET)) / (60 * 1000 * 15)));
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            bo.write(lsmcs);
+            bo.write(scBytes);
+            bo.write(0x04);
+            bo.write((byte) sender.length());
+            bo.write(senderBytes);
+            bo.write(0x00);
+            bo.write(0x00); // encoding: 0 for default 7bit
+            bo.write(dateBytes);
+            try {
+                String sReflectedClassName = "com.android.internal.telephony.GsmAlphabet";
+                Class cReflectedNFCExtras = Class.forName(sReflectedClassName);
+                Method stringToGsm7BitPacked = cReflectedNFCExtras.getMethod(
+                        "stringToGsm7BitPacked", new Class[] { String.class });
+                stringToGsm7BitPacked.setAccessible(true);
+                byte[] bodybytes = (byte[]) stringToGsm7BitPacked.invoke(null,
+                        body);
+                bo.write(bodybytes);
+            } catch (Exception e) {
+            }
+
+            pdu = bo.toByteArray();
+        } catch (IOException e) {
+        }
+
+        Intent intent = new Intent();
+        intent.setClassName("com.android.mms",
+                "com.android.mms.transaction.SmsReceiverService");
+        intent.setAction("android.provider.Telephony.SMS_RECEIVED");
+        intent.putExtra("pdus", new Object[] { pdu });
+        intent.putExtra("format", "3gpp");
+        context.startService(intent);
+    }
+
+    private static byte reverseByte(byte b) {
+        return (byte) ((b & 0xF0) >> 4 | (b & 0x0F) << 4);
     }
 
     /**

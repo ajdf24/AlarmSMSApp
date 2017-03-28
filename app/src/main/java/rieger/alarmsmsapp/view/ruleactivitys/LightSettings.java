@@ -7,6 +7,8 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
@@ -74,6 +76,8 @@ public class LightSettings extends AbstractRuleActivity {
                 }
 
                 RuleCreator.changeLightSettings(rule, activateLightSwitch.isChecked(), lightTime, activateWhenDarkSwitch.isChecked());
+                FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(LightSettings.this);
+                firebaseAnalytics.logEvent("Light_Settings_Changed", null);
 
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();

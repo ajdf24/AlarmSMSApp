@@ -266,6 +266,11 @@ public class MainActivity extends AppCompatActivity implements
         } else if (item.getTitle() == getResources().getString(
                 R.string.activity_rule_selection_context_menu_action_send)) {
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        AppConstants.PermissionsIDs.PERMISSION_ID_FOR_STORAGE);
+            }
+
             final Intent intent = new Intent(Intent.ACTION_SEND);
 
             intent.setType("text/plain");

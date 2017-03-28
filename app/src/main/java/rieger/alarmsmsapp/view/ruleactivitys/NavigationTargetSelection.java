@@ -10,6 +10,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
@@ -103,6 +105,9 @@ public class NavigationTargetSelection extends AbstractRuleActivity implements O
 			@Override
 			public void onClick(View v) {
 				RuleCreator.changeNavigationTarget(rule, autoCompView.getText().toString());
+				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(NavigationTargetSelection.this);
+				firebaseAnalytics.logEvent("Navigation_Target_Changed", null);
+
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();

@@ -10,12 +10,14 @@ import rieger.alarmsmsapp.util.AppConstants;
  * This class contains different methods for the work with the screen.
  *
  * Created by sebastian on 23.03.15.
+ * @deprecated will be removed in v3.0
  */
 public class ScreenWorker {
 
     /**
      * This method unlock the scree with the lock <code>AppConstants#KEYGUARD_LOCK_NAME</code>
      * <b>Note</b>: Need the permission <code><uses-permission android:name="android.permission.DISABLE_KEYGUARD"/></code>
+     * @deprecated not working anymore
      */
     public static void unlockScreen(){
         //TODO: Hier muss was gemacht werden!!!
@@ -29,6 +31,7 @@ public class ScreenWorker {
     /**
      * This method unlock the scree with the lock <code>AppConstants#POWERMANAGEMENT_LOCK_NAME</code>
      * <b>Note</b>: Need the permission <code><uses-permission android:name="android.permission.WAKE_LOCK" /></code>
+     * @deprecated not working anymore
      */
     public static void turnScreenOn(){
         PowerManager powerManager = (PowerManager) CreateContextForResource.getContext()

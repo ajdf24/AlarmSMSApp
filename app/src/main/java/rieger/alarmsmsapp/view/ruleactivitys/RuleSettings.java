@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -37,6 +38,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
+import rieger.alarmsmsapp.control.listener.OnShowcaseEventListener;
 import rieger.alarmsmsapp.model.rules.Rule;
 import rieger.alarmsmsapp.util.AppConstants;
 import rieger.alarmsmsapp.util.BundleHandler;
@@ -63,6 +65,8 @@ public class RuleSettings extends AppCompatActivity {
 	private TabLayout tabLayout;
 
 	private Rule rule;
+
+	private Bundle bundle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,28 +98,12 @@ public class RuleSettings extends AppCompatActivity {
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		Bundle bundle = getIntent().getExtras();
+		bundle = getIntent().getExtras();
 		if(bundle.getInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER) >= 0) {
 			mViewPager.setCurrentItem(bundle.getInt(AppConstants.BUNDLE_SETTINGS_TAB_NUMBER) - 1);
 		}
 
-		if(bundle.getBoolean(AppConstants.BUNDLE_SETTINGS_SHOW_TRIGGER_ALREADY_SET)){
-			AlertDialog.Builder builder = new AlertDialog.Builder(RuleSettings.this);
-			builder.setTitle(R.string.showcase_rule_settings_trigger_title);
-			builder.setMessage(R.string.dialog_trigger_already_set_text);
 
-
-			builder.setPositiveButton(R.string.general_ok, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-
-				}
-			});
-
-			AlertDialog dialog = builder.create();
-			dialog.show();
-			dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.my_accent));
-			dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.my_accent));
-		}
 
 		mViewPager.getChildAt(0);
 
@@ -169,8 +157,37 @@ public class RuleSettings extends AppCompatActivity {
 							.build();
 					showcaseView2.setButtonPosition(lps);
 					showcaseView2.setButtonText(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button));
+					showcaseView2.setOnShowcaseEventListener(new OnShowcaseEventListener() {
+						@Override
+						public void onShowcaseViewHide(ShowcaseView showcaseView) {
+							senderAlreadySetDialog();
+						}
+
+					});
 				}
 			});
+		}else {
+			senderAlreadySetDialog();
+		}
+	}
+
+	private void senderAlreadySetDialog(){
+		if(bundle.getBoolean(AppConstants.BUNDLE_SETTINGS_SHOW_TRIGGER_ALREADY_SET)){
+			AlertDialog.Builder builder = new AlertDialog.Builder(RuleSettings.this);
+			builder.setTitle(R.string.showcase_rule_settings_trigger_title);
+			builder.setMessage(R.string.dialog_trigger_already_set_text);
+
+
+			builder.setPositiveButton(R.string.general_ok, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+
+				}
+			});
+
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			dialog.getButton(dialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.my_accent));
+			dialog.getButton(dialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.my_accent));
 		}
 	}
 

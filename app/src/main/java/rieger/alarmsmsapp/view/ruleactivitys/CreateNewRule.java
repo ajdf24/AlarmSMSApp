@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -148,6 +149,8 @@ public class CreateNewRule extends AppCompatActivity {
 					rule.setRuleName(rulename.getText().toString());
 
 					rule = db.saveRule(rule);
+					FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(CreateNewRule.this);
+					firebaseAnalytics.logEvent("Created_Rule", null);
 
 					bundle.putSerializable(AppConstants.BUNDLE_CONTEXT_RULE, rule);
 

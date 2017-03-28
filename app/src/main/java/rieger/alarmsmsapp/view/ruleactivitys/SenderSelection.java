@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -161,6 +162,8 @@ public class SenderSelection extends AbstractRuleActivity implements SenderSelec
 				}else {
 					RuleCreator.changeSender(rule, "");
 				}
+				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(SenderSelection.this);
+				firebaseAnalytics.logEvent("Sender_Selected_Manually", null);
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();

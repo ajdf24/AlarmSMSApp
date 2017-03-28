@@ -8,6 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
@@ -39,7 +41,7 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         int itemPosition = recyclerView.getChildLayoutPosition(view);
         final Message message = messageList.get(itemPosition);
 
@@ -50,6 +52,8 @@ public class CreateRuleFromSMSClickListener implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int id) {
                 rule.setSender(message.getSender());
                 rule.notifyObserver();
+                FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext());
+                firebaseAnalytics.logEvent("Auto_Create_Rule", null);
 
                 Intent intent = new Intent().setClass(recyclerView.getContext(), RuleSettings.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Bundle bundle = new Bundle();

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListAdapter;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -134,6 +136,9 @@ public class SoundSelection extends AbstractRuleActivity {
 
 			@Override
 			public void onClick(View v) {
+
+				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(SoundSelection.this);
+				firebaseAnalytics.logEvent("Sound_Changed", null);
 
 				adapter.stopMediaPlayer();
 				Intent intent = new Intent();

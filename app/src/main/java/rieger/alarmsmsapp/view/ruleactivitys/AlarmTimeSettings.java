@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,6 +111,8 @@ public class AlarmTimeSettings extends AbstractRuleActivity implements ActionCal
 
                     for (AlarmTimeModel alarmTime : alarmTimeList) {
                         db.saveAlarmTime(alarmTime, rule);
+                        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(AlarmTimeSettings.this);
+                        firebaseAnalytics.logEvent("AlarmTimes_Changed", null);
                     }
 
                     Intent intent = new Intent();

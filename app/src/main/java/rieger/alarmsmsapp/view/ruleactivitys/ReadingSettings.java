@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rieger.alarmsmsapp.R;
@@ -81,6 +83,8 @@ public class ReadingSettings extends AbstractRuleActivity {
 			@Override
 			public void onClick(View v) {
 				RuleCreator.changeReadingSettings(rule, readThisMessage.isChecked(), readOtherMessages.isChecked());
+				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(ReadingSettings.this);
+				firebaseAnalytics.logEvent("Reading_Settings_Changed", null);
 
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
