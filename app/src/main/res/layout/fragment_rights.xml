@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rieger.alarmsmsapp.view.fragments.welcome.RightsFragment">
+
+    <rieger.alarmsmsapp.control.widget.DynamicImageView
+        android:id="@+id/fragment_rights_image_view"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/expl_welcome" />
+
+    <TextView
+        android:id="@+id/fragment_rights_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Berechtigungen"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="124dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/fragment_rights_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/fragment_rights_title"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Damit die App wie gewünscht arbeitet, benötigen wir einige Rechte!\n\nSMS: Damit wir eingehende Alarm SMS Auswerten können\n"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -13,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -24,6 +26,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.List;
@@ -49,6 +52,7 @@ import rieger.alarmsmsapp.view.fragments.settings.AlarmSettingsFragment;
 import rieger.alarmsmsapp.view.fragments.welcome.DepartmentExplanationFragment;
 import rieger.alarmsmsapp.view.fragments.settings.DepartmentFragment;
 import rieger.alarmsmsapp.view.fragments.welcome.ReadyFragment;
+import rieger.alarmsmsapp.view.fragments.welcome.RightsFragment;
 import rieger.alarmsmsapp.view.fragments.welcome.WelcomeFragment;
 import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
@@ -73,7 +77,11 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
     SharedPreferences prefs;
 
-    int clickCounter = 0;
+    RightsFragment rightsFragment;
+
+    int clickCounter = 4;
+
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +91,12 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
         ButterKnife.bind(this);
 
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS},
-                AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
+//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_CONTACTS},
+//                AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
 
 
         prefs = PreferenceManager.getDefaultSharedPreferences(StartActivity.this);
@@ -195,8 +205,48 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             ft.replace(R.id.fragment_container, departmentFragment, AppConstants.Fragments.DEPARTMENT_FRAGMENT);
             ft.commit();
         }
+//        if(clickCounter == 4){
+//            departmentFragment.saveData();
+//
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+//
+//            ReadyFragment readyFragment = new ReadyFragment();
+//
+//            ft.replace(R.id.fragment_container, readyFragment, AppConstants.Fragments.READY_FRAGMENT);
+//            ft.commit();
+//
+//        }
+//        if(clickCounter == 5){
+//            SharedPreferences.Editor editor = prefs.edit();
+//            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
+//            editor.apply();
+//            startNextActivity(CreateNewRule.class);
+//        }
+//TODO: Wieder einfügen
         if(clickCounter == 4){
-            departmentFragment.saveData();
+//            departmentFragment.saveData();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
+
+            rightsFragment = new RightsFragment();
+
+            ft.replace(R.id.fragment_container, rightsFragment, "Rights_Fragment");
+            ft.commit();
+        }
+        if(clickCounter == 5){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECEIVE_SMS},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
+            rightsFragment.changeTest(clickCounter);
+        }
+        if(clickCounter == 6){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_LOCATION);
+            rightsFragment.changeTest(clickCounter);
+        }
+        if(clickCounter == 7){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS},
+                    AppConstants.PermissionsIDs.PERMISSION_ID_FOR_CONTACTS);
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
@@ -205,14 +255,9 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
             ft.replace(R.id.fragment_container, readyFragment, AppConstants.Fragments.READY_FRAGMENT);
             ft.commit();
+        }
 
-        }
-        if(clickCounter == 5){
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
-            editor.apply();
-            startNextActivity(CreateNewRule.class);
-        }
+
         clickCounter++;
     }
 
@@ -321,6 +366,38 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
         } catch (PackageManager.NameNotFoundException e) {
             FirebaseCrash.logcat(Log.ERROR, LOG_TAG, "Version string not found");
             FirebaseCrash.report(e);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS){
+            if(grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("SMS Recht verweigert")
+                        .setMessage("Die App arbeitet nur korrekt, wenn dieses Recht gewährt wird!")
+                        .setCancelable(false)
+                        .setPositiveButton(CreateContextForResource.getStringFromID(R.string.activity_alarm_settings_alert_dialog_button), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(StartActivity.this, new String[]{Manifest.permission.RECEIVE_SMS},
+                                        AppConstants.PermissionsIDs.PERMISSION_ID_FOR_SMS);
+                            }
+                        })
+                        .setNegativeButton(CreateContextForResource.getStringFromID(R.string.general_string_button_quit), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                firebaseAnalytics.logEvent("sms_right_not_granted", null);
+                                finish();
+                            }
+                        });
+
+                AlertDialog errorDialog = builder.create();
+                errorDialog.show();
+            }
         }
     }
 }

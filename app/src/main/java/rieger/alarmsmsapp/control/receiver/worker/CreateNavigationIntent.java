@@ -1,9 +1,6 @@
 package rieger.alarmsmsapp.control.receiver.worker;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.view.WindowManager;
 
