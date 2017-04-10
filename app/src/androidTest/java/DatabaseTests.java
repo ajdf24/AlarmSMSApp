@@ -510,6 +510,16 @@ public class DatabaseTests extends AndroidTestCase {
 
     }
 
+    public void testMultipleReceivers(){
+
+        rule.setReceiver("test");
+        rule.setReceiver("test");
+
+        db.saveRule(rule);
+
+        assertEquals(db.getAllRules().get(0).getReceivers().size(), 1);
+    }
+
 
 
     @Override

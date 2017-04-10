@@ -27,11 +27,12 @@ public class AnswerSender {
         float[] results;
         if (departmentSettings != null && departmentSettings.getAddress() != null && !departmentSettings.getAddress().isEmpty()) {
             results = DistanceCalculator.calculateDistance(departmentSettings.getAddress());
-            if(results[0] == 0.0){
-                return;
-            }
+//            if(results[0] == 0.0){
+//                return;
+//            }
             for (Rule rule : matchingRules) {
-                if (rule.getMessage() != null && rule.getReceivers() != null && results[0] / 1000 > rule.getDistance()) {
+                if (rule.getMessage() != null && rule.getReceivers() != null &&
+                results[0] / 1000 >= rule.getDistance()) {
                     for (String receiver : rule.getReceivers()) {
                         SmsManager sms = SmsManager.getDefault();
                         sms.sendTextMessage(receiver, null, rule.getMessage(), null, null);

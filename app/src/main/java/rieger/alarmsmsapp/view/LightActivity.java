@@ -19,8 +19,6 @@ public class LightActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = LightActivity.class.getSimpleName();
 
-    PowerManager.WakeLock wakeLock;
-
     Rule rule;
 
     @Override
@@ -66,9 +64,6 @@ public class LightActivity extends AppCompatActivity {
         layout.screenBrightness = 1F;
         getWindow().setAttributes(layout);
 
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
-        wakeLock.acquire();
     }
 
     @Override

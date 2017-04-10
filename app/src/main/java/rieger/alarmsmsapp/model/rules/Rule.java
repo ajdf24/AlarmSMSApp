@@ -260,7 +260,8 @@ public abstract class Rule implements Serializable{
 	 */
 	public void setReceiver(String receiver) {
 		if (automaticallyAnswer!=null) {
-			automaticallyAnswer.addReceiver(receiver);
+			if(automaticallyAnswer.getReceivers().indexOf(receiver) == -1)
+				automaticallyAnswer.addReceiver(receiver);
 		}
 	}
 
