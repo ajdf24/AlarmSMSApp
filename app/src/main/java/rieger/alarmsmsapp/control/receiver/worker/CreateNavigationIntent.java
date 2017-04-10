@@ -22,13 +22,6 @@ public class CreateNavigationIntent {
      * This method creates a new intent and starts a navigation with the given target if it was set.
      */
     public static void startNavigation(List<Rule> matchingRules) {
-        LocationManager locationManager = (LocationManager) CreateContextForResource.getContext().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, false);
-
-        if (provider == null || provider.equals("network")){
-            return;
-        }
 
         for (Rule rule : matchingRules) {
             if (rule.getNavigationTarget() != null && !rule.getNavigationTarget().isEmpty()) {
