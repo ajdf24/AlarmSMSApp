@@ -79,7 +79,7 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
     RightsFragment rightsFragment;
 
-    int clickCounter = 4;
+    int clickCounter = 0;
 
     private FirebaseAnalytics firebaseAnalytics;
 
@@ -205,27 +205,8 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
             ft.replace(R.id.fragment_container, departmentFragment, AppConstants.Fragments.DEPARTMENT_FRAGMENT);
             ft.commit();
         }
-//        if(clickCounter == 4){
-//            departmentFragment.saveData();
-//
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
-//
-//            ReadyFragment readyFragment = new ReadyFragment();
-//
-//            ft.replace(R.id.fragment_container, readyFragment, AppConstants.Fragments.READY_FRAGMENT);
-//            ft.commit();
-//
-//        }
-//        if(clickCounter == 5){
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
-//            editor.apply();
-//            startNextActivity(CreateNewRule.class);
-//        }
-//TODO: Wieder einfügen
         if(clickCounter == 4){
-//            departmentFragment.saveData();
+            departmentFragment.saveData();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right);
 
@@ -255,6 +236,12 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
 
             ft.replace(R.id.fragment_container, readyFragment, AppConstants.Fragments.READY_FRAGMENT);
             ft.commit();
+        }
+        if(clickCounter == 8){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(AppConstants.SharedPreferencesKeys.FIRST_START, false);
+            editor.apply();
+            startNextActivity(CreateNewRule.class);
         }
 
 
@@ -399,5 +386,6 @@ public class StartActivity extends AppCompatActivity implements WelcomeFragment.
                 errorDialog.show();
             }
         }
+
     }
 }

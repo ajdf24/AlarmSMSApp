@@ -59,7 +59,7 @@ public class AlarmSoundPlayer{
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, (int) (audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 100.0 * alarmSettings.getAlarmVolume()), 0);
 
                 Sound selectedSound = rule.getAlarmSound();
-                if (selectedSound != null && !selectedSound.getIdForSound().equals("")) {
+                if (selectedSound != null && selectedSound.getIdForSound() != null && !selectedSound.getIdForSound().equals("")) {
                     if (selectedSound.isInternalSound()) {
                         mediaPlayer = MediaPlayer.create(CreateContextForResource.getContext(), resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
                     } else {

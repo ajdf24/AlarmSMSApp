@@ -179,6 +179,9 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
      */
     private void doRuleSettings() {
 
+        mSensorManager = (SensorManager)CreateContextForResource.getContext().getSystemService(Context.SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
 
         for (Rule rule : matchingRules){

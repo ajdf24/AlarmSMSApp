@@ -323,11 +323,21 @@ public class MainActivity extends AppCompatActivity implements
     protected void onRestart() {
         super.onRestart();
 
+
+
         if(ruleSelection != null){
             Intent intent = getIntent();
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            overridePendingTransition(0,0);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+//        ruleSelection.updateRules();
     }
 
     @Override
@@ -464,6 +474,14 @@ public class MainActivity extends AppCompatActivity implements
             return uri.getPath();
         }
         return null;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        outState.putString(GAME_STATE_KEY, mGameState);
+        //TODO: Speichern
+
+        super.onSaveInstanceState(outState);
     }
 
     /**

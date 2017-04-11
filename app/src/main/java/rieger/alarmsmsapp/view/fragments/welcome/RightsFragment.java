@@ -59,11 +59,11 @@ public class RightsFragment extends Fragment {
 
     public void changeTest(int number){
         if(number == 5){
-            rightsText.setText("Standort: Für eine Entfernungsabhängige SMS-Weiterleitung benötigen wir deinen Standort, sobald eine AlarmSMS eingeht");
+            rightsText.setText("Damit die App wie gewünscht arbeitet, benötigen wir einige Rechte!\n\nStandort: Für eine Entfernungsabhängige SMS-Weiterleitung benötigen wir deinen Standort, sobald eine AlarmSMS eingeht");
             rightsText.setGravity(Gravity.CENTER);
         }
         if(number == 6){
-            rightsText.setText("Kontakte: Um Telefonnummern durch den Kontaktnamen ersetzen zu können benötigen wir Zugriff auf deine Kontakte");
+            rightsText.setText("Damit die App wie gewünscht arbeitet, benötigen wir einige Rechte!\n\nKontakte: Um Telefonnummern durch den Kontaktnamen ersetzen zu können benötigen wir Zugriff auf deine Kontakte");
             rightsText.setGravity(Gravity.CENTER);
         }
 
