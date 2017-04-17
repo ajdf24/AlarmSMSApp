@@ -305,7 +305,9 @@
 
     <string name="general_string_help_showcase_title">Help</string>
     <string name="general_string_help_showcase_text">Here you can find a help to the settings.</string>
+    <string name="rights_fragment_title">Permissions</string>
+    <string name="rights_fragment_text_click_4">For the app to work as desired, we need some rights!\n\nSMS: So that we can evaluate incoming alarm SMS</string>
+    <string name="rights_fragment_text_click_5">For the app to work as desired, we need some rights!\n\nLocation: For a distance-dependent SMS-forwarding, we need your location as soon as an AlarmSMS is received</string>
+    <string name="rights_fragment_text_click_6">For the app to work as desired, we need some rights!\n\nContacts: To replace phone numbers with the contact name, we need access to your contacts</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
