@@ -1,6 +1,7 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -30,6 +31,9 @@ public class LightSettings extends AbstractRuleActivity {
 
     @Bind(R.id.activit_set_light_on_checkbox)
     SwitchCompat activateLightSwitch;
+
+    @Bind(R.id.activit_set_flash_on_checkbox)
+    SwitchCompat activateFlashSwitch;
 
     @Bind(R.id.activit_set_light_on_when_dark_checkbox)
     SwitchCompat activateWhenDarkSwitch;
@@ -76,6 +80,8 @@ public class LightSettings extends AbstractRuleActivity {
                 }
 
                 RuleCreator.changeLightSettings(rule, activateLightSwitch.isChecked(), lightTime, activateWhenDarkSwitch.isChecked());
+                rule.setActivateFlash(activateFlashSwitch.isChecked());
+                rule.notifyObserver();
                 FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(LightSettings.this);
                 firebaseAnalytics.logEvent("Light_Settings_Changed", null);
 
@@ -95,6 +101,7 @@ public class LightSettings extends AbstractRuleActivity {
 
     private void getRuleSettingsForGUI() {
         activateLightSwitch.setChecked(rule.isActivateLight());
+        activateFlashSwitch.setChecked(rule.isActivateFlash());
         activateWhenDarkSwitch.setChecked(rule.isActivateLightOnlyWhenDark());
 
         switch (rule.getLightTime()){
@@ -115,6 +122,11 @@ public class LightSettings extends AbstractRuleActivity {
 
     private void initializeGUI(){
         ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activateFlashSwitch.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

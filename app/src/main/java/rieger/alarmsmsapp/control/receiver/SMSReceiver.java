@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.control.receiver;
 
+import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +10,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -259,8 +262,52 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
                     }
                 }
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (rule.isActivateFlash()) {
+                    if (rule.isActivateLightOnlyWhenDark() && currentLuxValue <= 1.0) {
+                        startFlashLight(rule);
+                    } else {
+                        if (!rule.isActivateLightOnlyWhenDark()) {
+                            startFlashLight(rule);
+                        }
+                    }
+                }
+            }
         }
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public void startFlashLight(final Rule rule) {
+
+        try {
+            final CameraManager cameraManager = (CameraManager) CreateContextForResource.getContext().getSystemService(Context.CAMERA_SERVICE);
+
+            for (final String id : cameraManager.getCameraIdList()) {
+
+                // Turn on the flash if camera has one
+                if (cameraManager.getCameraCharacteristics(id).get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                    Runnable flashLight = new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                cameraManager.setTorchMode(id, true);
+                                long currentTime = System.currentTimeMillis();
+                                while (currentTime + rule.getLightTime() > System.currentTimeMillis()) {
+
+                                }
+                                cameraManager.setTorchMode(id, false);
+                            } catch (Exception e2) {
+                            }
+                        }
+                    };
+                    flashLight.run();
+                }
+            }
+
+        } catch (Exception e2) {
+
+        }
     }
 
     /**

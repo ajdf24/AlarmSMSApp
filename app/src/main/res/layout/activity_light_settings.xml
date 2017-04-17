@@ -46,12 +46,23 @@
             android:text="@string/activity_light_settings_set_light_on_checkbox" />
 
         <android.support.v7.widget.SwitchCompat
-            android:id="@+id/activit_set_light_on_when_dark_checkbox"
+            android:id="@+id/activit_set_flash_on_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/activit_set_light_on_checkbox"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:text="@string/activity_light_settings_set_flash_on_checkbox" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/activit_set_light_on_when_dark_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/activit_set_flash_on_checkbox"
             android:layout_marginTop="15dp"
             android:text="@string/activity_light_settings_set_light_on_when_dark_checkbox" />
 

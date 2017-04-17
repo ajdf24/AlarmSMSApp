@@ -5,6 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
+import rieger.alarmsmsapp.util.standard.CreateContextForResource;
+import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
+
 /**
  * Helper class for the database
  * Created by sebastian on 14.08.16.
@@ -15,7 +20,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "alarm_sms_app";
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     //TABLE RULES
     static final String TABLE_RULES = "table_rule";
@@ -41,6 +46,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
     static final String COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK = "activate_light_only_when_dark";
     static final String COLUMN_LIGHT_TIME = "light_time";
     static final String COLUMN_ALARM_EVERY_TIME = "alarm_every_time";
+    static final String COLUMN_ACTIVATE_FLASH = "activate_flash";
     //END TABLE RULES
 
 
@@ -136,6 +142,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_ACTIVATE_LIGHT + BOOL
                 + COLUMN_ACTIVATE_LIGHT_ONLY_WHEN_DARK + BOOL
                 + COLUMN_ALARM_EVERY_TIME + BOOL
+                + COLUMN_ACTIVATE_FLASH + BOOL
                 + COLUMN_LIGHT_TIME + " integer not null);";
 
     private static final String CREATE_TABLE_DEPARTMENTS = "create table "
@@ -167,6 +174,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
             + COLUMN_DAY_NAME + " text not null);";
 
     private static final String UPDATE_VERSION_3 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ALARM_EVERY_TIME + " integer default 1;";
+    private static final String UPDATE_VERSION_5 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ACTIVATE_FLASH + " integer default 0;";
 
 
     /**
@@ -191,6 +199,9 @@ class DatabaseHelper extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(LOG_TAG, "New Database version detected");
 
+        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(CreateContextForResource.getContext());
+        firebaseAnalytics.logEvent("Database_Update", null);
+
         if(oldVersion == 1){
             if(newVersion >= 2){
                 db.execSQL(CREATE_TABLE_ALARM_TIMES);
@@ -201,6 +212,9 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 4){
                 updateToVersion4(db);
             }
+            if(newVersion >= 5){
+                db.execSQL(UPDATE_VERSION_5);
+            }
         }
 
         if(oldVersion == 2){
@@ -210,11 +224,23 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 4){
                 updateToVersion4(db);
             }
+            if(newVersion >= 5){
+                db.execSQL(UPDATE_VERSION_5);
+            }
         }
 
         if(oldVersion == 3){
             if(newVersion >= 4){
                 updateToVersion4(db);
+            }
+            if(newVersion >= 5){
+                db.execSQL(UPDATE_VERSION_5);
+            }
+        }
+
+        if(oldVersion == 4){
+            if(newVersion >= 5){
+                db.execSQL(UPDATE_VERSION_5);
             }
         }
 
@@ -223,4 +249,5 @@ class DatabaseHelper extends SQLiteOpenHelper{
     private void updateToVersion4(SQLiteDatabase db){
         db.execSQL(CREATE_TABLE_MESSAGE_RECEIVER_FOR_RULE);
     }
+
 }

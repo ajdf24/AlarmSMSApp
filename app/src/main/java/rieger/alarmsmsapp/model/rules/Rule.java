@@ -48,6 +48,8 @@ public abstract class Rule implements Serializable{
 
 	protected boolean activateLight = false;
 
+	protected boolean activateFlash = false;
+
 	protected boolean activateLightOnlyWhenDark = false;
 
 	protected int lightTime = 30000;
@@ -463,4 +465,12 @@ public abstract class Rule implements Serializable{
 	public void setAlarmEveryTime(boolean alarmEveryTime) {
 		this.alarmEveryTime = alarmEveryTime;
 	}
+
+    public boolean isActivateFlash() {
+        return activateFlash;
+    }
+
+    public void setActivateFlash(boolean activateFlash) {
+        this.activateFlash = activateFlash;
+    }
 }
