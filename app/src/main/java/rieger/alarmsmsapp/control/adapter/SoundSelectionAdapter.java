@@ -78,15 +78,21 @@ public class SoundSelectionAdapter extends RecyclerView.Adapter<SoundSelectionVi
                     mediaPlayer.stop();
                 }
 
-                Resources resources = itemView.getResources();
-                if (selectedSound.isInternalSound()) {
-                    mediaPlayer = MediaPlayer.create(itemView.getContext(), resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
-                } else {
-                    mediaPlayer = MediaPlayer.create(itemView.getContext(), Uri.parse(selectedSound.getIdForSound()));
-                    mediaPlayer.setLooping(false);
+                try {
+
+                    Resources resources = itemView.getResources();
+                    if (selectedSound.isInternalSound()) {
+                        mediaPlayer = MediaPlayer.create(itemView.getContext(), resources.getIdentifier(selectedSound.getIdForSound(), "raw", "rieger.alarmsmsapp"));
+                    } else {
+                        mediaPlayer = MediaPlayer.create(itemView.getContext(), Uri.parse(selectedSound.getIdForSound()));
+                        mediaPlayer.setLooping(false);
+                    }
+                    mediaPlayer.start();
+
+                }catch (Exception e){
+
                 }
 
-                mediaPlayer.start();
 
 				/*
 				 * This Thread is a workaround, because there is a Bug in Android.
