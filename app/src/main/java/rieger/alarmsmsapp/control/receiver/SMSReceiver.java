@@ -240,10 +240,9 @@ public class SMSReceiver extends BroadcastReceiver implements SensorEventListene
             NotificationCreator.createFreeNotification(resourceIdForNotificationIcon, R.string.notification_title, messageBody, alarmSettings.getNotificationLightColor(), 100, 100, null, null);
         }
 
-        AnswerSender.sendAnswerAsSMS(matchingRules, departmentSettings);
+        AnswerSender.sendAnswerAsSMS(matchingRules, departmentSettings, messageBody);
 
         CreateNavigationIntent.startNavigation(matchingRules);
-
 
     }
 

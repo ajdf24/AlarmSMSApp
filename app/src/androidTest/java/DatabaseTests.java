@@ -520,6 +520,26 @@ public class DatabaseTests extends AndroidTestCase {
         assertEquals(db.getAllRules().get(0).getReceivers().size(), 1);
     }
 
+    public void testAddOriginalMessage(){
+
+        db.saveRule(rule);
+
+        assertEquals(db.getAllRules().get(0).isAddOriginalMessage(), false);
+
+        rule.setAddOriginalMessage(true);
+
+        db.saveRule(rule);
+
+        assertEquals(db.getAllRules().get(0).isAddOriginalMessage(), true);
+
+        rule.setAddOriginalMessage(false);
+
+        db.saveRule(rule);
+
+        assertEquals(db.getAllRules().get(0).isAddOriginalMessage(), false);
+
+    }
+
 
 
     @Override

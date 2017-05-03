@@ -309,6 +309,14 @@ public abstract class Rule implements Serializable{
 		}
 	}
 
+	public boolean isAddOriginalMessage() {
+		return automaticallyAnswer.isAddOriginalMessage();
+	}
+
+	public void setAddOriginalMessage(boolean addOriginalMessage) {
+		automaticallyAnswer.setAddOriginalMessage(addOriginalMessage);
+	}
+
 	/**
 	 * @return the active
 	 */

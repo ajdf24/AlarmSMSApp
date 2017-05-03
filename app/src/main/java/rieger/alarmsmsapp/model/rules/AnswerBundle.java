@@ -28,6 +28,8 @@ public class AnswerBundle implements Serializable {
 
 	private boolean sendAnswerEveryTime = false;
 
+	private boolean addOriginalMessage = false;
+
 	/**
 	 * Default constructor for the serialization.<br>
 	 * <b>Note</b>: Don't use them!
@@ -104,6 +106,14 @@ public class AnswerBundle implements Serializable {
 
 	public void removeReceiver(String receiver){
 		receivers.remove(receiver);
+	}
+
+	public boolean isAddOriginalMessage() {
+		return addOriginalMessage;
+	}
+
+	public void setAddOriginalMessage(boolean addOriginalMessage) {
+		this.addOriginalMessage = addOriginalMessage;
 	}
 
 	@Override

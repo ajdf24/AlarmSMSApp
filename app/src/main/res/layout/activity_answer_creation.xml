@@ -85,10 +85,10 @@
                 android:id="@+id/activity_answer_creation_textView_label_for_spinner_for_answer_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/activity_answer_creation_editText_for_message"
-                android:layout_below="@+id/activity_answer_creation_editText_for_message"
-                android:layout_marginTop="15dp"
-                android:text="@string/activity_answer_creation_label_for_spinner_for_answer_distance" />
+                android:text="@string/activity_answer_creation_label_for_spinner_for_answer_distance"
+                android:layout_below="@+id/activity_answer_creation_switch_add_original_message"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/activity_answer_creation_spinner_for_answer_distance"
@@ -127,6 +127,15 @@
                 android:layout_below="@+id/activity_answer_creation_textView_answer_activity_description"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <Switch
+                android:id="@+id/activity_answer_creation_switch_add_original_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/activity_answer_creation_editText_for_message"
+                android:text="@string/activity_answer_creation_switch_add_original_message" />
 
 
         </RelativeLayout>

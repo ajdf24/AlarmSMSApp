@@ -1,5 +1,6 @@
 package rieger.alarmsmsapp.control.receiver.worker;
 
+import android.support.annotation.NonNull;
 import android.telephony.SmsManager;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class AnswerSender {
      *     <b>Note</b>: This method needs the permission <code>android.permission.SEND_SMS</code> in the manifest.
      *
      */
-    public static void sendAnswerAsSMS(List<Rule> matchingRules, DepartmentSettingsModel departmentSettings) {
+    public static void sendAnswerAsSMS(List<Rule> matchingRules, DepartmentSettingsModel departmentSettings,@NonNull String messageBody) {
 
 
         float[] results;
@@ -35,7 +36,12 @@ public class AnswerSender {
                 results[0] / 1000 >= rule.getDistance()) {
                     for (String receiver : rule.getReceivers()) {
                         SmsManager sms = SmsManager.getDefault();
-                        sms.sendTextMessage(receiver, null, rule.getMessage(), null, null);
+
+                        if(rule.isAddOriginalMessage()) {
+                            sms.sendTextMessage(receiver, null, rule.getMessage() + " " + messageBody, null, null);
+                        }else {
+                            sms.sendTextMessage(receiver, null, rule.getMessage(), null, null);
+                        }
                     }
                 }
             }

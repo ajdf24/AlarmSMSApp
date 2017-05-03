@@ -323,4 +323,5 @@
     <string name="rights_fragment_text_click_5">Damit die App wie gewünscht arbeitet, benötigen wir einige Rechte!\n\nStandort: Für eine Entfernungsabhängige SMS-Weiterleitung benötigen wir deinen Standort, sobald eine AlarmSMS eingeht</string>
     <string name="rights_fragment_text_click_6">Damit die App wie gewünscht arbeitet, benötigen wir einige Rechte!\n\nKontakte: Um Telefonnummern durch den Kontaktnamen ersetzen zu können benötigen wir Zugriff auf deine Kontakte</string>
     <string name="rights_fragment_title">Berechtigungen</string>
+    <string name="activity_answer_creation_switch_add_original_message">Add Original Alarm Message</string>
 </resources>

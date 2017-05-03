@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,9 @@ public class AnswerCreation extends AbstractRuleActivity {
 
 	@Bind(R.id.activity_answer_creation_button_save_answer)
 	FloatingActionButton save;
+
+	@Bind(R.id.activity_answer_creation_switch_add_original_message)
+	Switch addOriginalMessageSwitch;
 
 
 	private static final int PICK_CONTACT = 1;
@@ -131,6 +135,7 @@ public class AnswerCreation extends AbstractRuleActivity {
 
 				answerBundle.setMessage(message.getText().toString());
 				answerBundle.setDistance(distance);
+				answerBundle.setAddOriginalMessage(addOriginalMessageSwitch.isChecked());
 
 				RuleCreator.changeAutomaticallyAnswer(rule, answerBundle);
 				FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(AnswerCreation.this);
@@ -375,6 +380,8 @@ public class AnswerCreation extends AbstractRuleActivity {
 			area.setSelection(4);
 			break;
 		}
+
+		addOriginalMessageSwitch.setChecked(rule.isAddOriginalMessage());
 	}
 
 	/**
