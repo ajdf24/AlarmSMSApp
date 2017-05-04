@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import rieger.alarmsmsapp.R;
@@ -36,14 +38,35 @@ public class SoundSelectionAdapter extends RecyclerView.Adapter<SoundSelectionVi
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
     public SoundSelectionAdapter(List<Sound> soundList, Rule rule) {
-        this.soundList = soundList;
+        this.soundList = Collections.synchronizedList(soundList);
         this.rule = rule;
+
+        if(rule.getAlarmSound().isOwnSound()){
+            Sound owmSound = new Sound();
+            owmSound.setID(rule.getAlarmSound().getIdForSound());
+            owmSound.setName(rule.getAlarmSound().getName());
+            owmSound.setOwnSound(true);
+            soundList.add(0, owmSound);
+        }
     }
 
     @Override
     public SoundSelectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sound, parent, false);
         return new SoundSelectionViewHolder(itemView);
+    }
+
+    public void addOwnSound(Sound ownSound){
+
+        for (Sound sound: soundList) {
+            if(sound.isOwnSound()){
+                soundList.remove(sound);
+                break;
+            }
+        }
+
+        soundList.add(0, ownSound);
+        notifyDataSetChanged();
     }
 
     @Override

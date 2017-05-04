@@ -1,12 +1,17 @@
 package rieger.alarmsmsapp.view.ruleactivitys;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListAdapter;
@@ -16,6 +21,16 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +63,9 @@ public class SoundSelection extends AbstractRuleActivity {
 
 	@Bind(R.id.activity_sound_selection_button_save_sound)
 	FloatingActionButton save;
+
+	@Bind(R.id.activity_sound_selection_button_add_sound)
+	FloatingActionButton addSound;
 
 	private MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -153,6 +171,16 @@ public class SoundSelection extends AbstractRuleActivity {
 			}
 		});
 
+		addSound.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent_upload = new Intent();
+				intent_upload.setType("audio/*");
+				intent_upload.setAction(Intent.ACTION_GET_CONTENT);
+				startActivityForResult(intent_upload,1);
+			}
+		});
+
 		mediaPlayer.setOnErrorListener(new OnErrorListener() {
 
 			@Override
@@ -161,6 +189,99 @@ public class SoundSelection extends AbstractRuleActivity {
 				return true;
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode,int resultCode,Intent data){
+
+		if(requestCode == 1){
+
+			if(resultCode == RESULT_OK){
+
+				//the selected audio.
+				Uri uri = data.getData();
+				try {
+					String fileName = getFileName(uri);
+					File filePath = new File(getFilesDir(), "soundFolder");
+
+					if(!filePath.exists()){
+						filePath.mkdirs();
+					}
+
+					File dst = new File(filePath, fileName);
+
+
+					createFileFromInputStream(getContentResolver().openInputStream(uri), dst.getAbsolutePath());
+
+					Uri dstUri = Uri.fromFile(dst);
+
+					Sound ownSound = new Sound();
+					ownSound.setID(dstUri.toString());
+					ownSound.setName(fileName.replaceFirst("[.][^.]+$", ""));
+					ownSound.setOwnSound(true);
+
+					adapter.addOwnSound(ownSound);
+
+
+//					rule.setOwnSoundFilePath(dst.getAbsolutePath());
+//					rule.notifyObserver();
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+		listView.scrollToPosition(0);
+	}
+
+	public String getFileName(Uri uri) {
+		String result = null;
+		if (uri.getScheme().equals("content")) {
+			Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+			try {
+				if (cursor != null && cursor.moveToFirst()) {
+					result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+				}
+			} finally {
+				cursor.close();
+			}
+		}
+		if (result == null) {
+			result = uri.getPath();
+			int cut = result.lastIndexOf('/');
+			if (cut != -1) {
+				result = result.substring(cut + 1);
+			}
+		}
+		return result;
+	}
+
+	private static File createFileFromInputStream(InputStream inputStream, String fileName) {
+
+		try{
+			File f = new File(fileName);
+			f.setWritable(true, true);
+
+			OutputStream outputStream = new FileOutputStream(f);
+
+			byte buffer[] = new byte[1024];
+			int length = 0;
+
+			while((length=inputStream.read(buffer)) > 0) {
+				outputStream.write(buffer,0,length);
+			}
+
+			outputStream.close();
+			inputStream.close();
+
+			return f;
+		}catch (IOException e) {
+			Log.e("FileWriter", "can not write file");
+		}
+
+		return null;
+
 	}
 
 	@Override

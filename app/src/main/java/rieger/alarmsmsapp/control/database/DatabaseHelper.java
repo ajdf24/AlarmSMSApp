@@ -8,7 +8,6 @@ import android.util.Log;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import rieger.alarmsmsapp.util.standard.CreateContextForResource;
-import rieger.alarmsmsapp.view.ruleactivitys.CreateNewRule;
 
 /**
  * Helper class for the database
@@ -20,7 +19,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "alarm_sms_app";
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     //TABLE RULES
     static final String TABLE_RULES = "table_rule";
@@ -48,6 +47,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
     static final String COLUMN_ALARM_EVERY_TIME = "alarm_every_time";
     static final String COLUMN_ACTIVATE_FLASH = "activate_flash";
     static final String COLUMN_ANSWER_ADD_ORIGINAL_MESSAGE = "answer_add_original_message";
+    static final String COLUMN_OWN_SOUND = "own_sound";
     //END TABLE RULES
 
 
@@ -145,6 +145,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
                 + COLUMN_ALARM_EVERY_TIME + BOOL
                 + COLUMN_ACTIVATE_FLASH + BOOL
                 + COLUMN_ANSWER_ADD_ORIGINAL_MESSAGE + BOOL
+                + COLUMN_OWN_SOUND + BOOL
                 + COLUMN_LIGHT_TIME + " integer not null);";
 
     private static final String CREATE_TABLE_DEPARTMENTS = "create table "
@@ -178,6 +179,7 @@ class DatabaseHelper extends SQLiteOpenHelper{
     private static final String UPDATE_VERSION_3 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ALARM_EVERY_TIME + " integer default 1;";
     private static final String UPDATE_VERSION_5 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ACTIVATE_FLASH + " integer default 0;";
     private static final String UPDATE_VERSION_6 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_ANSWER_ADD_ORIGINAL_MESSAGE + " integer default 0;";
+    private static final String UPDATE_VERSION_7 = "ALTER TABLE " + TABLE_RULES + " ADD COLUMN " + COLUMN_OWN_SOUND + " integer default 0;";
 
 
     /**
@@ -221,6 +223,9 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 6){
                 db.execSQL(UPDATE_VERSION_6);
             }
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
+            }
         }
 
         if(oldVersion == 2){
@@ -236,6 +241,9 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 6){
                 db.execSQL(UPDATE_VERSION_6);
             }
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
+            }
         }
 
         if(oldVersion == 3){
@@ -248,6 +256,9 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 6){
                 db.execSQL(UPDATE_VERSION_6);
             }
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
+            }
         }
 
         if(oldVersion == 4){
@@ -257,11 +268,23 @@ class DatabaseHelper extends SQLiteOpenHelper{
             if(newVersion >= 6){
                 db.execSQL(UPDATE_VERSION_6);
             }
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
+            }
         }
 
         if(oldVersion == 5){
             if(newVersion >= 6){
                 db.execSQL(UPDATE_VERSION_6);
+            }
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
+            }
+        }
+
+        if(oldVersion == 6){
+            if(newVersion >= 7){
+                db.execSQL(UPDATE_VERSION_7);
             }
         }
 

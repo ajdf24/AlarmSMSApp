@@ -15,6 +15,8 @@ public class Sound implements Serializable{
 
 	private boolean internalSound;
 
+	private boolean ownSound;
+
 	/**
 	 * Default constructor for creating a instance.
 	 */
@@ -32,6 +34,20 @@ public class Sound implements Serializable{
 		this.soundName = soundName;
 		this.idForSound = uri;
 		this.internalSound = internalSound;
+	}
+
+	/**
+	 * Constructor, for creating a instance with the given parameter.
+	 * @param soundName the soundName of the sound
+	 * @param uri the uri for the sound
+	 * @param internalSound <code>true</code> if the sound is app internal
+	 *
+	 */
+	public Sound(String soundName, String uri, boolean internalSound, boolean ownSound){
+		this.soundName = soundName;
+		this.idForSound = uri;
+		this.internalSound = internalSound;
+		this.ownSound = ownSound;
 	}
 
 	/**
@@ -62,9 +78,17 @@ public class Sound implements Serializable{
 		this.idForSound = iD;
 	}
 
+	public boolean isOwnSound() {
+		return ownSound;
+	}
+
+	public void setOwnSound(boolean ownSound) {
+		this.ownSound = ownSound;
+	}
+
 	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return soundName;

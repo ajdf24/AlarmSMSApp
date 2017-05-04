@@ -54,7 +54,8 @@ public class DataSource {
             DatabaseHelper.COLUMN_RULE_ACTIVE,
             DatabaseHelper.COLUMN_ALARM_EVERY_TIME,
             DatabaseHelper.COLUMN_ACTIVATE_FLASH,
-            DatabaseHelper.COLUMN_ANSWER_ADD_ORIGINAL_MESSAGE
+            DatabaseHelper.COLUMN_ANSWER_ADD_ORIGINAL_MESSAGE,
+            DatabaseHelper.COLUMN_OWN_SOUND
     };
 
     private String[] allColumnsDepartment = {
@@ -145,10 +146,12 @@ public class DataSource {
             values.put(DatabaseHelper.COLUMN_SOUND_NAME, rule.getAlarmSound().getName());
             values.put(DatabaseHelper.COLUMN_SOUND_ID, rule.getAlarmSound().getIdForSound());
             values.put(DatabaseHelper.COLUMN_INTERNAL_SOUND, (rule.getAlarmSound().isInternalSound()) ? 1 : 0);
+            values.put(DatabaseHelper.COLUMN_OWN_SOUND, rule.getAlarmSound().isOwnSound()? 1 : 0);
         }else{
             values.put(DatabaseHelper.COLUMN_SOUND_NAME, "");
             values.put(DatabaseHelper.COLUMN_SOUND_ID, "");
             values.put(DatabaseHelper.COLUMN_INTERNAL_SOUND, 0);
+            values.put(DatabaseHelper.COLUMN_OWN_SOUND, 0);
         }
         if(rule.getAutomaticallyAnswer() != null) {
             values.put(DatabaseHelper.COLUMN_ANSWER_MESSAGE, rule.getAutomaticallyAnswer().getMessage());
@@ -576,7 +579,7 @@ public class DataSource {
         rule.setOccurredWords(cursor.getString(3));
         rule.setNotOccurredWords(cursor.getString(4));
         if(cursor.getString(5) != ""){
-            rule.setAlarmSound(new Sound(cursor.getString(5), cursor.getString(6), (cursor.getInt(7) == 1)));
+            rule.setAlarmSound(new Sound(cursor.getString(5), cursor.getString(6), (cursor.getInt(7) == 1), (cursor.getInt(23) == 1)));
         }
         List<String> receivers = new ArrayList<>();
         if(cursor.getString(8) != null && !cursor.getString(8).isEmpty()){
